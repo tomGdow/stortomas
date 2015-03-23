@@ -1,0 +1,105 @@
+#To Deploy Rails Four (and Three) Application to Apache
+
+	#Assuming Apache2 installed
+
+#Install Passenger
+	#Needs only be done once
+	#Server version: Apache/2.4.7 (Ubuntu)
+	#Using Agile Web Development (Rails 4)
+	#Great tutorial -essential -
+	https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+	#(Digital Ocean - Justin Ellingwood) 
+
+	#gem install passenger
+	#passenger-install-apache2-module
+	#Do what the above tells you!
+	#sudo vim /etc/apache2/apache2.conf
+        #Add the passenger-install-apache2-module generated equivalent of the following:
+
+   LoadModule passenger_module /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1
+     PassengerDefaultRuby /home/thomas/.rvm/gems/ruby-2.1.1/wrappers/ruby
+   </IfModule>
+	
+#The following now needs to be done ONCE PER NEW WEBSITE
+	
+	#For comfort (permissions) copy the site to /var/www/html/
+        #Key command now follows (permissions!!)
+        #See tutorial quoted above
+	sudo chown -R $USER:$USER /var/www/example.com/public_html
+
+	# In /etc/apache2/sites-available 
+ 	# generate a file called yourWebsite.conf
+        # Add something like the following.
+	# !! Make sure document Root is pointed to public
+	# Here using the depot applicaiton (Rails 4) from Agile Book
+
+	RackEnv development
+<VirtualHost *:80>
+      ServerName depot.thomas-Vostro-2520
+      # !!! Be sure to point DocumentRoot to 'public'!
+      DocumentRoot /var/www/html/depot/public
+      <Directory /var/www/html/depot/public>
+         # This relaxes Apache security settings.
+         AllowOverride all
+         # MultiViews must be turned off.
+
+         Options -MultiViews
+         # Uncomment this if you're on Apache >= 2.4
+         Require all granted
+      </Directory>
+   </VirtualHost>
+	#Not sure is RackEnv line is totally necessary 
+	#'Require all granted' is key line. Make sure commented out
+
+	#Add something like  the following to the hosts file in /etc
+	127.0.2.2       depot.thomas-Vostro-2520
+	#So that it reads like this, say
+	127.0.0.1       localhost
+	127.0.1.1       calcOnRails.thomas-Vostro-2520
+	127.0.2.1       demo_app.thomas-Vostro-2520
+
+	127.0.2.2       depot.thomas-Vostro-2520
+	127.0.3.2       testwebsite.thomas-Vostro-2520
+	127.0.4.1       tgdbasic.thomas-Vostro-2520
+	127.0.3.1       irish_enzymes.thomas-Vostro-2520
+
+ 
+	
+        # Now use the following command
+	sudo a2ensite depot
+        sudo service apache2 restart
+
+# To Use different RVM Gemsets on each Virtual Host
+
+	#see here for blog
+	http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server
+
+	#Navigate to app directory
+	#Use rvm to select correct ruby version
+	#Install passenger gem
+	gem install passenger
+	#Run the following command
+        passenger-config --ruby-command
+	#Extract necessary info and add to yourSite.conf
+	#so that it look something like this
+
+<VirtualHost *:80>
+      ServerName skeptics_SPA_angular.thomas-Vostro-2520
+      ServerAlias skeptics.thomas-Vostro-2520
+      # !!! Be sure to point DocumentRoot to 'public'!
+      DocumentRoot /var/www/html/skeptics_SPA_angular/public
+      PassengerRuby /home/thomas/.rvm/gems/ruby-1.9.3-p448/wrappers/ruby
+      <Directory /var/www/html/skeptics_SPA_angular/public>
+         # This relaxes Apache security settings.
+         AllowOverride all
+         # MultiViews must be turned off.
+
+         Options -MultiViews
+         # Uncomment this if you're on Apache >= 2.4
+         Require all granted
+      </Directory>
+   </VirtualHost>
+
+

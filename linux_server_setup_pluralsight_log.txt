@@ -1,0 +1,178 @@
+#Jim Pickrell Tutorial, Pluralsight
+su -
+
+sudo apt-get install lynx
+
+
+sudo apt-get install joe
+
+#On ubuntu
+
+apt-get install openssh-client openssh-server
+
+cd /etc/ssh
+vim sshd_config
+#change PermitRootLogin to 'no'
+#uncomment banner and make
+Banner /etc/welcome.txt
+
+#cd to /etc
+sudo touch welcome.txt
+sudo vim welcome.txt [create message]
+sudo service ssh restart
+
+ssh thomas@localhost
+[#key point:  can ssh to ONESELF]
+
+#type 'exit' to exit remote login
+#httpd (Fedora) and apache2 (Ubuntu) are the same program
+
+sudo apt-get install apache2
+
+sudo service apache2 status
+# *Apache2 is running
+
+#use lynx, basic command-line server, to check 
+lynx localhost
+
+
+#vsftpd
+
+ sudo apt-get install vsftpd
+ 
+ sudo vim /etc/vsftpd.conf
+ 
+ #check that anonymous ftp is disables (IS disabled by default, but CHECK!)
+ 
+ #uncomment and set banner
+ 
+ #uncomment write-enable=yes
+ #uncomment chroot_local_user=YES
+ #add the following line
+ allow_writeable_chroot=YES
+ 
+ #quit vim ...
+ #now ...
+ sudo service vsftpd restart
+ 
+
+
+#make sure port 21 is present in port forwarding (may not be necessary?)
+
+#To Check all is well
+cd /etc
+ftp localhost
+#should get Banner Welcome Message 
+#will be asked for name/password
+
+put welcome.txt
+quit exit
+
+#set up ftp settings
+#back into vim
+ sudo vim /etc/vsftpd.conf
+#add these to bottom of file
+
+pasv_enable=YES
+pasv_min_port=65533
+pavv_max_port=65534
+pasv_address=127.0.0.1
+
+
+sudo service vsftpd restart
+
+#Now set up in virtual box 
+
+ port forwarding (from virtual box)
+ 22 ssh
+ 80 web traffic
+ 3000 ruby/rails
+ 20
+ 21
+65533
+65534
+
+#now test  using filezilla
+localhost
+username
+password
+(dont worry about port)
+hit connect
+
+(#all is well)
+
+db
+
+sudo apt-get install sqlite
+#also get development tools
+
+sudo apt-get install sqlite3 libsqlite3-dev
+#already latest version
+#check by starting
+sqlite3
+.help
+.quit
+
+#MySql
+sudo apt-get install mysql-server
+
+root password : Mynice$-dog, no alarm
+
+#test out
+
+ mysql -h localhost -u root -p
+ 
+ 
+ postgreSqL
+ 
+ sudo apt-get install postgresql postgresql-contrib
+ 
+ #OK installed.
+ #Initialize db
+ 
+ service postgresql initdb
+ 
+ sudo service postgresql start
+ sudo su - postgres
+ whoami
+ #=> postgres
+ psql
+ help
+ CREATE SCHEMA test;
+ CREATE USER aaa PASSWORD 'yyy';
+ GRANT ALL ON SCHEMA test TO aaa;
+ GRANT ALL ON ALL TABLES IN SCHEMA test TO aaa;
+ \q
+ (#quits)
+ whoami
+ #postgres
+ exit
+ (#back to administrator)
+ whoami
+ thomas
+ adduser aaa
+ password bbb
+ su - aaa
+ psql -d postgres
+ #connected!!
+ 
+ CREATE TABLE test.test (coltest varchar(20));
+ 
+ Insert into test.test (coltest) values ('It works');
+ SELECT * from test.test;
+ 
+ DROP TABLE test.test;
+ \q
+ 
+ from putty
+ localhost
+ #login
+ 
+ lynx localhost:3000
+ (also, for apache, lynx localhost) 
+ Works!
+ Unable to get localhost:3000 to work form Windows machine
+ 
+ 
+ 
+
