@@ -1,0 +1,380 @@
+3j	Move down three line
+d$ 	Delete from cursor to the end of the line
+u	Undo
+Ctrl-R	Redo
+c2/end	Change all text from cursor to the BEGINNING of second end
+d2w	delete two words
+:h st	Get help on any topic eg :h motion (:bd to quit. bd is 'buffer delete')
+i 	Insert text
+I 	Insert text at the start of line
+w	Move forward one word
+W	Treats continuous code as one word, and moves forward to next word
+yy	Yank (copy) a line
+p	Paste below cursor
+P 	Paste above cursor
+i	Insert text before cursor
+a 	Append text after cursor
+fN	Jump forward to first 'N'
+3fN	Jump forward to the third 'N'
+6l	Move forward 6 letters 
+3w	Forward 3 words
+cw	Change word
+3cw	Change 3 words
+r9	Replace with '9'
+
+:e	<filename> edit a file
+
+:syntax enable
+:set syntax=Apache
+
+:hidden 
+#Tells vim to handle multiple files better
+
+#Command mode is also known as Normal mode
+d2w	d is OPERATOR
+	2 is COUNT
+	w is motion
+
+# All code folding commands begin with Z
+# -because it looks like a folded sheet of paper 
+
+#One way of overcoming write only file problem
+:w !sudo tee %
+:w !sudo tee example.conf
+
+#To open a file
+vim -N example.conf
+# The -N means 'not compatible with vi'
+
+#To Seach for, say, 'All Code'
+/All Code <enter>
+#Puts cursor at the start of the match
+#Replace with '9'
+r9
+#next match
+n
+#Previous match
+N
+
+#INCREMENTAL SEARCH (Inc Search)
+:set incsearch
+#HIGHLIGHT SEARCH (hlsearch) 
+:set hlsearch
+:nohlsearch OR :noh
+
+#Substitute and Replace
+:%s/search/replace/gc
+#'g' is global
+#'c' is confirm
+
+#In a regular expression, the period matches any character
+
+#Line numbers
+:set number
+12G (12-capital 'G') 	Go to the 12th line
+gg			Go to the top of the document
+G   (capital 'G')	Go to the end of the document
+
+:pwd 			Check the current working directory
+
+V			Visual mode (Line)
+v			Visual mode (Character)
+yy	(yank)		Copy
+
+:b 	<name>		change buffer (try tab arrows as well)																
+:bp			previous buffer 
+P			Paste in text BEHIND cursor
+To delete text in V	Select text and press d
+To change text in V	select text and press c (goes into insert mode)
+
+Period 			Pressing the period repeates last command. 
+			You will use it all the time!
+:set list		(Boolean) lists tabs and end of line characters
+:set nolist
+:set list?		Show current value
+:set list&		Reset to defaults
+
+:set softabstop=2
+:set softtabstop?
+:set softtabstop&
+:set sts=2		The abbreviation for softtabstop is sts
+:verbose		Using the verbose command when querying
+			an option will tell you where it was set
+
+:verbose set list?      
+:options			Brings up vim's options screen
+			to tell which options have been set
+
+:set 			See all options differing from default value
+
+vim commands in .vimrs are just like 'normal commands but just omit
+the colon!!
+
+:set filetype		Tells you what filetype you are using
+:gf			Go to file under cursor (Handy for editing code)
+
+#Where is my .vimrc?
+#see http://stackoverflow.com/questions/10921441/where-is-my-vimrc-file
+:scriptnames		list all .vim files that vim has loaded for you
+:e $MYVIMRC 		open and edit the current .vimrc
+
+#buffer			The contents of a file in memory
+#window			A viewport into a buffer
+
+#Windows Commands
+Ctrl-w s 		Split window horizontally
+Ctrl-w v		Split window vertically
+
+Ctrl-w j		Move focus down
+Ctrl-w k		Move focus up
+
+Ctrl-w c 		Close a window
+Ctrl-w o		Close all but current
+
+Ctrl-w w		Cycle focus (anti-clockwise)
+Ctrl-w W		Cycle focus (clockwise)
+
+Ctrl-w p		Focus previous window
+Ctrl-w J		Move buffer up one window 
+			[ie move windows themselves]
+Ctrl-w K		Move buffer down one window
+
+Ctrl-w h		Focus on left window
+Ctrl-w H		Move buffer to the left
+
+Ctrl-w l		Focus on the right window
+Ctrl-w L		Move buffer to the right
+Ctrl-w t		Move to top right
+Ctrl-w b		Move to bottom left
+
+Ctrl-w r		Rotate windows clockwise
+Ctrl-w R		Rotate windows anti-clockwise
+
+#A tab holds one or more window
+
+:tabnew	
+:tabedit
+:tabclose
+:tabonly
+:tabnext
+:tabprevious
+:tabfirst
+:tablast
+:tabmove
+
+#buffers
+:ls 			List all buffers
+:b3			Go to buffer number three
+# + means bufer with unsaved changes
+# = means read only
+# % is buffer in the current window
+
+:bn 			Go to next buffer
+:bp			Go to pervious buffer
+:bd			Buffer delete (close file)
+:bf			Go to the first buffer
+:bl			Go to the last buffer
+:ba			Open a window for every buffer
+
+Ctrl-^			Edit the alternate file. 
+			Generally this is the last file you edited
+			So if have nipped into another file with, say gf 
+			then can go back from whence one came ctrl-caret.
+
+##Part Two, Pluralsight
+
+h, l			Move forward, back one CHARACTER at a time
+w, b			move forward, back one WORD at at a time
+e			Move forward to the end of word
+
+#To move between non-blank entities, use the movement commands in uppercase
+
+0			Move to the start of a line
+$ 			Move to the end of a line
+^			Move to the FIRST NON BLANK character of a line
+gm			Move to the middle of the line
+
+#For line lines that are wrapped 
+g0			Go to the beginning of line
+g^			First character
+g$			End of line
+gm			Middle of line
+#'g' is used a lot in Vim as a modifier
+
+fx			Forward to next occurence of x
+Fx 			Back to previous occurence of x
+#You can repeat latest character jump with SEMI-COLON
+#A COMMA repeats the last jump in the opposite direction
+j,k 			Move down, up one line
+#If it helps, think of 'j' as down arrow
+gk			Up one screen line
+-			Up to Char
++			Down char
+gj			Down screen line
+
+M			Jump to middle of screen
+H			Jump to near top of screen
+L			Jump to near bottom of screen
+
+Ctrl-b			Scroll back ONE SCREEN
+
+Ctrl-f			Scroll forward ONE SCREEN
+Ctrl-u 			Scroll back 1/2 SCREEN
+Ctrl-d			Scroll forward 1/2 SCREEN
+
+zt			Scroll current line to top of screen
+zz			Scroll current line to middle of screen
+zb			Scroll current line to  bottom of screen
+
+42G or 42gg		Go to line 42
+
+gg			Takes you to the first line of the document
+G			Takes you to the last line of the document
+
+#Marks
+#Vim keeps account of a few marks for you ...
+#To mark the cursor postion, type 'm' followed by letter: 'ma', 'mb'
+#Jump to it later with backtick and the letter
+#or, alternatively, jump to start of the line with the mark with single-quote and letter
+#Lower-case marks are file-specific
+#Upper-case marks are global
+#Ca
+#For 
+d't 			Deletes from cursor position to mark t
+m cursor to the end of the line
+
+#Speedy way to avoid visual mode!
+:marks			Get a list of all marks
+
+#Vims Mark
+`0-`9			The position of cursor when you exit vim
+			'0 is the most recent 
+
+``, "  			The position of the cursor before the last jump
+`. or '.		The postition of the LAST EDIT
+`` or ''		To jump back to previous cursor postion
+			[Can be used to conveniently jump between two spots]
+
+#Editing text 
+i			Go into insert mode and insert text at cursor position
+I			Go into insert mode and insert text at first non-blank character
+a			Move one character to right before going into insert mode
+A			Move to end of line before going into insert mode
+o			Open a new line below
+O			Open a new line above 
+r <char you are on>	Replaces the character you are on, 
+			and goes straight back into 'normal' mode
+2f8			Go to second occurence of '8'
+R			Go into Replace mode
+#Use backspace key to restore original text
+#More convenient to use change, c
+c3w			Delete 3 words and switch to insert move
+x			Delete character under the cursor
+dd or D			Delete line
+yy or Y			Yanks (copies) a line
+cc or C			Change a line (delete text and then go into insert mode)
+J			Join two lines  [may insert up to two spaces]
+5J			Join five lines [may insert up to two spaces]
+gJ			Join without inserting spaces
+
+#Tabs
+2<<			Normal mode unindent TWO LINES
+2>>			Normal mode indent TWO LINES
+Ctrl-d			Insert mode UN-indent a line (remove tab)
+Ctrl-t			Insert mode indent (insert a tab)
+(			Move to the start of a sentence
+)			Move to the end of a sentence
+{			Move to the start of a paragraph
+}			Move to the end of a paragraph
+#Can 'bounce' between matching brackets or parens with % 
+
+#VIT, VAT and homologues
+#Operator-Extend_Object 
+#V is operator, I extends, T is Object
+
+#Operators 	c	change
+		d	delete
+		y	yank
+		v	visual
+
+#Extends	i	inner-object
+		o	all delimiters
+
+#Object		w	word
+		W	Word
+		s	sentence
+		p	paragraph
+		t	tag
+		" ' { {
+
+#To change flash[:error] to flash[:id]
+ci]:id<esc>
+
+#In Visual mode, 'o' toggles which end of selection is active
+#ie, toggles cursor position between beginning and end of selection
+#Extremely useful.  
+#Never have to give up and reselect if starting position off by one
+
+## SEARCH and REPLACE
+
+
+/		Search forward from cursor position
+?		Search backwards from cursor position
+n		next match in search
+N		previous match 
+# The direction depends on which operator used to start the search 
+*		Search forward for the curent WHOLE word
+#		Search backwards for the current WHOLE  word
+g*		Search forwards for curent word as PART of word
+g#		Search backwoards for current word as PART of word
+
+/h1/+3 		Put cursor on third line after section heading
+/hello/e3 	Put cursor Three CHARACTERS after match
+d/bacon/e	Delete text from cursor position to end of word 'bacon'
+y?def		Yank (copy) text from current position to previous def
+
+#Substitution
+
+:[range]/s[ubstitute]/{pattern}/{string}/[flags] [count]
+:%s/bacon/lettuce/gc	Replace 'bacon' with lettuce, global, confirm
+#flags
+c		confirm
+i		ignore case
+I		case-sensitive
+g		global
+n		show number of matches (non-destructive)
+p		print matching lines
+#		(alt) print matching lines
+
+%		A leading percent searches all lines in the current buffer
+%s/a/b		... for example
+s/a/b		Omit '%' to search only the current line
+
+:.,'a s/bacon/lettuce	Replace all occurences of 'bacon' with 'lettuce'
+			from the current line to the 'a' MARK
+.,'a			Use a range from cursor to MARK 'a'
+s/a/b			Search for 'a', replace with 'b'
+
+#Specify a line
+.		Current line
++5		5 lines down
+-3		3 lines up
+1		Line 1 of buffer
+$		Last line of buffer
+%		All lines in buffer
+'t		Position of mark 't'
+/pattern/	Next line where pattern matches
+:s/bacon/lettuce/g10	Replace all occuences of 'bacon 
+			with 'lettuce' within the next 10 lines only
+
+#Sometimes easier to go into visual mode
+V		Activate visual mode for full lines
+25G		Takes you to line 25
+#use 'o' to toggle position of cursor (end/beginning of selection) if necessary. 
+#Now type a substitution command starting with a colon
+## Vim gives you the range specifier which represents the selected region
+#	:'<,'>  (Range specifier)
+# Enter a search pattern
+#	:'<,'>s/bacon/lettuce
+
+NEXT GLOBAL 6.05
