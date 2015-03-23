@@ -1,0 +1,363 @@
+#Pluralsight Course 
+#Swedish tutor
+#Reindert-Jan Ekker
+
+~ 		Abbreviation for real path to home directory
+cd		On its own, changes to HOME directory
+
+#Man basics
+
+<space> 	Down a page
+b		Back a page
+/		Search
+q		Quit
+man cd
+man 
+/sort		Find first occurence of 'sort'
+/ <enter.	Find next occurence of 'sort'
+file *  	List the TYPE of all files in directory [goodie]
+
+#MAN uses LESS to display contents
+#Linux, unlike Mac, does not have 'open' command.
+#But can
+"firefox index.html"
+"opera index.html"
+
+#Escaping Characters
+
+/			Escape a single character
+'' <single quotes>	Escape all content between them
+Double Quotes		Don't use for now
+cd 'my documents'
+cd my\ documents	Same result as above
+
+cp -R source_dirctory target_directory
+cp -$ dir1 dir1 dir3 target_directory
+
+mv a b 		Same as RENAME 
+mv a b c dir    a,b,c may be directories or files
+mv dir/a .	Move a directory or file called a from folder 
+                into current folder
+rmdir		Remove an EMPTY directory
+rm -ri		'Safety switch' -i asks for confirmation
+cp -Ri		Note that cp takes uppercase R
+ls wel*
+ls a*
+ls *a  		[Three goodies]
+ls *a*		[Make that four]
+ls D*a
+ls -d d*a	-d tells bash not to go into directories, just list them
+*		'*' wildcard matches any string, including nothing at all
+?		'?' matches a single character
+[acd_]		Matches ONE of characters in list
+#Can invert the meaning of square-bracket-list with caret (^)
+[^acb_]		All characters EXCEPT ...
+#Can also use ranges within square brackets
+[a-z]
+[0-9] 
+
+#Brace Expansion
+touch {a,b,c}.txt
+mv file.{txt, jpg} .
+touch tom{1..3}.txt	Can use ranges with brace expansion
+touch {a..c}{1..3}.txt
+
+#Brace expansion comes first, BEFORE wildcard expansion 
+
+#Output Redirection
+>	save output of command to file
+        [files, if they exist, will be overwritten]
+>>	Append output of command to file
+#echo command simply prints its input to standard output
+#cat without arguments sends everything to std output
+#Everything appears twice
+#end by sending END OF TRANSMISSION argument
+Ctrl-D		End of Transmission
+
+#Nice use of cat command
+cat > tom.txt
+<type whatever you want>
+Ctrl-D
+touch tom.txt
+
+#Nice use of echo command
+echo Hello World
+echo Hello World >> tom.txt
+
+#Another Nice use of ECHO command
+#Try out Wildcards and see matches
+echo important*[1-3].txt
+#Can also use to try out brace expansion [Goodie]
+
+#Probably the most important redirection concept is that of Pipe
+#Pipe sends the output of one program to the input of another program
+ls | less
+
+#Another trick
+touch  long_and_complex_filname 	(preliminary)
+cp long_and_complex_filename{,.backup}  (the trick)
+
+#Grep
+grep 1978 oscars.txt
+grep 1978 oscars.txt | sort
+grep 1978 oscars.txt | sort > 1978_films.txt
+
+#cut
+#cut the third column form oscars.txt (tab-delimited)
+cut -f 3 oscars.txt	[goodie]
+cut -f 3 oscars.txt | grep 1953
+cut -f 3 oscars.txt | grep 1953 | wc -l
+
+#Command Substitution
+#Output will become part of command line (key)
+#Put command beween $() 
+echo "Hello $(whoami)
+echo "Buy Milk" > "tom$(date).txt"   	(note the use of double-quotes)
+#Double-quotes do not excape the dollar-sign and allow command substitution
+
+#Older form of Command Substitution uses backticks
+echo "You are currently on `hostname`"
+echo "You are currently on $(hostname)"
+
+#Bash:	text-in, text-out
+#Terminal: Takes keypresses from keyboard and translates them into a form that Bash understands 
+#Terminal also handles output fonts and colors and the like
+#and provides scrollbars
+#and handles copy/paste
+#Bash does not know about sharing a clipboard
+
+
+Alt-b		Go back a work in command line (goodie)
+Alt-f		Move forward a word
+
+#The 'Unix-way' for copy/paste within terminal x-windows is to use the mouse MIDDLE BUTTON
+# The above is referred to as 'Middle Click Paste'
+
+#Movement keys
+Ctrl-a		start of line
+Ctrl-e		end of line
+Ctrl-f		forward 1 character	right arrow 
+Ctrl-b		back 1 character	left arrow
+#A lot of commands change their meaning from character to word if use ALT
+Alt-f		forward 1 word
+Alt-b		back 1 word
+
+#Deletion keys
+Ctrl-d		deletes a character  		del is alt method
+Ctrl-h		delete a character backwards	backspace is alt method
+
+Alt-d		delete a whole word
+Ctrl-W		delete a whole work backwards	Alt-backspace is alt method
+#Ctrl-w is the one to know
+Ctrl-k		delete the rest of the line (think 'kill')
+Ctrl-u		delete to beginning of line
+
+#Miscellaneous Keys
+Ctrl-c 		breaks
+Ctrl-d		end of transmission
+up		Previous page in history	alt is Ctrl-p
+down		Next page in history		alt is Ctrl-n
+#Favourite
+Ctrl-R		ALLOWS SEARCH BACK in history	(a goodie)
+Ctrl-R (Repeat)		Go back further in search
+#Press one of arrow keys OR Ctrl-c to exit
+
+#Sorting text
+sort -rnk2 thomas.txt
+-r	reverse
+-n	numerical
+-k2	Sort by second (space-delimited) entry 
+-k	Sorts by FIELD  	Default assumes space-separated fields
+
+sort math_attendence | uniq -c | sort -nr
+
+#uniq command is used a lot in combination with sort
+#It filters out repeated lines (and will count them using -c option)
+
+#Head and Tail
+
+#list files by size and show only top ten
+cd /etc/
+ls -lS 
+ls -lS | head
+ls -lS | head -n1 	Show just the first line
+ls -lS | head -n5	Show top 5
+ls -rlS | tail -n1	Show top 1 (better? no  total at top)
+ls -lS  | head -n2 | tail -n1	Same result
+
+tail -f auth.log    	-f is FOLLOW option
+# The -f option is not available to 'head'
+# Use -f to follow newly appended data
+
+wc alice
+# Lines Words Bytes
+ls | wc -l  		Number of files in a directory
+
+#Grep
+grep Rings oscar.tsv
+#Can also grep across multiple files
+grep bruce *grades
+#the -v option may be used to 'filter out'
+grep -v math_attendance | sort | uniq -c
+grep -v math-attendence | grep -v "^$" |sort | uniq -c
+#The above filters out blank lines
+#by using a regular expession that matches an empty line
+#alt method 
+#-E is EXTENDED regular expression
+grep -Ev "^$ | lecture" math_attendence | sort | uniq -c
+
+#To list ONLY DIRECTORIES
+ls -l | grep "^d" 		a goodie
+#To see anything BUT directories
+ls -l | grep -v "^d"
+#Think  grep string file
+grep string *
+#searches for 'string' in all files in the current directory
+#important options for grep
+-i		case insensitive
+-c		counts occurences
+-l		gives line number 
+-v		inverts search (filter)
+
+#Find
+find ~/new      list all files in new and in all its subdirectories
+find .		list all files in current directory
+		and all its subdirectories
+find . -name ali* 
+#better to quote it
+find . -name 'ali*'
+#Note this one
+find . * -exec | grep -l curiouser {} \;'
+#find summary
+find dir
+find dir -name f	f is filename
+#see
+en.wikipedia.org/wiki/Find
+
+#tr command translate or delete characters
+#tr does not accept filename argument
+#always reads from standard input
+cat physics_grades | tr S s	replaces uppcase-S with lowercase-s
+#better
+tr S s < physics_grades
+tr \\t \; < oscars.tsv >oscars.csv
+#why the double backslash?
+#\t is tab, but the backslash is itself a special character for bash
+# and it too much be escaped
+
+#POWER TOOLS
+
+# sed
+# sed is stream editor
+# an example of the substitution command (most common usage?)
+sed s/hello/goodbye/g < old.txt > new.txt
+
+#awk or gawk
+#A programming language in itself
+
+#Perl
+#Python
+#both standard on Linux systems 
+
+sort -nk2 -t\; oscars.csv
+#-t is delimiter (where the semicolan is escaped)
+
+#cut command
+
+cut -f2 -d\; oscars.csv
+-f		field 
+-d		delimiter (here ';', which is escaped) 
+cut -f 2, 3 -d\; oscars.csv
+#cut two columns (comma-separated list)
+
+#paste command
+paste *grades > tomgrades.txt
+
+#join command
+# inputs must be sorted
+# assumes a common key (very useful, eg for combining grades)
+
+join sorted_math_grades sorted_physics_grades
+
+#Put multiple commands on  a single line with the semi-colon
+
+#Jobs and Processes
+
+Ctrl-z		Suspend a process (perhaps taking too long)
+fg		brings it back  (to original situation) [ForeGround]
+bg		send to background (and program runs)
+		cannot read user input in this state, but keeps running
+		command line is freed-up
+		But ... a bg job can still put output to the screen
+&		At end of command
+rails s &	Equivalent of rails s and then bg:
+#better?
+rails s & > railsout.txt & 	(Will not mess up screen)
+
+#killing jobs and  processes
+Ctrl-c		Kills a foreground program
+kill		End any program (provided you are owner)
+kill %2		kill by job id
+kill %cp	kill cp command
+bg %1		put program with job  id =1 in background
+#Example
+firefox
+Ctrl-z		completely suspends 
+bg %1
+jobs		list all running jobs
+kill %1
+#but now what happens if open a program (eg calculator) for menu?
+ps -e		list processes
+-e		select all processes
+ps -e | grep calc
+kill 4564
+xkill		Now just click the calculator button to kill it  
+pkill 		matches part of a name.
+		USE WITH EXTREME CARE
+#kill without options allows a program to clean up after itself
+kill -KILL 	hard kill.  Use a last resort
+
+#Inspecting processes
+ps -ef 	
+-e		all proceses
+-f 		full listing
+ps -aux		Equivalent on Mac
+top		list processes in real-time
+		most intensive cpu tasks on top
+		can kill process with top
+
+#Aliases	
+alias		list all aliases
+alias gerp=grep
+#to run the normal unaliased command, prefix the command with backslash
+\ls		run the unaliased verions of ls
+alias apa="cd /etc/apach2"
+alias www="cd /var/www"
+#set aliases in .bashrc
+
+#Strictly speaking .bashrc does NOT run every time hash starts
+#The above applies only to non-login shells
+#For login shells, .profile is run
+#When start through terminal, reads .bashrc
+#When start thrugh ssh (login), reads .profile
+#But ... what most people do is link the two files
+#This means can put all your commands in .bashrc
+#On mac os, neigther of these two files exist by default
+
+#Environment Variables
+#Env variable for setting the prompt is PS1
+#Inspect value as follows
+echo $PS1	(note uppercase)	
+#To get an environment variable, prefix with $
+#To set env variable, no dollar sign but use equals
+PS1="whatever"
+#do this in .bashrc
+env		list all env variaables 	(goodie)
+#after  setting env variable, MUST export it
+#export must be used even within .bashrc
+
+#change shells 
+chsh
+#will be asked for password
+/bin/dash
+echo $SHELL		/bin/bash	before change
