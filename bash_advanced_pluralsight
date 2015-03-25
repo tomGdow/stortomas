@@ -1,0 +1,143 @@
+#Shell Scripting with Bash
+#Reindert-Jan Ekker (Pluralsight)
+
+#A first look at shell scripts
+#Hello World 
+#Create file hw
+echo Hello world
+#Not on path bash searhes for executables
+#Specify that the executable is in the current directory
+./hw
+=> permission denied
+chmod u+x hw
+./hw
+#Works!
+#To revoke
+chmod u-x hw
+
+#A script is nothing more than a text-file containing code
+#Usually run by interpreter
+#bash interpreter here
+#Reads every line in file
+#Every line that contains a command is executed
+#in order from top-to-bottom (well, not entirely true)
+
+#To make a script executable for EVERYONE on the system, replace 'u' with 'a'
+chmod u+x filename
+chmod a+x filename		Make it executable for everyone
+chmod a-x filename		Remove
+
+#$1 variable holds first argument passed to script
+$* variable holds all the arguments passed to a script
+
+#To set path to /bin, use the following
+PATH=$PATH:~/bin
+#However, and inspection of .profile shows this now unnecessary
+#/bin is added to path as long as /home/bin exits!
+
+#See here for a good ref
+# http://stackoverflow.com/q/11709374/499167
+#Above good on need to EXPORT the PATH varialble
+
+#eg add the folowing to  ~/.profile
+PATH=$PATH:/home/me/play
+export PATH
+#To get to work, execute the following
+ . ~/.profile
+
+ #Tip make a folder to keep scripts
+ #By convention this is /home/bin
+ Start all scripts with shebang or hash-bang
+ #! 
+ #After these two characters, declare which interpreter should run code
+ #Can also use this line to specify options with interpreter
+
+ # Remember! Hash-bang slash-bin slash-bash 
+
+ #Naming Scripts
+
+ #if you give a script a name that is already taken, 
+ #such as 'test' or 'if', you can only execute by
+ #giving the full path. Avoid
+ #To test name validity use type
+ type test
+
+ #Variables
+ #Variables allow you to termporarily store data in memory
+ #and then retrieve that data by name
+
+ greeting="hello"
+ echo $greeting
+
+ ab=filname.txt
+ vim $ab			a goodie
+ rm $ab				removes		
+ 				!!Use with extreme care
+ 				file will also be removed
+
+files="myfile1 myfile2"
+touch $myfiles			Two commands are created
+
+#bash does not give error if you use undefined variable
+#instead it uses the empty string as value
+
+#variable assinment must be a single word.
+#soo ..
+newgreeting="hello, $USER"
+echo $newgreeging
+#Do not put spaces around equals sign when doing assignments
+#But be careful of this
+dangerous="rm myfile.txt"
+$dangerous			Removes the file!
+echo $dangerous			Will SAFELY tell what is in there
+
+#To get the value for a variable prefix with '$' sign
+#and use 'echo' for safety reasons
+
+#Variable names must be letters, numbers and underscores ONLY
+#First character should be a letter or an underscore
+#Cannot start variable name with a number
+#Variable names are case-sensitive
+#Use of UPPERCASE variable names is strongly discouraged
+#Bash predefined variables are uppercase, and don't want to overright
+#Good habit to only use lc names for variables
+
+#Make the note-taking program interactive
+
+#read command will take user input an put it in a variable
+read hello
+
+man builtins		#This is an extremely useful command
+help			#help is a bash command
+help read
+-p 			Show a prompt to the user
+
+#Good habit: surround your variables with quotes
+#Use "$x" instead of $x
+#Among other things, prevents surprises when data contains spaces
+#Use double quotes, as this does not escape the dollar sign
+#Double quotes keep special characters intact
+
+#Another good habit
+#Use braces to tell bash where a variable name ends
+echo ${foo}bar		gets the name of var foo and appends string bar
+			note that it is NOT {$foo}bar
+eco $foobar		Gets the value of var foobar
+#Good habit to use braces whereever there may be confusion
+
+#Another very good tip
+#In a script, use ${HOME} rather than ~  
+#The tilde is not escaped in double-quotes
+
+#Debugging
+#The -x option
+#!/bin/bash -x
+#Prints out the contents of each evaluated line
+#A real goodie
+
+#But what  happens if you just want to debug a few lines
+#In this case do not use -x on initial hash-bang line
+#Use 
+set -x 			On line above where you want debugging to start
+set +x			On line below where you want debugging to end
+

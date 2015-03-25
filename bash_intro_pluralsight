@@ -227,7 +227,9 @@ find . -name ali*
 #better to quote it
 find . -name 'ali*'
 #Note this one
-find . * -exec | grep -l curiouser {} \;'
+#Can also have find execute a command for each matching file
+find . * -exec | grep -l curiouser {} \;
+find . -name '*.txt' -exec grep -l curious {}\;
 #find summary
 find dir
 find dir -name f	f is filename
