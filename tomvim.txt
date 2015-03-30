@@ -1,4 +1,4 @@
-3j	Move down three line
+j	Move down three line
 d$ 	Delete from cursor to the end of the line
 u	Undo
 Ctrl-R	Redo
@@ -377,4 +377,119 @@ V		Activate visual mode for full lines
 # Enter a search pattern
 #	:'<,'>s/bacon/lettuce
 
-NEXT GLOBAL 6.05
+# '%' is a shortcut for all lines in current buffer
+#GLOBAL COMMAND
+#can use vim's powerful global command to execute a command
+#on all lines that match a pattern
+
+#Search and Execute
+
+:[range]g[lobal]/{pattern}/[cmd]
+
+#GLOBAL COMMAND
+#can use vim's powerful global command to execute a command
+#on all lines that match a pattern
+#takes a form similar to search-and-replace
+#unlike search, default range is whole buffer
+#Search and Execute
+
+:[range]g[lobal]/{pattern}/[cmd]
+
+#normal {command} Execute an extended sequence
+
+:g/vim/p
+:g/re/p			GREP!
+#To show all lines matching the regular expression re
+#This is where the Unix grep command got its name
+
+#	 show matches with line numbers
+p	 same as above
+d	 delete matching lines
+y	 yank matching lines
+
+:g/params[:foo]/#	show lines and line numbers where
+			params[:foo] occurs
+:g/^$/d			delete blank lines
+:g/pattern/+y		Yank line after the ones that match
+
+#To execute command against lines that DONT match a pattern
+use v instead of g
+
+Some examples
+
+:.,+10g/foo/d		delete matches from cursor through
+			next ten lines
+
+:.,'f+2g/foo/#		show line numbers through two lines
+			after mark 'f'
+
+:.,/bar/g/foo/d		Deletet lines through next line
+			mathching bar
+#Commands you can execute are not restricted to deleting and
+yanking
+#You can also execute normal mode commands by prefixing 
+#your commamds with 'normal
+
+:g/bacon/normal OBacon is near
+#insert the line 'Bacon is near' above each line that matches 
+#the word bacon. 
+
+#Regular Expressions Vim uses in Search
+#In a regular expression, some characters are literal
+some are special. 
+# Vim allows you to alter which is which with
+# an option called Magic
+# This has four levals 
+
+Very Magic	\v	Similar to Perl, Ruby, Python
+Magic		\m	The default, but awkward
+No Magic	\M	Rarely used
+Very No Magic	\V	Rarely used
+
+#One area where vim's default behaviour is inconsistent and
+confusing
+
+#Invariably want Very Magic, which is similar to Perl's
+#regular expression syntax
+#It is NOT advisable to set this in .vimrc
+#Technically you can, but vim documentation
+#warns against it
+
+#How does Magic and Very Magic differ
+Very Magic	Magic
+\s		\s		Whitespace	same in both
+()		\(\)		Escaping        Magic only
+{n, m}		\{n,m}		Quantifiers	Escape opening in						 Magic
+[]		[]		Character Range No escape
+*		*	
++		\+		1 or many	escape in Magic
+=	        \=				Escap in Magic
+
+#Very Magic corresponds to Unix's egrep
+#Magic corresponds to Unix's grep
+#Magic uses lots of backslashes inconsistently - a disaster!
+
+#In Very Magic only literal characters are
+#0-9, a-z, A-Z, and underscore 
+
+#Turn on Very Magic with \v
+
+#Two ways to search
+/\(.y\)\{3}
+
+/\v(.y){3}
+
+#To repeat a search
+/Ctrl-r/
+#ie, Ctrl-r, FOLLOWED BY SLASH
+
+#Ack commands in Vim
+
+:Ack		current_user
+		search all files below your working directory
+:cn 		Next result
+:cp		Previous result
+:cc3		Display third result
+:ccl		Close the Quickfix window
+
+Next advanced configuration (start)

@@ -141,3 +141,334 @@ eco $foobar		Gets the value of var foobar
 set -x 			On line above where you want debugging to start
 set +x			On line below where you want debugging to end
 
+#If Then Else
+#From the command line
+if mkdir a; then echo "ok"; else echo "error"; fi
+
+#Most basic use of if statement
+if testcode; then
+	# Code here gets executed
+	# when testcode succeeds
+fi
+#Most basic use of if-then-else
+if testcode; then
+	#code here gets executed
+	#when testcode succeeds
+else
+	#code here is executed
+	#when testcode fails
+#Another example
+if [[ $noteo ]]; then
+	echo "Ok"
+else
+	echo "no note"
+fi
+
+# CAN put then on next line and leave out semi-colon
+# but that is not common practice
+# BUT 'else' and 'fi' are always on a new line
+# because these keywords have to be the first word in command
+# And also true, of course of 'if' and 'then'
+# - these keywords must be the first in command
+
+#On command line could write
+# if testcode; then successcode; else failcode; fi
+
+# In general, if, then, else and fi keywords
+# need to be on a separate line
+# or come after a semi-colon
+
+#Return Codes
+#When a Unix program finishes, it returns a number between 0 and 255
+#called  a return code or exit status
+#'0' means success
+#All other values indicate an error
+
+# Shell scripts return values with exit
+exit 0 
+#script will end and return success
+
+#Good habit. Make sure your program exits with correct value
+#Always call exit with a value
+
+#if statement just looks at RETURN CODE for "testcode"
+
+#Conditional Expressions
+
+# A conditional expression
+	# Tests on files and directories
+	# Tests on string
+	# Arithmetic tests
+
+	[[ expression ]]
+
+	#double-square-bracket
+	#SPACE
+	#expression
+	#SPACE
+	#double-square-brakcets
+
+#Expression		True if
+[[ $str ]]			str is  not empty
+[[ $str = "something" ]]	str equals string "something"
+				#note spaces around "equals-to"
+[[ $str="something" ]]		always returns true!
+[[ -e $filename ]]		file  $filename exists
+[[ -d $dirname ]] 		$dirname is a directory
+
+# Spaces around the expression are very important!
+# Same for switches (-e) and equals sign
+
+#create script ...
+
+help test
+#above pretty good on conditional expressions
+
+#Conditional expressions
+#Where does 'test' come from
+#Historically, a classical command called 'test'
+#Still remains for compatability
+#aka as '['   (single square bracket) 
+#since it is a normal shell command, it gets parsed normally
+#everything you pass into it gets parsed like normal argument
+#including expanding wildcards and command substitution
+#hard to use, easier to make mistakes
+#many pitfalls
+#Advise DO NOT USE unless want to run program on non-bash shells
+
+#[[...]] is a bash extension
+#easier to use as two brackets are not actually a command
+#but a special syntax
+#everything that goes between the brackets gets parsed in special way
+#NO QUOTES NEEDED AROUND VARIABLES
+#Good habit: use [[...]] instead of [..]
+
+#"help test" will give most important info
+#"help [[" will tell you about the extension
+
+#Arithmetic tests
+#Can only compare numbers, as bash does not handle floating-points at all
+#Syntax
+#[[ arg1 OP arg2 ]]
+#Where OP is
+-eq		equal
+-ne		not-equal
+-lt		less-than
+-gt		greater-than
+others		see help
+
+#Main Point: do not use 'normal' operators (=, <, >, etc) for numbers
+#These work on STRINGS ONLY 
+
+#Two special variables need to know about
+$#		Contains the number of script arguments
+$?		Exit status for the last command you ran
+#In addition
+#To get the length of the string in a variable, use:
+${#var}
+#The above is important, and a real goodie. 
+
+# To count the number of files in directgory
+ls -A1 | wc -l 
+
+#Can nest if statements
+#But can also use elif
+
+if [[ $count_1 -gt $count_2 ]];then
+	echo "${dir1} has more files"
+elif [[$count_1 -eq $count_2 ]];then
+	echo "number of files is equal"
+else
+	echo "${dir2} has more files"
+fi
+# Can use Multiple elifs
+
+if [[ $1 = "cat" ]]; then
+	echo "meow"
+elif [[ $1 = "dog" ]];then
+	echo "wooof"
+elif [[s1 = "co2 ]]; then
+	echo "moo"
+else
+	echo "unknown animal"
+fi
+
+#each elif gets tried in turn
+
+#And, Or, Not
+#In a  conditional expression
+#use ! to negate a test
+[[ ! -e $file ]]
+#use spaces around '!'
+
+#Use && for "and"
+[[ $# -eq && $1 = "foo" ]]
+#true if exatcly one arg with the value "foo"
+
+#Use || for "or"   (two pipe symbols)
+[[ $a || $b ]]
+#true if a or b contains a value (or both)
+
+#Helpful advise from Reindert
+#Don't use -a, -o for and, or
+#EVEN THOUGH "helo test" says so
+#
+#Input and Output
+
+#ECHO
+#prints its arguments to std output, followed by newline
+-n		suppresses new lin
+-e		allows the use of escape sequences
+		\t	tab
+		\b	backspace
+#These options are NOT portable to non-bash shells
+#and are generally discouraged
+
+#For more sophisticated formatting, use printf
+#Printf
+#uses a format string for first argument
+#will not append a new line at end of output by default
+
+printf "hello"
+printf "hello\n"
+#Print a variable
+printf "hello %s, how are you?\n" $USER
+printf "p%s\n" a e i o u
+printf "%ss home is in %s" $USER $HOME
+printf "|%20s | %20s | %20s |\n" $(ls)
+#printf can save output to variable
+printf -v greeting "Hello %s, How are you?\n" $USER
+echo $greeting
+#see here for more on printf
+http://wiki.bash-hackers.org/commands/builtin/printf
+
+#Remember, with printf
+-v		puts output to variable
+
+#Read Revisited
+ #Read puts input into a variable
+read x
+ #set user input to x
+ #CAN choose not to set a variable name
+ #value will end up in variabl called REPLY
+ #options
+-n		read a specific number of characters
+		where 'read' will stop when it
+		encounters a new line
+-N		read a specific number of characters
+		and will keep reading until the
+		exact number of characters is read
+-s		suppress output (useful for passwords)
+-r		disallows escape sequences
+		RECOMMENDED to always use -r with read
+		It gives the raw input
+#Read can also split your input into multiple words
+#and assign each to a variable
+read x y 	reads first word into variabl 'x'
+		everything else into y
+#if, say input "1 2 3", then x =1, y = "2 3"
+#use IFS - Input Field Separator - for delimiters
+read; echo $REPLY
+read x y
+echo $x
+echo $y
+#BUT BETTER
+read -r; echo $REPLY
+#This allows backslashes to be part of input 
+#where escaping is unnecessary
+
+IFS=: read a b
+1:2
+echo $a
+echo $b
+#IFS changed just for single command
+
+#Standard Streams
+#whenever a shellscript starts, it automaticaly connects
+#with three standard streams:
+Standard input, standard output, standard error
+#When running a script from an interactive
+#command-line terminal, these streams will
+#connect with the terminal
+#input will be sent to std in
+#output will be sent to std out
+#In Unix, these three streams are identified
+#either by a number (file descriptor)  or a special file
+
+# 0: Standard Input (stdin)
+/dev/stdin
+
+# 1: Standard Output (stdout)
+/dev/stdout
+
+# 2: Standard Error (stderr)
+/dev/stderr
+#used for diagnostic or error messages
+#Normally won't notice, but it makes it 
+#possible for to treat errors differently from
+#other output
+
+#Another special file
+/dev/null
+#disgards all data sent to it
+#handy to hide command output
+#simply redirect to /dev/null
+#and output disappears
+#/dev/null is aka the bit-bucket
+
+#Redirection 1
+
+#Bash offers syntax for redirecting the streams so
+#that their data flows to or from another place
+#In other words, can take input from a file
+#or another command and send our output to a file
+#or another command 
+
+<		input redirection
+		grep milk < shoppingnotes.txt
+>		output redirection
+		ls > listing.txt
+>>		append to end of file
+
+#finally, pipes
+ls | grep x
+
+#Redirection 2
+ N>		Redirect to a specific stream
+#mostly used to redirect errors to a file
+cmd 2> /dev/null 	disgards all error messages
+#2 is the error stream
+#so all error messages from command will be disgarded
+
+#N defaults to 1, so do not need to specify a
+#number if you are redirecting standard output
+
+#Can also redirect a stream into another stream 
+>&N	Redirect a strem to another stream
+#Put an ampersand and a number after the greater-than
+>&2	Sends std output to std err 
+	(equivalent to 1>&2)
+2>&1	Send std err to std output
+	(this would all you to log errors and std output
+	to a single file)
+cmd > logfile 2>&1 		takes output of command
+				saves in logfile
+				also sends all errors to std out
+				since stdout points to logfile
+				errors end up in same file
+#Don't do this
+cmd >logfile 2> logfile 	Two streams will over-write 
+				each other's data 
+#Bash offers two additional ways to point both streams to same file
+&> 
+>&
+#Don't use above two!  They are considered deprecated
+#Stick to the first option only
+
+#Redirection is allowed anywhere on the command line
+cmd < inputfile > outputfile
+>outputfile cmd < inputfile
+#Above two commands are equivalent
+#These two are different
+cmd > logfile 2>&1 		sends errors to logfile
+2>&1 > logfile cmd		sends errors to stdout
