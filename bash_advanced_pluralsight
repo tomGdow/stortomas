@@ -472,3 +472,448 @@ cmd < inputfile > outputfile
 #These two are different
 cmd > logfile 2>&1 		sends errors to logfile
 2>&1 > logfile cmd		sends errors to stdout
+
+#Control Flow
+
+#While Loop
+while test; do
+	;; code to be repeated
+done
+#until
+until test; do
+	;; code to be repeated
+done
+
+#The classic FOR loop
+for VAR in WORDS; do
+	;; code to be repeated
+done
+#assign each word in WORDS to var in turn
+#start with for keyword
+#followed by the name a variable
+#Note that it is the NAME of a variable, 
+#not it's value, do don't use '$' sign
+#Then takes the 'in' keyword, with a list of words
+#Note that the list should not be in inverted 
+#commas, as this would signify just one word
+#will stop when no words left
+#This is one case where you do not want to quote
+#a variable
+
+for i in just a few words; do echo $i; done
+
+#The C-Style FOR Loop
+for (( INIT; TEST; UPDATE )); do
+	;;loop code
+done
+
+#Use double parentheses
+#which contain three expressions
+#First expression: runs before loop starts
+#initializes loop variable(s)
+#Second expression: a test
+#will run everytime loop runs
+#and loop will run as long as second expr is true
+#Third is update expresion: updates the loop variable(s)
+#Expression use syntax for arithmetic evaluation
+
+#BREAK and CONTINUE
+
+break		quits the loop
+continue	skips the rest of the current iteration
+		continues with the next iteration
+#both keywords may be used in any for, while until loop
+#Now stripto program
+
+#CASE
+case WORD in 
+    PATTERN1)
+    	code for pattern 1 ;;
+    PATTERN2)
+    	code for pattern 2 ;;
+    
+    ...
+    
+    PATTERNn)
+    	code for pattern n ;;
+esac
+#match words with patterns
+*	mathches any string
+?	any single character
+[]	match a specific set of characters
+#note that enter pattern with right parenthesis
+#after that comes the code
+#bash tests the word against every pattern
+#from top to bottom
+#CODE FOR FIRST MATCHING PATTERN IS EXECUTED 
+#NOTE: end code with TWO semicolons
+#so... you can use multiple statements separated by ';'
+#MULTIPLE PATTERNS separated by pipes ('|') 
+
+#Remember that DIAGNOSTIC MESSAGES should be printed to std err
+#NOT std out
+#(see Control Flow, 5.18 min) 
+
+#COMMAND GROUPS
+#Group commands with {}
+	#Will group them into a single statement
+	#Can use I/O redirection for the whole group
+	#Can use the group in an if statement or while loop
+	#Return status is that of last command in the group
+	
+{ cmd1;cmd2;cmd3; }
+
+	#Separate commands with newlines or semicolons
+	#Put space after first brace and before the last brace
+	#In other words, braces need to be separated from commands
+	#by whitespace
+	#Ending semicolon or newline is NOT OPTIONAL 
+
+#Besides semicolons and newlines, can also put '||' and '&&' between statements
+#Informally called 'OR' and 'AND'
+#Allow execution of command depending on the return status of previous command
+#This now becomes a very nice shorthand for simple IF statement
+
+&&	Similar to logical AND operator
+	Will execute the next command only if previous one succeeded
+mkdir newdir & cd newdir
+
+|| 	Similar to logical OR operator
+	Will execute the next command only if the previous one failed
+[[$1]] || echo "missing argument">&2
+
+#May combine as follows but DONT DO THIS
+[[$1]] || echo "missing argument">&2 && exit 1
+#will ALWAYS EXIT SCRIPT
+#USE GROUPING INSTEAD
+[[$1]] || {echo "missing argument">&2;  exit; }
+
+#Variables 2
+#Variables in bash have attributes
+#can set with the declare command
+#Can tell bash, for example, that a variable can only hold integers
+#Can now use special expressions called arithmetic expressions
+#Can also mark variable as Read Only - and cannot change value after its set
+#Can also EXPORT variables
+#Can store multiple values in a single variable in a special kind of 
+#variable called an arrray
+
+#Bash variables normally hold simple string values without a type
+#It is possible to give var extra attributes
+#Can turn on/off these attributes with declare
+#Can also call declare by another name, "typeset", but this is deprecated
+
+#Goodie:	Can print the attribute for a variable by giving declare
+#		the -p option
+declare -p var
+tom="hello"
+declare -p tom
+
+#Integer variable
+declare -i num		# num is the name of the variable
+#Now $num may only hold integers
+
+#BUT trying to set it to something else, such as a string value
+#DOES NOT RESULT IN AN ERROR, but instead the 
+#variable will be set to zero
+
+delare -i tomnum
+tomnum=4
+echo $tomnum	# => 4
+tomnum="hello"
+echo $tomnum	# => 0
+
+#GOODIE can UNSET an attribute using '+' instead of '-'
+declare +i num		#Removes integer attribute from variable 'num'
+
+#When the integer attribute is set on a variable
+#it triggers arithmetic evaluation
+
+p="4+5"
+echo $p		# => 4+5
+declare -i p
+p="4+5"
+echo $p		# => 9
+p="4 * 4"
+echo $p		# => 16
+p="hello"
+echo $p		# => 0
+
+# 	C-like Syntax for doing calculations
+#Can tell bash you want expression evaluated in this way in several ways
+ 
+#1 Can use the 'let' command
+let n=100/2
+echo $n		# => 50
+
+#2 use double parentheses
+(( ... ))
+(( ++x ))	# Will increase the value of x by 1
+
+(( p=x/100 )
+(( u=100/6 ))
+echo $u		# => 16
+
+#GOODIE: can safely put spaces in such an expression
+(( y = 100 / 5 ))
+echo $y		# => 20
+# Can also use command substitution
+(( k = $(ls |wc -l) *10 )) 	# => 220
+
+# 'let' command and double parentheses are exactly equivalent
+# but because the parentheses method supports spaces among other things,
+# it is oftern preferred (including by Reindert) 
+
+#This is a similar construct, where we prefix the double parentheses with
+#a dollar sign
+$(( .. ))
+#but.. this is not a command, but a substitution
+
+p=$(( x / 100 ))
+
+#bash will first divide x by 100, and then replace the whole exression by that value
+#and then set that value equal to 50
+
+#Bash will also assume an arithmetic expression whenever you set a value
+#to a variable declared as an integer
+declare -i num
+num="30%8"	
+echo $num	# => num is 6
+
+#An example to show diffeence between command and a substitution
+declare -i x
+x=100/2
+echo $x		# => x = 50
+$(++x)		#51: command not found
+(( ++ x)	# bash prints nothing
+echo $x		# => 52
+
+#Can also use the following
+x=$((x+2)	
+echo $x		# => 54
+
+#Some Remarks about Arithmetic Evaluation
+	# No need to quote variables
+	# can use (( .. )) in constructs such as 'if' and 'while'
+	# BUT BE AWARE IN THAT CASE THAT
+	# zero is FALSE and everything else is true 
+	# This is the opposite to expected behaviour  of a  'normal' shell command
+(( 0 )) || echo "false"
+
+#Potential Pitfall
+#Bash will interpret numbers as OCTAL numbers, not decimal
+declare -i my
+my=010
+echo $my	# => 8 (!!)
+
+# In the FOR loop
+(( ..;..;..; )) 
+#is NOT an arithmetic expression, it is simply part of expression of the FOR loop
+#but...
+#the three expressions inside that are separed by semi-colons
+#ARE evaluated as arithmetic expressions
+#and within each can do any type of arithmetic calculation you want
+
+#For a full list of operators see
+http:/goo.gl/HnPkiq
+
+#Read-only Variables
+#make sure you set it to the value you want when declaring
+declare -r constant="some value"
+#if try to change after declared, bash will report an error
+
+#Exporting a variable
+#normallly  a declared variable is local to your script or 
+#if you are on  a terminal in an interactive session,
+#local to that session
+#Sometimes want to make variables available to other commands you are running
+#need to export them
+#If you export a variable, you make it available to subproceses
+#BUT DOES NOT WORK the other way round 
+# - you cannot pass variable from subprocess to the command that called it
+#  -you cannot pass a variable to the program that runs your script
+# - You cannot pass a variable to a parent process - KEY
+
+
+#Export a variable
+export var="value"
+#OR
+declare -x var="value"
+-x			#export option.
+#Both methods exactly equivalent
+
+#But Attributes are NOT exported
+
+#Every process in bash has its own environment
+#This includes current workin directory 
+#
+#Can pass variable values to subprocesses, but cannot pass
+#variable attributes to subprocesses.  For example
+#the READ ONLY attribute cannot be passed
+
+#Arrays
+#Apart from strings and integers, bash also supports one 
+#other type of special variable - an array
+#Can store multiple values. Store and retrived by index
+ 
+#To store a value in an array
+x[0]="some"		#A variable called "some" 
+			#stored in an array 'x'
+			#with an index '0'
+x[1]="word"
+
+#To retrieve
+${x[0]}
+#Also special syntax
+${x[@]} 
+#OR
+${x[*]}
+#Retrieve all values
+#quoting also works
+
+#To tell bash you want a variable to be an array
+declare -a x
+# OR simply declare as index as above
+xx[0]="hello"
+
+#There is also a special syntax for intializing a whole array in one go
+arr=(a b c d 1 2 3)	# Note no commas!
+
+#To Count the number of items in array
+${#arr[@]}
+echo ${#arr[@]}		# 7
+
+To list all indices in array
+${!arr[@]} 
+#Note that there can be gaps in index list 
+#Note: you cannot export an array
+#
+#Note: Since bash 4, bash supports associative arrays
+declare -A x
+
+#For more information on arrays
+http://goo.gl//g6xtca
+
+#Array Demo
+ar=(this is an array)
+declare -p ar 		# => declare -a ar='([0]="this" [1]="is" [2]="an" [3]="array")'
+>echo ${#ar[@]}		# => 5
+echo ${!ar[@]}		# => 0 1 2 3 15 
+
+#Shell Functions
+#In bash, a function will allow you to define your own command
+name () {...}
+#code you want to execute comes between braces
+#You can run code between braces as new comand
+#Other equivalent syntax (not recommended)
+function name () {...}
+function name {..}
+
+#Can give a function arguments
+#Can redirect that output and input
+#Positional parameters ($1, $2, $2, ...) are available
+#just like in a script
+#Can think of  a function as a  tiny little shellscript inside a shellscript
+
+#name functions correctly.  Same rules apply as when naming scripts
+#- do not over-write existing commands
+
+#In bash, the return value of a program is stored
+#in a special variable called $?. 
+#see here
+#http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-10.html
+#!/bin/bash
+sum () {
+	return $(( $1 + $2))
+	}
+sum 4 5
+echo $?
+#Note that return value of function is stored in $?
+
+#Bash variables are globally visible
+#but CAN make variables local to that function
+#Can do that by
+declaring it inside the function
+use the local keyword
+#Can think of a function as a shell-script inside a shell-script
+
+#Exit a function with 'return'
+#returns a status code, like exit
+#without a 'return' statement, function 
+#returns the status code of the last statement
+#status code is just a number
+#sometimes want your function to return somethng else
+#like a piece of text, for example
+#To RETURN SOMETHING ELSE
+#two basic ways ..
+	#1	Use a global varibale (declared outside function)
+	#	Send the data to output and use something link
+		#command substitution 
+		#
+#Can also think of a function as being a variable that points to a
+#piece of code
+#SO it is logical to EXPORT a function
+export -f function
+#Now functions available to sub-processes
+
+
+#Advanced Bash features
+# Here document
+# example from 'count' script
+
+cat <<END
+	#text goes here
+	
+END
+
+#The tag-word 'END' is arbitrary. Choose whatever you want
+#As soon as bash sees the tag-word for a second time
+#it interprets it as a signal that input has ended
+#everything between the two occurences will be input of command
+
+#PIPE Gotcha!
+#A piped command runs inside a sub-shell,
+#which means it runs inside a separate bash process
+#See count script
+#the $count variable is LOCAL to that subshell
+#and will not be available to parent process
+#Not an easy way around it 
+
+#tput command
+tput cols
+tput lines
+tput setaf 1
+tput setaf 7
+
+tput bold
+tput sgr0
+
+#du command
+# du is disk usage
+du -b		# -b bytes
+
+#Miscellaneous
+
+#1  Functions and Redirections
+# Redirection IS ALLOWED immediately after functiond definition
+# Will be executed when function is run
+fun () {}>&2
+
+#2  A command in a pipeline runs in a subshell
+ls | while read -r; do ((++count));done
+#basically a useless loop
+du -d 0 */ |read_filesizes
+#The above also won't work and instead a tempfile
+#was used in the 'hist' script
+
+#3 Here documents
+#look like
+<<Tag
+Tag
+# Tag (of own choosing) defines end of input
+cat <<END
+	Text to use as input goes here
+END
+#Whole line is then used as input for cat command
+#Can use to send large amounts of text data to commands
+

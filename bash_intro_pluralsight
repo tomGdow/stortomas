@@ -14,7 +14,7 @@ q		Quit
 man cd
 man 
 /sort		Find first occurence of 'sort'
-/ <enter.	Find next occurence of 'sort'
+/ <enter>	Find next occurence of 'sort'
 file *  	List the TYPE of all files in directory [goodie]
 
 #MAN uses LESS to display contents
@@ -32,7 +32,7 @@ cd 'my documents'
 cd my\ documents	Same result as above
 
 cp -R source_dirctory target_directory
-cp -$ dir1 dir1 dir3 target_directory
+cp -R dir1 dir1 dir3 target_directory
 
 mv a b 		Same as RENAME 
 mv a b c dir    a,b,c may be directories or files
