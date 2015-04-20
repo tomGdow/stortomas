@@ -285,14 +285,14 @@ join sorted_math_grades sorted_physics_grades
 
 #Jobs and Processes
 
-Ctrl-z		Suspend a process (perhaps taking too long)
-fg		brings it back  (to original situation) [ForeGround]
-bg		send to background (and program runs)
-		cannot read user input in this state, but keeps running
-		command line is freed-up
-		But ... a bg job can still put output to the screen
-&		At end of command
-rails s &	Equivalent of rails s and then bg:
+Ctrl-z		# Suspend a process (perhaps taking too long)
+fg		# brings it back  (to original situation) [ForeGround]
+bg		# send to background (and program runs)
+		# cannot read user input in this state, but keeps running
+		# command line is freed-up
+		# But ... a bg job can still put output to the screen
+&		# At end of command
+rails s &	# Equivalent of rails s and then bg:
 #better?
 rails s & > railsout.txt & 	(Will not mess up screen)
 
