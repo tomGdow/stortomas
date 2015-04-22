@@ -614,6 +614,8 @@ Firefox		# What vim inserts
 # the easiest strategy -syntax
 # Will first do ineractively, but all may be stored in .vimrc files
 # As permanent defaults
+
+# 1 Syntax Folding
 :set foldmethod=syntax
 # or use abbreviation 'fdm'
 
@@ -637,3 +639,10 @@ zx	# Reset folds, if you have 'made a pickle of things'
 	# at the cursor's current line
 zX	# Fold everything again
 
+# 2 Indent folding
+
+# A fallback is to let Vim detect blocks elegible for folding
+# by using simple indentation
+# Css is an example of this, which will also highlight a few problems
+# that are easily fixed
+# Open a css file and set the foldmethod to "indent"
