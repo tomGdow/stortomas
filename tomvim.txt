@@ -1,4 +1,4 @@
-j	Move down three line
+S=`j	Move down three line
 d$ 	Delete from cursor to the end of the line
 u	Undo
 Ctrl-R	Redo
@@ -492,4 +492,148 @@ Very Magic	Magic
 :cc3		Display third result
 :ccl		Close the Quickfix window
 
-Next advanced configuration (start)
+Advanced configuration (start)
+Three basic levels of configuration
+	#1 Basic Configuration
+	#2 Custom key mapping
+	#3 Vimscript plugins
+
+# Mappings provide a convenient method to enter a sequence of commands
+# with just a few keystrokes
+# Map one set of keystrokes to another.  When vim sees the former it
+# acts as if it saw the latter
+#For example
+:vmap > >gv
+# Lets take it apart
+
+vmap	# reassigns a key in visual mode
+>	# when you type this ..
+>gv	# shift text right, re-select it,
+	# and go bac to visual mode
+
+#Map Scope
+
+nmap	# Normal mode
+imap	# Insert mode
+vmap	# Visual mode
+map	# Normal, Visual, and operating-pending modes
+map! 	# Command and insert modes
+
+# Example
+# Map tab to autocomplete in insert mode
+:imap <Tab> <C-N>
+:imap <S-Tab> <C-P>
+
+# Now can use tab to bring up autocomplete and tab OR 
+# shift-tab throught the options
+# You can examine the value of existing mapping
+# by omitting the final argument
+
+# Remove a mapping with 'unmap'
+:vunmap >
+# To see all mappings for a mode
+use :map, :vmap, or any other mode map specifies
+
+# store all mappings in .vimrc 
+# Safely Swap Strokes
+# Safely swap colon and semicolon, say
+:nnoremap :;
+:noremap :;
+
+# So what keystrokes are safe to map?
+# Vim uses most of them already, so need to be careful
+# This is how to decide
+# Do you want to override Vim's behaviour?
+	# 1 yes	 => do it!
+	# 2 no   => 
+	  	Do you want carpal tunnel syndrome
+		  # 1 Yes	 => Map a meta key
+
+	          # 2 No	=> Use the Leader and a single key`  
+# The map leader is a character whose sole purpose is to
+# prevent your mappings from conflicting with vim's commands
+# Its default value is backslash,
+# but can set it in .vimrc to anything you feel
+# comfortable typing which does not clash
+# Note that you set it differently from other options
+:let mapleader=","  	# Change the personal hotkey
+
+# Say, for example, you want to map 'Ctrl-F in insert mode
+# to uppercase the word before the cursor.
+# One way: map Ctrl-F directly
+:map! <C-F>	<Esc>gUiw`]a
+# or, if you didn't want to wipe out Vim's default Ctrl-F,
+# which is scroll forward one page,
+# you could take it to your leader
+:map! <Leader> <Esc>gUiw`]a	# type exactly as given
+# Try it in INSERT mode by typing backslash -F
+\f
+# A goodie!
+
+#Abbreviations
+:iab ff firefox
+iab		# Declare an abbreviation for insert mode
+		# See also 'ab' for insert, Replace, and 
+		# Command-line modes
+ff		# What you type
+Firefox		# What vim inserts
+
+# A super-goodie!
+# Some examples
+:ab teh the
+# For misspelled words, can type with impunity and Vim will clean up after you.
+
+#Folding
+
+# In the classic Sci-Fi novel 'Dune' by  Frank Herbert
+# people learn to travel by folding space and taking a single step
+# onto another planet
+
+# In vim can operate on a file by folding long ranges of text
+
+# Novices use folds to put more content on the screen
+# Experts use folds to perform searches or global operations on
+# blocks of code as a single line
+# You may find that  your mind does not naturally think in
+# terms of folds.  That's OK! Some people find them indespensible
+# and others don't use them at all.
+
+# Vim Folding strategies
+:set foldmethod=
+	indent		# Use spaces or tars to find foldable blocks
+	syntax		# Fold on language features (methods, classes)
+	marker 		# Fold on textual marks
+	diff		# Fold unchanged text
+	expr		# Custom, code-driven folding
+	manual		# Select ranges to fold
+
+# Default is manual
+# You will quickly tire of manual folding
+# Dan suggests fold by syntax or indent
+# Lets have a look at a Ruby file where folds are managed by
+# the easiest strategy -syntax
+# Will first do ineractively, but all may be stored in .vimrc files
+# As permanent defaults
+:set foldmethod=syntax
+# or use abbreviation 'fdm'
+
+zK	# Move up a fold
+zj	# Move down a fold
+
+xM	# Close ALL folds
+xc	# Close a fold
+
+za 	# Toggle a fold (on/off)
+
+zo	# Open a fold
+zR	# Open ALL folds
+
+zk 	# Move back up to the end of the previous fold
+
+zi 	# Toggles folding on/off altogether 
+
+zx	# Reset folds, if you have 'made a pickle of things'
+	# this folds everything except the fold
+	# at the cursor's current line
+zX	# Fold everything again
+

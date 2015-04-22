@@ -1,0 +1,252 @@
+//====General ====
+
+html {
+  height: 100%;
+  font-size: 100%;
+  overflow-y: scroll;
+  @include vendor-prefix(text-size-adjust, 100%)
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+ // @include skeptics_perspective(800px);
+}
+
+//==Remove Dotted line from Buttons in Mozilla
+:focus {
+  outline: none;
+}
+
+::-moz-focus-inner {
+  border: 0;
+}
+
+.italic {
+  font-style: italic;
+  color: black;
+}
+
+iframe {
+  border: none;
+  overflow: hidden;
+  scroll: none;
+  height: em(90px);
+  width: em(200px);
+}
+
+.clearfix:after {
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+li {
+  list-style-type: none;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.flexbox_center {
+  @include myflex($justify-content: center);
+}
+
+//== webkit, opera, IE9
+::selection {
+  background: lightblue;
+}
+
+//== mozilla firefox
+::-moz-selection {
+  background: lightblue;
+}
+
+.nav_bar_gray {
+  color: $nav-bar-gray
+}
+
+.unordered_one {
+  padding-bottom: 10px;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@include addVishidden(tabs,
+        tabscaption,
+        col-partial4,
+        col-partial2,
+        makeVisible,
+        sliderBtnsContainer,
+        flipLegendWrapper,
+        loremParagraph,
+        small-images-caption,
+        vgControlsTwo);
+
+//==== flexslider ====
+
+#curie-slider {
+  width: 20em;
+}
+
+#main-curieSlider, #curie-slider {
+  text-align: center;
+}
+
+.curie-flex-render {
+  max-width: 50%;
+  margin: 2em;
+}
+
+.flexFigCaption {
+
+  transition: color 1s ease;
+  color: white;
+}
+
+.flexBeforeClass {
+  transition: color 1s ease;
+  color: $skeptics-blue;
+}
+
+.flexAfterClass {
+  transition: color 5s ease;
+  color: white;
+}
+
+//newsletter
+
+input.ng-invalid.ng-dirty.ng-invalid-email {
+  border: 2px solid red;
+  background: lighten(gray, 40%);
+}
+
+.newsLetterErr {
+  color: red;
+}
+
+.opacityZero {
+  opacity: 0;
+}
+
+#newsletterMessage {
+  margin-bottom: em(12px);
+}
+
+.newsletter-highlight {
+  color: $skeptics-orange
+}
+
+.newsletter-normal-add, .newsletter-normal-remove {
+  @include vendor-prefix(transition, all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s);
+
+}
+
+.newsletter-normal,
+.newsletter-normal-add.newsletter-normal-add-active {
+  color: $nav-bar-gray;
+}
+
+//==search
+#prodSearchInput,
+#userSearchInput {
+  color: $nav-bar-gray;
+  height: em(50px);
+  font-size: em(20px)
+}
+
+//==== nav-bar (products)====
+
+#productsnav {
+  display: inline-block;
+}
+
+//==== Media ====
+@media screen and (max-width: 999px) {
+  .main {
+    -webkit-flex-direction: column;
+
+    -moz-flex-direction: column;
+    flex-direction: column;
+  }
+
+}
+
+#commodity_category, #bibliography_publication {
+  //put in forms?
+  width: 60%;
+  margin-left: 5%;
+  line-height: 20px;
+  font-size: 16px;
+  height: em(40px);
+}
+
+.view_format {
+  line-height: em(24px);
+}
+
+.full_biblio_format {
+  line-height: em(24px);
+  list-style: square outside none;}
+
+ .indent {margin-left: em(20px)}
+
+.indent_small {margin-left: em(10px) }
+
+.reference_button {margin-top: em(10px);}
+
+.yourclass {
+  padding: em(20px);
+  padding-top: em(10px);
+  position:absolute;
+  top:em(180px);
+  right: em(50px);
+  font-family: $font-family-helvetica;
+  color: #999999;
+  font-size: 0.875rem;
+  margin-bottom: em(18px);
+  line-height:  em(24px);
+}
+
+.yourclass.yourclass_alt {
+  background-color:white;
+}
+.yourclass>.biblio_panel_inner{visibility: hidden;}
+
+.ui-scrollfix{
+
+  background: $skeptics-background;
+  position: fixed;
+  top:100px;
+  right:10%;
+  z-index: 1000;}
+
+.yourclass.ui-scrollfix > .biblio_panel_inner {
+  visibility: visible;
+}
+
+.odd {
+  background-color: $skeptics-background;
+}
+.even {
+  background-color: white;
+}
+
+
+
+
+
+
+
+
