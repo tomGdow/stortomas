@@ -795,4 +795,87 @@ q									# quit recoring
 global						# Used for all
 filetype					# Specific to a particular type of file 
 
-#  NEXT COnTINue with PLUGIns
+# Almost all vim plugins are releases in script section of 
+# vim.org
+# Most plugins are zip files which you unzip in your .vim dir
+# Pathogen makes things easier
+# Unzip to .vim/bundle directory
+# Check out Tim Pope's plugins (author of 'pathogen',
+# and many others)
+
+# Tim Pope
+# Git and Fugitive
+# A simple wrapper around the git command-line
+# tool, and a more integrated set of commands for use
+# in vim's command mode
+:Git push 		# Run commands right in Vim's command area
+:Gstatus			# View status in a separate split
+							# Stage and commit within Vim
+# Installed git-fugitive.  Possible also need git-vim
+:h fugitive
+:Git					# Run an arbitrary git command
+
+# Rails Vim
+# Tim Pope again
+# Installed 
+# Extensive enhancements for working with Ruby-on-Rails
+# Overrides built-in Vim featerus and adds others for navigation, tests, etc
+
+:gf 					# Jump to file customized for the Rails directory structure
+:Rake					# Run Rake tasks with Vim
+# If your cursor is over a class name such as 'User', hit 'gf' to jump to file
+# for that model.
+# Or, specifically jump to associated files with 
+:Rmodel
+:Rcontroller
+:Rview
+
+# Surround Plugin
+# Tim Pope
+# A super-goodie
+#Manipulate delimites such as XML/HTML tags,
+# quotes, or brackets.
+# Easily add a delimiter around existing text, change the delimiter,
+# or delete it altogether
+
+:cst 				# change surrounding tags
+:dst				# delete surrounding tags
+:Vs					# Add a tag aroud text
+
+# To change a h1 to a div, say
+/h1
+cst <enter>
+<div>
+# Note the absence of a colon!
+# similarly (no colon)
+dst
+# To surround with id tag - three ways
+VS<id>
+# 'S' is surround mode
+v$hS<id>
+yss<id> 		#Normal mode
+# Vim Documentation
+# One of its greatest assets
+:h 
+:help
+#Divided into two manuals
+#1 User manual
+#2 Reference manaul   (goes into nitty-gritty)
+:h autocmd
+# If not sure wha to look for, use autocompletion
+:h au<tab>
+# Every subject is tagged with one or more keywords in an alternate color
+# If your cursor is on a subject tag, can jump to it with 
+Ctrl-]						# Ctrl-right-bracket
+Ctrl-t, Ctrl-o		# Get back to where you came from
+
+#How to access local additions 
+
+:h
+#Now scroll down 
+# Plugins listed, but ONLY if you have read in docs with helptags
+:Helptags
+# Above (pathogen command) will auto read in helptags for all 
+# installed plugins
+
+
