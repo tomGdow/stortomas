@@ -1,0 +1,114 @@
+# Category has many products
+# One query for categories
+# A separate query for each of categories to select products
+select "categories".* from "categories" ORDER BY name
+select "products".* from "products" WHERE "products"."category_id"=1
+select "products".* from "products" WHERE "products"."category_id"=3
+select "products".* from "products" WHERE "products"."category_id"=5
+select "products".* from "products" WHERE "products"."category_id"=4
+
+#This is 'n+1' problem
+
+# To install bullet
+# In gemfile
+gem 'bullet', group: :development
+# In initializers directory create
+bullet.rb
+# Add the following
+
+	if defined? Bullet
+		Bullet.enable = true
+		Bullet.alert = true
+	end
+
+# Dialog box says "n+1 problem deteted"
+
+# Modify the Categories Controller as follows
+
+	class CategoriesController < ApplicationController
+		def index
+			@index = Categories.order(:name)
+		end
+	end
+
+# To the following:
+
+	class CategoriesController < ApplicationController
+		def index
+			@index = Categories.order(:name).includes(:products) 
+		end
+	end
+
+# Doing eager-loading since need this data anyway
+# No dialog box anymore
+# Now just doing two queries!
+
+select "categories".* from "categories" ORDER BY name
+select "products".* from "products" WHERE "products"."category_id" IN (3,1,5,4,2)
+
+# Bullet also has the ability to tell us when we are doing eager loading unnecessarily. 
+
+# Bullet will also notify us when we consider using a counter-cache column
+# Let's say that in each of the categories, we want to display the number of products
+
+<h1>Categories</h1>
+<% @categories.each do |category|  %>
+<div class="category">
+<h2<%=link_to category.name, category %>></h2>
+<%=pluralize category.products.size "product"  %>
+</div>
+
+# Now bullet tells to display counter-cache column
+# because we are displaying the number of products
+# and it needs to make  a query for each of 
+# the categories
+
+# In log ...
+SELECT "categories".* FROM "categories" ORDER BY name
+SELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 3
+SELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 1
+SELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 5
+SELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 4
+SELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 2
+# Fix easily enough
+# Go to Products model
+
+Class Product < ActiveRecord::Base
+	belongs_to :category, counter_cache: true
+	attr_accessible :name, :price, :category_id
+end
+
+# Still need to add column for that cache
+# so ...
+# generate migration
+rails g migration add_products_count_to_categories products_count:integer, default: 0, null: false
+
+# If you want to apply to records already present in db
+# Ryan prefers a separate migration ..
+
+rails g migration cache_products_count
+
+#Ryan avoids Active Record in migrations where ever possible
+# Instead uses SQL
+
+class CacheProductsCount < ActiveRecord::Migration
+
+	def up
+			execute "update categories set products_count=(select count(*) from products where category_id=categories.id)"
+	end
+
+	def down
+	end
+end
+
+# Run migrations 
+# No longer alert from bullet ...
+
+# So far have only seen one may bullet can alert you.  There are a crazy number of alternative ways 
+# done through uniform-notifier gem
+# Instead of Bullet.alert ...
+Bullet.bullet_logger
+
+# DO NOT BLINDLY follow bullet advise
+# When in doubt, benchmark!
+

@@ -1,0 +1,113 @@
+# Rails Performance Fundamentals
+# Pluralsight
+# Brian Morearty
+
+# What is performance as opposed to throughput,
+# as opposed to scalability?
+
+#  Performance: The speed of one user's experience
+#  (not PERCEIVED performance)
+#  perceived performance -not a topic of this course -
+# is using tricks to make the user be less anxious while
+# waiting for something to finish.   Showing a spinner is
+# when something is loading, is a good example. The user knows
+# that something is going on. Yes, the system IS working 
+
+# Apache ab
+ ab http://localhost:3000/teachers
+# To average over 10 requests
+ab -n10 http://localhost:3000/
+
+#Sometimes see 5-10 ms connection time.
+# Dont really want this when testing on localhost
+# All you care about is server speed, not connection time
+# Can tell apache bench to keep connection alive
+# across requests with '-k' option
+
+ab -n10 -k http://localhost:3000/
+
+#Simple Ways to See Server Side Performance
+
+#1 x-Runtime HTTP response header (Rack::Runtime)
+
+# When all you want to know is how much time
+# was spend in serving this page by itself without
+# the images
+	# 1 Open Browser developer panel (Chrome)
+	# 2 Go to nework tab
+	# 3 'Hit' (refresh) the page
+	# 4  Click on 'localhost'
+	# 5 Select 'header' sub-menu
+	# 6 Look in response for x-runtime
+	# This header (x-runtime) is inserted by Rack runtime middleware
+	# Number is measured in SECONDS not milliseconds
+	# Ruby(x-runtime)  plugin for Chrome gives identical answer
+
+#2 Browser Debug panels
+
+# Latency. Doesn't always mean the same thing.
+# Used by Chrome (and Firefox?) to mean the amount of
+# time between finishing sending the request and
+# getting the first byte of the response
+# aka 'Waiting (TTFB)'  - 'Time to first byte'
+
+# The other use of 'latency' is to describe
+# the overhead of the connection.  This is 
+# called 'network latency'. It includes 
+# things like the time for a cellphone to 
+# negociate a handshake with a radio tower, 
+# time for a newwork switch to route the traffic
+# correctly, and even the speed of light. That's why
+# web request to servers on far away continents are
+# slower. The speed of light can add to network
+# latency even though it does not affect bandwidth.
+
+# Newwork latency does not include time spend on a server
+
+#3 Rails log at end of rendering response
+# can show
+				# 1 Total time spend in active record, views, partials
+				# 2 Too many db calls
+				# 3 Time spend in each db call
+
+#4  Pagination
+# Use kaminari gem for pagination
+# Go to gemfile
+# gem 'kaminari'
+# bundle install
+# home controller
+def index
+	@courses = Course.order(:created_at).page(params[:page]) 
+end
+# Kaminari takes two options	
+					# page		(which page to show) 
+					#  				(ONE-based, not ZERO-based)
+					# per     (defaults to 25)
+# Now got to view
+<%= paginate @courses %>
+
+#5 Indices
+# Should index db columns that will be used for lookup and sort
+# ALWAYS INDEX your foreign keys (_id columns) when creating migrations
+# Rails follows the convention that all foreign key end with '_id'
+# Good habit. Instead of
+rails g migration AddTeacherToCourse teacher_id:integer
+#do one of the following
+rails g migration AddTeacherToCourse teacher:belongs_to
+rails g migration AddTeacherToCourse teacher:references
+# 'belongs_to' and 'references' are aliases of each other
+# add teacher_id colum, but ALSO index
+# BUT if write out columns in migration file
+# 'belongs_to'  and 'references' DO NOT automatically 
+# generate an index, but the rails GENERATOR knows
+# it should automatically generate an index
+
+# may also need to generate composite indices
+# - a single index that combines multiple columns
+# can use SQL EXPLAIN to see what index is being used.
+# He does not explain ...
+# but a nice little tool that looks for foreign keys
+# that have not been indexed is 
+lol_dba gem
+# An excellent gem!! 
+#

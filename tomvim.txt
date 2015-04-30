@@ -838,10 +838,13 @@ filetype					# Specific to a particular type of file
 # Easily add a delimiter around existing text, change the delimiter,
 # or delete it altogether
 
-:cst 				# change surrounding tags
-:dst				# delete surrounding tags
-:Vs					# Add a tag aroud text
+ cst 				# change surrounding tags
+ dst				# delete surrounding tags
+ Vs					# Add a tag aroud text
 
+## Addendum tgd
+# to add surounding tag, eg div
+css<div> 	goodie!
 # To change a h1 to a div, say
 /h1
 cst <enter>
