@@ -1,0 +1,13 @@
+alias www="cd /var/www"
+alias apa="cd /etc/apache2"
+alias st="cd ~/stortomas"
+alias skk="cd ~/acp/skkeptics_with_angular/skeptics_SPA_angular/"
+alias la='ls -la'
+alias lsd="ls -la | grep '^d'"
+alias nolsd="ls -la | grep -v '^d'"
+alias iteachu_lite="cd ~/shared/Rails\ 4\ Performance\ Fundamentals/SQLite_iteachu_4-rails_after_tgd/After-tgd_sqlite_version/iteachu"
+alias itul="cd ~/shared/Rails\ 4\ Performance\ Fundamentals/SQLite_iteachu_4-rails_after_tgd/After-tgd_sqlite_version/iteachu"
+alias iteachu_sql="cd ~/shared/Rails\ 4\ Performance\ Fundamentals/SQL_iteachu_4-rails_after_tgd/After_tgd_SQL_version/iteachu"
+alias itus="cd ~/shared/Rails\ 4\ Performance\ Fundamentals/SQL_iteachu_4-rails_after_tgd/After_tgd_SQL_version/iteachu"
+alias iteachu_pg="cd ~/shared/Rails\ 4\ Performance\ Fundamentals/PG_iteachu_3-rails_after_tgd/After/iteachu"
+alias itup="cd ~/shared/Rails\ 4\ Performance\ Fundamentals/PG_iteachu_3-rails_after_tgd/After/iteachu"
