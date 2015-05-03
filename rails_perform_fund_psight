@@ -110,4 +110,77 @@ rails g migration AddTeacherToCourse teacher:references
 # that have not been indexed is 
 lol_dba gem
 # An excellent gem!! 
-#
+
+# Bullet gem
+# Identifies N+1 Queries (missing eager loading)
+# Identifies unused eager loading
+# Identifies missing counter cashes
+# N + 1 Queries
+# Say listing all courses for currently logged-in user
+# Controller may look like this
+@courses = current_user.courses
+# In views, iterate over, getting somthing from each thing
+<% @ courses.each do |course| %>
+<div><%= course.name %></div>
+<div><%= course.teacher.name %></div>
+<% end %>
+#course.teacher is another query EXCEPT doing that once per
+#course. So if there are N courses, doing N queries to get teachers.
+#Add this to the one query for courses - "N+1" query.  
+
+# In Rails, the solution is to use eager loading with ".includes"
+
+@courses = current_user.courses.includes(:teacher)
+
+#Counter-caches
+# Similar to eager loading, except that instead of retrieving
+# another record for every record in the main list, you
+# are retrieving a count of associated objects in the 
+# main list
+
+# Showing the teacher's name for each class is an 'N+1' problem
+# Showing the number of students in each class is also an 'N+1' problem,
+# except it is solved differently. It is solved with counter-cache.
+# Bullet helps find
+
+# Add bullet to Gemfile (development only)
+bundle install
+
+# Go into development.rb, add the following
+config.after_initialize do
+	Bullet.enable = true
+	Bullet.alert = ENV['BULLET_ALERTS']
+	Bullet.bullet_logger = true
+	Bullet.console = true
+	Bullet.rails_logger = true 
+end
+
+# 2min 40secs into 'Bullet, N+1 queries ...!
+# On top of development.rb, set ..
+ config.cache_classes = true
+ #This gives more realistic timing
+ BULLET_ALERTS = true rails s
+# To fix, go to 'home' controller
+#  Change
+ @courses = Course.order(:id).page(params[:page])
+ # to
+ @courses = Course.order(:id).page(params[:page]).includes(:teacher)
+
+# now no error and from log
+
+Completed 200 OK in 5103ms
+#(Pluralsight get 93 ms)!!
+# This is key line ... 
+SELECT "teachers".* FROM "teachers"  WHERE "teachers"."id" IN (196, 89, 99, 281, 181)
+# ie eager loading of teacher id from courses
+
+# Now counter cache that bullet still telling .. 
+# Modified eager loading to the following, now down to 461 ms
+ @courses = Course.order(:id).page(params[:page]).includes(:teacher).select(:id, :name, :teacher_id, :enrollments_count)
+#Stopped here to go over to skketpics and install bullit
+
+# He uses DIRECT SQL to implement counter caches (Railscast does the same) for speed considerations
+
+
+# Rack Mini Profiler
+gem 'rack-mini-profiler'
