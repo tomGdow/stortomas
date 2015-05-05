@@ -1,4 +1,6 @@
 # Rails Performance Fundamentals
+# o0
+# )oGG
 # Pluralsight
 # Brian Morearty
 
@@ -454,5 +456,563 @@ ps -o pid,rss,vsz,command
 # When you use 'stale?' and 'fresh_when?' you pass in a parameter
 # which is typically an Active Record instance. 
 # To set the ETag on the response, Rails calls 
+# ActiveSupport::Cache.expand_cache_key, then makes an MD5
+# digest of the result
+# Cache key for student looks like students/25-20140630120340"
+# That is, name of table, id, and updated-at-timestamp
+# You don't have to pass an Active Record object, but can 
+# pass any object that responds to cache_key
+# Also works for an array of objects 
+# By default, Last-Modified is updated_at timestamp by
+# default
 
-# Stopped 1 min into stale? video
+#1 'stale?
+
+# Verbose example of 'stale?'
+def show
+	@student = Student.find(params[:id])
+		if stale?(last_modified: @student.updated_at,
+							etag:					 @student)
+			respond_to do | wants |
+				#render different formats
+			end
+		end
+end
+# If returns true, then respond! 
+# If false, as a side effect sets response header to  '304, not modified'
+
+# More concise example of 'stale?'
+
+def show
+	@student = Student.find(params[:id])
+	respond_with(@student) if stale?(@student)
+end
+
+
+#2 'fresh_when'
+
+# Verbose Example of 'fresh_when'
+
+def show
+	@student = Student.find(params[:id])
+	fresh_when last_modified: @student.updated_at,
+	           etag:					@student
+end
+
+# If you are just calling on Rails default rendering of view
+# there is no need to know answer to question 'stale?'
+# bacause the controller logic same whether answer is true
+# or false
+# All you care about is the side effect of setting the HTTP
+# 304 status code.  The 'fresh-when' method is what you use in
+# this case. 
+# The differene between 'stale?' and  'fresh_when' is that 
+# 'stale?' is asking a question, whereas 'fresh_when' is merely 
+# makinga an assersion that the browser content is fresh 
+# under the stated conditions. It has the exact same 
+# side-effect as 'stale?' If the browser content is fresh, it
+# will call 'Head not modified' to set a 304 status code response.
+# After that, Rails will only render the view if 'fresh_when' 
+# did not set the status code to 304 
+
+#Concise Example of 'fresh_when'
+
+def show
+	@student = Student.find(params[:id])
+	fresh_when  @student
+end
+
+#Its starting to look rediculously easy to set ETags and last_modified headers in Rails
+# But there ARE a few gotchas!
+# Let's take a look at one of them.
+# The form_authenticity_token
+# The token has a different value in every browser session
+# By default, this token gets inserted into some meta-tags in the HTML head
+# But that means that on a single machine if one user logs out and another logs in,
+# or even if a single user logs-out and then logs-in with the same username,
+# the page content is different because the form authenticity token is different
+# What will happen?
+# Well, the second user will not be  able to submit any forms if the ETag was marked as
+# identical.  
+# A work-around that you can use is to include the form authenticity token in the ETag.
+# That way if the browser sends the If-none-match header, it will only match if the
+# form authenticity token is the same as the last time the browser saw that page. 
+# You might want to do something like this:
+
+def new
+	@student = Student.new
+	fresh_when_last_modified: @student.updated_at,
+		e_tag:                    [ @student, form_authenticity_token]
+end
+
+def edit
+	@student = Student.find(params[:id])
+	fresh_when last_modified: @student.updated_at,
+		etag:  [ @student, form_authenticity_token]
+end
+
+# Some apps display forms from methods other than new and edit, and will
+# want to modify those also.
+
+# Using 'stale?' and 'fresh_when' with pagination
+
+# If want to use pagination, and also want to send Etags and last-modified in response headers, it is not at all clear how best to proceed. 
+
+# One approach that works
+
+def index
+	@students = Student.order(:name).page(params[:page])
+
+	#Make sure students is indexed by updated_at
+	max_updated_at =
+		Student.maxumum(:updated_at).
+		try(:utc).try(:to_s, number)
+	fresh_when etag: "students/all-{count}-{max_updated_at}"
+end 
+
+# Another thing to be careful of
+# Propagate 'updated_at' to Owning Objects
+# The HTML on a page might be dependent on more than just
+# the timestamp of the primary resource
+
+class Enrollement < ActiveRecord::Base
+	belongs_to :course, touch: true
+	belongs_to :student, touch: true
+end
+
+#Rails site
+#touch
+# Saves the record with the updated_at/on attributes
+# set to the current time
+
+																		#Warning
+
+#It was argued above that if calling 'stale?' or 'fresh_when'
+#you may want to Include the form_authenticity token in ETag.
+# It turns out that that is the least of your troubles
+# There is all types of content in a form that is independent
+# of which resource is being shown, and the last time it was updated. 
+
+#1 Some parts of the response are independent of updated_at
+# Some examples include
+	# a)  Session Data
+			#Flash message
+			#Form authenticity token (just mentioned)
+			#Current User data
+	# b)  Views
+	# c)  CSS
+#2 Users might see old flash messages 
+#3 Users might see some other user's content after logout and login
+#4 Users might be unable to submit forms after logout and login
+#5 Users might see the right content with stale HTML or CSS
+
+# There is a solution to these problems:
+# For session-related problems,use
+# Declarative ETags("etagger" Gem)
+# Built into Rails 4.0 and above
+# Can use with Rails 3.1 with "etagger gem"
+
+Class ApplicationController < ActionController::Base
+	etag {flash}
+	etag {current_user.try(:id) }
+end
+
+class StudentsController < ApplicationController
+	def show
+		@student = Student.find(params[:id])
+		fresh_when @student
+	end
+end
+
+# Declarative Etags provide a simple mechanism for addng
+# one or more values to the string that will be digested
+# to generate the ETag. 
+# In above example, added flash and current user id
+
+# Want to reset Etags when HTML and CSS Change?
+# 1 Brute force: reset all ETags on each deploy
+#  # config/application.rb
+#  ENV['RAILS_CACHE_ID'] = `git rev-parse --short HEAD`.strip
+#  2 Alternatively,
+#  set ENV['RAILS_APP_VERSION']
+#  3 Last-Modified still doesn't change but it's OK
+ 
+ # Setting Cache-Control Max-age with Rails
+ # Do this in Rails using 
+ expires_in
+ # Tells the browser how long it can render page out of its
+ # cache without checking in again
+ # Use in 'index' and 'show' actions
+ 
+ class HomeController < ApplicationController
+	 def index
+		 @courses = Course.order(:id).page(params[:page])
+		 expires_in 10.minutes
+	 end
+	end
+# This is extremely efficient. In most apps, a power user
+# may override this by holding down shift while refeshing
+# the page.
+
+# In order for Browser caching to work, need to make a few changes to configuration
+
+#1  Rack-Mini_Profiler Overrides Cachinng Headers
+	# Disables caching and ETags in response header
+	# Need to turn it off
+	# Here is one way of doing that
+	
+#	#config/initializers/mini_profiler.rb
+Rack::MiniProfiler.config.pre_authorize_cb = ->(env) { false }
+# In 'real-life', would put in some logic other than 'false'
+# Or, get rid of it out of the Gemfile
+
+#2 Second Change is to NewRelic
+# New Relic Changes the body on Each Request
+# In order to get the benefit of automatic browser caching from  RACK::ETag
+# where you don't have to do any ETags yourself by hand, you need to
+# send a consistently identicaly HTML body every time the same user hits
+# the same page from the same browser.
+# However, New Relic's browser-monitoring middleware injects some content
+# into each HTML response.
+# This causes RACK::ETag to generate a different ETag every time, since the ETag 
+# is based on the digest of the body. 
+# So no browser caching benefit. 
+# May fix as follows
+# Move Browser monitoring injection after ETag:
+# config/newrelic.yml
+browser_monitoring:
+	auto_instrument: false
+
+#config/application.rb
+require 'new_relic/rack/browser_monitoring'
+config.middleware.delete "Rack::ETag"
+config.middleware.use "NewRelic::Rack::BrowserMonitoring"
+config.middleware.use "Rack::ETag"
+
+# MAY cause NewRelic's browser statistics to be incorrect. 
+
+# Tip. Hit page twice, and check if second is 200 or 304 
+# Do a diff to see what causing to change. 
+#
+# Demo
+# Chrome Browser
+# To Clear browser cache.
+# In Chrome and Firefox, hitting CTRL SHIFT DEL bring up dialog to
+# clear cache
+# Another way  is to use Incognito mode. Starts with fresh empty cache
+# When you refresh by holding down SHIFT, the browser does not send
+# 'If_modified_since' and 'If-none-match' headers
+# Free tool to simulate low bandwidth, high network latency and dropped packets. 
+# Does not work with localhost.  From Apple Newwork link conditioner. 
+# On Linux netem does the same thing and a lot more.  See (put this in your ref manager)
+# http://stackoverflow.com/questions/1094760/network-tools-that-simulate-slow-network-connection
+
+#apache bench
+b -k -n5 http://skeptics.herokuapp.com/
+
+# One way of seeing is there a difference is tu curl your page
+# twice, piping to two different files
+# using the -b and -c options (so that each page is being recorded in the same
+# session with the same set of cookies. 
+
+#Summary
+	#HTTP Headers
+		# Last-Modified/If-Modified-Since
+		# ETag/If-None-Match
+		# Cache_Control : max-age
+	# RACK::ETag
+		# Make sure no middleware after it that modifies the body
+  # 'stale?' and 'fresh_when'
+		# are how you set these responses in Rails
+	# Progagate updated_at to owning objects with 'touch: true'
+	# Dangerous Gotchas in setting own ETags
+		# Solution is Declarative ETags
+	# Reset ETags on deploy for HTML and CSS changes
+	# 'expires_in' method
+		# Set the max-age directive on a cache control header
+
+#New Module (Module 5). 
+															 # Fragment Caching
+# Now your app in on Ruby 2.1, running pretty fast, db interactions are fast,
+# you have got browser caching working with ETags and last-modified, but you
+# notice that views are rendering a little too slowly. 
+
+# In this module we will cover fragment caching, that allows you to reduce
+# server-side rendering time of HTML using memcached or various other 
+# server-side cache stores. 
+# There are various kinds of cache stores available to you
+# mention 4:
+	#1 memcached (good-for-production)
+		# blazing fast
+		# easily distributed
+		# supportss time-based expiration of individual cache keys. 
+		# has LRU (least recently used) algorithm which is perfect for key-based
+		# expiration
+		#'d' stands for 'daemon', which means it is a background process
+	#2 Redis (good-for-production)
+	#3 Filesystem (NOT good-for-production)
+		# This is default
+		# Can see the contents of your cache.  
+		# But don't use in production. 
+			# It prevents you from scaling out
+			# It does not support time-based expiration
+	#4 Filesystem (NOT good-for-production)
+	
+	# Setting up Memcached in Rails (Production)
+		#1 Gemfile
+			# add 'dalli' gem
+			gem 'dalli'
+		#2 config/environments/production.rb
+		config.cache_store = :mem_cache_store,
+		                     "memcache1", "memcache2"
+		#3  Or, if you don't need :race_condition_tti
+		config.cache_store = :dalli_store,
+		                     "memcache1", "memcache2"
+# Notes
+# 'memcache1' and 'memcache2' are server names
+# You need the 'dalli' gem for both envir conditions
+# mem_cache_store is built into Rails
+# dalli_store is a substitute that comes with 'dalli' gem.
+# Not exactly the same...
+# 'dalli_store' has some newer features that allow for improved performance
+# but 'mem_cache_store' has one nice feature intentionally left out of 'dalli_store'
+# that is the ability to handle what is called the dog-pile effect. (see later)
+
+# If you want to do Local Testing and Development
+# then
+	#1 config/environments/development.rb
+		config.action_controller.perform_caching = true
+		config.cache_store = :mem_cache_store
+	#2 Install and run memcached
+		# This can be easily done with brew install
+		brew install memcached
+		memcached -vv
+		# run with -vv (very-verbose), pluralsight presenter likes to run as
+
+															 # Fragment Caching
+# Has been around for a very long time in Rails
+# But, some new additions in Rails 4. 
+# Fragment caching means caching snippets of HTML 
+# Advantage fragment caching has over browser caching is that 
+# FRAGMENT CACHING CAN BE SHARED ACROSS USERS
+# Example
+	<% cache @course do %>
+		<%# cache_key: 'courses/1-201406011120000' %>
+		<div>
+			<strong>Name</strong>
+			<%= @course.name %>
+		</div>
+		<div>
+			<strong>Descriptiion</strong>
+			<%= @course.description %>
+		</div>
+	<% end %>
+
+# Cache function takes a key and a block
+# It converts the key in basically the same way an ETag is converted
+# For this course,the cache key is
+# courses/id-updated_at
+# Rails also adds the view digest to the end of the cache key
+# The cache function tries to read the specified cache key from cache
+# If found, that's a cache hit, and it simply gets the HTML content
+# out of that cache entry  and renders it, very fast.
+# If it is not found, it calls the block to render the view AND
+# takes the resulting string and stores it in the cache. 
+
+# Fragment Caching with Arrays as Cache Key
+<% cache [@course, @course.teacher] do  %>
+	<div>
+		<strong>Name:</strong>
+		<% @course.name %>
+	</div>
+
+	<div>
+		<strong>Teacher:</strong>
+		<%= render partial:
+				"teachers/teacher_link", 
+				object: @course.teacher,
+				as: :teacher %>
+	</div>
+<% end %>
+
+# Don't worry about key length, even if you have a long array
+# both memcache_store and dalli_store will make and MD5 digest if the
+# key is > 250 chars
+# But do need to be concerned about the VALUE length
+# memcached has a max size of 1MB for the value of a cache entry
+
+# Fragment Caching a Paginated List
+
+	class TeacherController < ApplicationController
+		helper_method :teachers_cache_key
+
+		def index
+			@teachers = Teacher.order(:id).page(params[:page])
+			fresh_when etag: teachers_cache_key
+		end
+
+		def teachers_cache_key
+			count = Teacher.count
+			max_updated_at = Teacher.maximum(:updated_at).
+												try(:utc).try(:to_s, :number)
+			"teachers/page-#{params[:page] || 1}-#{count}-" + 
+				"#{max_updated_at}
+		end
+end
+
+# Now in views
+
+<% cache teachers_cache_key do %>
+	<%= render @teachers %>
+<% end %>
+
+# But now that we are using memcached we can do better than before
+	def teachers_cache_key
+		@teachers_cache_key || =
+				"teachers/page-#{params[:page] || 1}-"  + 
+				"#{teachers_count}-#{teachers_max_updated_at}"
+	end
+
+	def teachers_count
+		Rails.cache.fetch('teachers-count') { Teacher.count }
+	end
+
+	def teachers_max_updated_at
+		Rails.cache.fetch('teachers-max-updated_at) do
+			Teacher.maximum(:updated_at).try(:utc).
+																	try(:to_s, :number)
+		end
+	end
+
+	# May also use a Hash as Cache Key
+	# In Rails it is combined with current controller and action to
+	# generate url
+
+	<% cache page: params[:page], content: "courses-list"  do %>	
+						...
+	<% end %>
+
+
+	<%  cache do %>
+						...
+	<% end %>
+	# But is does not include querst string 
+	# eg '?page=2'
+	
+	# Pluralsight presenter does not recommend using a hash
+	# too error-prone
+	
+	# Cache Expiration Strategies
+	# cover from best-to-worst
+	
+	#1 key-based (best)
+		# easy to automate
+		# fresh data always shown
+			<% cache @value do %>	
+		# very popular - also an integral part of russian doll caching
+    # recommended as default choice
+	#2 Time-based (good)
+		# Easy to automate, sometimes stale data is shown
+			<% cache "key", expires in: 5.minutes,
+											race_condition_ttl: 5.seconds do %>
+		#Can use when data changes so fast that you cannot benefit
+		#from key-based caching
+		# Need to be OK with users sometimes seeing data that 
+		# is a little bit stale
+		# Note that key must NOT include updated_at timestamp
+		# Notice that expiration is a feature of memcached,
+		# not a feature of Rails
+		# provides a solution to the dog-pile effect
+		# race-condition-ttl ('time-to-live') 
+	#3 Manual (worst)
+		 # Call expire_fragment
+			<% cache "key", skip_digest: true do  %>
+
+																		 #Demo
+#1 gem 'dalli'
+#2 go to development.rb
+	#Change
+		# config.action_controller.perform_caching = true
+	#add line
+		# config.cache_store = :mem_cache_store
+	# also set
+		# config.cache_classes = true
+#3 Home/controller -index
+#refactors code 
+
+#Chrome Browser
+#Interesting Setting
+#from 'Settings' (Wheel') tab of Development tools
+#can ...
+# 'Disable Caching (while DevTools is open)'
+#  so no client-side caching (useful when testing server side caching)
+
+																		#Summary
+#1 Memcached
+#2 Dalli gem
+#3 Fragment caching
+#4 Cache key includes digest of view contents
+#5 Cache expiration strategies
+
+#New Module (Module 6). 
+														 # Russian Doll Caching
+# Nested fragment caching
+# DHH coined the term 'Russian Doll Caching' to refer to nested
+# cache statements so that even if the outer HTML block can't be
+# cached, you can still benefit from cached fragments inside it
+
+#Here we have the students.html.erb partial...
+# Whenever it's rendered, it uses the cache if the student hasn't
+# changed since the last time
+#
+#1 Cache each little fragment
+
+	<% cache student do %>	
+		<div class = "student">
+			<%= link_to student.name, student  %>
+		</div>
+	<% end %>
+
+# Here we have the show.html.erb for a course
+# The entire view is cached based on the updated
+# @timestamp for the course. Inside that cached block
+# it calls 'render course.students', which iterates over the list
+# of students and and for each one calls the partial at the top of
+# the slide (the one just above).  The inner fragment has a cache
+# statement on the student and the outer fragment has a cache 
+# statement on the  course. 
+# It there are 20 students on a course, you'll end up with
+# 21 entries in the cache: 20 little partials and one big HTML
+# block with all 20 of those little ones in it plus the course name.
+# One person hits the page, and the entire view is cached. 
+# The another hits it and  the whole view is sorte out of 
+# the cache. 
+# Rails needs to still only make one cache hit because the outer
+# view is still cached.
+# Now lets say someone new enrolls in the class. The creation
+# of an enrollement record causes the courses updated_at to
+# be changed. You remember that for ETags we used
+# enrollement belongs_to touch: true, and this is also definitely
+# necessary for Russian Doll caching. 
+# The next time after someone hits the page after this new enrollment
+# Rails looks for a cache of the outer HTML fragment and doesnt find it because the updated data has changed, SO IT STARTS rendering but yahoo! it still gets to use the 20 existing tiny HTML fragments inside
+# All it has to do is render the course name an one student. 
+# It that student's partial has already been rendered by some other 
+# view in the system, then it has also been cached, so rendering the outer view is still pretty fast. It saves the new big HTML fragment in
+# the cache so that next time it'll be even faster again. 
+#Note that if you are paginating, you should include the page number
+#in the outer cache key. In this example, showing the whole student list. 
+#Now what happens if you change some HTML in the fragment that
+#shows the student, but do not change any HTML in the view that described the outer fragment (the course)?
+#STOPPED HERE mon night. 
+#2 ... and the outer fragment
+	<% cache @course do %>
+		<div>
+			<strong> Name:</strong>
+			<%= @course.name %>
+		</div>
+
+		<%= render @course.students %>
+	<% end %>
+
+#

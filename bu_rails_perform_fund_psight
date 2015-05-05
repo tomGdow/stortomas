@@ -1,0 +1,465 @@
+# Rails Performance Fundamentals
+# Pluralsight
+# Brian Morearty
+
+# What is performance as opposed to throughput,
+# as opposed to scalability?
+
+#  Performance: The speed of one user's experience
+#  (not PERCEIVED performance)
+#  perceived performance -not a topic of this course -
+# is using tricks to make the user be less anxious while
+# waiting for something to finish.   Showing a spinner is
+# when something is loading, is a good example. The user knows
+# that something is going on. Yes, the system IS working 
+
+# Apache ab
+ ab http://localhost:3000/teachers
+# To average over 10 requests
+ab -n10 http://localhost:3000/
+
+#Sometimes see 5-10 ms connection time.
+# Dont really want this when testing on localhost
+# All you care about is server speed, not connection time
+# Can tell apache bench to keep connection alive
+# across requests with '-k' option
+
+ab -n10 -k http://localhost:3000/
+
+#Simple Ways to See Server Side Performance
+
+#1 x-Runtime HTTP response header (Rack::Runtime)
+
+# When all you want to know is how much time
+# was spend in serving this page by itself without
+# the images
+	# 1 Open Browser developer panel (Chrome)
+	# 2 Go to nework tab
+	# 3 'Hit' (refresh) the page
+	# 4  Click on 'localhost'
+	# 5 Select 'header' sub-menu
+	# 6 Look in response for x-runtime
+	# This header (x-runtime) is inserted by Rack runtime middleware
+	# Number is measured in SECONDS not milliseconds
+	# Ruby(x-runtime)  plugin for Chrome gives identical answer
+
+#2 Browser Debug panels
+
+# Latency. Doesn't always mean the same thing.
+# Used by Chrome (and Firefox?) to mean the amount of
+# time between finishing sending the request and
+# getting the first byte of the response
+# aka 'Waiting (TTFB)'  - 'Time to first byte'
+
+# The other use of 'latency' is to describe
+# the overhead of the connection.  This is 
+# called 'network latency'. It includes 
+# things like the time for a cellphone to 
+# negociate a handshake with a radio tower, 
+# time for a newwork switch to route the traffic
+# correctly, and even the speed of light. That's why
+# web request to servers on far away continents are
+# slower. The speed of light can add to network
+# latency even though it does not affect bandwidth.
+
+# Newwork latency does not include time spend on a server
+
+#3 Rails log at end of rendering response
+# can show
+				# 1 Total time spend in active record, views, partials
+				# 2 Too many db calls
+				# 3 Time spend in each db call
+
+#4  Pagination
+# Use kaminari gem for pagination
+# Go to gemfile
+# gem 'kaminari'
+# bundle install
+# home controller
+def index
+	@courses = Course.order(:created_at).page(params[:page]) 
+end
+# Kaminari takes two options	
+					# page		(which page to show) 
+					#  				(ONE-based, not ZERO-based)
+					# per     (defaults to 25)
+# Now got to view
+<%= paginate @courses %>
+
+#5 Indices
+# Should index db columns that will be used for lookup and sort
+# ALWAYS INDEX your foreign keys (_id columns) when creating migrations
+# Rails follows the convention that all foreign key end with '_id'
+# Good habit. Instead of
+rails g migration AddTeacherToCourse teacher_id:integer
+#do one of the following
+rails g migration AddTeacherToCourse teacher:belongs_to
+rails g migration AddTeacherToCourse teacher:references
+# 'belongs_to' and 'references' are aliases of each other
+# add teacher_id colum, but ALSO index
+# BUT if write out columns in migration file
+# 'belongs_to'  and 'references' DO NOT automatically 
+# generate an index, but the rails GENERATOR knows
+# it should automatically generate an index
+
+# may also need to generate composite indices
+# - a single index that combines multiple columns
+# can use SQL EXPLAIN to see what index is being used.
+# He does not explain ...
+# but a nice little tool that looks for foreign keys
+# that have not been indexed is 
+lol_dba gem
+# An excellent gem!! 
+
+# Bullet gem
+# Identifies N+1 Queries (missing eager loading)
+# Identifies unused eager loading
+# Identifies missing counter cashes
+# N + 1 Queries
+# Say listing all courses for currently logged-in user
+# Controller may look like this
+@courses = current_user.courses
+# In views, iterate over, getting somthing from each thing
+<% @ courses.each do |course| %>
+<div><%= course.name %></div>
+<div><%= course.teacher.name %></div>
+<% end %>
+#course.teacher is another query EXCEPT doing that once per
+#course. So if there are N courses, doing N queries to get teachers.
+#Add this to the one query for courses - "N+1" query.  
+
+# In Rails, the solution is to use eager loading with ".includes"
+
+@courses = current_user.courses.includes(:teacher)
+
+#Counter-caches
+# Similar to eager loading, except that instead of retrieving
+# another record for every record in the main list, you
+# are retrieving a count of associated objects in the 
+# main list
+
+# Showing the teacher's name for each class is an 'N+1' problem
+# Showing the number of students in each class is also an 'N+1' problem,
+# except it is solved differently. It is solved with counter-cache.
+# Bullet helps find
+
+# Add bullet to Gemfile (development only)
+bundle install
+
+# Go into development.rb, add the following
+config.after_initialize do
+	Bullet.enable = true
+	Bullet.alert = ENV['BULLET_ALERTS']
+	Bullet.bullet_logger = true
+	Bullet.console = true
+	Bullet.rails_logger = true 
+end
+
+# 2min 40secs into 'Bullet, N+1 queries ...!
+# On top of development.rb, set ..
+ config.cache_classes = true
+ #This gives more realistic timing
+ BULLET_ALERTS = true rails s
+# To fix, go to 'home' controller
+#  Change
+ @courses = Course.order(:id).page(params[:page])
+ # to
+ @courses = Course.order(:id).page(params[:page]).includes(:teacher)
+
+# now no error and from log
+
+Completed 200 OK in 5103ms
+#(Pluralsight get 93 ms)!!
+# This is key line ... 
+SELECT "teachers".* FROM "teachers"  WHERE "teachers"."id" IN (196, 89, 99, 281, 181)
+# ie eager loading of teacher id from courses
+
+# Now counter cache that bullet still telling .. 
+# Modified eager loading to the following, now down to 461 ms
+ @courses = Course.order(:id).page(params[:page]).includes(:teacher).select(:id, :name, :teacher_id, :enrollments_count)
+#Stopped here to go over to skketpics and install bullit
+
+# He uses DIRECT SQL to implement counter caches (Railscast does the same) for speed considerations
+
+
+# Rack Mini Profiler
+gem 'rack-mini-profiler'
+# Does not work with sqlite?
+# add to Gemfile
+# Should work with heroku?
+# Flame graphs are another wonderful feature of Rack Mini profiler
+gem 'rack-mini-profiler'
+gem 'flamegraph'
+
+#add 
+?pp=flamgraph
+#to end of url
+# Look for long sections that are doing the same thing
+
+# Select and Pluck
+# Don't select un-needed columns from db
+# You are transferring unneeded data
+# use select
+# Example
+
+@courses = Course.order(:created_at).page(params[:page]).includes(:teacher)
+.select(:id, :name, :teacher_id, :enrollments_count)
+
+# Use select to remove large columns
+
+# 'pluck' is similar to select in that it selects only the columns
+# you specify. 
+# But the difference that makes 'pluck' much faster is that 
+# IT DOES NOT BOTHER TO CONSTRUCT ACTIVE RECORD OBJECTS.
+# Instead returns an array of plain ruby values
+# In Rails 4.1 can pluck a single column or multiple columns
+
+Student.pluck(:id)  # => [1, 2, 3 ...]
+
+# If you pluck multiple columns, you get back
+# array-of-arrays
+
+Student.pluck(:id, :name) # => [[1, "Brian"], [2, "Kathleen"], ...]
+
+# Examples of where pluck may be useful
+# API that returns data in CSV format
+# Getting a list of ids
+
+# If you are using something like the following
+Student.all.map(&:name)		# Slower
+Student.pluck(:name)			# Faster
+
+														# The Rails Query Cache
+
+# One super nice feature of Rails that gives you improved performance
+# for free is the query cache.  
+# Worth mentioning even though you don't have to do anything to get it
+# If you know about it, can avoid doing optimizations Rails is doing
+# for you. 
+# Basic idea is that Rails caches identical SQL queries in memory
+# If may the same query at any point while handling the same
+# HTTP request, the query cache intercepts it and pervents a db call
+# If at any time during that HTTP request, you make a call that
+# writes to the database, the cache gets busted. 
+# Cache also busted when request finished. 
+# This is intentional. Query cache does short-term caching during
+# the scope of handling a single request 
+# Not stored in memcache-d.  Only available to a single request.
+
+#key
+#Whenever you seed the word 'CACHE' in all uppercase in Rails log
+#that's query cache doing it's job.
+
+
+																	#1  New Relic
+#Popular SaaS performance tool for use in production 
+# Has free plan, but paid plan better
+
+# With Heroku free tier, added bonus
+# Can use free-plan on New Relic to keep Heroku app alive
+# and prevent 'swapping out'
+# Go to Heroku dashboard (after install of new relic!) and
+# hit 'new relic' link 
+# How to get up the 'bonus item'
+# How to use NR to keep Herou alive
+# Go to NR settings -> availability monitoring -> use ping feature
+# 'pings' site ever few minutes to see fi still alive
+#
+
+																	#2  Rails Panel
+# This is a Chrome Plugin 
+# AND go to gemfile and add 
+gem 'meta-request'
+
+# Don't order by 'created_at'
+# Created-at column not indexed by default
+# COULD add index on created-at
+# but why not order by id instead?
+
+																# Two final tips
+#1  If making multiple writes, use a transaction!
+# if have multiple saves in your own code, put a transaction
+# block around it.  Db works hard after every commit
+
+#2 If iterating over a lot of rows, use find_each 
+# each has to load all those rows into memory
+# find-each loads in batches (1000 by default)
+# trade off is that find_each is slightly slower
+# BUT uses less memory
+
+# Here is a goodie for memory management checking
+
+ps -o pid,rss,vsz,command
+
+																		#Summary
+# TOOlS
+	# 1 X-runtime is a HTTP header that Rack middleware insert
+	# into the response. If you don't want deep insight into
+	# why a page is slow, x-runtime is sufficient
+	# Shows how much time spend on server handling request
+	# If you want to find out if problem on server-side or client-side
+
+	# 2 Browser'rs network debug panel
+	# 3 Rails log
+	# 4 SQL explain statement and lol_dba: find missing indexes
+	# 5 Bullet (N+1 query problems, counter-cache, eager-loading)
+	# 6 Rack Mini-profiler
+	# 7 Flamegraphs
+	# 8 New Relic
+	# 9 Rails Panel for Chrome Browser 
+
+# TECHNIQUES
+	# 1 Pagination (Kaminari)
+	# 2 Add indexes for all foreign keys.
+	# 3 Use '.includes' to fix N+1 queries with eager loading
+	# 4 Counter caches help when need to count the numebr of obj in relation
+	# 5 Select only columns that you use
+	# 6 pluck only columns you use (without active record)
+	# 7 Order by :id, not :created_at
+	# 8 Multiple writes? Use a transaction if your code is doing a single save
+	# 9 Iterating over tons of rows? Use 'find_each'  instead of 'each'
+	#   Uses far less memory as retrieves records in batches of 1000
+	#   Slightly slower, but BIG payoff
+
+# YOU GET FOR FREE
+	# 1  Rails Query Cache
+
+# Next module is Browser Caching 
+      -------------
+
+															 # Browser Caching 
+# If read books such as 'Faster Websites' or 'Even Faster Websites'
+# by Steve Souders, you will see that speeding up the Client side 
+# rather than the Server-side usually has a bigger impact on website
+# performance
+
+#HTTP HEADERS
+	# We will cover five in total.  Presented in order of response /request
+	# Looks as if backwards, but makes sense (NOT request/response)
+
+	# 1 Last Modified (Server-to Client)	/ If modified since 
+	#  (Client-to Server)
+	# 2 Etag (Server-to Client)	/ If-None-Match (Client-to Server)
+	# 3 Cache Control (Server-to Client)	(No corresponding request header)
+
+	# That's five!
+	# Note that these headers are only used for GET requests.
+	# 'If Modified Since' and 'If None Match' headers are frequently
+	# referred to as 'Conditional Get Headers'
+
+	# Each header is associated with a SPECIFIC url.  
+	# They are NOT global setting for a whole domain.
+
+											#1  Last Modified / If-Modified-Since
+
+# App can send Last_Modified Header in Response.  This tell browser
+# when the resource was last changed. 
+# In subsequent requests, the browser includes 'If-Modified-Since'  header,
+# passing in the time-stamp it was given in the 'Most-Recent'  response header.  This allows the server to know whether to send back a '200 OK' response with a full HTML body in case where the resource is newer than what the browser last saw, or just to send a 304 not modified response with an empty body because it sees nothing has changed since the browser last saw it, so the browser is free to use its cache. 
+
+# By sending 'If modified If' the browser is asking "Is the resource newer tthan the last time I saw it?" and, of course, "If it is newer, give me the full unmodified resource"
+
+# Pros
+#1 Reduces response bandwidth
+#2 You control when the browser uses its cache
+#3 Reduces sever load (but not automatically) 
+
+# Cons
+#1 Browser sends a response every time.  Browser cannot decide on its own
+# what to use in its cache.  It has to delegate that decision to the server
+
+											#2 ETag / If-None-Match
+
+# Similar to 'Last Modified/If-Modified-Since, but with a subtle difference:# Instead if the content is NEWER, it checks if the content is DIFFERENT
+# The app can send an e-tag header in response.  This is literally any string you want. Its chosen by the application. For example, it could be verion number. In Rails, typically a hashed digest of some information, such as body content (that you choose) 
+# In a subsequent request, the browser sends a "If-None-Match' Header passing in the e-tag that was given in the most recent e-tag response header. Allows the server to know whether to send back a '200-OK' response with a full HTML body, or a 304 not-modified response with an empty body. 
+# By sending "If-None-Match" the browser is asking "Is the resource DIFFERENT from the last time I saw it?"
+# Sometimes timestamp may not change, but want to render something different anyway. eg. message all users. 
+
+# More or less the same pros and cons as (1). 
+
+# Reason both are allowed is that it is sometimes easier to use one or the other.
+
+											#3  Cache Control
+
+# Sometimes require to send additional caching info for browser
+# about how it should cache response.
+# Cache-Control Response Header lets you do this
+# Cache-control is a semi-colon separated list of directives
+# HTTP spec defines a lot of directives you can you
+	# max-age.  Tells browser how long it can cache response before
+	# checking again for the new value of the response
+	# Can use max-age to tell browser 'Don't even hit server at all'
+
+# A Little More Info on Max-Age Directive.
+# It enables the browser to ask "Has enough time elapsed that I should
+# ask the server again for the resource?"
+
+# Pros
+	# Browser doesn't even hit the server when the cache is still fresh
+
+# Cons
+	# Browser may show out-of-date content
+ 
+											#4 RACK::ETag and RACK::ConditionalGet   
+											
+# A wonderful pair of Rack middlewares!
+# Wikipedia:  Middleware is a computer software that provides services
+# to software applications beyond those available from the OS. It can be
+# described as "software glue"
+# ... from amberbit.com
+# "Rack provides a minimal interface between webservers supporting Ruby and Ruby Frameworks" Has become the de facto standard in Ruby web development. Today, ROR, RAMAZE, Sinatra and others use it to talk to Web servers. 
+
+# RACK::ETag
+	# gives you built-in automatic ETag generation. 
+	# Generates ETag based on MD5 digest of the response body
+	# When your Rails app sends back a response body, RACK::ETag looks at it
+	# to see if you have already set an ETag on the response. If you didn't,
+	# it generates an MD5 digest of the body. This takes very little time.
+	# This it put this digest in the ETag in the repsonse header
+
+# RACK::ConditionalGet
+	# Higher up on Rack Middleware chain than RACK::ETag.  In other words,
+	# it gets called first. 
+	# It has a chance to look at response after RACK::ETag
+	# generated an ETag from the body. 
+	# RACK::ConditinalGet compares the 'If-None-Match' ETag on the incoming 
+	# request (which you have already rendered a response for) with the ETag 
+	# that was generated in the response. It doesn't know or care if the 
+	# response's ETag was generated by RACK::ETag from the body or by your
+	# application, all it cares about is comparing them. 
+	# If it sees if they are identical but your response has a status code
+	# of 200 OK and a body, it will REMOVE the body and change the response's
+	# status code to 304 not modified. 
+
+# When both work together, saves network time with zero effort. 
+# Does not save server time (renders the response to make and compare
+# the digest)
+											#5 stale? and fresh_when?
+# It would be nice 
+	# 1 To generate an ETag  by not having to render the entire view
+	# 2 To take advantage of Last-Modified and If-Modified-Since, as these
+	# headers are  not generated automatically. 
+
+# In Rails the 
+	# stale?
+	# fresh_when?
+# are how you solve these problems. 
+
+# They are really convenient, concise methods for setting ETag, 
+# Last-Modified and Cache-Control Headers
+
+# Can also use them to set directives in the Cache-Control header
+
+# When you use 'stale?' and 'fresh_when?' you pass in a parameter
+# which is typically an Active Record instance. 
+# To set the ETag on the response, Rails calls 
+# ActiveSupport::Cache.expand_cache_key, then makes an MD5
+# digest of the result
+# Cache key for student looks like students/25-20140630120340"
+# That is, name of table, id, and updated-at-timestamp
+# You don't have to pass an Active Record object, but can 
+# pass any object that responds to cache_key
+# Also works for an array of objects 
+# By default, Last-Modified is updated_at timestamp by
+# default
