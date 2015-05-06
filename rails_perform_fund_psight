@@ -1,4 +1,4 @@
-# Rails Performance Fundamentals
+Rails Performance Fundamentals
 # o0
 # )oGG
 # Pluralsight
@@ -787,7 +787,7 @@ b -k -n5 http://skeptics.herokuapp.com/
 		# This can be easily done with brew install
 		brew install memcached
 		memcached -vv
-		# run with -vv (very-verbose), pluralsight presenter likes to run as
+		# run with -vv (very-verbose), Brian Morearty likes to run as
 
 															 # Fragment Caching
 # Has been around for a very long time in Rails
@@ -899,7 +899,7 @@ end
 	# But is does not include querst string 
 	# eg '?page=2'
 	
-	# Pluralsight presenter does not recommend using a hash
+	# Brian Morearty does not recommend using a hash
 	# too error-prone
 	
 	# Cache Expiration Strategies
@@ -974,37 +974,7 @@ end
 	<% end %>
 
 # Here we have the show.html.erb for a course
-# The entire view is cached based on the updated
-# @timestamp for the course. Inside that cached block
-# it calls 'render course.students', which iterates over the list
-# of students and and for each one calls the partial at the top of
-# the slide (the one just above).  The inner fragment has a cache
-# statement on the student and the outer fragment has a cache 
-# statement on the  course. 
-# It there are 20 students on a course, you'll end up with
-# 21 entries in the cache: 20 little partials and one big HTML
-# block with all 20 of those little ones in it plus the course name.
-# One person hits the page, and the entire view is cached. 
-# The another hits it and  the whole view is sorte out of 
-# the cache. 
-# Rails needs to still only make one cache hit because the outer
-# view is still cached.
-# Now lets say someone new enrolls in the class. The creation
-# of an enrollement record causes the courses updated_at to
-# be changed. You remember that for ETags we used
-# enrollement belongs_to touch: true, and this is also definitely
-# necessary for Russian Doll caching. 
-# The next time after someone hits the page after this new enrollment
-# Rails looks for a cache of the outer HTML fragment and doesnt find it because the updated data has changed, SO IT STARTS rendering but yahoo! it still gets to use the 20 existing tiny HTML fragments inside
-# All it has to do is render the course name an one student. 
-# It that student's partial has already been rendered by some other 
-# view in the system, then it has also been cached, so rendering the outer view is still pretty fast. It saves the new big HTML fragment in
-# the cache so that next time it'll be even faster again. 
-#Note that if you are paginating, you should include the page number
-#in the outer cache key. In this example, showing the whole student list. 
-#Now what happens if you change some HTML in the fragment that
-#shows the student, but do not change any HTML in the view that described the outer fragment (the course)?
-#STOPPED HERE mon night. 
+
 #2 ... and the outer fragment
 	<% cache @course do %>
 		<div>
@@ -1015,4 +985,368 @@ end
 		<%= render @course.students %>
 	<% end %>
 
+# The entire view is cached based on the updated
+# @timestamp for the course. Inside that cached block
+# it calls 'render course.students', which iterates over the list
+# of students and and for each one calls the partial at the top of
+# the slide (the one just above).  The inner fragment has a cache
+# statement on the student and the outer fragment has a cache 
+# statement on the  course. 
+# If there are 20 students on a course, you'll end up with
+# 21 entries in the cache: 20 little partials and one big HTML
+# block with all 20 of those little ones in it plus the course name.
+# One person hits the page, and the entire view is cached. 
+# The another person hits it and  the whole view is sorted out of 
+# the cache. 
+# Rails needs to still only make one cache hit because the outer
+# view is still cached.
+# Now lets say someone new enrolls in the class. The creation
+# of an enrollement record causes the courses updated_at to
+# be changed. You remember that for ETags we used
+# 'enrollement belongs_to touch: true', and this is also definitely
+# necessary for Russian Doll caching. 
+# The next time after someone hits the page after this new enrollment
+# Rails looks for a cache of the outer HTML fragment and doesnt find it because the updated data has changed, SO IT STARTS rendering but yahoo! it still gets to use the 20 existing tiny HTML fragments inside
+# All it has to do is render the course name and one student. 
+# It that student's partial has already been rendered by some other 
+# view in the system, then it has also been cached, so re-rendering the outer view is still pretty fast. It saves the new big HTML fragment in
+# the cache so that next time it'll be even faster again. 
+#Note that if you are paginating, you should include the page number
+#in the outer cache key. In this example, showing the whole student list. 
+#Now what happens if you change some HTML in the fragment that
+#shows the student, but do not change any HTML in the view that described the outer fragment (the course)?
+
+#You remember a couple of slides ago, I just showed you that there's
+# a digest of the view in the cache key, so on cache course, the outer
+# fragment's HTML is included and if it changes, then the digest will
+# change, but the really awesome part is that Rails can actually detect
+# the nesting of your views. 
+# If you say cache course and then render
+# course.students, Rails sees course.students and it goes, "Oh, 
+#that's the student partial," and so it's going to actually
+# automatically include the student partial in the digest
+# that's used for creating the key. 
+#So now if you change some content in the student partial, automatically
+# that will change the cache key on the outer fragment in
+# the course view, which is just great. You really don't
+# have to worry about it. In a later slide, I will show
+# you there are a few cases where you do need to worry about
+# it, and you can tell Rails, you can give it some hints
+# about which partial this view depends on so that it
+# knows when to update the digest.
+
+# Hiding links 
+
+#Some things have to change from the old way when you're
+# using russian doll caching. One thing is hiding links. When
+# you're not using caching, you can just say 
+
+	<%=  if current_user.can_edit? (@course)  % >
+		<%= link_to "Edit", edit_course_path(@course)  %>
+	<% end %>
+
+# and you can  show the link to edit. Now
+# of course in the controller on the server side, if
+# a hacker tries to go in and go to the edit course path
+# by hand, then we're still going to have some protection there.
+# This is just about whether or not to show the links. This
+# is not about security. Now with caching, you can't say
+# if current user can edit course because you don't know
+# who the current user is. You want to render the same HTML
+# for all users. One way to do it is simply to use CSS
+
+# With Caching (CSS)
+
+	<% cache @course do %>
+		<%= link_to "Edit", edit_course_path(@course),
+				class: "admin-link" %>
+
+#. You can put a class, for example, on the link, and you
+# can call it admin-link or something like that. In some
+# cases, CSS is perfectly sufficient for deciding whether or
+# not to show some bit of HTML, like a link, and then you
+# can control the CSS based on the current user.
+
+# Another way to do it is with JavaScript
+
+	<% cache @course do %>
+		<%= link_to "Edit", edit_course_path(@course),
+								"data-visible-to" => "admin creator" %>
+	<% end %>
+
+# and so in this example, you
+# could set a data tag on this link called visible-to,
+# and set it to a couple of different values, and then
+# in client-side JavaScript, you would programmatically hide
+# this link if the current user isn't an admin and isn't
+# the creator of this course. 
+
+# Time Zones with Russian Doll Caching
+#Time zones are another thing you have to deal with with
+#russion doll caching, or with any caching, actually.
+#If you don't have caching, then you can just say
+
+<%= @enrollment.updated_at.to_s(:short) %>
+
+#ActiveRecord automatically converts to the current
+#time zone so you can have a before filter, run around filter
+#, and application controller that says if the user's
+#logged in and we know what their preferred time zone is
+#, then set the current server time zone in this thread to
+#that time zone, so then ActiveRecord will convert anything
+#that it gives you back, it'll convert it to that time zone.
+# Now when we're using caching, you don't know who the
+#current user is, or at least you shouldn't check who the
+#current user is, so you can't rely on this technique. 
+
+#Again, we can go back to JavaScript. 
+# With caching (JS)
 #
+	<% cache @enrollment do %>
+		<%= time_ago_tag(@enrollement.updated_at)  %>
+	<% end %>
+
+#With caching, you can create your own helper. 
+# In this example, I called it 'time_ago_tag',
+# and you'd pass in the time value, and then
+# in your helper, you would generate an HTML5 time tag, and
+# it has the time in it, and then with client-side JavaScript, you
+#modify that for whatever the actual current user's time
+#zone is.
+
+#Generates
+
+	<time data-time-ago="local-time"
+				datetime="2014-04-23T19:58:40Z">
+		April 23, 2014 at 7:58pm
+	</time>
+
+#This also works relatively nicely because if
+#there's something like a crawler, the crawler will still
+#see a time there, and the crawler doesn't care what the
+#current time zone is. 
+
+# Increased Cache Hits with Russian Doll Caching
+
+	# Merge  partials
+	# Use Css to hide unnecessary data
+	# Warning! Do not do this with sensitive data
+
+#Demo 
+
+# Handy little trick ..
+
+# If we go to application.html.erb, in
+# this layout, I like to put the controller as a class and
+# also the action as a class. That enables you, any time
+# you want, to put some CSS that is specific to all pages
+# for one controller, or just for one controller and one
+# action
+
+<body class="<%= request.params[:controller] %><%= request.params[:action] %>">
+#also 
+	<div class="content">
+		<%= yield  %>
+	</div>
+
+
+# Module 7 (New Module)
+
+#Turbolinks and pjax
+# Give a multi-page app the responsiveness of a single-page app
+
+#Only way to make your app responsive is SPA!
+#Not if you use turbolinks!
+
+# DHH in his Rails Conf 2013 keynote address
+# [Single page apps] get to keep a persistent process
+# of the whole JavaScript environment. That they don't
+# throw away between each section. 
+# Enter Turbolinks. Turbolinks is a simulation of a 
+# single-page app. 
+
+# Year before he said turbolinks more significant impact
+# than Russian doll caching in imporving perceived performance
+#
+# Turbolinks is available as a gem. It is not actually 
+# built in Rails, even though it is included in Rails
+# when you build a default application
+# Up to 2x as Fast (Must run tests in Browser). 
+#
+# Turbolinks is installed BY DEFAULT in Rails 4.0 or above app
+# Will need to include gem in Rails 3.2, or when you update an app
+# to Rails 4.0 or above.
+
+# To Install
+#1 Gemfile
+gem 'turbolinks'
+#2 app/assets/javascripts/application.js
+//=require turbolinks
+#3 app/views/layouts/application.html.erb
+# add to each style_sheet_link_tag and
+#             javascript_link_tag:
+"data-turbolinks-track" => true
+
+# Did this with Rails App.  Worked very well, seemingly
+
+# How does Turbolinks work?
+
+	#1 Turbolink includes a click-handler on all anchor tags
+	#2 When it gets a click, it check to see if internal or external
+	#3 If it is not an internal link, does FULL PAGE RELOAD
+	#4 Then TL checks extension: HTML or no HTML?
+	#5 If it is NOT either of these cases (eg if it is jpeg)
+	# it does a full page reload
+	#6 If all previous tests 'yes', page is retrived via Ajax
+	#7 THEN it looks in the head. Assets unchanged?
+	#8 if 'No' (ie if assets HAVE changed), then full page reload.
+	# (if MD5 hashes are different, then full page reload) 
+	#9 If ALL PREVIOUS TESTS PASSED, swaps out body with the newly
+	# retrieved body.
+
+#Notes
+
+#Notice tha it a full page was retrieved from server-side
+#It also grabs title (as well as body) in order to replace that
+#Notice as well that if assets HAVE changed, it is actually
+#hitting server twice for same page. Edge case. After deploy, maybe
+
+# In browsers that do not support 'pushState, there is graceful
+# degredation to full page reload. 
+
+# Gotchas
+	#1 Third Party Plugin Compatibility
+		#  This is a big one. jQuery "ready" event.
+		#  Solution is jQuery Turbolinks plugin gem
+		#  To Install
+		#  Add to gemfile
+		gem 'jquery-turbolinks'
+		# Now back into applcation.js
+		# filename is jquery.turbolinks (NOT dash) 
+		# Order is important
+		# jquery.turbolinks should be AFTER jquery
+		# and turbolinks should be right at the end
+		//= require jquery
+		//= require jquery.turbolinks
+		...
+		//require turbolinks
+		# Go the Turbocompatibility Page for more details
+		# Still one potential jQuery problem
+		# Delegated events $(document).ready
+		# solution is to move offending code OUTSIDE $(document).ready
+	 #2 All scripts in <body> are evaluated in every web page. They
+	 # are evaluated AGAIN with TL when body is swapped. 
+	 # Considered best practice to move all JS out of body and into
+	 # head. As needed, move selected JS into body. 
+	 # Move into head to make sure code only gets executed once.
+	 # If you do want to keep some code in body, but make sure
+	 # it does not get re-executed when TL swaps out the body
+	 #	<script data-turbolinks-eval=false>
+
+	 # Another form of opting out is Opt Out for Selected Links
+	 # Just add "data-no-turbolink" to link
+
+		 <a href="/" data-no-turbolink>MyLink</a>
+		
+	 #OR put it inside a container like a div
+
+		<div id ="some-div" data-no-turbolink>
+			 <a href="/" >MyLink</a>
+		</div>
+
+#Testing Turbolinks in browser testing 
+# Do a page reload AND a link to that page.
+
+# Demo 
+# He uses capybara for browser testing
+
+# One more little bonus feature of Turbolinks ...
+# The transition Cache
+# Useful for some web apps but not others 
+# The TC is a cache of the last 10 pages visited
+# cached in browser. On clicking second time of one of
+# 10 TL will immediatly render from cache and then 
+# make ajax call to get the current state of the body,
+# and when it gets it back it will replace the body again.
+# You are of coure instantly showing stale content but
+# for some apps just fine.. Maybe just static content, or
+# mostly static content. 
+# To enable, add the following to application.js
+Turbolinks.enableTransitionCache()
+#  If there are pages you do not want cached, you can
+#  add to body (or any element)
+data-no-transition-cache
+#Turbolinks will not cache a page that has any element in
+#it with 'data-no-transiton-cache' added
+
+																		 #pjax
+# Some people don't like turbolinks
+# Think the default should be to use normal browser navigation
+# and override only where you want to. (To replace
+# the body or to replace some div contents) 
+
+# pjax was invented by Chris Wanstrath, co-founder of github.
+pjax = pushState + ajax
+# pjax is a jQuery plugin
+# like turbolinks, it degrades gracefully
+# not fully automatic, so more control (but a little more work)
+# if want a link to use pjax, must specify. (in TL, the other-way-round)
+# with pjax: server renders with layout: false
+# pjax Client code
+# $(document).pjax('a', '#pjax-container');
+# This is just a quick look
+# Github uses it. Especially when navigating within a single repo
+
+																		#Summary
+#1 Turbolinks created by DHH to give single-page app performance for
+#  multipage apps
+#  It does that by doing the same thing that SPAs do, which is when you
+#  click on a link instead of doing a full page navigation in the browser
+#  it uses ajax to retrieve the new content. But with turbolinks it 
+#  retrieves the entire new page and then swaps out the body with
+#  the new body in addition to swapping out the title. It also gives
+#  you permalinks and a working back button because it replaces the url in
+#  the browser with the new pages. It uses the pushState technology to
+#  do that.  It also degrades gracefully. TL uses the 'data-turbolinks-track'
+#  attribute to detect asset changes. 
+#  jQuery turbolinks is a separate bit of JavaScript in a separate repo
+#  that Brian recommends to use with TL. Solves some of third-party 
+#  integration problem.
+#  There is a plugin compatibility site. 
+#  The alternative is pJax. 
+#  pjax jQuery plugin. TL is based on pjax. Difference between pjax and 
+#  ajax is that pjax will also set the browser url. So you get
+#  permalinks and a working back button! 
+
+																	# Conclusion
+
+	# Client <== Response Headers == Server
+	#         == Request Headers ==> 
+	
+	# Browser caching								Ruby 2.1
+	# Turbolinks or pjax						Tuned DB queries
+	# 															Pagination, N+1
+	# 															Russian doll caching
+	#
+	
+	# More Learning
+	# Article "The Billion-Dollar HTML Tag" by Rich Miller on
+	# Data Center Knowledge
+	#
+	# Steve Souders High Performance Web Sites
+	# Steve Souders Even Faster Websites
+	# both by O'Reilly
+	# pretty much the bible of web app performance
+	#
+	# Also see Noah Lorang (Basecamp)
+	# The performance impact of russian doll caching
+
+https://signalvnoise.com/posts/3690-the-performance-impact-of-russian-doll-caching
+	# There is also gateway caching (Reverse proxy caching) 
+ # See 'Caching Tutorial for Web Authors and Webmasters" by
+ # Mark Nottingham
+
+ # 'Things Caches Do' by Ryan Tomayko  (Ryan is the 
+ # creator of the Rack cache middleware) Written in Ruby, too!
+
+																	 #=== The end ===#

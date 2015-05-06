@@ -13,7 +13,10 @@ Host key verification failed.
 NaCl plugin exited with status code 255.
 (R)econnect, (C)hoose another connection, or E(x)it?
 
-
+# This command did the trick
+# Execute from the Javascript console
+term_.command.removeKnownHostByIndex(index)
+# where 'index' was 2. 
 #1 See here
 http://git.chromium.org/gitweb/?p=chromiumos/platform/assets.git;a=blob;f=chromeapps/nassh/doc/faq.txt#l459
 
