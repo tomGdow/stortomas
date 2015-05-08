@@ -1,0 +1,6 @@
+# Note that to start a Rails 4.2 project on VM and view in Windows 
+# Browser, the command is now
+rails s -b 0.0.0.0
+# For a Rails 3.2 App it is 
+rails s -b 3000
+

@@ -1,0 +1,10 @@
+# Run these
+
+user$ source ~/.rvm/scripts/rvm
+user$ type rvm | head -n 1
+
+# If you get the following message, problem is solved.
+RVM is a function
+
+# See here
+http://stackoverflow.com/questions/9336596/rvm-installation-not-working-rvm-is-not-a-function:w
