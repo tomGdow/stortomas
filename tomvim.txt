@@ -570,6 +570,7 @@ use :map, :vmap, or any other mode map specifies
 \f
 # A goodie!
 
+<%= = %=>	
 #Abbreviations
 :iab ff firefox
 iab		# Declare an abbreviation for insert mode
