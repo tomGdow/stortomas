@@ -735,7 +735,7 @@ set nopaste  			# To carry on
 
 # Copying, Yanking and Registers 
 
-# Vim's registers are must more elaborate than the standard clipboard
+#Example Vim's registers are must more elaborate than the standard clipboard
 # available on your standard OS
 # Whenever you delete, change, search, substitute, or yank text 
 # vim stores it in a register
@@ -882,4 +882,12 @@ Ctrl-t, Ctrl-o		# Get back to where you came from
 # Above (pathogen command) will auto read in helptags for all 
 # installed plugins
 
-
+# TGD VIM GOODIES
+# To Delete from cursor to the end of file 
+dG
+# To delete from cursor to line 885
+d885G
+# To paste at end of line 
+# (a super-goodie from here)
+http://superuser.com/a/121364
+:nmap , $p

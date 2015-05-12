@@ -1,0 +1,50 @@
+# Rails Getting Started (4.1)
+# Samer Buna
+# Basics of the  assets pipeline module
+
+rails server -e production 
+tail -f log/production.log
+#On Vm
+rails s -e production -b 0.0.0.0
+# Get the following error
+# "ERROR RuntimeError: Missing `secret_token` and `secret_key_base` for 'production' environment, set these values in `config/secrets.yml`"
+# In production see:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+
+
+#Copy development secret key
+
+  secret_key_base: a96c83aaeda7ae9e29d1648ef788a1719bef9f5a6fddeca4f124bc51df083c157eead5528ad81a33a43837acfb7b0b71efc605c192f0ff3ce8a445c8ab2fb4a1
+a96c83aaeda7ae9e29d1648ef788a1719bef9f5a6fddeca4f124bc51df083c157eead5528ad81a33a43837acfb7b0b71efc605c192f0ff3ce8a445c8ab2fb4a1
+
+export SECRET_KEY_BASE=a96c83aaeda7ae9e29d1648ef788a1719bef9f5a6fddeca4f124bc51df083c157eead5528ad81a33a43837acfb7b0b71efc605c192f0ff3ce8a445c8ab2fb4a1
+# Now run sever
+rails s -e production -b 0.0.0.0
+# Now another error
+"We're sorry. Something went wrong"
+# No database, it would seem.
+# Instead of create/migrate, copy existing
+cp db/development.sqlite3 db/production.sqlite3
+# Now app loads OK!
+# But errors in console! 
+# jQuery not loading, JS not loading, CSS not loading
+
+# Take a look at
+config/environments/production.rb
+# Notice
+  config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
+# ie, 'serve or don't serve static files'
+# Normally, want Apache or Ngin-X to do this, but here we want rails to serve those static files
+#Set the above environment variable to 'true' before run server.
+
+# From command line
+export RAILS_SERVE_STATIC_FILES=true
+# And -one more step.  Need to precompile assets
+rake assets:precompile
+# now run server
+rails s -e production -b 0.0.0.0
+# Now app runs in production with no errors!!
+# All assets are precompiles but NOT MINIFIED
+# To Minify
+# Change above rake command to the following
+ RAILS_ENV=production rake assets:precompile

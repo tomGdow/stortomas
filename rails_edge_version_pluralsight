@@ -1,0 +1,14 @@
+# Rails 4 Getting Started
+# Samer Buna
+# Deployment Module
+
+# Some Goodies, first of all
+bundle updage
+
+# In Gemfile
+gem 'rails', github: 'rails/rails'
+# Getting an error ...
+
+gem 'rails', github: 'rails/rails'
+gem 'arel', github: 'rails/arel'
+# Now everything OK

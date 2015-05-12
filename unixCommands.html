@@ -1,521 +1,524 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+<meta charset="UTF-8">
+<title></title>
 
-    <style type="text/css">
-        ul {
-        }
+<style type="text/css">
+ul {
+}
 
-        ul li {
-            margin-bottom: 10px;
-        }
+ul li {
+	margin-bottom: 10px;
+}
 
-        .ind {
-            margin-left: 20px;
-            list-style-type: none;
-        }
+.ind {
+	margin-left: 20px;
+	list-style-type: none;
+}
 
-        .circ {
-            list-style-type: circle;
-        }
+.circ {
+	list-style-type: circle;
+}
 
-        .none {
-            list-style-type: none;
-        }
+.none {
+	list-style-type: none;
+}
 
-        .bold {
-            font-weight: bold;
-        }
-    </style>
+.bold {
+	font-weight: bold;
+}
+</style>
 </head>
 <body>
 <div>
-<h4>Useful Unix Commands</h4>
-<ul>
-    <li>netstat -antlp | grep ruby</li>
-    <li class="none">netstat -antlp |grep "LISTEN" | grep 'ruby</li>
-    <li class="none">ps -aux | grep ruby</li>
+	<h4>Useful Unix Commands</h4>
+	<ul>
+		<li>netstat -antlp | grep ruby</li>
+		<li class="none">netstat -antlp |grep "LISTEN" | grep 'ruby</li>
+		<li class="none">ps -aux | grep ruby</li>
 		<li>ps -o pid,rss,vsz,command [memory management,psight]</li>
-    <li class="none">lsof -wni tcp:3000</li>
-    <li>kill -9 `ps -e | grep firefox | cut -b1-6`</li>
-    <li class="none">pkill firefox</li>
-    <li class="ind">#http://www.pcworld.com/article/163019/ubuntu_tricks.html</li>
-    <li>man -k login</li>
-    <li class="none ind">#(search man for pages containing login)</li>
-    <li>touch new_file{1,2,3}</li>
-    <li>words="Example of comma OPERATOR"</li>
-    <li class="none">echo ${words,}</li>
-    <li class="none">${words,,}</li>
-    <li>!ls</li>
-    <li class="none ind">#(Use ‘![keyword]‘ to run the last command starting with [keyword])</li>
-    <li>mv my_filename.{old,new}</li>
-    <li class="ind">#(This will rename my_filename.old to myfilename.new)</li>
-    <li>!!</li>
-    <li class="ind">#(Double exclamation ie ‘!!’ represents the last run command on the shell)</li>
-    <li>ls -lart !$</li>
-    <li class="ind">#(Run a new command with argument of previous command) !$</li>
-    <li>ls -lart !^</li>
-    <li class="ind">#(through ‘!^’ we can access the first argument of the previous run command).</li>
-    <li>!2039</li>
-    <li class="ind">#(In case of two arguments, use carrot ‘!^’ to access first argument)</li>
-    <li class="ind">#How to make a command not to show up in the output of ‘history’ command?</li>
-    <li class="ind">#You can achieve this by inserting a space before you type the command on prompt.</li>
-    <li class="ind">#http://mylinuxbook.com/20-interesting-and-extremely-helpful-linux-command-line-tricks</li>
-    <li>echo "You can simulate on-screen typing just like in the movies" | pv -qL 10</li>
-    <li>gnome-open http://localhost:3000</li>
-    <li class="none">xdg-open http://www.google.ie</li>
-    <li class="none">firefox localhost:3000</li>
-    <li>Alt F2 run programs.</li>
-    <li class="ind">#but... to run as superuser</li>
-    <li class="ind">#from command line</li>
-    <li class="none">gksu</li>
-    <li>cd (on own, go go home, like cd ~)</li>
-    <li>cd - (to last directory you were in)</li>
+		<li class="none">lsof -wni tcp:3000</li>
+		<li>kill -9 `ps -e | grep firefox | cut -b1-6`</li>
+		<li class="none">pkill firefox</li>
+		<li class="ind">#http://www.pcworld.com/article/163019/ubuntu_tricks.html</li>
+		<li>man -k login</li>
+		<li class="none ind">#(search man for pages containing login)</li>
+		<li>touch new_file{1,2,3}</li>
+		<li>words="Example of comma OPERATOR"</li>
+		<li class="none">echo ${words,}</li>
+		<li class="none">${words,,}</li>
+		<li>!ls</li>
+		<li class="none ind">#(Use ‘![keyword]‘ to run the last command starting with [keyword])</li>
+		<li>mv my_filename.{old,new}</li>
+		<li class="ind">#(This will rename my_filename.old to myfilename.new)</li>
+		<li>!!</li>
+		<li class="ind">#(Double exclamation ie ‘!!’ represents the last run command on the shell)</li>
+		<li>ls -lart !$</li>
+		<li class="ind">#(Run a new command with argument of previous command) !$</li>
+		<li>ls -lart !^</li>
+		<li class="ind">#(through ‘!^’ we can access the first argument of the previous run command).</li>
+		<li>!2039</li>
+		<li class="ind">#(In case of two arguments, use carrot ‘!^’ to access first argument)</li>
+		<li class="ind">#How to make a command not to show up in the output of ‘history’ command?</li>
+		<li class="ind">#You can achieve this by inserting a space before you type the command on prompt.</li>
+		<li class="ind">#http://mylinuxbook.com/20-interesting-and-extremely-helpful-linux-command-line-tricks</li>
+		<li>echo "You can simulate on-screen typing just like in the movies" | pv -qL 10</li>
+		<li>gnome-open http://localhost:3000</li>
+		<li class="none">xdg-open http://www.google.ie</li>
+		<li class="none">firefox localhost:3000</li>
+		<li>Alt F2 run programs.</li>
+		<li class="ind">#but... to run as superuser</li>
+		<li class="ind">#from command line</li>
+		<li class="none">gksu</li>
+		<li>cd (on own, go go home, like cd ~)</li>
+		<li>cd - (to last directory you were in)</li>
 
-    <li>strings &lt;filename&gt; eg unix_commands</li>
-    <li class="ind">#strings - print the strings of printable characters in files</li>
-    <li>curl localhost:3000/#view2 >thomas.txt</li>
-    <li>To get Full path of folder from WITHIN that folder</li>
-    <li class="none">Go to folder and press “Control + L”</li>
-</ul>
-<h4>IP Addresses</h4>
-<ul>
-<li>[ipconfig is not a Unix command]</li>
-<li><span class = "bold">nm-tool </span>[best?]</li>
-<li>nmcli dev list iface eth0 | grep IP4</li>
-<li class ="none">see here </li>
-<li class="none">http://askubuntu.com/a/138131/200605</li>
-</ul>
-<h4>BASH</h4>
-<ul>
-    <li>echo $BASH [check for bash shell]</li>
-    <li class="none">/bin/bash [predicted output]</li>
-    <li>file * [type of file]</li>
-    <li>reset [resets terminal]</li>
-    <li>mv alice.txt rabbit.txt bookdir</li>
-    <li class="none bold">Man help pages</li>
-    <li class="none">Man is written in less</li>
-    <li class="none">/ [search]</li>
-    <li class="none">b [move up a page]</li>
-    <li class="none">space [move down a page]</li>
-    <li class="none">q [quit]</li>
-    <li class="none bold">Absolte and relative paths</li>
-    <li class="none">Absolute paths begin with /</li>
-    <li class="none">relative do not</li>
-    <li class="none">relative to current working directory</li>
-    <li class="none bold">Wildcards [mainly pluralsight]</li>
-    <li>a*</li>
-    <li>*a</li>
-    <li>*a*</li>
-    <li>* [matches any string character(s) including none]</li>
-    <li>? [exactly one character]</li>
-    <li>[abc] [matches any of a, b or c]</li>
-    <li>[^abc] [any characters except a, b, c]</li>
-    <li>[a-z] [range]</li>
-    <li>ls thomas[1-3].*</li>
-    <li>[0-9]</li>
-    <li>Use echo to check!</li>
-    <li class="none bold">Tab completion</li>
-    <li>Press Tab completion again to get list of all options [when 'stuck']</li>
-    <li class="none bold">Brace expansion [pluralsight]</li>
-    <li>echo thomas{1..10}.jpg</li>
-    <li>touch thomas{1..10}.jpg</li>
-    <li>echo thomas*</li>
-    <li class="none bold">Command substitution</li>
-    <li>echo "Hello $(whoami)"</li>
-    <li class="none">[Double quotes DO NOT ESCAPE $ symbol]</li>
-    <li>echo "hello`whoami`" [old way, using backticks]</li>
-    <li class="none bold">Misc</li>
-    <li>ls dir [lists contents of directory]</li>
-    <li>ls -d dir [don't go into direectory, just show dir name(s)]</li>
-    <li>mv *.txt *.pdf mydir</li>
-    <li>cut -f 3 | grep 4 | wc -l</li>
-    <li>rm -i [prompt for confimation]</li>
-    <li>ls -F [directories will have forward slash after name]</li>
-    <li class="none bold">Move on Command Line</li>
-    <li>Ctrl a [go to start of line]</li>
-    <li>Ctrl e [go to end of line]</li>
-    <li>Ctrl f [move forward one character</li>
-    <li>Ctrl b [move back a character]</li>
-    <li>Ctrl d [delete a characer]</li>
-    <li>Ctrl w [delete a WORD]</li>
-    <li>Ctrl k [delete the REST OF LINE</li>
-    <li>Ctrl u [delete to beginning of line</li>
-    <li class="none bold">often Alt does to word what Ctrl does to character</li>
-    <li>Alt D [deletes a word]</li>
-    <li>Ctrl C [end a running program]</li>
-    <li>Ctrl D [end of transmission]</li>
-    <li>Ctrl R [reverse Search !! Do repeatedly]</li>
-    <li class="none bold">Vim</li>
-    <li>i [enter insert mode]</li>
-    <li>esc [re-enter command mode]</li>
-    <li class="none">Command Mode basic commands:</li>
-    <li>:w [save a file]</li>
-    <li>:q [quit]</li>
-    <li>:q! [quit without saving]</li>
-    <li>x [remove a character]</li>
-    <li>d-twice [remove whole line]</li>
-    <li class="none bold">Run programs in background</li>
-    <li>Ctrl Z [suspend a program</li>
-    <li>bg [send suspended to background]</li>
-    <li>fg [bring suspened to foreground]</li>
-    <li>& [alt way of running in bg. Always put at end of line]</li>
-    <li>bg %1</li>
-    <li>jobs [list all jobs running in bg]</li>
-    <li class="bold none">Kill a Program</li>
-    <li>kill %1 [bash jobid]</li>
-    <li>kill %cp</li>
-    <li>kill 4564 [process id]</li>
-    <li>kill -KILL 4533 [kill WITHOUT allowing program to clean up first. LAST RESORT</li>
-    <li>xkill [kill x-windows prog. Select with mouse btn 1]</li>
-    <li>pkill [match running program with part of name]</li>
-    <li class="none bold">PS</li>
-    <li>ps -e [all]</li>
-    <li>ps -ef [full]</li>
-    <li>ps -uef [restrict to user]</li>
-    <li class="none bold">Top</li>
-    <li> k [kill a task]</li>
-    <li>top -u thomas</li>
-    <li class="none bold">Aliases</li>
-    <li>alias [see a list of all aliases]</li>
-    <li>set in .bashrc</li>
-    <li>\ls [output unaliased version of command]</li>
-    <li class="none bold">two files .bashrc and .profile</li>
-    <li class="none">.bashrc is automatically executed for non-login shells</li>
-    <li class="none">.profile is automatically executed for longin shells [eg ssh]</li>
-    <li class="none">both files usually linked, so doesn't (usually) matter</li>
-    <li class="none bold">Environment variables</li>
-    <li>env [list all environment variables</li>
-    <li>echo $PS1 [prompt]</li>
-    <li>echo $PATH [path]</li>
-    <li>echo $EDITOR [editor]</li>
-    <li>export EDITOR="nano" [to set env var in all subprossess (not just bash) use export]</li>
-    <li>chsh [change the login shell]</li>
-    <li>>export EDITOR='/users/thomas/bin/vim'</li>
-    <li>echo $EDITOR</li>
-    <li>find . -name *.rb</li>
-</ul>
-<h4>Byobu</h4>
-<ul>
-	<li>byobu: How to force close a window?</li>
-	<li class ="none">You can use Byobu's hotkey,
-	    Ctrl-F6 to force-kill windows or panes.</li>
-	<li class ="none">See here: http://superuser.com/q/713532 </li>
-	<li class ="none">Alternative is ctrl-a + k</li>
-</ul>
-<h4>Check Where Package Files installed</h4>
-<ul>
-	<li>dpkg -L firefox</li>
-</ul>
-<h4>Apache</h4>
-<ul>
-    <li class="none bold">See Agile Web Development 3rd Edn, pg 232</li>
-    <li>apacheclt</li>
-    <li>apacheclt -V</li>
-    <li>apachectl -V |grep HTTPD_ROOT</li>
-    <li class="none"> => -D HTTPD_ROOT="/etc/apache2"</li>
-    <li>apachectl -V |grep SERVER_CONFIG_FILE</li>
-    <li class="none">=> -D SERVER_CONFIG_FILE="apache2.conf"</li>
-    <li>Restart Apache</li>
-    <li class ="none"> sudo /etc/init.d/apache2 restart</li>
-</ul>
-<h4>Virtual Machines</h4>
-	<ul>
-  		<li>username: Cadisanimduit [u14]</li>
-  		<li>Password: MyNiceDollarDog -no alarm[u14]</li>
+		<li>strings &lt;filename&gt; eg unix_commands</li>
+		<li class="ind">#strings - print the strings of printable characters in files</li>
+		<li>curl localhost:3000/#view2 >thomas.txt</li>
+		<li>To get Full path of folder from WITHIN that folder</li>
+		<li class="none">Go to folder and press “Control + L”</li>
 	</ul>
-<h4>Phusion Passenger</h4>
- 	<ul>
-  		<li>To grant permissions to directory in /var/www [apache deployment]</li>
-  		<li class="none">sudo chown -R $USER:$USER /var/www/example.com/public_html</li>
-  		<li>See here</li>
-  		<li class ="none">
-  		   https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
-  		</li>
-  		<li>To obtain the correct version of ruby (if app created with a lower version)</li>
-  		<li class ="none">cd to the app directory</li>
-  		<li class = "none">gem install passenger</li>
-  		<li class ="none">passenger-config --ruby-command</li>
-  		<li class ="none">The above command will give the necessary info to insert into (apache) yoursite.conf</li>
-  		<li>see here:</li>
-  		<li>http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server</li>
- 	</ul>
-<h4>ImageMagik</h4>
+	<h4>IP Addresses</h4>
 	<ul>
-    	<li>mogrify -resize 50x50 bono.png</li>
-    	<li class="ind"> #This tool is similiar to convert except that the original image file is
-        overwritten (unless you change the file suffix with the -format option)
-    	</li>
-    	<li>convert 008615c-942.jpg -resize 50% dublinc.jpg</li>
-    	<li>convert -resize x1080 {from_path} {to_path}</li>
-    	<li class="ind"> #Imagemagick: Convert to fixed height, proportional width</li>
-    	<li class="ind">
-        http://stackoverflow.com/questions/6265436/imagemagick-convert-to-fixed-height-proportional-width
-    	</li>
-    	</li>
+		<li>[ipconfig is not a Unix command]</li>
+		<li><span class = "bold">nm-tool </span>[best?]</li>
+		<li>nmcli dev list iface eth0 | grep IP4</li>
+		<li class ="none">see here </li>
+		<li class="none">http://askubuntu.com/a/138131/200605</li>
 	</ul>
-<h4>Heroku</h4>
+	<h4>BASH</h4>
 	<ul>
-    	<li>heroku run bash</li>
-    	<li>heroku run rails console</li>
-    	<li> heroku pg:info</li>
-    	<li>Reset the heroku db AND seed with seeds.rb</li>
-    	<li class="none">heroku run rake db:setup</li>
+		<li>echo $BASH [check for bash shell]</li>
+		<li class="none">/bin/bash [predicted output]</li>
+		<li>file * [type of file]</li>
+		<li>reset [resets terminal]</li>
+		<li>mv alice.txt rabbit.txt bookdir</li>
+		<li class="none bold">Man help pages</li>
+		<li class="none">Man is written in less</li>
+		<li class="none">/ [search]</li>
+		<li class="none">b [move up a page]</li>
+		<li class="none">space [move down a page]</li>
+		<li class="none">q [quit]</li>
+		<li class="none bold">Absolte and relative paths</li>
+		<li class="none">Absolute paths begin with /</li>
+		<li class="none">relative do not</li>
+		<li class="none">relative to current working directory</li>
+		<li class="none bold">Wildcards [mainly pluralsight]</li>
+		<li>a*</li>
+		<li>*a</li>
+		<li>*a*</li>
+		<li>* [matches any string character(s) including none]</li>
+		<li>? [exactly one character]</li>
+		<li>[abc] [matches any of a, b or c]</li>
+		<li>[^abc] [any characters except a, b, c]</li>
+		<li>[a-z] [range]</li>
+		<li>ls thomas[1-3].*</li>
+		<li>[0-9]</li>
+		<li>Use echo to check!</li>
+		<li class="none bold">Tab completion</li>
+		<li>Press Tab completion again to get list of all options [when 'stuck']</li>
+		<li class="none bold">Brace expansion [pluralsight]</li>
+		<li>echo thomas{1..10}.jpg</li>
+		<li>touch thomas{1..10}.jpg</li>
+		<li>echo thomas*</li>
+		<li class="none bold">Command substitution</li>
+		<li>echo "Hello $(whoami)"</li>
+		<li class="none">[Double quotes DO NOT ESCAPE $ symbol]</li>
+		<li>echo "hello`whoami`" [old way, using backticks]</li>
+		<li class="none bold">Misc</li>
+		<li>ls dir [lists contents of directory]</li>
+		<li>ls -d dir [don't go into direectory, just show dir name(s)]</li>
+		<li>mv *.txt *.pdf mydir</li>
+		<li>cut -f 3 | grep 4 | wc -l</li>
+		<li>rm -i [prompt for confimation]</li>
+		<li>ls -F [directories will have forward slash after name]</li>
+		<li class="none bold">Move on Command Line</li>
+		<li>Ctrl a [go to start of line]</li>
+		<li>Ctrl e [go to end of line]</li>
+		<li>Ctrl f [move forward one character</li>
+		<li>Ctrl b [move back a character]</li>
+		<li>Ctrl d [delete a characer]</li>
+		<li>Ctrl w [delete a WORD]</li>
+		<li>Ctrl k [delete the REST OF LINE</li>
+		<li>Ctrl u [delete to beginning of line</li>
+		<li class="none bold">often Alt does to word what Ctrl does to character</li>
+		<li>Alt D [deletes a word]</li>
+		<li>Ctrl C [end a running program]</li>
+		<li>Ctrl D [end of transmission]</li>
+		<li>Ctrl R [reverse Search !! Do repeatedly]</li>
+		<li class="none bold">Vim</li>
+		<li>i [enter insert mode]</li>
+		<li>esc [re-enter command mode]</li>
+		<li class="none">Command Mode basic commands:</li>
+		<li>:w [save a file]</li>
+		<li>:q [quit]</li>
+		<li>:q! [quit without saving]</li>
+		<li>x [remove a character]</li>
+		<li>d-twice [remove whole line]</li>
+		<li class="none bold">Run programs in background</li>
+		<li>Ctrl Z [suspend a program</li>
+		<li>bg [send suspended to background]</li>
+		<li>fg [bring suspened to foreground]</li>
+		<li>& [alt way of running in bg. Always put at end of line]</li>
+		<li>bg %1</li>
+		<li>jobs [list all jobs running in bg]</li>
+		<li class="bold none">Kill a Program</li>
+		<li>kill %1 [bash jobid]</li>
+		<li>kill %cp</li>
+		<li>kill 4564 [process id]</li>
+		<li>kill -KILL 4533 [kill WITHOUT allowing program to clean up first. LAST RESORT</li>
+		<li>xkill [kill x-windows prog. Select with mouse btn 1]</li>
+		<li>pkill [match running program with part of name]</li>
+		<li class="none bold">PS</li>
+		<li>ps -e [all]</li>
+		<li>ps -ef [full]</li>
+		<li>ps -uef [restrict to user]</li>
+		<li class="none bold">Top</li>
+		<li> k [kill a task]</li>
+		<li>top -u thomas</li>
+		<li class="none bold">Aliases</li>
+		<li>alias [see a list of all aliases]</li>
+		<li>set in .bashrc</li>
+		<li>\ls [output unaliased version of command]</li>
+		<li class="none bold">two files .bashrc and .profile</li>
+		<li class="none">.bashrc is automatically executed for non-login shells</li>
+		<li class="none">.profile is automatically executed for longin shells [eg ssh]</li>
+		<li class="none">both files usually linked, so doesn't (usually) matter</li>
+		<li class="none bold">Environment variables</li>
+		<li>env [list all environment variables</li>
+		<li>echo $PS1 [prompt]</li>
+		<li>echo $PATH [path]</li>
+		<li>echo $EDITOR [editor]</li>
+		<li>export EDITOR="nano" [to set env var in all subprossess (not just bash) use export]</li>
+		<li>chsh [change the login shell]</li>
+		<li>>export EDITOR='/users/thomas/bin/vim'</li>
+		<li>echo $EDITOR</li>
+		<li>find . -name *.rb</li>
 	</ul>
-
-<h4>Rails</h4>
+	<h4>Byobu</h4>
 	<ul>
-    	<li><%= debug params %></li>
-    	<li>tail -f log/development.log</li>
-    	<li>curl http://localhost:3000/bibliographies/70/edit -i</li>
-    	<li><%= entry.inspect %></li>
-    	<li><%= 5.is_a? Integer %></li>
-    	<li><%= 5.kind_of? Integer %></li>
-    	<li>Search Rails Source Code</li>
-    	<li class ="none">grep -rin 'def link_to'</li>
-    	<li class ="none">actionview/lib/action_view/helpers/url_helper.rb:175:      
-        def link_to(name = nil, options = nil, html_options = nil, &block)</li>
+		<li>byobu: How to force close a window?</li>
+		<li class ="none">You can use Byobu's hotkey,
+		Ctrl-F6 to force-kill windows or panes.</li>
+		<li class ="none">See here: http://superuser.com/q/713532 </li>
+		<li class ="none">Alternative is ctrl-a + k</li>
 	</ul>
-<h4>Rails Console</h4>
-<ul>
-    <li>See <a href ="http://pragmaticstudio.com/blog/2014/3/11/console-shortcuts-tips-tricks">Here!</a>  http://pragmaticstudio.com/blog/2014/3/11/console-shortcuts-tips-tricks</li>
-    <li>Console Save to File</li>
-    <li class="none">f = File.new("tomcommod.txt", 'w')
-    <li class="none">f << Commodity.all</li>
-    <li class="none">f.close</li>
-    <li class="ind">#See here: http://stackoverflow.com/a/13380275/499167</li>
-    <li>Console reset</li>
-    <li class="none">reload!</li>
-    <li>Search Console</li>
-    <li class="none">Ctrl R (Reverse Search)</li>
-    <li>Don't forget about underscore</li>
-    <li class="none">_.length</li>
-    <li>Console Tips. See Here: http://pragmaticstudio.com/blog/2014/3/11/console-shortcuts-tips-tricks</li>
-    <li>Commodity.where(id: 4)</li>
-    <li>Commodity.find(4)</li>
-    <li>comm=Commodity.find(1)</li>
-    <li class="none">comm.id</li>
-    <li class="none">comm.description</li>
-    <li>rails dbconsole</li>
-    <li class="none">[sqlite prompt] Select * FROM Commodities</li>
-    <li class="none">.quit</li>
-    <li>rails console production [pluralsight]</li>
-    <li>Commodity.limit(1)[pluralsight]</li>
-    <li>SELECT name FROM "commodities" [pluralsight]</li>
-    <li>Commodity.limit(1).offset(1) [pluralsight]</li>
-    <li>Commodity.where("name like ?", "pele") [pluralsight]</li>
-    <li>Commodity.select("name").first [pluralsight]</li>
-    <li>Commodity.count [pluralsight]</li>
-    <li>Commodity.find_by_sql("select * from commodities") [pluralsight]</li>
-    <li>test named routes</li>
-    <li class="none">app.bibliographies_path</li>
-    <li>a=Customer.first</li>
-    <li class="none"> a.valid?</li>
-    <li>Customer.first(2)</li>
-    <li>Faker::Company.name</li>
-    <li>s=Subject.where(:visible => true) [Lynda.com]</li>
-    <li>s.class => ActiveRecord::Relation</li>
-    <li>s.to_sql</li>
-    <li class ="none">"SELECT `subjects`.* FROM `subjects`  WHERE `subjects`.`visible` = 1"</li>
-    <li>s = Subject.where(["visible = ?", true]) (array method)</li>
-    <li>s= Subject.scoped (same as Subject.all, BUT  ActiveRecord::Relation)</li>
-    <li>rails console --sandbox</li>
-    <li>The return value of the last expression is automatically stored in the special underscore (_) variable</li>
-    <li class ="none" >Subject.all</li>
-    <li class ="none" >_.count</li>
-</ul>
-<h4>Rake</h4>
-<ul>
-    <li>rake -T (list all rake commands)</li>
-    <li>Reset and seed the Rails db</li>
-    <li class="none">rake db:reset</li>
-    <li>rake stats</li>
-    <li>rake db:version</li>
-    <li>rake middleware</li>
-    <li>ActiveSupport::Inflector.pluralize "project"</li>
-    <li>"project".pluralize</li>
-    <li>rake secret</li>
-    <li>rake log:clear</li>
-    <li> rake routes CONTROLLER=bibliographies</li>
-    <li> rake middleware</li>
-    <li>To check if rails connected to mysql db</li>
-    <li class="none">rake db:schema:dump</li>
-    <li>Validations </li>
-    <li class="none">s=Subject.new</li>
-    <li class="none"> s.valid?</li>
-    <li class="none">s.errors</li>
-    <li class="none">s.errors.full_messages</li>
-    <li>rake secret [new secret token]</li>
-</ul>
-<h4>Ruby</h4>
-<ul>
-    <li>puts __FILE__</li>
-    <li>puts File.expand_path(__FILE__)</li>
-    <li>puts File.dirname(__FILE__)</li>
-    <li>puts File.join('', 'Users', 'thomas', 'Desktop')</li>
-    <li>puts File.join(File.dirname(__FILE__), '..', "thomas.rb")</li>
-    <li>file = File.new('file1.txt', 'w')</li>
-    <li class="none">file.close</li>
-    <li>File.open('file1.txt', 'r') do |file|</li>
-    <li class="none"> end</li>
-</ul>
-<h4>Ruby IRB</h4>
-<ul>
-    <li>ruby -e 'puts 123'</li>
-    <li>irb --simple-prompt</li>
-    <li>f.pos</li>
-    <li>f.read(3)</li>
-    <li>f.eof?</li>
-    <li>f.rewind</li>
-    <li>File.rename('old.txt', 'new.txt'</li>
-    <li>File.delete('file_to_delete.txt'</li>
-    <li>require 'fileutils'</li>
-    <li class="none">FileUtils.copy('to_copy.rb', 'copied.rb')</li>
-    <li class="none">[all unix-like commands available incl chmod</li>
-    <li>File.exist?(f)</li>
-    <li>File.file?(f)</li>
-    <li>File.directory(f)</li>
-    <li>File.writable(f)</li>
-    <li>File.executable(f)</li>
-    <li>File.size(f)</li>
-    <li>File.expand_path(f)</li>
-    <li>File.basename(f)</li>
-    <li>File.extname</li>
-    <li>File.mtime [last modified time]</li>
-    <li>File.atime [last access time]</li>
-    <li>File.ctime [last status change, NOT create time</li>
-    <li>myfile.stat</li>
-    <li>myfile.stat.size</li>
-    <li>Dir.entries('.')</li>
-    <li>Dir.pwd</li>
-    <li>File.dirname(__FILE__)</li>
-    <li class = "bold" >Hex Digest SHA1</li>
-    <li class = "none" >password = 'secret'</li>
-    <li class = "none" >require 'digest/sha1'</li>
-    <li class = "none" >Digest::SHA1.hexdigest(password)</li>
-    <li class = "none" >"e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4"</li>
-    <li class = "none" >Digest::SHA1.hexdigest('secret')</li>
-    <li class ="none">"e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4"</li>
+	<h4>Check Where Package Files installed</h4>
+	<ul>
+		<li>dpkg -L firefox</li>
+	</ul>
+	<h4>Apache</h4>
+	<ul>
+		<li class="none bold">See Agile Web Development 3rd Edn, pg 232</li>
+		<li>apacheclt</li>
+		<li>apacheclt -V</li>
+		<li>apachectl -V |grep HTTPD_ROOT</li>
+		<li class="none"> => -D HTTPD_ROOT="/etc/apache2"</li>
+		<li>apachectl -V |grep SERVER_CONFIG_FILE</li>
+		<li class="none">=> -D SERVER_CONFIG_FILE="apache2.conf"</li>
+		<li>Restart Apache</li>
+		<li class ="none"> sudo /etc/init.d/apache2 restart</li>
+	</ul>
+	<h4>Virtual Machines</h4>
+	<ul>
+		<li>username: Cadisanimduit [u14]</li>
+		<li>Password: MyNiceDollarDog -no alarm[u14]</li>
+	</ul>
+	<h4>Phusion Passenger</h4>
+	<ul>
+		<li>To grant permissions to directory in /var/www [apache deployment]</li>
+		<li class="none">sudo chown -R $USER:$USER /var/www/example.com/public_html</li>
+		<li>See here</li>
+		<li class ="none">
+		https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+		</li>
+		<li>To obtain the correct version of ruby (if app created with a lower version)</li>
+		<li class ="none">cd to the app directory</li>
+		<li class = "none">gem install passenger</li>
+		<li class ="none">passenger-config --ruby-command</li>
+		<li class ="none">The above command will give the necessary info to insert into (apache) yoursite.conf</li>
+		<li>see here:</li>
+		<li>http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server</li>
+	</ul>
+	<h4>ImageMagik</h4>
+	<ul>
+		<li>mogrify -resize 50x50 bono.png</li>
+		<li class="ind"> #This tool is similiar to convert except that the original image file is
+		overwritten (unless you change the file suffix with the -format option)
+		</li>
+		<li>convert 008615c-942.jpg -resize 50% dublinc.jpg</li>
+		<li>convert -resize x1080 {from_path} {to_path}</li>
+		<li class="ind"> #Imagemagick: Convert to fixed height, proportional width</li>
+		<li class="ind">
+		http://stackoverflow.com/questions/6265436/imagemagick-convert-to-fixed-height-proportional-width
+		</li>
+		</li>
+	</ul>
+	<h4>Heroku</h4>
+	<ul>
+		<li>heroku run bash</li>
+		<li>heroku run rails console</li>
+		<li> heroku pg:info</li>
+		<li>Reset the heroku db AND seed with seeds.rb</li>
+		<li class="none">heroku run rake db:setup</li>
+	</ul>
 
-</ul>
+	<h4>Rails</h4>
+	<ul>
+		<li><%= debug params %></li>
+		<li>tail -f log/development.log</li>
+		<li>curl http://localhost:3000/bibliographies/70/edit -i</li>
+		<li><%= entry.inspect %></li>
+		<li><%= 5.is_a? Integer %></li>
+		<li><%= 5.kind_of? Integer %></li>
+		<li>Search Rails Source Code</li>
+		<li class ="none">grep -rin 'def link_to'</li>
+		<li class ="none">actionview/lib/action_view/helpers/url_helper.rb:175:      
+		def link_to(name = nil, options = nil, html_options = nil, &block)</li>
+	</ul>
+	<h4>Rails Console</h4>
+	<ul>
+		<li>See <a href ="http://pragmaticstudio.com/blog/2014/3/11/console-shortcuts-tips-tricks">Here!</a>  http://pragmaticstudio.com/blog/2014/3/11/console-shortcuts-tips-tricks</li>
+		<li>Console Save to File</li>
+		<li class="none">f = File.new("tomcommod.txt", 'w')
+		<li class="none">f << Commodity.all</li>
+		<li class="none">f.close</li>
+		<li class="ind">#See here: http://stackoverflow.com/a/13380275/499167</li>
+		<li>Console reset</li>
+		<li class="none">reload!</li>
+		<li>Search Console</li>
+		<li class="none">Ctrl R (Reverse Search)</li>
+		<li>Don't forget about underscore</li>
+		<li class="none">_.length</li>
+		<li>Console Tips. See Here: http://pragmaticstudio.com/blog/2014/3/11/console-shortcuts-tips-tricks</li>
+		<li>Commodity.where(id: 4)</li>
+		<li>Commodity.find(4)</li>
+		<li>comm=Commodity.find(1)</li>
+		<li class="none">comm.id</li>
+		<li class="none">comm.description</li>
+		<li>rails dbconsole</li>
+		<li class="none">[sqlite prompt] Select * FROM Commodities</li>
+		<li class="none">.quit</li>
+		<li>rails console production [pluralsight]</li>
+		<li>Commodity.limit(1)[pluralsight]</li>
+		<li>SELECT name FROM "commodities" [pluralsight]</li>
+		<li>Commodity.limit(1).offset(1) [pluralsight]</li>
+		<li>Commodity.where("name like ?", "pele") [pluralsight]</li>
+		<li>Commodity.select("name").first [pluralsight]</li>
+		<li>Commodity.count [pluralsight]</li>
+		<li>Commodity.find_by_sql("select * from commodities") [pluralsight]</li>
+		<li>test named routes</li>
+		<li class="none">app.bibliographies_path</li>
+		<li>a=Customer.first</li>
+		<li class="none"> a.valid?</li>
+		<li>Customer.first(2)</li>
+		<li>Faker::Company.name</li>
+		<li>s=Subject.where(:visible => true) [Lynda.com]</li>
+		<li>s.class => ActiveRecord::Relation</li>
+		<li>s.to_sql</li>
+		<li class ="none">"SELECT `subjects`.* FROM `subjects`  WHERE `subjects`.`visible` = 1"</li>
+		<li>s = Subject.where(["visible = ?", true]) (array method)</li>
+		<li>s= Subject.scoped (same as Subject.all, BUT  ActiveRecord::Relation)</li>
+		<li>rails console --sandbox</li>
+		<li>The return value of the last expression is automatically stored in the special underscore (_) variable</li>
+		<li class ="none" >Subject.all</li>
+		<li class ="none" >_.count</li>
+	</ul>
+	<h4>Rake</h4>
+	<ul>
+		<li>rake -T (list all rake commands)</li>
+		<li>Reset and seed the Rails db</li>
+		<li class="none">rake db:reset</li>
+		<li>rake stats</li>
+		<li>rake db:version</li>
+		<li>rake middleware</li>
+		<li>ActiveSupport::Inflector.pluralize "project"</li>
+		<li>"project".pluralize</li>
+		<li>rake secret</li>
+		<li>rake log:clear</li>
+		<li> rake routes CONTROLLER=bibliographies</li>
+		<li> rake middleware</li>
+		<li>To check if rails connected to mysql db</li>
+		<li class="none">rake db:schema:dump</li>
+		<li>Validations </li>
+		<li class="none">s=Subject.new</li>
+		<li class="none"> s.valid?</li>
+		<li class="none">s.errors</li>
+		<li class="none">s.errors.full_messages</li>
+		<li>rake secret [new secret token]</li>
+	</ul>
+	<h4>Ruby</h4>
+	<ul>
+		<li>puts __FILE__</li>
+		<li>puts File.expand_path(__FILE__)</li>
+		<li>puts File.dirname(__FILE__)</li>
+		<li>puts File.join('', 'Users', 'thomas', 'Desktop')</li>
+		<li>puts File.join(File.dirname(__FILE__), '..', "thomas.rb")</li>
+		<li>file = File.new('file1.txt', 'w')</li>
+		<li class="none">file.close</li>
+		<li>File.open('file1.txt', 'r') do |file|</li>
+		<li class="none"> end</li>
+	</ul>
+	<h4>Ruby IRB</h4>
+	<ul>
+		<li>ruby -e 'puts 123'</li>
+		<li>irb --simple-prompt</li>
+		<li>f.pos</li>
+		<li>f.read(3)</li>
+		<li>f.eof?</li>
+		<li>f.rewind</li>
+		<li>File.rename('old.txt', 'new.txt'</li>
+		<li>File.delete('file_to_delete.txt'</li>
+		<li>require 'fileutils'</li>
+		<li class="none">FileUtils.copy('to_copy.rb', 'copied.rb')</li>
+		<li class="none">[all unix-like commands available incl chmod</li>
+		<li>File.exist?(f)</li>
+		<li>File.file?(f)</li>
+		<li>File.directory(f)</li>
+		<li>File.writable(f)</li>
+		<li>File.executable(f)</li>
+		<li>File.size(f)</li>
+		<li>File.expand_path(f)</li>
+		<li>File.basename(f)</li>
+		<li>File.extname</li>
+		<li>File.mtime [last modified time]</li>
+		<li>File.atime [last access time]</li>
+		<li>File.ctime [last status change, NOT create time</li>
+		<li>myfile.stat</li>
+		<li>myfile.stat.size</li>
+		<li>Dir.entries('.')</li>
+		<li>Dir.pwd</li>
+		<li>File.dirname(__FILE__)</li>
+		<li class = "bold" >Hex Digest SHA1</li>
+		<li class = "none" >password = 'secret'</li>
+		<li class = "none" >require 'digest/sha1'</li>
+		<li class = "none" >Digest::SHA1.hexdigest(password)</li>
+		<li class = "none" >"e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4"</li>
+		<li class = "none" >Digest::SHA1.hexdigest('secret')</li>
+		<li class ="none">"e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4"</li>
 
-<h4>RVM</h4>
-<ul>
-<li>rvm list</li>
-<li>rvm list default</li>
-<li>rvm list rubies</li>
-<li>rvm list strings</li>
-<li>rvm list default</li>
-<li>rvm list default strings</li>
-<li>rvm use ruby_version</li>
+	</ul>
 
-</ul>
-<h4>Python Server</h4>
-<ul>
-    <li>python -m SimpleHTTPServer</li>
-</ul>
+	<h4>RVM</h4>
+	<ul>
+		<li>rvm list</li>
+		<li>rvm list default</li>
+		<li>rvm list rubies</li>
+		<li>rvm list strings</li>
+		<li>rvm list default</li>
+		<li>rvm list default strings</li>
+		<li>rvm use ruby_version</li>
 
-<h4>MySQL</h4>
-<ul>
-    <li>To Reset Root Password</li>
-    <li class ="none">sudo dpkg-reconfigure mysql-server-5.5</li>
-    <li class ="none">see here: http://stackoverflow.com/a/22469887/499167</li>
-    <li>Root Passord:  My_nice_$og_no_alarm</li>
-    <li>zaradow</li>
-    <li>ilovetr****</li>
-    <li>SHOW DATABASES</li>
-    <li>CREATE DATABASE simple_cms_database;</li>
-    <li>GRANT all PRIVILEGES ON db_name.* TO 'username'@ 'localhost' IDENTIFIED BY 'password';</li>
-    <li class ="none">eg: GRANT all PRIVILEGES ON simple_cms_database.*
-        TO 'zaradow'@'localhost' IDENTIFIED BY 'ilovet*****';</li>
-    <li>SHOW GRANTS FOR 'username'@'localhost';</li>
-    <li class="none">eg: SHOW GRANTS FOR 'zaradow'@'localhost';</li>
-    <li>mysql -u zaradow -p simple_cms_database;</li>
-    <li>To check if rails connected to mysql db</li>
-    <li class="none">rake db:schema:dump</li>
-</ul>
-<h4>Sqlite3</h4>
-  <ul>
-    <li>sqlite3 -line db/development.sqlite3</li>
-    <li>select * from orders [Agile Book, Rails 4]</li>
-    <li>.quit</li>
-  </ul>
-<h4>ENV Variables</h4>
-<ul>
-    <li>
-        $PATH
-    </li>
-    <li>$HOME</li>
-    <li>$PS1</li>
-    <li>$HELLO="Hello Thomas"</li>
-    <li>echo $THOMAS</li>
-    <li>Temporary set</li>
-    <li class="none">cd ~</li>
-    <li class="none">mkdir bin</li>
-    <li class="none">export PATH=/home/thomas/bin:$PATH</li>
-    <li>To Make permanent</li>
-    <li class="none">in .bashrc</li>
-    <li class="none">add export PATH=/home/thomas/bin:$PATH</li>
-    >
-</ul>
+	</ul>
+	<h4>Python Server</h4>
+	<ul>
+		<li>python -m SimpleHTTPServer</li>
+	</ul>
 
-<h4>Processes</h4>
-<ul>
-    <li>top</li>
-    <li>ps</li>
-    <li>To Stop a process</li>
-    <li class="none">CTRL-Z</li>
-    <li>jobs</li>
-</ul>
+	<h4>MySQL</h4>
+	<ul>
+		<li>To Reset Root Password</li>
+		<li class ="none">sudo dpkg-reconfigure mysql-server-5.5</li>
+		<li class ="none">see here: http://stackoverflow.com/a/22469887/499167</li>
+		<li>Root Passord:  My_nice_$og_no_alarm</li>
+		<li>zaradow</li>
+		<li>ilovetr****</li>
+		<li>SHOW DATABASES</li>
+		<li>CREATE DATABASE simple_cms_database;</li>
+		<li>GRANT all PRIVILEGES ON db_name.* TO 'username'@ 'localhost' IDENTIFIED BY 'password';</li>
+		<li class ="none">eg: GRANT all PRIVILEGES ON simple_cms_database.*
+		TO 'zaradow'@'localhost' IDENTIFIED BY 'ilovet*****';</li>
+		<li>SHOW GRANTS FOR 'username'@'localhost';</li>
+		<li class="none">eg: SHOW GRANTS FOR 'zaradow'@'localhost';</li>
+		<li>mysql -u zaradow -p simple_cms_database;</li>
+		<li>To check if rails connected to mysql db</li>
+		<li class="none">rake db:schema:dump</li>
+	</ul>
+	<h4>Sqlite3</h4>
+	<ul>
+		<li>sqlite3 -line db/development.sqlite3</li>
+		<li>select * from orders [Agile Book, Rails 4]</li>
+		<li>.quit</li>
+	</ul>
+	<h4>ENV Variables</h4>
+	<ul>
+		<li>
+		$PATH
+		</li>
+		<li>$HOME</li>
+		<li>$PS1</li>
+		<li>$HELLO="Hello Thomas"</li>
+		<li>echo $THOMAS</li>
+		<li>Temporary set</li>
+		<li class="none">cd ~</li>
+		<li class="none">mkdir bin</li>
+		<li class="none">export PATH=/home/thomas/bin:$PATH</li>
+		<li>To Make permanent</li>
+		<li class="none">in .bashrc</li>
+		<li class="none">add export PATH=/home/thomas/bin:$PATH</li>
+		>
+	</ul>
 
-<h4>!! Trick</h4>
-<ul>
-    <li class="none">ls</li>
-    <li class="none">sudo !!</li>
+	<h4>Processes</h4>
+	<ul>
+		<li>top</li>
+		<li>ps</li>
+		<li>To Stop a process</li>
+		<li class="none">CTRL-Z</li>
+		<li>jobs</li>
+	</ul>
 
-</ul>
-<h4>Find and Grep</h4>
-<ul>
-    <li>
-        find bin -name tom.txt
-    </li>
-    <li>. is current directory</li>
-    <li>/ is root</li>
-    <li>find bin documents tom.txt</li>
-    <li>grep -in 'is' hello.txt</li>
-    <li>grep -in 'is' hello.txt index.txt</li>
-    <li>to invert (does not contain pattern)</li>
-    <li class="none">use -v flag</li>
-</ul>
+	<h4>!! Trick</h4>
+	<ul>
+		<li class="none">ls</li>
+		<li class="none">sudo !!</li>
 
-<h4>Package Manager</h4>
-<ul>
-    <li>apt-cache search git</li>
-</ul>
+	</ul>
+	<h4>Find and Grep</h4>
+	<ul>
+		<li>
+		find bin -name tom.txt
+		</li>
+		<li>. is current directory</li>
+		<li>/ is root</li>
+		<li>find bin documents tom.txt</li>
+		<li>grep -in 'is' hello.txt</li>
+		<li>grep -in 'is' hello.txt index.txt</li>
+		<li>to invert (does not contain pattern)</li>
+		<li class="none">use -v flag</li>
+	</ul>
 
-<h4>Std input/output</h4>
-<ul>
-    <li>To exit from stdin CTRL-D</li>
-</ul>
-<h4>cURL</h4>
-<ul>
-    <li>curl -O http://www.sqlite.org/2014/sqlite-autoconf-3080704.tar.gz
-    </li>
-    <li>tar -xvf sqlite-autoconf-3080704.tar.gz</li>
-    <li>./configure</li>
-    <li>make</li>
-    <li>sudo make install</li>
-    <li>which sqlite3</li>
-    <li>curl --silent http://localhost:3000/products/3/who_bought.atom  [Agile Book, Rails 4]
-</li>
-</ul>
-<h4>Git and github</h4>
+	<h4>Package Manager</h4>
+	<ul>
+		<li>apt-cache search git</li>
+	</ul>
 
-<ul><li>
-git config --list
-</li></ul>
+	<h4>Std input/output</h4>
+	<ul>
+		<li>To exit from stdin CTRL-D</li>
+	</ul>
+	<h4>cURL</h4>
+	<ul>
+		<li>curl -O http://www.sqlite.org/2014/sqlite-autoconf-3080704.tar.gz
+		</li>
+		<li>tar -xvf sqlite-autoconf-3080704.tar.gz</li>
+		<li>./configure</li>
+		<li>make</li>
+		<li>sudo make install</li>
+		<li>which sqlite3</li>
+		<li>curl --silent http://localhost:3000/products/3/who_bought.atom  [Agile Book, Rails 4]
+		</li>
+	</ul>
+	<h4>Git and github</h4>
+
+	<ul
+		><li>
+		git config --list
+	</li>
+</ul>
+<li>git grep input.*email [A super-goodie from Pluralisght, 'Rails Getting Started' </li>
 </div>
 </body>
 </html>

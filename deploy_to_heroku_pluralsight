@@ -1,0 +1,72 @@
+# Samer Buna 
+# Pluralsight 
+# Rails 4 Getting Started.
+
+# First thing that must be done is install Heroku toolbelt
+# Now login to Heroku
+# (All OK on Ubuntu VM)
+# From App directory ...
+heroku create
+git remote -v
+#(Checks all is well)
+
+# A Few steps to do before deployment
+	# The first is sqlite
+	# Move sqlite to 'development and test' portion of gemfile
+	# Add the following to Gemfile
+	
+group :production do
+	gem 'pg'
+	gem 'rails_12factor'
+end
+
+
+# Now...
+bundle install
+git push heroku master
+# One more step
+heroku run rake db:migrate
+# App deployed successfully here:
+https://quiet-anchorage-5977.herokuapp.com/
+#Samer Buna's deployment to Heroku available here
+http://secure-tundra-2349.herokuapp.com/
+
+#Rename
+heroku rename hisuniv
+# Now relevant
+https://hisuniv.herokuapp.com/ | https://git.heroku.com/hisuniv.git
+# This worked perfectly
+git clone https://git.heroku.com/hisuniv.git
+# Try this to get Samer Buna's code
+git clone https://git.heroku.com/secure-tundra-2349.git
+# DOES NOT WORK!  No access to account. 
+
+# Some Heroku goodies from Samer Buna
+#1 To view heroku logs
+heroku logs --tail 		# A super-goodie!
+# To change environment variables
+heroku config   			# Another super-goodie!
+# If need more ...
+heroku config:set TEST=1		# Sets an environment variable
+# Rails console access on Heroku app
+heroku run rails console
+# Access to the remove pg database
+# Check that this is OK
+which psql
+#Now ...
+heroku pg:psql
+# And to check tables ( A real goodie)
+\dt
+# Describe tables
+\d Questions 
+# select 
+select * from questions;
+#quit
+\q
+# To check usage information
+heroku pg:info  (not from pg!)
+
+# Some other goodies
+bundle update
+git diff
+
