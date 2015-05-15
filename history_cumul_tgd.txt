@@ -1998,3 +1998,1003 @@
  2283  ls
  2284  lsg history
  2285  history >> history_cumul_tgd.txt 
+ 2174  vagrant halt
+ 2175  mkdir vagrant_rails_basic_tgd
+ 2176  ls
+ 2177  rm vagrant_rails_basic_tgd/
+ 2178  rm -rf vagrant_rails_basic_tgd/
+ 2179  cd ..
+ 2180  ls
+ 2181  ls | grep vagrant
+ 2182  mkdir vagrant_rails4_basic_tgd
+ 2183  cd vagrant_rails4_basic_tgd/
+ 2184  ls
+ 2185  vagrant init
+ 2186  vim Vagrantfile 
+ 2187  vagrant up
+ 2188  ce /vagrant
+ 2189  cd vagrant
+ 2190  cd ..
+ 2191  cd /vagrant
+ 2192  cd vagrant
+ 2193  cd rails4_basic
+ 2194  ls
+ 2195  pwd
+ 2196  cd vagrant_rails4_basic_tgd/
+ 2197  cd vagrant
+ 2198  ls
+ 2199  rm foo
+ 2200  vim Vagrantfile 
+ 2201  vagrant ssh
+ 2202  ls
+ 2203  ls | grep vagrant
+ 2204  mkdir vagrant_ubuntu-trusty64 
+ 2205  cd vagrant_ubuntu-trusty64/
+ 2206  ls
+ 2207  vagrant init  ubuntu/trusty64 
+ 2208  vagrant up
+ 2209  vagrant ssh
+ 2210  vagrant halt
+ 2211  vagrant up
+ 2212  sudo apt-get update
+ 2213  ls
+ 2214  pwd
+ 2215  vagrant up
+ 2216  ls
+ 2217  cd ?
+ 2218  cd ~
+ 2219  cd acp
+ 2220  ls
+ 2221  cd depot_rails_four/
+ 2222  ls
+ 2223  cd depot
+ 2224  ls
+ 2225  cd ..
+ 2226  cp depot /vagrant/
+ 2227  cp -r /vagrant
+ 2228  cp -r /vagrant/
+ 2229  cp -a depot /vagrant/
+ 2230  cd ~
+ 2231  cd /Vagrant/
+ 2232  cd /vagrant/~
+ 2233  cd /vagrant/
+ 2234  cd vagrant_rails4_basic_tgd/
+ 2235  cd vagrant
+ 2236  ls
+ 2237  cd ..
+ 2238  ls
+ 2239  cd vagrant_ubuntu-trusty64/
+ 2240  ls
+ 2241  cd vagrant
+ 2242  cd ..
+ 2243  cd vagrant_rails4_basic_tgd/
+ 2244  ls
+ 2245  cd ..
+ 2246  cd acp
+ 2247  cd depot_rails_four/
+ 2248  ls
+ 2249  cp -a depot ~/vagrant_ubuntu-trusty64/
+ 2250  cd ~/vagrant_ubuntu-trusty64/
+ 2251  cd ~/acp
+ 2252  cd depot_rails_four/
+ 2253  cd depot/
+ 2254  ls
+ 2255  rvm list
+ 2256  quit
+ 2257  ls
+ 2258  pwd
+ 2259  mysql -v
+ 2260  ls
+ 2261  vim Gemfile.lock
+ 2262  rvm gems
+ 2263  gem list
+ 2264  rails s
+ 2265  cd ..
+ 2266  ls
+ 2267  cp -a depot ~/vagrant_ubuntu-trusty64/
+ 2268  ls
+ 2269  cd depot
+ 2270  rvm list
+ 2271  rvm
+ 2272  ls
+ 2273  bundle install
+ 2274  ls
+ 2275  rails s -b 0.0.0.0
+ 2276  vagrant ssh
+ 2277  cd ~
+ 2278  cd RubyMine-7.0.4/
+ 2279  ls
+ 2280  cd bin
+ 2281  vim /etc/hosts
+ 2282  sudo vim /etc/hosts
+ 2283  cd ifconfig
+ 2284  ifconfig
+ 2285  cd /etc/network
+ 2286  vim interfaces
+ 2287  vim /etc/hosts
+ 2288  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
+ 2289  sudo apt-get installl rpm
+ 2290  sudo apt-get install rpm
+ 2291  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
+ 2292  sudo rpm --import oracle_vbox.asc
+ 2293  cd /etc/hosts
+ 2294  vim /etc/hosts
+ 2295  sudo vim /etc/hosts
+ 2296  ifconfig
+ 2297  ip addr show
+ 2298  ssh 192.168.1.24
+ 2299  vim /etc/hosts
+ 2300  sudo vim /etc/hosts
+ 2301  ssh 192.168.56.1
+ 2302  pwd
+ 2303  vim /etc/hosts
+ 2304  sudo vim /etc/hosts
+ 2305  sudo vim/etc/hosts
+ 2306  sudo vim /etc/hosts
+ 2307  exit
+ 2308  ssh 192.168.1.13
+ 2309  ssh 192.168.221.56
+ 2310  ssh 192.168.56.1
+ 2311  ssh 192.168.221.56
+ 2312  ping 192.168.221.56
+ 2313  vim /etc/hosts
+ 2314  ssh 192.168.1.13
+ 2315  ssh student.nci.col
+ 2316  ssh student.nci.col:192.168.221.56
+ 2317  ssh 192.168.56.1
+ 2318  ssh 192.168.56.1.student.nci.col
+ 2319  ssh 192.168.56.1
+ 2320  sudo vim /etc/hosts
+ 2321  ssh 10.0.2.15
+ 2322  sudo ssh 192.168.56.1
+ 2323  ssh 192.168.221.56
+ 2324  ssh 192.168.221.56@student.nci.col
+ 2325  ssh 192.168.221.56
+ 2326  ssh 192.168.221.1
+ 2327  ssh 192.168.56.1
+ 2328  ssh
+ 2329  ssh -b 192.168.221.56
+ 2330  ssh 192.168.221.1
+ 2331  man ssh
+ 2332  ssh -4  192.168.221.56
+ 2333  VBoxManage modifyvm | grep natpf
+ 2334  ssh 12113441@192.168.221.56
+ 2335  ssh x12113441@192.168.221.56
+ 2336  netstat -ant | grep 2222
+ 2337  netstat -ant | grep 22
+ 2338  ip addr show
+ 2339  ls
+ 2340  netstat -ant | grep 22
+ 2341  netstat
+ 2342  man netstat
+ 2343  netstat -ant
+ 2344  netstat
+ 2345  sudo vim /etc/hosts
+ 2346  ssh 10.0.2.15
+ 2347  ssh 127.0.0.1
+ 2348  ohbeejY
+ 2349  ls
+ 2350  ssh 192.168.221.32
+ 2351  ssh 192.168.221.56
+ 2352  ssh 192.168.56.1
+ 2353  sudo vim /etc/hosts
+ 2354  cd important_methods_tgd/
+ 2355  vim linux_server_setup_pluralsight_log.txt 
+ 2356  ssh 192.168.1.13
+ 2357  sudo vim .ssh
+ 2358  cd ~
+ 2359  ssh 192.168.1.13
+ 2360  ssh-keygen -f "/home/thomas/.ssh/known_hosts" -R 192.168.1.13
+ 2361  ssh 192.168.1.13
+ 2362  exit
+ 2363  sudo apt-get update
+ 2364  sudo apt-get upgrade
+ 2365  sudo apt-get install kate
+ 2366  ssh 192.168.1.24
+ 2367  ssh thomas@192.168.1.24
+ 2368  ftp thomas@192.168.1.24
+ 2369  ftp 192.168.1.24
+ 2370  quit
+ 2371  ls
+ 2372  pwd
+ 2373  ls | grep bash
+ 2374  vim bash_intro_pluralsight 
+ 2375  ls
+ 2376  cd usr
+ 2377  cd share
+ 2378  ls
+ 2379  cd ..
+ 2380  sudo apt-get install virtualbox
+ 2381  man dpkg
+ 2382  dpkg -L virtualbox
+ 2383  cd /etc/default
+ 2384  ls
+ 2385  cd virtualbox
+ 2386  file virtualbox
+ 2387  cd ..
+ 2388  ls
+ 2389  dpkg -L virtualbox
+ 2390  cd /usr/lib/virtualbox/
+ 2391  ls
+ 2392  cd VirtualBox
+ 2393  iso
+ 2394  ls
+ 2395  find *.iso
+ 2396  file *.iso
+ 2397  ls
+ 2398  cd VBoxManage
+ 2399  ls
+ 2400  cd ExtensionPacks/
+ 2401  ls
+ 2402  cd Oracle_VM_VirtualBox_Extension_Pack/
+ 2403  ls
+ 2404  cd /
+ 2405  dpkg -L firefox
+ 2406  dpkg -L *.iso
+ 2407  dpkg -L virtual
+ 2408  dpkg -L virtualbox
+ 2409  dpkg -L Rails
+ 2410  dpkg -L rails
+ 2411  dpkg -L ruby
+ 2412  dpkg -L rvm
+ 2413  dpkg shite
+ 2414  cd ~
+ 2415  ls
+ 2416  git clone git@github.com:tomGdow/stortomas.git
+ 2417  ls
+ 2418  cd stortomas/
+ 2419  ls
+ 2420  cd ..
+ 2421  cd important_methods_tgd/
+ 2422  ls
+ 2423  mv unixCommands.html ~/stortomas/
+ 2424  ls
+ 2425  mv addTwo_deploy_github_heroku ~/stortomas/
+ 2426  mv * ~/stortomas/
+ 2427  ls
+ 2428  cd ..
+ 2429  rmdir important_methods_tgd/
+ 2430  ls
+ 2431  cd stortomas/
+ 2432  git add .
+ 2433  git commit -m "First commit"
+ 2434  git puhs
+ 2435  git push
+ 2436  git clone git@github.com:tomGdow/depot-tgd.gitcd ..
+ 2437  cd ..
+ 2438  cd stortomas/
+ 2439  git pul
+ 2440  git pull
+ 2441  ls
+ 2442  git shit
+ 2443  git pull
+ 2444  ls
+ 2445  vim unixCommands.html
+ 2446  git commit -am "modified unix commands -dpkg"
+ 2447  git push
+ 2448  ls
+ 2449  cd ~
+ 2450  ls
+ 2451  pwd
+ 2452  mkdir vmshare
+ 2453  cd vmshare
+ 2454  touch hello.txt
+ 2455  vim hello.txt 
+ 2456  ls
+ 2457  sudo apt-get install virtualbox-guest-additions-iso
+ 2458  pwd
+ 2459  mddir windows7
+ 2460  mkdir windows7
+ 2461  cd windows7/
+ 2462  touch readme.txt
+ 2463  vim readme.txt 
+ 2464  man ab
+ 2465  sudo apt-get install apache2-utils
+ 2466  ab
+ 2467  sudo apt-get install ack-grep
+ 2468  ack-grep thomas
+ 2469  cd acp
+ 2470  cd skketpics_spa_angular_new/
+ 2471  find . | wc -l
+ 2472  ack-grep -f |wc -l
+ 2473  ack -grep --ruby bridge
+ 2474  ack-grep --ruby bridge
+ 2475  ack-grep --js get
+ 2476  cd ~Downloads
+ 2477  cd ~/Downloads
+ 2478  mv ack.tar.gz ~/.vim 
+ 2479  cd ~/.vim
+ 2480  tar xvzf ack.tar.gz 
+ 2481  cd ..
+ 2482  ls
+ 2483  cd acp
+ 2484  cd skketpics_spa_angular_new/
+ 2485  cd skeptics_SPA_angular/
+ 2486  ls
+ 2487  cd app
+ 2488  cd views
+ 2489  ls
+ 2490  cd commodities/
+ 2491  vim index.html.erb 
+ 2492  exit
+ 2493  cd acp/skketpics_spa_angular_new/skeptics_SPA_angular/
+ 2494  ls
+ 2495  cd app/views
+ 2496  vim commodities/index.html.erb 
+ 2497  sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+ 2498  ack thoma
+ 2499  ls
+ 2500  ack --html brigge
+ 2501  ack --html cart
+ 2502  vim
+ 2503  cd ~
+ 2504  cd stortomas/
+ 2505  ls
+ 2506  vim tomvim.txt 
+ 2507  sudo apt-get update
+ 2508  sudo apt-get upgrade
+ 2509  ls -la ~/.ssh
+ 2510  man vm*
+ 2511  sudo apt-get upgrade
+ 2512  sudo apt-get update
+ 2513  hostname -I
+ 2514  sudo apt-get install xrpd
+ 2515  sudo apt-get update
+ 2516  sudo apt-get upgrade
+ 2517  sudo apt-get install xrpd
+ 2518  ping www.rte.ie
+ 2519  sudo apt-get install xrdp
+ 2520  sudo service xrdp restart
+ 2521  hostname
+ 2522  hostname -I
+ 2523  ls
+ 2524  quit
+ 2525  hostname _I
+ 2526  sostname -I
+ 2527  hostname -I
+ 2528  ftp 192.168.1.56
+ 2529  ftp 192.168.56.1
+ 2530  ssh thomas@192.168.1.24
+ 2531  ssh thomas@192.168.56.1
+ 2532  ftp 192.168.1.13
+ 2533  ls
+ 2534  rm ubuntu14\ Clone-bridged.vbox 
+ 2535  history
+ 2536  ftp 192.168.1.13
+ 2537  mkdir ftp_tgd
+ 2538  cd ftp_tgd/
+ 2539  ftp 192.168.1.13
+ 2540  sudo apt-get install libguestfs-tools
+ 2541  LS
+ 2542  ls
+ 2543  cd cd Virtual_Machines/
+ 2544  ls
+ 2545  cd Virtual_Machines/
+ 2546  ls
+ 2547  cd "ubuntu14 Clone-bridged"/
+ 2548  ls
+ 2549  cd ..
+ 2550  ls
+ 2551  cd ..
+ 2552  ls
+ 2553  cd "VirtualBox VMs"/
+ 2554  ls
+ 2555  cd ubuntu14\ Clone-bridged/
+ 2556  ls
+ 2557  guestfish --ro -i -a "ubuntu14 Clone-bridged.vbox"
+ 2558  sudo guestfish --ro -i -a "ubuntu14 Clone-bridged.vbox"
+ 2559  ls
+ 2560  sudo guestfish --ro  -a "ubuntu14 Clone-bridged.vbox"
+ 2561  ls
+ 2562  sudo guestfish --ro  "ubuntu14 Clone-bridged.vbox"
+ 2563  sudo guestfish -a  "ubuntu14 Clone-bridged.vbox"
+ 2564  ls
+ 2565  sudo guestfish -a  "ubuntu14 Clone-bridged-disk1.vmdk" 
+ 2566  sudo guestfish --ro -i -a "ubuntu14 Clone-bridged-disk1.vmdk" 
+ 2567  sudo guestfish --ro  -a "ubuntu14 Clone-bridged-disk1.vmdk" run : download /dev/sda1 sda1.img 
+ 2568  cd /dev/
+ 2569  cd sda1
+ 2570  cd /sda1
+ 2571  ls
+ 2572  ls | grep sda1
+ 2573  cd sda1
+ 2574  cd ..
+ 2575  ls
+ 2576  cd ~
+ 2577  ls
+ 2578  ls | grep sda1
+ 2579  cd /
+ 2580  cd ~
+ 2581  cd VirtualBox\ VMs/
+ 2582  ls
+ 2583  cd ubuntu14\ Clone-bridged/
+ 2584  ls
+ 2585  sudo guestfish --ro  -a "ubuntu14 Clone-bridged-disk1.vmdk" run : download /dev/sda5  sda5.img 
+ 2586  lynx
+ 2587  quit
+ 2588  ssh thomas@192.168.1.13
+ 2589  hostname -I
+ 2590  hostname
+ 2591  hostname -I
+ 2592  cd /
+ 2593  ls
+ 2594  sudo apt-get install openssh-client openssh-server
+ 2595  cd /etc/ssh
+ 2596  vim sshd_config 
+ 2597  sudo vim sshd_config 
+ 2598  cd /etc
+ 2599  sudo vim welcome.txt
+ 2600  sudo service ssh restart
+ 2601  ls
+ 2602  exit
+ 2603  ssh thomas@localhost
+ 2604  sudo service apache2 status
+ 2605  sudo apt-get install vsftpd
+ 2606  vim vsftpd.conf 
+ 2607  sudo vim vsftpd.conf 
+ 2608  sudo service vsftpd restart
+ 2609  hostname -i
+ 2610  hostname -I
+ 2611  ls
+ 2612  ls
+ 2613  quit
+ 2614  exit
+ 2615  netstat -a
+ 2616  :q
+ 2617  ls
+ 2618  cd /
+ 2619  cd ~
+ 2620  ls
+ 2621  jaA
+ 2622  hostname -I
+ 2623  type ack
+ 2624  vim .bashrc
+ 2625  type www
+ 2626  type .bashrc
+ 2627  type ack
+ 2628  cd bin
+ 2629  ls
+ 2630  cd /usr/bin
+ 2631  ls
+ 2632  cd ~
+ 2633  ack
+ 2634  :q
+ 2635  vim .bashrc
+ 2636  ls
+ 2637  cd jas
+ 2638  ls
+ 2639  ls -la | grep bash
+ 2640  vim .bash_aliases
+ 2641  vim .bash_profile
+ 2642  type ack
+ 2643  history | grep ack
+ 2644  vim
+ 2645  exit
+ 2646  exit
+ 2647  exit
+ 2648  vim 
+ 2649  ls
+ 2650  vim tompractice.html
+ 2651  cd ~/Desktop
+ 2652  cd~
+ 2653  cd ~
+ 2654  ls -la | grep -i Vagrant
+ 2655  cd vagrant_getting_started/
+ 2656  ls
+ 2657  vagrant up
+ 2658  ssh
+ 2659  vagrant ssh
+ 2660  exit
+ 2661  cd ~
+ 2662  cd vagrant_getting_started/
+ 2663  ls
+ 2664  cd ..
+ 2665  ls |grep foo
+ 2666  ls -la
+ 2667  cd /vagrant
+ 2668  ls
+ 2669  ssh
+ 2670  exit
+ 2671  vim
+ 2672  exit
+ 2673  pa
+ 2674  ps
+ 2675  reste
+ 2676  reset
+ 2677  ls
+ 2678  vim 
+ 2679  exit
+ 2680  vim tomVagrant.txt
+ 2681  cd ~
+ 2682  ls | grep methods
+ 2683  vim important_methods_tgd/unixCommands.html
+ 2684  pwd
+ 2685  ls | grep vagrant
+ 2686  mkdir vagrant_rails_start_one
+ 2687  cd vagrant_rails_start_one/
+ 2688  vagrant init
+ 2689  cd ~
+ 2690  cd vagrant_rails_start_one/
+ 2691  ls
+ 2692  vagrant up
+ 2693  ls
+ 2694  vagrant ssh
+ 2695  vagrant destroy
+ 2696  cd ..
+ 2697  ls
+ 2698  vagrant halt
+ 2699  ls
+ 2700  ls | grep vagrant_
+ 2701  rm -rf vagrant_rails_start_one/
+ 2702  cd vagrant_getting_started/
+ 2703  vagrant halt
+ 2704  mkdir vagrant_rails_basic_tgd
+ 2705  ls
+ 2706  rm vagrant_rails_basic_tgd/
+ 2707  rm -rf vagrant_rails_basic_tgd/
+ 2708  cd ..
+ 2709  ls
+ 2710  ls | grep vagrant
+ 2711  mkdir vagrant_rails4_basic_tgd
+ 2712  cd vagrant_rails4_basic_tgd/
+ 2713  ls
+ 2714  vagrant init
+ 2715  vim Vagrantfile 
+ 2716  vagrant up
+ 2717  ce /vagrant
+ 2718  cd vagrant
+ 2719  cd ..
+ 2720  cd /vagrant
+ 2721  cd vagrant
+ 2722  cd rails4_basic
+ 2723  ls
+ 2724  pwd
+ 2725  cd vagrant_rails4_basic_tgd/
+ 2726  cd vagrant
+ 2727  ls
+ 2728  rm foo
+ 2729  vim Vagrantfile 
+ 2730  vagrant ssh
+ 2731  ls
+ 2732  ls | grep vagrant
+ 2733  mkdir vagrant_ubuntu-trusty64 
+ 2734  cd vagrant_ubuntu-trusty64/
+ 2735  ls
+ 2736  vagrant init  ubuntu/trusty64 
+ 2737  vagrant up
+ 2738  vagrant ssh
+ 2739  vagrant halt
+ 2740  vagrant up
+ 2741  sudo apt-get update
+ 2742  ls
+ 2743  pwd
+ 2744  vagrant up
+ 2745  ls
+ 2746  cd ?
+ 2747  cd ~
+ 2748  cd acp
+ 2749  ls
+ 2750  cd depot_rails_four/
+ 2751  ls
+ 2752  cd depot
+ 2753  ls
+ 2754  cd ..
+ 2755  cp depot /vagrant/
+ 2756  cp -r /vagrant
+ 2757  cp -r /vagrant/
+ 2758  cp -a depot /vagrant/
+ 2759  cd ~
+ 2760  cd /Vagrant/
+ 2761  cd /vagrant/~
+ 2762  cd /vagrant/
+ 2763  cd vagrant_rails4_basic_tgd/
+ 2764  cd vagrant
+ 2765  ls
+ 2766  cd ..
+ 2767  ls
+ 2768  cd vagrant_ubuntu-trusty64/
+ 2769  ls
+ 2770  cd vagrant
+ 2771  cd ..
+ 2772  cd vagrant_rails4_basic_tgd/
+ 2773  ls
+ 2774  cd ..
+ 2775  cd acp
+ 2776  cd depot_rails_four/
+ 2777  ls
+ 2778  cp -a depot ~/vagrant_ubuntu-trusty64/
+ 2779  cd ~/vagrant_ubuntu-trusty64/
+ 2780  cd ~/acp
+ 2781  cd depot_rails_four/
+ 2782  cd depot/
+ 2783  ls
+ 2784  rvm list
+ 2785  quit
+ 2786  ls
+ 2787  pwd
+ 2788  mysql -v
+ 2789  ls
+ 2790  vim Gemfile.lock
+ 2791  rvm gems
+ 2792  gem list
+ 2793  rails s
+ 2794  cd ..
+ 2795  ls
+ 2796  cp -a depot ~/vagrant_ubuntu-trusty64/
+ 2797  ls
+ 2798  cd depot
+ 2799  rvm list
+ 2800  rvm
+ 2801  ls
+ 2802  bundle install
+ 2803  ls
+ 2804  rails s -b 0.0.0.0
+ 2805  vagrant ssh
+ 2806  cd ~
+ 2807  cd RubyMine-7.0.4/
+ 2808  ls
+ 2809  cd bin
+ 2810  vim /etc/hosts
+ 2811  sudo vim /etc/hosts
+ 2812  cd ifconfig
+ 2813  ifconfig
+ 2814  cd /etc/network
+ 2815  vim interfaces
+ 2816  vim /etc/hosts
+ 2817  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
+ 2818  sudo apt-get installl rpm
+ 2819  sudo apt-get install rpm
+ 2820  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
+ 2821  sudo rpm --import oracle_vbox.asc
+ 2822  cd /etc/hosts
+ 2823  vim /etc/hosts
+ 2824  sudo vim /etc/hosts
+ 2825  ifconfig
+ 2826  ip addr show
+ 2827  ssh 192.168.1.24
+ 2828  vim /etc/hosts
+ 2829  sudo vim /etc/hosts
+ 2830  ssh 192.168.56.1
+ 2831  pwd
+ 2832  vim /etc/hosts
+ 2833  sudo vim /etc/hosts
+ 2834  sudo vim/etc/hosts
+ 2835  sudo vim /etc/hosts
+ 2836  exit
+ 2837  ssh 192.168.1.13
+ 2838  ssh 192.168.221.56
+ 2839  ssh 192.168.56.1
+ 2840  ssh 192.168.221.56
+ 2841  ping 192.168.221.56
+ 2842  vim /etc/hosts
+ 2843  ssh 192.168.1.13
+ 2844  ssh student.nci.col
+ 2845  ssh student.nci.col:192.168.221.56
+ 2846  ssh 192.168.56.1
+ 2847  ssh 192.168.56.1.student.nci.col
+ 2848  ssh 192.168.56.1
+ 2849  sudo vim /etc/hosts
+ 2850  ssh 10.0.2.15
+ 2851  sudo ssh 192.168.56.1
+ 2852  ssh 192.168.221.56
+ 2853  ssh 192.168.221.56@student.nci.col
+ 2854  ssh 192.168.221.56
+ 2855  ssh 192.168.221.1
+ 2856  ssh 192.168.56.1
+ 2857  ssh
+ 2858  ssh -b 192.168.221.56
+ 2859  ssh 192.168.221.1
+ 2860  man ssh
+ 2861  ssh -4  192.168.221.56
+ 2862  VBoxManage modifyvm | grep natpf
+ 2863  ssh 12113441@192.168.221.56
+ 2864  ssh x12113441@192.168.221.56
+ 2865  netstat -ant | grep 2222
+ 2866  netstat -ant | grep 22
+ 2867  ip addr show
+ 2868  ls
+ 2869  netstat -ant | grep 22
+ 2870  netstat
+ 2871  man netstat
+ 2872  netstat -ant
+ 2873  netstat
+ 2874  sudo vim /etc/hosts
+ 2875  ssh 10.0.2.15
+ 2876  ssh 127.0.0.1
+ 2877  ohbeejY
+ 2878  ls
+ 2879  ssh 192.168.221.32
+ 2880  ssh 192.168.221.56
+ 2881  ssh 192.168.56.1
+ 2882  sudo vim /etc/hosts
+ 2883  cd important_methods_tgd/
+ 2884  vim linux_server_setup_pluralsight_log.txt 
+ 2885  ssh 192.168.1.13
+ 2886  sudo vim .ssh
+ 2887  cd ~
+ 2888  ssh 192.168.1.13
+ 2889  ssh-keygen -f "/home/thomas/.ssh/known_hosts" -R 192.168.1.13
+ 2890  ssh 192.168.1.13
+ 2891  exit
+ 2892  sudo apt-get update
+ 2893  sudo apt-get upgrade
+ 2894  sudo apt-get install kate
+ 2895  ssh 192.168.1.24
+ 2896  ssh thomas@192.168.1.24
+ 2897  ftp thomas@192.168.1.24
+ 2898  ftp 192.168.1.24
+ 2899  quit
+ 2900  ls
+ 2901  pwd
+ 2902  ls | grep bash
+ 2903  vim bash_intro_pluralsight 
+ 2904  ls
+ 2905  cd usr
+ 2906  cd share
+ 2907  ls
+ 2908  cd ..
+ 2909  sudo apt-get install virtualbox
+ 2910  man dpkg
+ 2911  dpkg -L virtualbox
+ 2912  cd /etc/default
+ 2913  ls
+ 2914  cd virtualbox
+ 2915  file virtualbox
+ 2916  cd ..
+ 2917  ls
+ 2918  dpkg -L virtualbox
+ 2919  cd /usr/lib/virtualbox/
+ 2920  ls
+ 2921  cd VirtualBox
+ 2922  iso
+ 2923  ls
+ 2924  find *.iso
+ 2925  file *.iso
+ 2926  ls
+ 2927  cd VBoxManage
+ 2928  ls
+ 2929  cd ExtensionPacks/
+ 2930  ls
+ 2931  cd Oracle_VM_VirtualBox_Extension_Pack/
+ 2932  ls
+ 2933  cd /
+ 2934  dpkg -L firefox
+ 2935  dpkg -L *.iso
+ 2936  dpkg -L virtual
+ 2937  dpkg -L virtualbox
+ 2938  dpkg -L Rails
+ 2939  dpkg -L rails
+ 2940  dpkg -L ruby
+ 2941  dpkg -L rvm
+ 2942  dpkg shite
+ 2943  cd ~
+ 2944  ls
+ 2945  git clone git@github.com:tomGdow/stortomas.git
+ 2946  ls
+ 2947  cd stortomas/
+ 2948  ls
+ 2949  cd ..
+ 2950  cd important_methods_tgd/
+ 2951  ls
+ 2952  mv unixCommands.html ~/stortomas/
+ 2953  ls
+ 2954  mv addTwo_deploy_github_heroku ~/stortomas/
+ 2955  mv * ~/stortomas/
+ 2956  ls
+ 2957  cd ..
+ 2958  rmdir important_methods_tgd/
+ 2959  ls
+ 2960  cd stortomas/
+ 2961  git add .
+ 2962  git commit -m "First commit"
+ 2963  git puhs
+ 2964  git push
+ 2965  git clone git@github.com:tomGdow/depot-tgd.gitcd ..
+ 2966  cd ..
+ 2967  cd stortomas/
+ 2968  git pul
+ 2969  git pull
+ 2970  ls
+ 2971  git shit
+ 2972  git pull
+ 2973  ls
+ 2974  vim unixCommands.html
+ 2975  git commit -am "modified unix commands -dpkg"
+ 2976  git push
+ 2977  ls
+ 2978  cd ~
+ 2979  ls
+ 2980  pwd
+ 2981  mkdir vmshare
+ 2982  cd vmshare
+ 2983  touch hello.txt
+ 2984  vim hello.txt 
+ 2985  ls
+ 2986  sudo apt-get install virtualbox-guest-additions-iso
+ 2987  pwd
+ 2988  mddir windows7
+ 2989  mkdir windows7
+ 2990  cd windows7/
+ 2991  touch readme.txt
+ 2992  vim readme.txt 
+ 2993  man ab
+ 2994  sudo apt-get install apache2-utils
+ 2995  ab
+ 2996  sudo apt-get install ack-grep
+ 2997  ack-grep thomas
+ 2998  cd acp
+ 2999  cd skketpics_spa_angular_new/
+ 3000  find . | wc -l
+ 3001  ack-grep -f |wc -l
+ 3002  ack -grep --ruby bridge
+ 3003  ack-grep --ruby bridge
+ 3004  ack-grep --js get
+ 3005  cd ~Downloads
+ 3006  cd ~/Downloads
+ 3007  mv ack.tar.gz ~/.vim 
+ 3008  cd ~/.vim
+ 3009  tar xvzf ack.tar.gz 
+ 3010  cd ..
+ 3011  ls
+ 3012  cd acp
+ 3013  cd skketpics_spa_angular_new/
+ 3014  cd skeptics_SPA_angular/
+ 3015  ls
+ 3016  cd app
+ 3017  cd views
+ 3018  ls
+ 3019  cd commodities/
+ 3020  vim index.html.erb 
+ 3021  exit
+ 3022  cd acp/skketpics_spa_angular_new/skeptics_SPA_angular/
+ 3023  ls
+ 3024  cd app/views
+ 3025  vim commodities/index.html.erb 
+ 3026  sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+ 3027  ack thoma
+ 3028  ls
+ 3029  ack --html brigge
+ 3030  ack --html cart
+ 3031  vim
+ 3032  cd ~
+ 3033  cd stortomas/
+ 3034  ls
+ 3035  vim tomvim.txt 
+ 3036  sudo apt-get update
+ 3037  sudo apt-get upgrade
+ 3038  ls -la ~/.ssh
+ 3039  man vm*
+ 3040  sudo apt-get upgrade
+ 3041  sudo apt-get update
+ 3042  hostname -I
+ 3043  sudo apt-get install xrpd
+ 3044  sudo apt-get update
+ 3045  sudo apt-get upgrade
+ 3046  sudo apt-get install xrpd
+ 3047  ping www.rte.ie
+ 3048  sudo apt-get install xrdp
+ 3049  sudo service xrdp restart
+ 3050  hostname
+ 3051  hostname -I
+ 3052  ls
+ 3053  quit
+ 3054  hostname _I
+ 3055  sostname -I
+ 3056  hostname -I
+ 3057  ftp 192.168.1.56
+ 3058  ftp 192.168.56.1
+ 3059  ssh thomas@192.168.1.24
+ 3060  ssh thomas@192.168.56.1
+ 3061  ftp 192.168.1.13
+ 3062  ls
+ 3063  rm ubuntu14\ Clone-bridged.vbox 
+ 3064  history
+ 3065  ftp 192.168.1.13
+ 3066  mkdir ftp_tgd
+ 3067  cd ftp_tgd/
+ 3068  ftp 192.168.1.13
+ 3069  sudo apt-get install libguestfs-tools
+ 3070  LS
+ 3071  ls
+ 3072  cd cd Virtual_Machines/
+ 3073  ls
+ 3074  cd Virtual_Machines/
+ 3075  ls
+ 3076  cd "ubuntu14 Clone-bridged"/
+ 3077  ls
+ 3078  cd ..
+ 3079  ls
+ 3080  cd ..
+ 3081  ls
+ 3082  cd "VirtualBox VMs"/
+ 3083  ls
+ 3084  cd ubuntu14\ Clone-bridged/
+ 3085  ls
+ 3086  guestfish --ro -i -a "ubuntu14 Clone-bridged.vbox"
+ 3087  sudo guestfish --ro -i -a "ubuntu14 Clone-bridged.vbox"
+ 3088  ls
+ 3089  sudo guestfish --ro  -a "ubuntu14 Clone-bridged.vbox"
+ 3090  ls
+ 3091  sudo guestfish --ro  "ubuntu14 Clone-bridged.vbox"
+ 3092  sudo guestfish -a  "ubuntu14 Clone-bridged.vbox"
+ 3093  ls
+ 3094  sudo guestfish -a  "ubuntu14 Clone-bridged-disk1.vmdk" 
+ 3095  sudo guestfish --ro -i -a "ubuntu14 Clone-bridged-disk1.vmdk" 
+ 3096  sudo guestfish --ro  -a "ubuntu14 Clone-bridged-disk1.vmdk" run : download /dev/sda1 sda1.img 
+ 3097  cd /dev/
+ 3098  cd sda1
+ 3099  cd /sda1
+ 3100  ls
+ 3101  ls | grep sda1
+ 3102  cd sda1
+ 3103  cd ..
+ 3104  ls
+ 3105  cd ~
+ 3106  ls
+ 3107  ls | grep sda1
+ 3108  cd /
+ 3109  cd ~
+ 3110  cd VirtualBox\ VMs/
+ 3111  ls
+ 3112  cd ubuntu14\ Clone-bridged/
+ 3113  ls
+ 3114  sudo guestfish --ro  -a "ubuntu14 Clone-bridged-disk1.vmdk" run : download /dev/sda5  sda5.img 
+ 3115  lynx
+ 3116  quit
+ 3117  ssh thomas@192.168.1.13
+ 3118  hostname -I
+ 3119  hostname
+ 3120  hostname -I
+ 3121  cd /
+ 3122  ls
+ 3123  sudo apt-get install openssh-client openssh-server
+ 3124  cd /etc/ssh
+ 3125  vim sshd_config 
+ 3126  sudo vim sshd_config 
+ 3127  cd /etc
+ 3128  sudo vim welcome.txt
+ 3129  sudo service ssh restart
+ 3130  ls
+ 3131  exit
+ 3132  ssh thomas@localhost
+ 3133  sudo service apache2 status
+ 3134  sudo apt-get install vsftpd
+ 3135  vim vsftpd.conf 
+ 3136  sudo vim vsftpd.conf 
+ 3137  sudo service vsftpd restart
+ 3138  hostname -i
+ 3139  hostname -I
+ 3140  ls
+ 3141  ls
+ 3142  quit
+ 3143  exit
+ 3144  netstat -a
+ 3145  :q
+ 3146  ls
+ 3147  cd /
+ 3148  cd ~
+ 3149  ls
+ 3150  jaA
+ 3151  hostname -I
+ 3152  type ack
+ 3153  vim .bashrc
+ 3154  type www
+ 3155  type .bashrc
+ 3156  type ack
+ 3157  cd bin
+ 3158  ls
+ 3159  cd /usr/bin
+ 3160  ls
+ 3161  cd ~
+ 3162  ack
+ 3163  :q
+ 3164  vim .bashrc
+ 3165  ls
+ 3166  cd jas
+ 3167  ls
+ 3168  ls -la | grep bash
+ 3169  vim .bash_aliases
+ 3170  vim .bash_profile
+ 3171  type ack
+ 3172  history | grep ack
+ 3173  history > tom_ack_history.txt
