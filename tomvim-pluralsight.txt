@@ -891,3 +891,19 @@ d885G
 # (a super-goodie from here)
 http://superuser.com/a/121364
 :nmap , $p
+# To open every file in a directory
+args: /path/to/dir/*
+# To run a macro on every file in directory 
+:bufdo normal @a
+# To add a buffer 
+# Insert a carriage return
+# See here: http://stackoverflow.com/a/1585463/499167
+CTRL-V CTRL-M
+#ctrl-v tells vim the next character should be inserted literally
+#ctrl-m is the keystroke for carriage return
+# May also need to use backslash ..
+:s/.../\^V^M/g
+#Remove LEADING white space (A real super-goodie)
+:%s/^\s\+
+# See here...
+http://vim.wikia.com/wiki/Remove_unwanted_spaces

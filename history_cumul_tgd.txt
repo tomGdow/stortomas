@@ -998,3 +998,1003 @@
 46762  ls
 46763  history
 46764  history > history_cumul_tgd.txt
+ 1286  cd app/assets/images/
+ 1287  ls
+ 1288  cp 103_pele.jpg  mypele.jpg
+ 1289  mv mypele.jpg .
+ 1290  mv mypele.jpg ~/.
+ 1291  cd
+ 1292  ls
+ 1293  cd ~/shared
+ 1294  ls
+ 1295  cd 
+ 1296  mv mypele.jpg ~/shared/rails_4_getStarted_psight_app/HU/app/assets/images/
+ 1297  rgs
+ 1298  ls
+ 1299  skk
+ 1300  cd app/assets/images/
+ 1301  ls
+ 1302  cp 075_pirlo.jpg  mypirlo.jpg
+ 1303  cp 095_hurst.jpg  myhurst.jpg
+ 1304  mv mypirlo.jpg myhurst.jpg ~/.
+ 1305  cd
+ 1306  ls
+ 1307  mv myhurst.jpg mypirlo.jpg  ~/shared/rails_4_getStarted_psight_app/HU/app/assets/images/
+ 1308  exit
+ 1309  man tee
+ 1310  cd 
+ 1311  lsd
+ 1312  lsd | tee tomtee.txt
+ 1313  vim tomtee.txt 
+ 1314  ls
+ 1315  lsd | tee teetom.txt
+ 1316  skk
+ 1317  rails s
+ 1318  rails s -b 3000
+ 1319  ls
+ 1320  dir
+ 1321  man crontab
+ 1322  exit
+ 1323  ls
+ 1324  history
+ 1325  ls
+ 1326  cd histories
+ 1327  rgs
+ 1328  vim app/views/layouts/application.html.erb 
+ 1329  exit
+ 1330  ls
+ 1331  rails s -b 3000
+ 1332  ls
+ 1333  rvm list
+ 1334  rvm use 2.1.1
+ 1335  bundle install
+ 1336  rails s - b 0.0.0.0
+ 1337  rvm 
+ 1338  rvm list
+ 1339  rails s -b 3000
+ 1340  rails s -b 0.0.0.0
+ 1341  rails s -b 3000
+ 1342  rails s -b 0.0.0.0
+ 1343  exit
+ 1344  tail -f log/development.log | tee tomrailstee.txt
+ 1345  ls
+ 1346  vim tomrailstee.txt 
+ 1347  rm tomrailstee.txt 
+ 1348  ls
+ 1349  cd app/views/home/
+ 1350  ls
+ 1351  touch question.html.erb
+ 1352  ls
+ 1353  exit
+ 1354  rvm list 
+ 1355  rmv use 2.1.1
+ 1356  rvm 2.1.1
+ 1357  rmv list
+ 1358  rvm list
+ 1359  ruby v-
+ 1360  ruby -v
+ 1361  bundle install
+ 1362  rmv use 2.1.1
+ 1363  rvm use 2.1.1
+ 1364  rails s -b 0.0.0.0
+ 1365  exit
+ 1366  ls
+ 1367  cd app/views/layouts/
+ 1368  vim application.html.erb 
+ 1369  :bn
+ 1370  vim application.html.erb 
+ 1371  cd 
+ 1372  st
+ 1373  vim tomvim.txt 
+ 1374  vimm tomvim.txt
+ 1375  vim tomvim.txt 
+ 1376  ls
+ 1377  man ack
+ 1378  man Ack
+ 1379  man awk
+ 1380  eye wont agraa
+ 1381  man ye
+ 1382  man xye
+ 1383  ls
+ 1384  rgs
+ 1385  ls
+ 1386  cd app/views
+ 1387  ls
+ 1388  vim home/index.html.erb 
+ 1389  cd 
+ 1390  rails s -b 0.0.0.0
+ 1391  ls
+ 1392  rgs
+ 1393  rails s -b 0.0.0.0
+ 1394  rmv use 2.1.1
+ 1395  rvm use 2.1.1
+ 1396  /bin/bash --login
+ 1397  exit
+ 1398  rails s -b 0.0.0.0
+ 1399  exit
+ 1400  ls
+ 1401  rgs
+ 1402  tgdup
+ 1403  rgs
+ 1404  rails s - b 0.0.0.0
+ 1405  rvm use 2.1.1
+ 1406  bundle install
+ 1407  rvm list
+ 1408  rvm use 2.1.1
+ 1409  rmv list
+ 1410  rvm lis
+ 1411  rmv list
+ 1412  rvm list
+ 1413  rvm use 2.1.1
+ 1414  /bin/bash --login
+ 1415  exit
+ 1416  tail -f log/development.log 
+ 1417  ls
+ 1418  exit
+ 1419  cd app/views
+ 1420  vim home/index.html.erb 
+ 1421  cd home
+ 1422  ls -la
+ 1423  vim .index.html.erb.swp 
+ 1424  :q
+ 1425  vim index.html.erb 
+ 1426  cd ../../assets/images/
+ 1427  ls
+ 1428  cd .
+ 1429  cd ..
+ 1430  cd views/home
+ 1431  vim index.html.erb 
+ 1432  exit
+ 1433  fg
+ 1434  exit
+ 1435  rvm list
+ 1436  rvm use 2.1.1
+ 1437  rails s -b 0.0.0.0
+ 1438  rgs
+ 1439  tgdup
+ 1440  rgs
+ 1441  cd app/views
+ 1442  vim home/index.html.erb 
+ 1443  . ~/.vimrc
+ 1444  vim ~/.vimrc
+ 1445  rgs
+ 1446  ls
+ 1447  cd app/views/
+ 1448  vim home/index.html.erb 
+ 1449  exit
+ 1450  rails s -b 0.0.0.0
+ 1451  rmv lis
+ 1452  rvm use 2.1.1
+ 1453  vim ~/.bashrc
+ 1454  vim ~/.bash_aliases
+ 1455  . ~/.bashrc
+ 1456  rs0
+ 1457  rvm list
+ 1458  cd ..
+ 1459  rails generate resourse question email:string body:text
+ 1460  rvm list
+ 1461  rvm use 2.1.1
+ 1462  exit
+ 1463  rails generate resourse question email:string body:text
+ 1464  rails generate resource question email:string body:text
+ 1465  rake db:migrate
+ 1466  git add .
+ 1467  git commit -am "finished intro mod and completed Question migration"
+ 1468  git logg
+ 1469  rails c
+ 1470  cd ~
+ 1471  rgs
+ 1472  cd app/views/home/
+ 1473  cp index.html.erb  practice.html.erb
+ 1474  mv practice.html.erb  ~/.
+ 1475  ls
+ 1476  dir
+ 1477  tgdup
+ 1478  rgs
+ 1479  cd app/home
+ 1480  cd app/views/
+ 1481  vim home/index.html.erb 
+ 1482  cd home
+ 1483  ls
+ 1484  cp _new_question_form.html.erb _new_answer_form.html.erb
+ 1485  lsd
+ 1486  lsdno
+ 1487  aliases
+ 1488  alias
+ 1489  alias | grep lsd
+ 1490  nolsd
+ 1491  vim _new_question_form.html.erb 
+ 1492  vim ~/stortomas/tomvim.txt 
+ 1493  exit
+ 1494  exit
+ 1495  cd ..
+ 1496  rvm use 2.1.1
+ 1497  /bin/bash --login
+ 1498  exit
+ 1499  vim
+ 1500  vim practice.html.erb 
+ 1501  source ~/.vimrc
+ 1502  exit
+ 1503  vim practice.html.erb 
+ 1504  exit
+ 1505  rvm use 2.1.1 --default
+ 1506  rvm list
+ 1507  rails c
+ 1508  rmv list
+ 1509  rvm list
+ 1510  rmv get stable --autofiles
+ 1511  rvm  get stable --autofiles
+ 1512  sudo rvm  get stable --autofiles
+ 1513  rvm reset
+ 1514  rails c
+ 1515  history | grep bash
+ 1516  rails c
+ 1517  rvm list
+ 1518  rails -v
+ 1519  rvm reset
+ 1520  rails s
+ 1521  ls
+ 1522  rmv
+ 1523  rvm
+ 1524  vim ~/.bashrc
+ 1525  . ~/.bashrc
+ 1526  .~/.vimrc
+ 1527  . ~/.vimrc
+ 1528  rvm reset
+ 1529  rails s
+ 1530  exit
+ 1531  /bin/bash --login
+ 1532  exit
+ 1533  /bin/bash --login
+ 1534  exit
+ 1535  rails c
+ 1536  /bin/bash --login
+ 1537  exit
+ 1538  rs0
+ 1539  exit
+ 1540  ls
+ 1541  tgdup
+ 1542  rgs
+ 1543  rs0
+ 1544  rvm use 2.1.1 --default
+ 1545  /bin/bash --login
+ 1546  exit
+ 1547  ls
+ 1548  cd app
+ 1549  vim views/home/question.html.erb 
+ 1550  exit
+ 1551  rs0
+ 1552  rmv use 1.9.3
+ 1553  rvm use 2.1.1
+ 1554  rs0
+ 1555  man awk
+ 1556  ack
+ 1557  ack-gerp
+ 1558  ack-grep
+ 1559  q
+ 1560  exi
+ 1561  exit
+ 1562  ls
+ 1563  st
+ 1564  rgs
+ 1565  rs0
+ 1566  rvm list
+ 1567  rvm reset
+ 1568  rs0
+ 1569  rvm use 2.1.1
+ 1570  tgdup
+ 1571  rgs
+ 1572  rs0
+ 1573  bundle install
+ 1574  rs0
+ 1575  bundle install
+ 1576  rs0
+ 1577  rails s -e production -b 0.0.0.0
+ 1578  clear
+ 1579  export SECRET_KEY_BASE=a96c83aaeda7ae9e29d1648ef788a1719bef9f5a6fddeca4f124bc51df083c157eead5528ad81a33a43837acfb7b0b71efc605c192f0ff3ce8a445c8ab2fb4a1
+ 1580  rails s -e production -b 0.0.0.0
+ 1581  cp db/development.sqlite3 db/production.sqlite3
+ 1582  rails s -e production -b 0.0.0.0
+ 1583  export RAILS_SERVE_STATIC_FILES=true
+ 1584  rake assets:precompile
+ 1585  rails s -e production -b 0.0.0.0
+ 1586  RAILS_ENV=production rake assets:precompile
+ 1587  rails s -e production -b 0.0.0.0
+ 1588  rs0
+ 1589  exi
+ 1590  exit
+ 1591  rails c
+ 1592  rails -v
+ 1593  rvm reset
+ 1594  rails -s
+ 1595  rvm use 2.1.1
+ 1596  rails c
+ 1597  st
+ 1598  rgs
+ 1599  rails c
+ 1600  exit
+ 1601  pwd
+ 1602  vim app/views/home/index.html.erb 
+ 1603  git status
+ 1604  git add .
+ 1605  git commit -am "Finished 'Basics of the Asset Pipeline' "
+ 1606  git status
+ 1607  git logg
+ 1608  heroku
+ 1609  ls
+ 1610  st
+ 1611  touch deploy_to_heroku_pluralsight
+ 1612  vim deploy_to_heroku_pluralsight 
+ 1613  rgs
+ 1614  vim Gemfile
+ 1615  exit
+ 1616  tail -f log/production.log
+ 1617  RAILS_ENV=production rake assets:precompile
+ 1618  rails c
+ 1619  rvm use 2.1.1
+ 1620  rails c
+ 1621  rg0
+ 1622  rs0
+ 1623  git add .
+ 1624  git commit -am "deleted all data, added some sample questions"
+ 1625  pwd
+ 1626  heroku create
+ 1627  git remote -v
+ 1628  bundle install
+ 1629  git add .
+ 1630  git commit -am "added pg and Heroku requirements"
+ 1631  git push heroku master
+ 1632  heroku open
+ 1633  heroku run rake db:migrate
+ 1634  heroku rename hisuniv
+ 1635  heroku config
+ 1636  exit
+ 1637  cd config/initializers/
+ 1638  ls
+ 1639  touch sucker_punch.rb
+ 1640  rg
+ 1641  rgs
+ 1642  git add .
+ 1643  git commit -am "finished Action Mailer and Active Job"
+ 1644  git logg
+ 1645  coffeescript -v
+ 1646  coffee -v
+ 1647  npm install -g coffee-script
+ 1648  sudo npm install -g coffee-script
+ 1649  coffee -v
+ 1650  clear
+ 1651  cd 
+ 1652  wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+ 1653  heroku
+ 1654  heroku login
+ 1655  ls
+ 1656  exit
+ 1657  cd 
+ 1658  cd ~/.vim/bundle/
+ 1659  git clone https://github.com/kchmck/vim-coffee-script.git ~/.vim/bundle/vim-coffee-script/
+ 1660  cd 
+ 1661  st
+ 1662  touch rails_in_production_pluralsight
+ 1663  ls | grep heroku
+ 1664  ls
+ 1665  :exit
+ 1666  exit
+ 1667  cd 
+ 1668  cd ~/shared/
+ 1669  ls
+ 1670  git clone https://git.heroku.com/hisuniv.git
+ 1671  ls
+ 1672  mkdir hisuniv_from_heroku
+ 1673  mv hisuniv hisuniv_from_heroku/
+ 1674  ls
+ 1675  heroku logs --tail
+ 1676  rgs
+ 1677  heroku logs --tail
+ 1678  heroku config
+ 1679  heroku config:set TEST=1
+ 1680  heroku run rails console
+ 1681  psql
+ 1682  which psql
+ 1683  heroku pg:psql
+ 1684  heroku pg:info
+ 1685  exit
+ 1686  rails -v
+ 1687  :q
+ 1688  q
+ 1689  rvm use 2.1.1
+ 1690  bundle install
+ 1691  st
+ 1692  ls | grep heroku
+ 1693  vim deploy_to_heroku_pluralsight 
+ 1694  cd 
+ 1695  vim .vimrc
+ 1696  st
+ 1697  cd
+ 1698  touch tompractice.html
+ 1699  vim tompractice.html 
+ 1700  vim .vimrc 
+ 1701  vim .vimrc
+ 1702  rgs
+ 1703  tgdup
+ 1704  rgs
+ 1705  ls
+ 1706  cd app/views/home/
+ 1707  ls
+ 1708  cp index.html.erb ~/. myindex.html
+ 1709  ls
+ 1710  vim
+ 1711  cp index.html.erb  . myindex.html
+ 1712  cp index.html.erb ./myindex.html
+ 1713  cd 
+ 1714  ls
+ 1715  cd .
+ 1716  ls
+ 1717  cd .
+ 1718  cd ~
+ 1719  ls
+ 1720  find myindex.html
+ 1721  lsd
+ 1722  find . -name myindex.html
+ 1723  ls
+ 1724  cd 
+ 1725  mkdir rails4_expt
+ 1726  cd rails4_expt/
+ 1727  git clone https://github.com/tomGdow/skeptics_SPA_angular.git
+ 1728  cd 
+ 1729  less teetom.txt 
+ 1730  rm teetom.txt 
+ 1731  rm tomtee.txt 
+ 1732  rm tompractice.html 
+ 1733  vim practice.html.erb 
+ 1734  rgs
+ 1735  ls
+ 1736  st
+ 1737  ls
+ 1738  tin_c_poero
+ 1739  mv virtual_box_increase_hd_size_windows_attempt.txt  virtual_box_increase_hd_size.txt
+ 1740  ls
+ 1741  mv ruby_on_rails_getting_started_pluralsight rails4_getting_started_pluralsight 
+ 1742  ls
+ 1743  mv linux_server_setup_pluralsight_log.txt linux_server_pluralsight_log.txt 
+ 1744  ls
+ 1745  vim products_controller.rb 
+ 1746  rm products_controller.rb 
+ 1747  vim tgd_bash_aliases 
+ 1748  rm tgd_bash_aliases 
+ 1749  ls
+ 1750  vim chrome_ssh_problems 
+ 1751  vim ftptest.txt 
+ 1752  rm ftptest.txt 
+ 1753  vim mysketptics_css.css~ 
+ 1754  rm mysketptics_css.css~ 
+ 1755  ls
+ 1756  vim main.css.scss 
+ 1757  rm main.css.scss 
+ 1758  vim chrome_ssh_problems 
+ 1759  mv chrome_ssh_problems chrome_ssh_key_problem
+ 1760  ls
+ 1761  mv tomvim.txt tomvim-pluralsight.txt
+ 1762  vim tomvim-pluralsight.txt 
+ 1763  vim rails4_getting_started_pluralsight 
+ 1764  vim rails_in_production_pluralsight 
+ 1765  vim deploy_to_heroku_pluralsight 
+ 1766  touch rails_edge_version_pluralsight
+ 1767  vim rails_edge_version_pluralsight 
+ 1768  rgs
+ 1769  vim Gemfile
+ 1770  exit
+ 1771  rs0
+ 1772  cd skk
+ 1773  skk
+ 1774  ls
+ 1775  vim app/views/home/index.html.erb 
+ 1776  st 
+ 1777  bundle update
+ 1778  rvm use 2.2.1
+ 1779  rvm use 2.1.1
+ 1780  bundle update
+ 1781  git diff
+ 1782  rm Gemfile.lock 
+ 1783  bundle install
+ 1784  rs0
+ 1785  rvm install ruby
+ 1786  rvm list
+ 1787  rs0
+ 1788  rvm use 2.2.1
+ 1789  rs0
+ 1790  rmv list
+ 1791  rvm list
+ 1792  rvm use 2.1.1
+ 1793  rs0
+ 1794  rvm use 2.2.1
+ 1795  rs0
+ 1796  /bin/bash --login
+ 1797  vim
+ 1798  cd ~/vim/bundle
+ 1799  cd
+ 1800  cd ~/vim
+ 1801  cd vim
+ 1802  ls
+ 1803  cd vim
+ 1804  cd .vim
+ 1805  cd bundle
+ 1806  git clone https://github.com/KurtPreston/vim-autoformat-rails.git
+ 1807  cd
+ 1808  skk
+ 1809  clar
+ 1810  clear
+ 1811  vim app/views/home/index.html.erb 
+ 1812  exit
+ 1813  skk
+ 1814  ls
+ 1815  git logg
+ 1816  ls
+ 1817  clear
+ 1818  ls
+ 1819  vim app/views/home/index.html.erb 
+ 1820  source ~/vimrc
+ 1821  source ~/.vimrc
+ 1822  vim app/views/home/index.html.erb 
+ 1823  source ~/.vimrc
+ 1824  vim app/views/home/index.html.erb 
+ 1825  vim ~/.vimrc 
+ 1826  source ~/.vimrc
+ 1827  vim app/views/home/index.html.erb 
+ 1828  st
+ 1829  vim tomvim-pluralsight.txt 
+ 1830  cd 
+ 1831  skk
+ 1832  st
+ 1833  skk
+ 1834  ls
+ 1835  vim app/views/home/index.html.erb 
+ 1836  vim app/views/bibliographies/
+ 1837  vim app/views/bibliographies/index.html.erb 
+ 1838  vim app/views/carts/index.html.erb 
+ 1839  exit
+ 1840  skk
+ 1841  vim app/views/carts/index.html.erb 
+ 1842  st
+ 1843  touch advanced_js_pluralsight
+ 1844  vim advanced_js_pluralsight 
+ 1845  skk
+ 1846  vim app/views/carts/index.html.erb 
+ 1847  exit
+ 1848  cd 
+ 1849  cd .vim
+ 1850  cd bundle
+ 1851  git clone https://github.com/othree/html5.vim.git
+ 1852  exit
+ 1853  man tidy
+ 1854  exit
+ 1855  ls
+ 1856  skk
+ 1857  ls
+ 1858  rake db:migrate
+ 1859  rails s
+ 1860  rvm list
+ 1861  rake db:migrate
+ 1862  rake routes
+ 1863  cd config
+ 1864  ls
+ 1865  touch database.yml
+ 1866  vim database.yml 
+ 1867  rake routes
+ 1868  cd ..
+ 1869  ls
+ 1870  rake routes
+ 1871  rake db:migrate
+ 1872  rails s -b 3000
+ 1873  vim app/views/home/index.html.erb 
+ 1874  :vim app/views/home/*
+ 1875  vim app/views/home/*
+ 1876  exit
+ 1877  ls
+ 1878  node -v
+ 1879  st
+ 1880  cd 
+ 1881  mkdir javascript_code_egs
+ 1882  cd java
+ 1883  cd javascript_code_egs/
+ 1884  touch adv_js_psight.js
+ 1885  vim adv_js_psight.js 
+ 1886  node adv_js_psight.js 
+ 1887  vim adv_js_psight.js 
+ 1888  node adv_js_psight.js 
+ 1889  ?
+ 1890  vim adv_js_psight.js 
+ 1891  node adv_js_psight.js 
+ 1892  vim adv_js_psight.js 
+ 1893  node adv_js_psight.js 
+ 1894  vim adv_js_psight.js 
+ 1895  node adv_js_psight.js 
+ 1896  vim adv_js_psight.js 
+ 1897  node adv_js_psight.js 
+ 1898  vim adv_js_psight.js 
+ 1899  node adv_js_psight.js 
+ 1900  skk
+ 1901  ls
+ 1902  vim app/home/*
+ 1903  vim app/views/home/*
+ 1904  vim app/views/carts/*
+ 1905  cd app/views/
+ 1906  ls
+ 1907  cd bibliographies/
+ 1908  vim *
+ 1909  ls
+ 1910  clear
+ 1911  vim *
+ 1912  cd ..
+ 1913  ls
+ 1914  cd commodities/
+ 1915  ls
+ 1916  vim *
+ 1917  vim ~/stortomas/tomvim-pluralsight.txt 
+ 1918  bf
+ 1919  fg
+ 1920  :q
+ 1921  exit
+ 1922  skk
+ 1923  cd app/view/biblio
+ 1924  cd app/views/bibliographies/
+ 1925  vim *
+ 1926  cd ..
+ 1927  ls
+ 1928  cd commodities/
+ 1929  vim *
+ 1930  pwd
+ 1931  ls
+ 1932  cd ..
+ 1933  ls
+ 1934  vim bibliographies/
+ 1935  vim bibliographies/*
+ 1936  history
+ 1937  cd carts
+ 1938  ls
+ 1939  vim *
+ 1940  cd ..
+ 1941  ls
+ 1942  cd home
+ 1943  :ls
+ 1944  vim *
+ 1945  ls
+ 1946  cd ..
+ 1947  cd commodities/
+ 1948  ls
+ 1949  vim *
+ 1950  cd
+ 1951  ls
+ 1952  pwd
+ 1953  skk
+ 1954  pwd
+ 1955  git reset --hard
+ 1956  git status
+ 1957  cd app/views/commodities/
+ 1958  vim *
+ 1959  cd ..
+ 1960  git reset --hard
+ 1961  vim app/views/home/
+ 1962  vim app/views/home/*
+ 1963  cd app/views/home
+ 1964  ls
+ 1965  cp index.html.erb ~/.
+ 1966  cd
+ 1967  ls
+ 1968  vim index.html.erb 
+ 1969  . ~/.vimrc
+ 1970  vim index.html.erb 
+ 1971  vim ~/.vimrce
+ 1972  vim ~/.vimrc
+ 1973  vim index.html.erb 
+ 1974  skk
+ 1975  vim app/views/home/*
+ 1976  rails s -b 3000
+ 1977  exit
+ 1978  git status
+ 1979  git add .
+ 1980  git commit -am "formatted views/home with vim"
+ 1981  git push
+ 1982  git logg
+ 1983  vim app/views/home/footer.html 
+ 1984  ls
+ 1985  cd app/views/
+ 1986  ls
+ 1987  vim bibliographies/*
+ 1988  :quit
+ 1989  exit
+ 1990  rails -b 3000
+ 1991  cd ..
+ 1992  rails s -b 3000
+ 1993  exit
+ 1994  skk 
+ 1995  cd app/views/
+ 1996  vim commodities/*
+ 1997  cd 
+ 1998  st
+ 1999  ls | grep java
+ 2000  cd 
+ 2001  ls  | grep javascript_code_egs/
+ 2002  alias 
+ 2003  lsd
+ 2004  alias
+ 2005  vim ~/.bash_aliases 
+ 2006  . ~/.bashrc
+ 2007  lsg
+ 2008  lsg javascript
+ 2009  cd javascript_code_egs/
+ 2010  ls
+ 2011  eval_js_pluralsight.js
+ 2012  touch eval_js_psight.js
+ 2013  vim eval_js_psight.js 
+ 2014  node eval_js_psight.js 
+ 2015  vim eval_js_psight.js 
+ 2016  node eval_js_psight.js 
+ 2017  vim eval_js_psight.js 
+ 2018  node eval_js_psight.js 
+ 2019  vim eval_js_psight.js 
+ 2020  node eval_js_psight.js 
+ 2021  :q
+ 2022  vim eval_js_psight.js 
+ 2023  :q
+ 2024  node eval_js_psight.js 
+ 2025  vim eval_js_psight.js 
+ 2026  node eval_js_psight.js 
+ 2027  touch iife.js
+ 2028  vim iife.js
+ 2029  ls
+ 2030  vim iife.js 
+ 2031  node iife.js 
+ 2032  @q
+ 2033  vim iife.js 
+ 2034  node iife.js 
+ 2035  skk
+ 2036  vim app/views/commodities/*
+ 2037  cd app/views/commodities/
+ 2038  ls
+ 2039  vim _showPartial.html.erb 
+ 2040  cp _showPartial.html.erb  mepractice.html.erb
+ 2041  vim mepractice.html.erb 
+ 2042  vim _showPartial.html.erb 
+ 2043  vim *
+ 2044  ls
+ 2045  vim *
+ 2046  rm mepractice.html.erb 
+ 2047  git add .
+ 2048  git commit -am "formatted views/commodities with vim"
+ 2049  cd ..
+ 2050  ls
+ 2051  vim bibliographies/*
+ 2052  git add .
+ 2053  git commit -am "formatted views/biblio with vim"
+ 2054  ls
+ 2055  vim carts/*
+ 2056  git add .
+ 2057  git commit -am "formatted views/carts with vim"
+ 2058  ls
+ 2059  vim layouts/
+ 2060  vim layouts/*
+ 2061  vim line_items/*
+ 2062  git commit .
+ 2063  git commit -am "formated views/line-items with vim"
+ 2064  ls
+ 2065  cd ..
+ 2066  ls
+ 2067  cd assets
+ 2068  ls
+ 2069  cd images
+ 2070  ls
+ 2071  cd ..
+ 2072  cd javascripts/
+ 2073  ls
+ 2074  vim *
+ 2075  git add .
+ 2076  git commit -am "formatted assets/js with vim"
+ 2077  cd ..
+ 2078  cd stylesheets/
+ 2079  ls
+ 2080  vim *
+ 2081  vim main.css.scss 
+ 2082  ls
+ 2083  cd partials
+ 2084  ls
+ 2085  vim *
+ 2086  ls
+ 2087  skk
+ 2088  rails s -b 3000
+ 2089  rake db:seed
+ 2090  rvm list
+ 2091  rmv use ruby-1.9.3-p448
+ 2092  rvm use ruby-1.9.3-p448
+ 2093  rake db:seed
+ 2094  rake db:reset
+ 2095  ls
+ 2096  quti
+ 2097  ls
+ 2098  rvm list
+ 2099  rake db:reset
+ 2100  bundle install
+ 2101  rake db:migrate
+ 2102  rake db:reset
+ 2103  export LANG=en_US.UTF-8
+ 2104  export LANGUAGE=en_US.UTF-8
+ 2105  bundle
+ 2106  rake db:reset
+ 2107  cd db
+ 2108  ls
+ 2109  vim seeds.rb
+ 2110  rake db:reset
+ 2111  vim seeds.rb
+ 2112  rake db:reset
+ 2113  skk
+ 2114  export LANG=en_US.UTF-8
+ 2115  export LANGUAGE=en_US.UTF-8
+ 2116  export LC_ALL=en_US.UTF-8
+ 2117  bundle
+ 2118  rake db:reset
+ 2119  cd db/
+ 2120  vim seeds.rb 
+ 2121  rake db:reset
+ 2122  cd ..
+ 2123  rails s -b 3000
+ 2124  ls
+ 2125  ls -la
+ 2126  vim .gitignore
+ 2127  git status
+ 2128  git add .
+ 2129  git commit -am "modified seeds file to reflect utf-8 uncoding. VM only"
+ 2130  git push
+ 2131  git status
+ 2132  cd
+ 2133  skk
+ 2134  ls
+ 2135  cd ..
+ 2136  ls
+ 2137  cp skeptics_SPA_angular/ rfourskk
+ 2138  cp -R skeptics_SPA_angular/ rfourskk
+ 2139  ls
+ 2140  cd rfourskk/
+ 2141  ls
+ 2142  rails s -b 3000
+ 2143  ls
+ 2144  rm Gemfile.lock
+ 2145  lsg git
+ 2146  ls -la | grep git
+ 2147  rm .git
+ 2148  rm -rf .git
+ 2149  ls
+ 2150  vim Gemfile 
+ 2151  bundle install
+ 2152  rmv use 2.1.1
+ 2153  rvm use 2.1.1
+ 2154  bundle install
+ 2155  rm Gemfile.lock
+ 2156  bundle exec
+ 2157  bundle exec install
+ 2158  bundle install
+ 2159  vim Gemfile 
+ 2160  bundle install
+ 2161  vim Gemfile 
+ 2162  bundle install
+ 2163  vim Gemfile 
+ 2164  bundle install
+ 2165  rake rails:upgrade
+ 2166  rake rails:update
+ 2167  rails s
+ 2168  rs0
+ 2169  ls
+ 2170  rg0
+ 2171  rs0
+ 2172  rake routes
+ 2173  ls
+ 2174  cp Gemfile ~/stortomas/r4Gemfile
+ 2175  cd ..
+ 2176  rm -rf rfourskk/
+ 2177  cp -R skeptics_SPA_angular/ rfourskk
+ 2178  cd rfourskk/
+ 2179  rails s -b 3000
+ 2180  ls
+ 2181  vim Gemfile
+ 2182  ls
+ 2183  cd ..
+ 2184  rm -rf rfourskk/
+ 2185  ls
+ 2186  mkdir r4skeptics_SPA_angular
+ 2187  cd skeptics_SPA_angular/
+ 2188  ls
+ 2189  logut
+ 2190  cd
+ 2191  ls
+ 2192  tgdup
+ 2193  ls
+ 2194  vim
+ 2195  cd shared
+ 2196  ls
+ 2197  cd
+ 2198  cd stortomas/
+ 2199  ls
+ 2200  cd
+ 2201  ls
+ 2202  cd ubuntu_14_backups/
+ 2203  ls
+ 2204  cd
+ 2205  mddir bash_and_vim_bu_mar_15_2015
+ 2206  mkdir bash_and_vim_bu_mar_15_2015
+ 2207  cp .bashrc bash_and_vim_bu_mar_15_2015/
+ 2208  cp .vimrc bash_and_vim_bu_mar_15_2015/
+ 2209  cp .bash_aliases bash_and_vim_bu_mar_15_2015/
+ 2210  cp .bash_history bash_and_vim_bu_mar_15_2015/
+ 2211  history | grep gzip
+ 2212  history | grep tar
+ 2213  vim .bash_history
+ 2214  ls
+ 2215  man tar
+ 2216  tar -czv bash_and_vim_bu_mar_15_2015/ bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+ 2217  tar -czv bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+ 2218  tar -czf bash_and_vim_bu_mar_15_2015.tar.tz bash_and_vim_bu_mar_15_2015
+ 2219  ls
+ 2220  mv bash_and_vim_bu_mar_15_2015.tar.tz  ubuntu_14_backups/
+ 2221  mv bash_and_vim_bu_mar_15_2015 ubuntu_14_backups/
+ 2222  ssh thomas@192.168.1.4
+ 2223  cd ubuntu_14_backups/
+ 2224  ftp 192.168.1.4
+ 2225  ftp -p 192.168.1.4
+ 2226  ls
+ 2227  rm -i *.tz
+ 2228  tar -czf bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+ 2229  ftp -p 192.168.1.4
+ 2230  ftp -p thomas@192.168.1.4
+ 2231  ftp -p 192.168.1.4
+ 2232  ls
+ 2233  cd bash_and_vim_bu_mar_15_2015/
+ 2234  ls
+ 2235  cd 
+ 2236  ls
+ 2237  cd ubuntu_14_backups/
+ 2238  ls
+ 2239  rm -i bash_and_*
+ 2240  rmdir -i bash_and_vim_bu_mar_15_2015/
+ 2241  rm dir bash_and_vim_bu_mar_15_2015/
+ 2242  rmdir bash_and_vim_bu_mar_15_2015/
+ 2243  cd bash_and_vim_bu_mar_15_2015/
+ 2244  ls
+ 2245  ls-la
+ 2246  ls -la
+ 2247  touch readme.txt
+ 2248  vim readme.txt 
+ 2249  ls
+ 2250  cd ..
+ 2251  tar -czf bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+ 2252  ls
+ 2253  ftp -p 192.168.1.4
+ 2254  cd ..
+ 2255  cp .vimrc temptom.txt
+ 2256  vim temptom.txt 
+ 2257  tar -czf temptom.tar.gz temptom.txt 
+ 2258  ls
+ 2259  ftp -p 192.168.1.4 
+ 2260  cd stortomas/
+ 2261  git pull
+ 2262  cd 
+ 2263  ls
+ 2264  rm -i temp*
+ 2265  cp .vimrc tgdvimrc
+ 2266  vim tgdvimrc 
+ 2267  tar -czf tgdvimrc.tar.gz tgdvimrc 
+ 2268  ftp -p 192.194.1.4
+ 2269  ftp -p 192.168.1.4
+ 2270  ftp 192.168.1.4
+ 2271  ls
+ 2272  ftp -p 192.168.1.4
+ 2273  rm -i tgdvim*
+ 2274  ls
+ 2275  rm index.html.erb 
+ 2276  vim stortomas/tomvim-pluralsight.txt 
+ 2277  lsg history
+ 2278  cd ubuntu_14_backups/
+ 2279  ls
+ 2280  quit
+ 2281  stortomas
+ 2282  st
+ 2283  ls
+ 2284  lsg history
+ 2285  history >> history_cumul_tgd.txt 

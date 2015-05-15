@@ -1,0 +1,239 @@
+# Advanced JavaScript Pluralsight
+# Front End Masters Workshop Series
+# Kyle Simpson
+											 #Scope and the Javascript Compiler
+# Scope - where to look for things
+# What are we looking for?
+# The variables we reference
+# Where is that variable?
+# Where was he declared?
+# We are looking for lexical identifiers (variables)
+# Who is doing the looking?
+# Need to look at through the eyes of compiler
+# First myth he wants to dispel is that JS is the statement that 'JS is NOT a compiled language'
+# For those of you who were under the impression that there isn't a compiler involved ....
+# But compilation in JS not quite the same as for, say c++
+# One difference is that we don't send out (distribute) the binary compiled form
+# We send out the souce code.
+# In a sense JS is compiled, but it is compiled every single time it is run
+# BASH is an interpreted language.
+This means that when it is running line 4 it has no idea what is on line 5
+# Interpreter literally goes form top-to-bottom
+# In a compiled language (including JS), the compiler does an initial pass through the code, 
+# and then does at least one more pass
+
+# So it HAS seen line five before it executes line 3. 
+
+# The basic unit of scoping in JS is the function (not STRICTLY correct ...) 
+# The smallest atomic unit of scope is the function
+
+#1	var foo = "bar";
+#2
+#3	function bar() {
+#4		var foo = "baz";
+#5		} 	
+#6
+#7	funcion baz(foo) {
+#8		foo = "bam";
+#9		bam = "yay";
+#10	}
+
+# Compiling of Function Scope
+
+# Need to start thinking like the JS engine
+# One important function of compiler pertinent to our discussion
+# - finding declarations of variables and functions 
+# and putting them into their appropiate scope slots
+# JS code will get a first pass through the compiler, and
+# a few microseconds later it will be passed  through again where it is executed
+
+# Line 1 is a variable declaration
+# Most  people will think of that as a single JS statement
+# Gramatically, that is true!
+# However, that is not how JS treats it ...
+# Need to look at as two entierely separate operations. 
+# Declaration and initialization.
+# Both different AND DONE AT DIFFERENT TIMES
+# Declaration var foo
+# Initialization foo="bar"
+
+# Compiler will first do a single pass looking for all the var AND function declarations.
+# ANTHROPOMORPHISE
+# Let's talk to the JS engine
+# First line. Compiler " I see a variable declaration for an identifier called 'foo'
+# Which scope am I in? => The global scope
+# Ok I'll register my foo identifier into global scope. 
+# Let's move on..
+# Line 3.  I see a function declaration with an identifier named 'bar'
+# Register the function 'bar' into global scope
+# JS compiler, unlike C++, makes 'best guess'
+# Lets compile function.. 
+# Line 4. Variable declaration for foo
+# In scope of bar
+# We have now compiled the function var
+# Line 7.  A function called baz
+# Add function call 'baz' to declaration list for global scope
+# Recursively enter 'baz' and compile
+# Where is next declaration?
+# It is 'foo', in scope of 'baz'
+# 'Hey baz', register declaration of var called 'foo'
+#  THERE ARE NO MORE DECLARATIONS
+# We are now done
+# Declared
+foo	global
+bar global
+foo baz
+baz global
+foo baz
+# Let's assume the code is executed...
+# A couple of microseconds later...
+# First things first. 'var' no longer exists
+# Line 1; foo = "bar"
+# Let's execute line 1
+# Need to introduce some compiler terminology.
+LHS
+RHS
+# LHS and RHS of what?
+# Of an assignment!
+# 'foo' is an LHS reference
+# Come from LHS and RHS of equals sign
+# But there are other ways for assignments to occur
+# which don't have an equals, but LHS and RHS still apply.
+# Broaden our definitions...
+LHS is the target
+RHS is the source
+# Ask scope manager: 'Hey, global scope, I have an LHS
+# reference for a var called foo.  Have you ever heard of it?
+# Scope manager: Yes, I've heard of him.  You declared him just a couple of microseconds ago
+# Execution of Function code
+# Lets execute bar
+# Line 4 ...
+# Hey scope of bar, I have an LHS reference  for the var foo
+# Ever heard of him?
+# Scope manager: Yes, you declared him a couple of microseconds
+# ago. Hands back a reference
+# So we can take value and copy it into that location. 
+# Now execute function baz
+# Line 8 ...
+# Hey, scope of baz, I have an LHS reference for a var called
+foo.  Ever heard of him? (Do you have a reference for him?)
+# Answer: It's in my definition. I have a parameter called foo
+# Hands back a referece in the local scope of baz
+# Can do assignment.
+# (We asked local scope first)
+# But now comes line nine
+# Hey, scope of baz, I have an LHS ref for variable called
+# 'bam'.  Ever heard of him?
+# scope of baz: "Go Fish"
+# Let's assume we are not in strict mode
+# We no go out one level of scope
+# In this case, global scope
+# Hey scope of global, I have an LHS referencce for a variable
+# called bam. Ever heard to him?
+# global scope:  Yes! I've just created it for you!
+# Created in the global scope
+# This does NOT happen in strict mode. 
+# This behaviour only happens with LHS reference
+# So the assignment is to GLOBAL variable. Ouch!
+# In strict mode, the answer is "No, never heard of him"
+# and throws an error.
+# If undeclared, unable to find that ref in any scope we
+# have access to.  Different from undefined, which IS declared,
+# and is an actual value. 
+# An undeclared variable means we cannot find an LHS ref to is
+# in any of scopes to which we have access. 
+# UNDEFINED
+# undefined and undeclared very different.  Undefined means that
+# it WAS declared but has special empty value which was 
+# (mistakenly?) called undefined.  Unitialized might be more appropiate.  
+://github.com/tomGdow/skeptics_SPA_angular.git
+#var keyword declares a variable
+
+# Scope and Execution Example
+#1 var foo = bar
+#2
+#3  function bar () {
+#4		var foo = "baz"
+#5
+#6		function baz(foo) {
+#7					foo = "bam";
+#8				bam = "yay";
+#9		}
+#10   baz();
+#11
+#12
+#13 bar();
+#14 foo;
+#15 bam;
+#16 baz();
+#
+# Compile ...
+# Line 1: declare foo in global scope
+# "Hey, global scope, I have a declaration for a variable called foo"
+# "Got it"
+# Line 3: declare function bar in global scope
+# "Hey global scope, I have a function call bar I want to declare"
+# "OK, got it, declared in bar scope. 
+# Recognize as function. Now recursively descend in and compile fn
+# Line 4:  declare var foo in bar scope
+# Hey bar scope, I have a declaration for a var called foo"
+# "OK, got it, declared in bar scope.
+# line 6 declare function baz in bar  scope
+# "Hey scope of bar, I have a function declaration for the fn baz
+# "OK, got it, delcared in bar scope.
+# line 6.5 declare var foo in baz scope
+# "Hey scope of baz, I have a named parameter for  the function baz
+# OK got it, declared in baz scope
+# No more declarations
+# A couple of microseconds later.  Lets go and execute!!
+# line 1: Hey global scope have LHS reference to var called 'foo', EHOH?
+# Yes, has been declared in global scope
+# Make assignment
+# Lines 3 -11 don't exist anymore as they have been compiled away!
+# On to line 13...
+# The reason its an RHS reference  is because it's not a LHS!
+# There is not an  assignment going on.  The bar reference is
+# not being assigned to, it is being used.
+# So on line 13 ..
+# "Hey global scope, I have an RHS reference for a variable called bar.
+# EHOH?
+# "Yes, it was defined in line 2. So I can retrive that value"
+# And it is a function object
+# Now I see open/closed parentheses on L13.  Good News ....
+# Attempt to execute the function 
+# so ... line 4
+# "Hey, bar scope I have an LHS ref for a var called foo. EHOH?"
+# "Yes, here is the reference from the bar scope"
+#  Lines 6 -9 not there anymore as they have been compiled away!
+#  So... execute line 10
+#  "Hey, bar scope I have a RHS reference for a var called baz, EHOH?
+#  "Yes, he was created on line 6 ...
+#  So lets execute baz ...
+#  Line 7," I have a LHS reference for  a var called foo, EHOH?"
+#  "Yes, you declared him on line 6"
+#  "Lets make the assignment to foo in the baz scope"
+#  Lets execute line 8
+#  "Hey, scope of baz, I have a LHS assignment for a var called bam, EHOH?"
+#  "No, go fish"
+#  "Hey scope of bar, I have a LHS assignment for a var called bam, EHOH?"
+#  "No, go fish"
+#  "Hey, global scope, I have a LHS assignment for a var called bam, EHOH?
+#  "Yes, I've just created him for you" 
+#  "Make assignment".  
+#  function returns "yay"
+#  (This silly behaviour is removed in strict"
+#  So now lets execute line 14;
+#  Hey, global scope, I have a RHS reference for a var called foo. EHOH?
+#  "Yes, declared in line 1
+#  "foo has value of "bar"
+#  Now line 15...
+#  "Hey, global scope, I have a RHS reference for a var called bam, EHOH?
+#  "YES! returns "yay"
+#  Now line 16 ...
+#  Hey global scope, I have a RHS ref or a var called baz, EHOH?
+#  "No!, and I do not declare RHS references"
+#  REFERENCE ERROR! 
+# True for both strict and unstrict
+#
+								# Function Declarations and Function Expressions
+	
