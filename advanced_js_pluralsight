@@ -336,18 +336,45 @@ console.log(err); // Reference Error
 var obj = {
 a: 2,
 b: 3,
-c: 4
+c: 4,
 };
 
-obj.a = obj.b + obj.c;
-obj.c = obj.b + obj.a;
+//obj.a = obj.b + obj.c;
+//obj.c = obj.b + obj.a;
 
 with (obj) {
-
-a = b + c;
-d = b - a;
-d = 3; 
+	a = b + c;
+	c = b - a;
+	d =3; 
 }
 
-obj.d;
-d; 
+console.log(obj.a);  // 7
+console.log(obj.b);  // 3
+console.log(obj.c);  // -4
+console.log('-----');
+console.log(obj.d);// undefined
+console.log(d);    //3 !!
+
+
+# So what happens when I run line 13?
+# KEY:  With statement is treated as a lexical scope.
+# will behave by the exact same rules of lexical scoping we 
+# "Hey scope of with statement obj, have you got a LHS ref to a 
+# var called d?
+# No, go fish
+# Go to outer (global scope). Hey global scope do you have a LHS ref
+# to a variable called 'd'.  Yes! I have created one for you
+#
+# Hey object, gotta reference to a global variable called "d"?
+# No, go fish
+# An auto-global has been created!!
+#  
+# 'with' arguable worse than 'eval', as 'with' creates a whole 
+# new lexical  scope at runtime whereas 'eval' merely modifies an
+# existing lexical global scope. 
+# When the compiler sees a 'with' keyword, it assumes the worst!! 
+# disables many optimizations.
+# As of 'strict' mode,  'with' keyword is completly disallowed
+# altogether. 
+
+																 #IIFE Pattern
