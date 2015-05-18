@@ -1,7 +1,7 @@
 # Advanced JavaScript Pluralsight
 # Front End Masters Workshop Series
 # Kyle Simpson
-											 #Scope and the Javascript Compiler
+#Scope and the Javascript Compiler
 # Scope - where to look for things
 # What are we looking for?
 # The variables we reference
@@ -146,7 +146,7 @@ foo.  Ever heard of him? (Do you have a reference for him?)
 # undefined and undeclared very different.  Undefined means that
 # it WAS declared but has special empty value which was 
 # (mistakenly?) called undefined.  Unitialized might be more appropiate.  
-://github.com/tomGdow/skeptics_SPA_angular.git
+	://github.com/tomGdow/skeptics_SPA_angular.git
 #var keyword declares a variable
 
 # Scope and Execution Example
@@ -235,5 +235,119 @@ foo.  Ever heard of him? (Do you have a reference for him?)
 #  REFERENCE ERROR! 
 # True for both strict and unstrict
 #
-								# Function Declarations and Function Expressions
+# Function Declarations and Function Expressions
+		var foo = function bar () {
+		var foo = "baz"
+		function baz(foo) {
+		foo=bar;
+
+		foo;
+		}
+		baz();
+		};
+
+		foo();
+		bar();
+
+#Difference between function DECLARATION and function EXPRESSION is that
+# in a function declaration the 'function' keyword is the fires word in the JS
+# statement.  Not the first thing on the line. The first thing on the statement.
+# It is is NOT, then we are dealing with a functional experssion. 
+# Often see FE as anonymous functions. 
+# Above is a NAMED function expression, because we see a name in the identifier position.
+# 'function bar'. 
+# But because we are dealing with a FE, function bar does not get declared in outer scope. 
+# Instead is declared in its own scope.  So name bar exists from lines 1-9 inside of 
+# itself. But try to call bar in line 12, clearly does not exist Get ref error. 
+# Three major criticisms of anonymous FE
+#1 No way inside of function to refer to ourselves.. For recursion, say. 
+# By adding name 'bar' have the ability to reference ourselves
+# The 'this' keyword is NOT a reference to yourself. 
+# The name is also safe.  Does not pollute the outer scope.
+#2 Anonymous functions do not play well in debugging!
+# A name will always get used in debug stack traces
+#3 It self-documents code. Give it a nice descriptive name like 'handler'
+
+# It was stated previously that the function is the only atomic unit of scope.
+# Turns out, not strictly true.  As of ES3 ('way back in the days'), when 'try/catch'
+# was added to the language, it was specified that the 'catch' clause was block scoped.
+var foo;
+try {
+foo.length:
+}
+catch (err) {
+console.log(err);  // Type Error
+}
+
+console.log(err); // Reference Error
+
+#caveat. IE6 screwed this up .. but as of IE7 and all other browsers, all OK
+
+																# Lexical Scope
+# Two models for scoping. Lexical and dynamic.
+# Lexical is most common.
+# Dynamic not present in JS, but a good eg of language with dynamic scope is BASH
+# Perl: can 'opt-in' to have Dscope.
+# Vast majority of languages use lexical scope.
+# What is lexical scoping?
+# Fancy term, really ...
+# 'lex' refers to the parsing stage called 'lexing' that occurs in the compiler. 
+# Lexical scoping is 'compile time scope'.  All decisions for scoping, and who can see what were
+# make at compile time and are cast in stone.  
+# Compiler decides what your scope is.
+# We have already seen that ...
+# Lexical scope like a block of flats.
+# If scope not on first floor, go up to next floor
+# top floor is global scope.
+# Can also think of Lscope as a series of NON-OVERLAPPING nested bubbles.
+# Not like venn-diagrams where bubbles can overlap.
+# Lscope are author, compile-time decisions. 
+# Nesting is fundamental part of Lscope.
+# Lscope cannot change. compiler knows ahead of runtime exactly what the scope is.
+												 # Cheating Lexical Scope: Eval
+# First way of cheating lexical scope is with eval!
+
+	#1	var bar ="bar";
+	#2
+	#3		function foo(str) {
+	#4	 	eval (str);
+	#5		console.log(bar)
+	#6	}
+  #7
+	#8	foo("var bar =42;"); 
 	
+# 'eval' takes any given string and evaluates it as code. 
+# The function has no var called 'bar' in it!  So when execute line
+# five, would expect JS to go to global scope and get bar from there.
+# But because we choose to pass in a variable declaration in the form of a string
+# and eval runs on line 4, it 'cheats' things and it pretends that that type of code
+# had existed at compile time.  In a sense it modifies the existing lexical scope of foo
+# to add a new declaration to it at run time. 
+# When you start 'cheating' the optimizations in the JS engine, your code goes slower.
+# Has to assume it cannot optimize those lookups. It has to assume that in the worst case
+# you are going to invalidate those assumptions. 
+# Just by having eval present, your code will run slower.
+# But as of strict mode, a whole new scope is created for the 'eval' statement.
+# Strict mode is not just about making better code, it is about making more optimizable code
+# If you have to ask is it Ok to use 'eval', the answer is no!
+
+#There is an even worse way to cheat lexical scope. - The 'with' keyword
+
+var obj = {
+a: 2,
+b: 3,
+c: 4
+};
+
+obj.a = obj.b + obj.c;
+obj.c = obj.b + obj.a;
+
+with (obj) {
+
+a = b + c;
+d = b - a;
+d = 3; 
+}
+
+obj.d;
+d; 
