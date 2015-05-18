@@ -1,0 +1,828 @@
+  cd www
+  ls
+  alias| grep www
+  alias 
+  ls -la | grep alias
+  vim git_set_alias_fromLynda_tgd~ 
+  vim .bash_aliases
+  www
+  exit
+  apa
+  cp apache2.conf ~/apache2_pracice.conf
+  cd 
+  vim apache2_pracice.conf 
+  sshvm
+  ssh-keygen -f "/home/thomas/.ssh/known_hosts" -R 192.168.1.13
+  cd ~/,vimr/bundle
+  cd ~/.vim/bundle/
+  la
+  cd ..
+  rm ack.tar.gz ]
+  rm ack.tar.gz
+  cd bundle
+  git clone git://github.com/tpope/vim-fugitive.git
+  vim -u NONE -c "helptags vim-fugitive/doc" -c q
+  vim
+  git clone https://github.com/scrooloose/syntastic.git
+  git clone git://github.com/tpope/vim-endwise.git
+  git clone git://github.com/tpope/vim-surround.git
+  vim .vimrc
+  sudo apt-get update
+  sudo apt-get upgrade
+  history | grep ip
+  ip addr show
+  hostname
+  hostname -I
+  firefox
+  firefox --no-remote
+  whoami
+  lsd
+  firefox -no-remote
+  fg
+  ld
+  jobs
+  pwd
+  cd acp
+  localhost:3000
+  firefox localhost:3000
+  firefox -R localhost:3000
+  firefox -no-remote localhost:3000
+  firefox -no-remote www.rte.ie
+  ps -aux | grep firefox
+  kill -9 20488
+  lynx localhost:3000
+  lynx www.rte.ie
+  firefox www.rte.ie
+  man xclip
+  pwd | xclip
+  /home/thomas
+  cd stortomas/
+  git pull
+  . ~/.bashrc
+  nolsd
+  lir
+  dir
+  vim .bashrc
+  cd st
+  st
+  vim linux_server_setup_pluralsight_log.txt 
+  vim rails_perform_fund_psight 
+  vim unixCommands.html
+  git add .
+  git commit -am "added Rails 4 Performance Browser Caching Module"
+  git push
+  vim tomvim.txt
+  vim tgd_bash_aliases 
+  rails -v
+  echo $PATH
+  rvm list
+  ka
+  las
+  echo $PATH | grep rails
+  echo $PATH | grep ruby
+  cd vmcenrAL
+  cd vmcentraltgd/
+  cd ubuntu_vostro_backups/
+  mv ubuntu_vostro_2015_04_20.tar.gz  ubuntu_vostro_backups/
+  cp  .bash_history history_vostro_cumulative
+  vim history_vostro_cumulative 
+  mkdir all_histories
+  me history_vostro_cumulative  all_histories/
+  mv history_vostro_cumulative  all_histories/
+  cd Desktop/
+  cd histories/
+  mv histories ~/all_histories/
+  mv histories/ ~/all_histories/
+  cd all_histories/
+  cd histories
+  vim history
+  vim .bash_history | grep xvf
+  joba
+  kill %1
+  echo .bash_history 
+  cat .bash_history 
+  vim .bash_history 
+  clear
+  ftp 192.168.1.2
+  ftp 192.168.56.1
+  ssh 192.168.1.2
+  ssh 192.168.56.1
+  mv ubuntu_14_2015_04_20_new.tar.tz ubuntu_vostro_backups/
+  mv ubuntu14_2015_04_24.tar.gz  ubuntu_vostro_backups/
+  ls | grep ubuntu
+  mv ubuntu_14_2015_04_20_new.tar.tz  ~/vmcentraltgd/
+  mv ubuntu14_2015_04_24.tar.gz ~/vmcentraltgd/
+  cd ~/vmcentraltgd/
+  git logg
+  cd
+  ls | grep .gz
+  ls 
+  vim Hartl_tutorials_tgd_copy 
+  cd sample_app_two/
+  cd sample_app/
+  rails s
+  bundle install
+  rmv use 1.9.2
+  rvm use 1.9.2
+  cd app
+  cd views
+  vim Gemfile
+  cd..
+  ifconfig
+  skk
+  cd skk
+  cd skketpics_spa_angular_new/skeptics_SPA_angular/
+  mkdir skkeptics_git_clone_backup_may
+  cd skkeptics_git_clone_backup_may/
+  git clone https://github.com/tomGdow/skeptics_SPA_angular.git
+  cd acp 
+  git status
+  git commit -am "Major changes to Biblio manager"
+  git push heroku master
+  cd skketpics_spa_angular_new/
+  cd skeptics_SPA_angular/
+  cd config
+  cp database.yml mydbtgd.yml
+  mv mydbtgd.yml /Desktop 
+  mv mydbtgd.yml .
+  mv mydbtgd.yml ~/.
+  rvm
+  rmv list
+  rmv use ruby-1.9.3-p448
+  rvm use ruby-1.9.3-p448
+  cd ~/Desktop/
+  ls grep important
+  ls | grep important
+  cd skeptics_important_clones/
+  skeptics_clone_may_15_2015
+  mk dir skeptics_clone_may_15_2015
+  mkdir skeptics_clone_may_15_2015
+  cd skeptics_clone_may_15_2015/
+  cd skketpics_spa_angular_new/sk
+  raila a
+  cd acp/skketpics_spa_angular_new/skeptics_SPA_angular/
+  history | grep rake
+  rake dbreset
+  rmv use ruby-1.9.3-p448 --default
+  rvm use ruby-1.9.3-p448 --default
+  rake db:reset
+  git stash
+  history | grep tar
+  history | grep ssh
+  ssh thomas@192.168.1.2
+  ssh thomas@192.168.56.1
+  use PASV
+  put bash_and_vim_bu_mar_15_2015.tar.tz
+  cd /
+  cd ~
+  ls | grep bash
+  rm bash_and_vim_bu_mar_15_2015.tar.tz 
+  rm -i .tz
+  rm -i *.tz
+  cp bash_and_vim_bu_mar_15_2015.tar.gz vmcentraltgd/
+  cd vmcentral
+  cp bash_and_vim_bu_mar_15_2015.tar.gz  ~/Desktop/
+  rm bash_and_vim_bu_mar_15_2015.tar.gz 
+  ls dir
+  ls  | grep .gz
+  cd vm central
+  vim ~/.bash_history 
+  tar .xvf bash_and_vim_bu_mar_15_2015.tar.gz 
+  tar -xvf bash_and_vim_bu_mar_15_2015.tar.gz 
+  lsg wire
+  lsag wire
+  lsg history
+  lsg vostro
+  vim tom_ack_history
+  cd shared
+  history
+  vim .gitconfig
+  hostname-I
+  ssh 192.168.221.37
+  telnet 192,168.221.37
+  telnet 192.168.221.37
+  ping 192.168.221.37
+  sudo apt-get install hfs-progs
+  sudo apt-get install hfsprogs
+  ssh 192.168.1.13
+  cd vmshare/
+  mv ubuntu14_2015_04_20.tar.gz vmcentraltgd/
+  ar
+  tar -xvf ubuntu14_2015_04_20.tar.gz 
+  cd ubuntu_14_backups/
+  cd bin ubun
+  cd bin_ubuntu_14/
+  ls ~/bin
+  cd bin
+  vim tom.txt
+  mv animals create_script drawline create_script_reindert  game mvext stillhere stillheretoo count demo hist tn count2 demo_start_with_a  hw mytar ~/bin
+  mv box ~/bin
+  cd ~/bin
+  hw
+  drawline 3
+  rm tom.txt
+  hist
+  demo 
+  rm demo
+  rm demo_start_with_a 
+  rm mytar
+  rm stillhere
+  count 10
+  mkdir ubuntu_vostro_backups
+  cp .bashrc ubuntu_vostro_backups/
+  cp .vimrc ubuntu_vostro_backups/
+  cp etc
+  cd ~/etc
+  cd //
+  type vsftpd.conf
+  cd /etc
+  ls -la | grep vsftpd.conf
+  cp ~/etc/vsftpd.conf ubuntu_vostro_backups/
+  echo ~/etc/vsftpd.conf
+  echo ~/etc/vsftpd.confd
+  ls ~/etc | grep vsftpd
+  ls ~/etc
+  cd etc
+  cp /etc/vsftpd.conf  ubuntu_vostro_backups/
+  ls -la
+  vim .gitrc
+  cp tomvim
+  ls | grep bin
+  cp -r bin bin_ubuntu_vostro
+  mv bin_ubuntu_vostro/ ubuntu_vostro_backups/
+  tar -czf ubuntu_vostro_2015_04_20 ubuntu_vostro_backups/
+  tar -czf ubuntu_vostro_2015_04_20.tar.gz ubuntu_vostro_backups/
+  rm ubuntu_vostro_2015_04_20
+  luakit www.google.ie
+  luakit www.rte.ie
+  luakit www.bbc.com
+  luakit -h
+  luakit localhost
+  luakit http://skeptics.herokuapp.com/#/view1
+  CD stortomas/
+  alias
+  history > history_cumul_tgd.txt
+  cd app/assets/images/
+  cp 103_pele.jpg  mypele.jpg
+  mv mypele.jpg .
+  mv mypele.jpg ~/.
+  cd ~/shared
+  mv mypele.jpg ~/shared/rails_4_getStarted_psight_app/HU/app/assets/images/
+  rgs
+  cp 075_pirlo.jpg  mypirlo.jpg
+  cp 095_hurst.jpg  myhurst.jpg
+  mv mypirlo.jpg myhurst.jpg ~/.
+  mv myhurst.jpg mypirlo.jpg  ~/shared/rails_4_getStarted_psight_app/HU/app/assets/images/
+  man tee
+  lsd | tee tomtee.txt
+  vim tomtee.txt 
+  lsd | tee teetom.txt
+  rails s -b 3000
+  man crontab
+  vim app/views/layouts/application.html.erb 
+  rvm use 2.1.1
+  rails s - b 0.0.0.0
+  rvm 
+  rails s -b 0.0.0.0
+  tail -f log/development.log | tee tomrailstee.txt
+  vim tomrailstee.txt 
+  rm tomrailstee.txt 
+  cd app/views/home/
+  touch question.html.erb
+  rvm list 
+  rmv use 2.1.1
+  rvm 2.1.1
+  ruby v-
+  ruby -v
+  cd app/views/layouts/
+  vim application.html.erb 
+  :bn
+  vim tomvim.txt 
+  vimm tomvim.txt
+  man ack
+  man Ack
+  man awk
+  eye wont agraa
+  man ye
+  man xye
+  cd app/views
+  vim home/index.html.erb 
+  /bin/bash --login
+  tgdup
+  rvm lis
+  tail -f log/development.log 
+  cd home
+  vim .index.html.erb.swp 
+  :q
+  vim index.html.erb 
+  cd ../../assets/images/
+  cd .
+  cd views/home
+  . ~/.vimrc
+  vim ~/.vimrc
+  cd app/views/
+  rmv lis
+  vim ~/.bashrc
+  vim ~/.bash_aliases
+  rs0
+  rails generate resourse question email:string body:text
+  rails generate resource question email:string body:text
+  rake db:migrate
+  git commit -am "finished intro mod and completed Question migration"
+  rails c
+  cp index.html.erb  practice.html.erb
+  mv practice.html.erb  ~/.
+  cd app/home
+  cp _new_question_form.html.erb _new_answer_form.html.erb
+  lsdno
+  aliases
+  alias | grep lsd
+  vim _new_question_form.html.erb 
+  vim ~/stortomas/tomvim.txt 
+  vim practice.html.erb 
+  source ~/.vimrc
+  rvm use 2.1.1 --default
+  rmv get stable --autofiles
+  rvm  get stable --autofiles
+  sudo rvm  get stable --autofiles
+  rvm reset
+  history | grep bash
+  rmv
+  .~/.vimrc
+  vim views/home/question.html.erb 
+  rmv use 1.9.3
+  ack
+  ack-gerp
+  ack-grep
+  q
+  exi
+  rails s -e production -b 0.0.0.0
+  export SECRET_KEY_BASE=a96c83aaeda7ae9e29d1648ef788a1719bef9f5a6fddeca4f124bc51df083c157eead5528ad81a33a43837acfb7b0b71efc605c192f0ff3ce8a445c8ab2fb4a1
+  cp db/development.sqlite3 db/production.sqlite3
+  export RAILS_SERVE_STATIC_FILES=true
+  rake assets:precompile
+  RAILS_ENV=production rake assets:precompile
+  rails -s
+  vim app/views/home/index.html.erb 
+  git commit -am "Finished 'Basics of the Asset Pipeline' "
+  heroku
+  touch deploy_to_heroku_pluralsight
+  vim deploy_to_heroku_pluralsight 
+  tail -f log/production.log
+  rg0
+  git commit -am "deleted all data, added some sample questions"
+  heroku create
+  git remote -v
+  git commit -am "added pg and Heroku requirements"
+  heroku open
+  heroku run rake db:migrate
+  heroku rename hisuniv
+  heroku config
+  cd config/initializers/
+  touch sucker_punch.rb
+  rg
+  git commit -am "finished Action Mailer and Active Job"
+  coffeescript -v
+  coffee -v
+  npm install -g coffee-script
+  sudo npm install -g coffee-script
+  wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  heroku login
+  git clone https://github.com/kchmck/vim-coffee-script.git ~/.vim/bundle/vim-coffee-script/
+  touch rails_in_production_pluralsight
+  ls | grep heroku
+  :exit
+  cd ~/shared/
+  git clone https://git.heroku.com/hisuniv.git
+  mkdir hisuniv_from_heroku
+  mv hisuniv hisuniv_from_heroku/
+  heroku logs --tail
+  heroku config:set TEST=1
+  heroku run rails console
+  psql
+  which psql
+  heroku pg:psql
+  heroku pg:info
+  touch tompractice.html
+  vim tompractice.html 
+  vim .vimrc 
+  cp index.html.erb ~/. myindex.html
+  cp index.html.erb  . myindex.html
+  cp index.html.erb ./myindex.html
+  find myindex.html
+  find . -name myindex.html
+  mkdir rails4_expt
+  cd rails4_expt/
+  less teetom.txt 
+  rm teetom.txt 
+  rm tomtee.txt 
+  rm tompractice.html 
+  tin_c_poero
+  mv virtual_box_increase_hd_size_windows_attempt.txt  virtual_box_increase_hd_size.txt
+  mv ruby_on_rails_getting_started_pluralsight rails4_getting_started_pluralsight 
+  mv linux_server_setup_pluralsight_log.txt linux_server_pluralsight_log.txt 
+  vim products_controller.rb 
+  rm products_controller.rb 
+  rm tgd_bash_aliases 
+  vim chrome_ssh_problems 
+  vim ftptest.txt 
+  rm ftptest.txt 
+  vim mysketptics_css.css~ 
+  rm mysketptics_css.css~ 
+  vim main.css.scss 
+  rm main.css.scss 
+  mv chrome_ssh_problems chrome_ssh_key_problem
+  mv tomvim.txt tomvim-pluralsight.txt
+  vim tomvim-pluralsight.txt 
+  vim rails4_getting_started_pluralsight 
+  vim rails_in_production_pluralsight 
+  touch rails_edge_version_pluralsight
+  vim rails_edge_version_pluralsight 
+  st 
+  bundle update
+  rvm use 2.2.1
+  git diff
+  rm Gemfile.lock 
+  rvm install ruby
+  cd ~/vim/bundle
+  cd ~/vim
+  cd vim
+  cd .vim
+  git clone https://github.com/KurtPreston/vim-autoformat-rails.git
+  clar
+  source ~/vimrc
+  vim ~/.vimrc 
+  vim app/views/bibliographies/
+  vim app/views/bibliographies/index.html.erb 
+  vim app/views/carts/index.html.erb 
+  touch advanced_js_pluralsight
+  vim advanced_js_pluralsight 
+  git clone https://github.com/othree/html5.vim.git
+  man tidy
+  rake routes
+  touch database.yml
+  vim database.yml 
+  :vim app/views/home/*
+  vim app/views/home/*
+  node -v
+  mkdir javascript_code_egs
+  cd java
+  cd javascript_code_egs/
+  touch adv_js_psight.js
+  vim adv_js_psight.js 
+  node adv_js_psight.js 
+  ?
+  vim app/home/*
+  vim app/views/carts/*
+  cd bibliographies/
+  vim *
+  cd commodities/
+  vim ~/stortomas/tomvim-pluralsight.txt 
+  bf
+  cd app/view/biblio
+  cd app/views/bibliographies/
+  vim bibliographies/
+  vim bibliographies/*
+  cd carts
+  :ls
+  git reset --hard
+  cd app/views/commodities/
+  vim app/views/home/
+  cd app/views/home
+  cp index.html.erb ~/.
+  vim ~/.vimrce
+  git commit -am "formatted views/home with vim"
+  vim app/views/home/footer.html 
+  :quit
+  rails -b 3000
+  skk 
+  vim commodities/*
+  ls | grep java
+  ls  | grep javascript_code_egs/
+  vim ~/.bash_aliases 
+  lsg
+  lsg javascript
+  eval_js_pluralsight.js
+  touch eval_js_psight.js
+  vim eval_js_psight.js 
+  node eval_js_psight.js 
+  touch iife.js
+  vim iife.js
+  vim iife.js 
+  node iife.js 
+  @q
+  vim app/views/commodities/*
+  vim _showPartial.html.erb 
+  cp _showPartial.html.erb  mepractice.html.erb
+  vim mepractice.html.erb 
+  rm mepractice.html.erb 
+  git commit -am "formatted views/commodities with vim"
+  git commit -am "formatted views/biblio with vim"
+  vim carts/*
+  git commit -am "formatted views/carts with vim"
+  vim layouts/
+  vim layouts/*
+  vim line_items/*
+  git commit .
+  git commit -am "formated views/line-items with vim"
+  cd assets
+  cd images
+  cd javascripts/
+  git commit -am "formatted assets/js with vim"
+  cd stylesheets/
+  cd partials
+  rake db:seed
+  quti
+  export LANG=en_US.UTF-8
+  export LANGUAGE=en_US.UTF-8
+  bundle
+  cd db
+  vim seeds.rb
+  export LC_ALL=en_US.UTF-8
+  cd db/
+  vim seeds.rb 
+  vim .gitignore
+  git commit -am "modified seeds file to reflect utf-8 uncoding. VM only"
+  cp skeptics_SPA_angular/ rfourskk
+  cp -R skeptics_SPA_angular/ rfourskk
+  cd rfourskk/
+  rm Gemfile.lock
+  lsg git
+  ls -la | grep git
+  rm .git
+  rm -rf .git
+  vim Gemfile 
+  bundle exec
+  bundle exec install
+  rake rails:upgrade
+  rake rails:update
+  cp Gemfile ~/stortomas/r4Gemfile
+  rm -rf rfourskk/
+  mkdir r4skeptics_SPA_angular
+  logut
+  mddir bash_and_vim_bu_mar_15_2015
+  mkdir bash_and_vim_bu_mar_15_2015
+  cp .bashrc bash_and_vim_bu_mar_15_2015/
+  cp .vimrc bash_and_vim_bu_mar_15_2015/
+  cp .bash_aliases bash_and_vim_bu_mar_15_2015/
+  cp .bash_history bash_and_vim_bu_mar_15_2015/
+  history | grep gzip
+  vim .bash_history
+  man tar
+  tar -czv bash_and_vim_bu_mar_15_2015/ bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+  tar -czv bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+  tar -czf bash_and_vim_bu_mar_15_2015.tar.tz bash_and_vim_bu_mar_15_2015
+  mv bash_and_vim_bu_mar_15_2015.tar.tz  ubuntu_14_backups/
+  mv bash_and_vim_bu_mar_15_2015 ubuntu_14_backups/
+  ssh thomas@192.168.1.4
+  ftp 192.168.1.4
+  ftp -p 192.168.1.4
+  tar -czf bash_and_vim_bu_mar_15_2015.tar.gz bash_and_vim_bu_mar_15_2015/
+  ftp -p thomas@192.168.1.4
+  cd bash_and_vim_bu_mar_15_2015/
+  rm -i bash_and_*
+  rmdir -i bash_and_vim_bu_mar_15_2015/
+  rm dir bash_and_vim_bu_mar_15_2015/
+  rmdir bash_and_vim_bu_mar_15_2015/
+  ls-la
+  touch readme.txt
+  vim readme.txt 
+  cp .vimrc temptom.txt
+  vim temptom.txt 
+  tar -czf temptom.tar.gz temptom.txt 
+  ftp -p 192.168.1.4 
+  rm -i temp*
+  cp .vimrc tgdvimrc
+  vim tgdvimrc 
+  tar -czf tgdvimrc.tar.gz tgdvimrc 
+  ftp -p 192.194.1.4
+  rm -i tgdvim*
+  rm index.html.erb 
+  vim stortomas/tomvim-pluralsight.txt 
+  quit
+  stortomas
+  history >> history_cumul_tgd.txt 
+  vagrant halt
+  mkdir vagrant_rails_basic_tgd
+  rm vagrant_rails_basic_tgd/
+  rm -rf vagrant_rails_basic_tgd/
+  ls | grep vagrant
+  mkdir vagrant_rails4_basic_tgd
+  cd vagrant_rails4_basic_tgd/
+  vagrant init
+  vim Vagrantfile 
+  vagrant up
+  ce /vagrant
+  cd vagrant
+  cd /vagrant
+  cd rails4_basic
+  rm foo
+  vagrant ssh
+  mkdir vagrant_ubuntu-trusty64 
+  cd vagrant_ubuntu-trusty64/
+  vagrant init  ubuntu/trusty64 
+  cd ?
+  cd depot_rails_four/
+  cd depot
+  cp depot /vagrant/
+  cp -r /vagrant
+  cp -r /vagrant/
+  cp -a depot /vagrant/
+  cd /Vagrant/
+  cd /vagrant/~
+  cd /vagrant/
+  cp -a depot ~/vagrant_ubuntu-trusty64/
+  cd ~/vagrant_ubuntu-trusty64/
+  cd ~/acp
+  cd depot/
+  mysql -v
+  vim Gemfile.lock
+  rvm gems
+  gem list
+  cd RubyMine-7.0.4/
+  vim /etc/hosts
+  sudo vim /etc/hosts
+  cd ifconfig
+  cd /etc/network
+  vim interfaces
+  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
+  sudo apt-get installl rpm
+  sudo apt-get install rpm
+  sudo rpm --import oracle_vbox.asc
+  cd /etc/hosts
+  ssh 192.168.1.24
+  sudo vim/etc/hosts
+  ssh 192.168.221.56
+  ping 192.168.221.56
+  ssh student.nci.col
+  ssh student.nci.col:192.168.221.56
+  ssh 192.168.56.1.student.nci.col
+  ssh 10.0.2.15
+  sudo ssh 192.168.56.1
+  ssh 192.168.221.56@student.nci.col
+  ssh 192.168.221.1
+  ssh
+  ssh -b 192.168.221.56
+  man ssh
+  ssh -4  192.168.221.56
+  VBoxManage modifyvm | grep natpf
+  ssh 12113441@192.168.221.56
+  ssh x12113441@192.168.221.56
+  netstat -ant | grep 2222
+  netstat -ant | grep 22
+  netstat
+  man netstat
+  netstat -ant
+  ssh 127.0.0.1
+  ohbeejY
+  ssh 192.168.221.32
+  cd important_methods_tgd/
+  sudo vim .ssh
+  sudo apt-get install kate
+  ssh thomas@192.168.1.24
+  ftp thomas@192.168.1.24
+  ftp 192.168.1.24
+  vim bash_intro_pluralsight 
+  cd usr
+  cd share
+  sudo apt-get install virtualbox
+  man dpkg
+  dpkg -L virtualbox
+  cd /etc/default
+  cd virtualbox
+  file virtualbox
+  cd /usr/lib/virtualbox/
+  cd VirtualBox
+  iso
+  find *.iso
+  file *.iso
+  cd VBoxManage
+  cd ExtensionPacks/
+  cd Oracle_VM_VirtualBox_Extension_Pack/
+  dpkg -L firefox
+  dpkg -L *.iso
+  dpkg -L virtual
+  dpkg -L Rails
+  dpkg -L rails
+  dpkg -L ruby
+  dpkg -L rvm
+  dpkg shite
+  git clone git@github.com:tomGdow/stortomas.git
+  mv unixCommands.html ~/stortomas/
+  mv addTwo_deploy_github_heroku ~/stortomas/
+  mv * ~/stortomas/
+  rmdir important_methods_tgd/
+  git commit -m "First commit"
+  git puhs
+  git clone git@github.com:tomGdow/depot-tgd.gitcd ..
+  git pul
+  git shit
+  git commit -am "modified unix commands -dpkg"
+  mkdir vmshare
+  cd vmshare
+  touch hello.txt
+  vim hello.txt 
+  sudo apt-get install virtualbox-guest-additions-iso
+  mddir windows7
+  mkdir windows7
+  cd windows7/
+  man ab
+  sudo apt-get install apache2-utils
+  ab
+  sudo apt-get install ack-grep
+  ack-grep thomas
+  find . | wc -l
+  ack-grep -f |wc -l
+  ack -grep --ruby bridge
+  ack-grep --ruby bridge
+  ack-grep --js get
+  cd ~Downloads
+  cd ~/Downloads
+  mv ack.tar.gz ~/.vim 
+  cd ~/.vim
+  tar xvzf ack.tar.gz 
+  vim commodities/index.html.erb 
+  sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+  ack thoma
+  ack --html brigge
+  ack --html cart
+  ls -la ~/.ssh
+  man vm*
+  sudo apt-get install xrpd
+  ping www.rte.ie
+  sudo apt-get install xrdp
+  sudo service xrdp restart
+  hostname _I
+  sostname -I
+  ftp 192.168.1.56
+  ftp 192.168.1.13
+  rm ubuntu14\ Clone-bridged.vbox 
+  mkdir ftp_tgd
+  cd ftp_tgd/
+  sudo apt-get install libguestfs-tools
+  LS
+  cd cd Virtual_Machines/
+  cd Virtual_Machines/
+  cd "ubuntu14 Clone-bridged"/
+  cd "VirtualBox VMs"/
+  cd ubuntu14\ Clone-bridged/
+  guestfish --ro -i -a "ubuntu14 Clone-bridged.vbox"
+  sudo guestfish --ro -i -a "ubuntu14 Clone-bridged.vbox"
+  sudo guestfish --ro  -a "ubuntu14 Clone-bridged.vbox"
+  sudo guestfish --ro  "ubuntu14 Clone-bridged.vbox"
+  sudo guestfish -a  "ubuntu14 Clone-bridged.vbox"
+  sudo guestfish -a  "ubuntu14 Clone-bridged-disk1.vmdk" 
+  sudo guestfish --ro -i -a "ubuntu14 Clone-bridged-disk1.vmdk" 
+  sudo guestfish --ro  -a "ubuntu14 Clone-bridged-disk1.vmdk" run : download /dev/sda1 sda1.img 
+  cd /dev/
+  cd sda1
+  cd /sda1
+  ls | grep sda1
+  cd VirtualBox\ VMs/
+  sudo guestfish --ro  -a "ubuntu14 Clone-bridged-disk1.vmdk" run : download /dev/sda5  sda5.img 
+  lynx
+  ssh thomas@192.168.1.13
+  sudo apt-get install openssh-client openssh-server
+  cd /etc/ssh
+  vim sshd_config 
+  sudo vim sshd_config 
+  sudo vim welcome.txt
+  sudo service ssh restart
+  ssh thomas@localhost
+  sudo service apache2 status
+  sudo apt-get install vsftpd
+  vim vsftpd.conf 
+  sudo vim vsftpd.conf 
+  sudo service vsftpd restart
+  hostname -i
+  netstat -a
+  jaA
+  type ack
+  type www
+  type .bashrc
+  cd /usr/bin
+  cd jas
+  ls -la | grep bash
+  vim .bash_profile
+  history | grep ack
+  vim 
+  vim tompractice.html
+  cd ~/Desktop
+  cd~
+  ls -la | grep -i Vagrant
+  cd vagrant_getting_started/
+  ls |grep foo
+  pa
+  ps
+  reste
+  reset
+  vim tomVagrant.txt
+  ls | grep methods
+  vim important_methods_tgd/unixCommands.html
+  mkdir vagrant_rails_start_one
+  cd vagrant_rails_start_one/
+  vagrant destroy
+  ls | grep vagrant_
+  rm -rf vagrant_rails_start_one/
+  history > tom_ack_history.txt
+  history > history_ccccumul_tgd.txt

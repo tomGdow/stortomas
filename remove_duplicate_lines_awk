@@ -1,0 +1,15 @@
+
+awk '!a[$0]++' history_vostro_cumulative > tom
+
+# See here
+http://stackoverflow.com/a/18171886/499167
+
+
+# To remove a column using vim
+# See here
+ http://stackoverflow.com/a/4896690/49917
+ # gg
+ # Ctrl-V
+ # (into block-visual mode)
+ # G
+ # hit x to delete column.
