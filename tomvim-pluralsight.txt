@@ -907,3 +907,7 @@ CTRL-V CTRL-M
 :%s/^\s\+
 # See here...
 http://vim.wikia.com/wiki/Remove_unwanted_spaces
+
+# Remove all lines except single lines (a goodie)
+:g/^\_$\n\_^$/d
+# Above from stackoverflow

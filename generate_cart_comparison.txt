@@ -1,0 +1,35 @@
+rails generate scaffold cart
+rake db:migrate
+
+# Rails 4
+# Controllers/concerns
+module CurrentCart
+extend ActiveSupport::Concern
+
+private
+
+	def set_cart
+@cart = Cart.find(session[:cart_id])
+	rescue ActiveRecord:RecordNotFound
+	@cart = Cart.create
+	session[:cart_id] = @cart.ie
+	end
+	end
+
+Rails 3
+
+def current_cart
+Cart.find(session[:cart_id]
+rescue ActiveRecord:RecordNotFound
+cart = Cart.create
+session[:cart_id] = cart.id
+cart
+end
+end
+
+rails4 rails g scaffold LineItem commodity_id:integer cart_id:integer
+rails3 rails g scaffold line_item commodity_id:integer cart_id:integer
+
+rake db:migrate
+
+

@@ -25,7 +25,7 @@ This means that when it is running line 4 it has no idea what is on line 5
 # So it HAS seen line five before it executes line 3. 
 
 # The basic unit of scoping in JS is the function (not STRICTLY correct ...) 
-# The smallest atomic unit of scope is the function
+# The smallest atomic unit of scope is the function.
 
 #1	var foo = "bar";
 #2
@@ -252,7 +252,7 @@ foo.  Ever heard of him? (Do you have a reference for him?)
 #Difference between function DECLARATION and function EXPRESSION is that
 # in a function declaration the 'function' keyword is the fires word in the JS
 # statement.  Not the first thing on the line. The first thing on the statement.
-# It is is NOT, then we are dealing with a functional experssion. 
+# It is is NOT, then we are dealing with a functional expression. 
 # Often see FE as anonymous functions. 
 # Above is a NAMED function expression, because we see a name in the identifier position.
 # 'function bar'. 
@@ -271,19 +271,19 @@ foo.  Ever heard of him? (Do you have a reference for him?)
 # It was stated previously that the function is the only atomic unit of scope.
 # Turns out, not strictly true.  As of ES3 ('way back in the days'), when 'try/catch'
 # was added to the language, it was specified that the 'catch' clause was block scoped.
-var foo;
-try {
-foo.length:
-}
-catch (err) {
-console.log(err);  // Type Error
-}
+		var foo;
+		try {
+			foo.length:
+		}
+		catch (err) {
+			console.log(err);  // Type Error
+		}
 
-console.log(err); // Reference Error
+		console.log(err); // Reference Error
 
 #caveat. IE6 screwed this up .. but as of IE7 and all other browsers, all OK
 
-																# Lexical Scope
+# Lexical Scope
 # Two models for scoping. Lexical and dynamic.
 # Lexical is most common.
 # Dynamic not present in JS, but a good eg of language with dynamic scope is BASH
@@ -304,18 +304,18 @@ console.log(err); // Reference Error
 # Lscope are author, compile-time decisions. 
 # Nesting is fundamental part of Lscope.
 # Lscope cannot change. compiler knows ahead of runtime exactly what the scope is.
-												 # Cheating Lexical Scope: Eval
+# Cheating Lexical Scope: Eval
 # First way of cheating lexical scope is with eval!
 
-	#1	var bar ="bar";
-	#2
-	#3		function foo(str) {
-	#4	 	eval (str);
-	#5		console.log(bar)
-	#6	}
-  #7
-	#8	foo("var bar =42;"); 
-	
+#1	var bar ="bar";
+#2
+#3		function foo(str) {
+#4	 	eval (str);
+#5		console.log(bar)
+#6	}
+#7
+#8	foo("var bar =42;"); 
+
 # 'eval' takes any given string and evaluates it as code. 
 # The function has no var called 'bar' in it!  So when execute line
 # five, would expect JS to go to global scope and get bar from there.
@@ -333,27 +333,27 @@ console.log(err); // Reference Error
 
 #There is an even worse way to cheat lexical scope. - The 'with' keyword
 
-var obj = {
+		var obj = {
 a: 2,
-b: 3,
-c: 4,
-};
+	 b: 3,
+	 c: 4,
+		};
 
-//obj.a = obj.b + obj.c;
-//obj.c = obj.b + obj.a;
+		//obj.a = obj.b + obj.c;
+		//obj.c = obj.b + obj.a;
 
-with (obj) {
-	a = b + c;
-	c = b - a;
-	d =3; 
-}
+		with (obj) {
+			a = b + c;
+			c = b - a;
+			d =3; 
+		}
 
-console.log(obj.a);  // 7
-console.log(obj.b);  // 3
-console.log(obj.c);  // -4
-console.log('-----');
-console.log(obj.d);// undefined
-console.log(d);    //3 !!
+		console.log(obj.a);  // 7
+		console.log(obj.b);  // 3
+		console.log(obj.c);  // -4
+		console.log('-----');
+		console.log(obj.d);// undefined
+		console.log(d);    //3 !!
 
 
 # So what happens when I run line 13?
@@ -377,4 +377,596 @@ console.log(d);    //3 !!
 # As of 'strict' mode,  'with' keyword is completly disallowed
 # altogether. 
 
-																 #IIFE Pattern
+#IIFE Pattern
+		(function () {
+# I am an IIFE skeleton
+		 })();
+
+		var foo ="foo"
+			(function () {
+			 var foo = "foo2"
+			 console.log(foo) // foo2
+			 })();
+		console.log(foo) // foo
+
+# Why? Want to wrap lines 5 & 6 in new scope.
+# In JS, the unit of scope is function
+# In other languages could use a pair of curly braces
+# No leakage of function name ... 
+# IIFE expression.  Wrap in parentheses to make an expression.  If
+# opening paren wasen't there would have function DECLARATION
+# Another set of parens at end immediately executes an expression. 
+# This pattern is extremely popular.  In top two in all of JS
+# For long time had it without name.  In 2009, 2010 or sometime like that
+# Ben Alman, "cowboy" online coined the term.
+# "Mr jQuery plugin'.
+# Suggested the name "Immediately invoked function expression" IFFE
+# Key. A function EXPRESSION, either named or anonymous, that immediately
+# invokes itself. 
+# If, say you have 100 functions and want to keep 99 private.
+# Wrap in an IIFE.  Now all 100 are private. Now take one and add as property
+# to window object, say,  to make it global. 
+
+# Useful Variations on the IIFE pattern
+#1 An IIFE is just a function call, so we can pass things into it.
+
+			var foo ="foo"
+
+			(function(bar) {
+			 var foo =bar;
+			 console.log(foo)
+			 })(foo);
+
+		console.log(foo);
+
+#Kyle Simpson passes in the window object but calls it global.  Makes things obvious. 
+# Another use in jQuery world. If you are worried that the '$'sign legitimately
+# point to the jQuery object, pass in ... )(jQuery); but on line 3 call it as dollar
+# (function($) {
+# // I am am IIFE 
+# })(jQuery); 
+
+#IIFE Questions 
+#Block Scope in ES6
+# The 'let' keyword.
+# Kind of like 'var'.  Will declare a variable, but will
+# implicitly attach that variable to whatever block it appears in.
+# Rather than attaching it to the function
+
+		function foo () {
+			var bar = "bar"
+				for (let i =0; i < bar.length; i++) {
+					console.log(bar.charAt(i)):
+				}
+			console.log(i);
+
+		}
+
+		foo();
+
+# A usual way with JS developers
+# for (var i =1; ...) 
+
+# If had said for (var i = 0; ...) on line 3 above then 
+# i would have attached TO THE FUNCTION. 
+# (let i =0;...) makes it attach to for loop
+# Same occurs if put let inside of 'if' statement.
+
+		function foo (bar)
+			if (bar) {
+				let baz = bar;
+				if (baz) {
+					let bam = baz:
+				}
+				console.log(bar); // Error
+			}
+		console.lgo(baz); // Error
+}
+foo ("bar");
+
+# 'let' keyword will hijack implicitly the scope of whatever block it appears in.
+# Usually that is any two(?)  pairs of curly braces. 
+# Not just styleistic benefits of 'let'.  Also potentially more
+# efficient garbage collection.
+
+# Problems with the 'let' keyword
+# Problem 1.  The 'let' keyword does not hoist.
+# Problem 2.  Another mental task for refactoring.
+# One way around problems with let is to create a let block (rather than a let 
+# declaration as shown in the code above)
+# CAREFUL!  Read on ...
+
+function foo(bar)
+	let (baz = bar) {
+		console.log (baz); // "bar"
+	}
+console.log(baz); // Error
+}
+foo ("bar");
+
+# Create an explicit block for the binding to exist, and it only 
+# exists within that block. 
+# Forces declarations to top of block. 
+But MAJOR problem   The TC39 committee decided to REJECT the above syntax from ES6!!
+# For his solution let-er 
+# See
+https://github.com/getify/let-er
+https://gist.github.com/getify/5285514
+https://gist.github.com/getify
+
+# In JS you CAN create an idiomatic block with two curly braces. 
+
+# Dynamic Scope
+# A THEORETICAL example of dynamic scope
+function foo() {
+	console.log(bar);  //dynamic!
+}
+
+function baz() {
+	var bar = "bar";
+	foo();
+}
+baz();
+# When we reference var bar on line 2 we can clearly see
+# the LEXICALLY bar does not exist.  
+# But if dynamic scoping were the model used by JS then
+# it would not look at where the code was written, but would
+# instead look at the calls stack. 
+# It would say "Does function foo have a bar, and IF NOT where was
+# function foo called from?
+# It would go one step up the call stack and see that it is called from baz.
+# So look at the scope of baz to see if there was a variable.
+# Should look awkward...
+# Lexical scoping in 99.9% of all languages.
+# The key distinction is that in dynamic scoping the decision for
+# how scoping works is a run-time decision, as opposed to in lexical 
+# scoping it is an author time decision. 
+
+# Quiz Scope.
+#1 What type of scoping rules does JS have? Exceptions?
+
+#a JavaScript has lexical scoping. 
+#b We can 'cheat' lexical scoping using
+#eval and
+#with
+
+#2 What re the different ways you can create a new scope? 
+#a The function is the fundamental unit of scope
+#b The catch clause has block scope.
+#c The let keyword may be used to obtain block scoping. 
+
+#3  What is the difference between undeclared and undefined?
+# Undefined IS a value and a variable with a value of undefined has
+# been declared.  Undefined, conceptually, means the var does not 
+# currently have a value. 
+# Undeclared means the var has not been declared. ie it has not been
+# registered in any scope.  If a var is not declared you will get
+# back  a 'reference error'.
+
+# Hoisting 
+# There is a conceptual model for how JS works. This CM is called hoisting.
+# No ref in JS spec to hoisting.  Hoisting is a mental construct designed 
+# to help us understand how JS behaves. 
+
+a;  // Undefined (NOT undeclared)
+b;  // Undefined
+var a = b;
+var b = 2;
+b;  // 2
+a;  // Undefined
+
+# Best to think of code as written as follows just before execution
+var a; 
+var b;
+a;
+b;
+a = b;
+b = 2;
+b;
+a;
+
+# Think of as variable declarations 'moved' to top, but assignments are left in
+# place. Moving to the top is called hoisting. 
+# Think of lines 1 & 2 as compile phase.
+# Execution phase is lines 3-8. 
+# How will this code work?
+var a = b();
+bar c = d();
+a;
+c;
+function b() {
+	return c;
+}
+
+var d = function () {
+	return b():
+};
+
+# Proper way to think of code using hoisting concept.
+
+function b() {
+	return c;
+}
+var a;
+var c;
+var d;
+a = b();
+c = d();
+console.log(a);
+console.log(c);
+
+d = function () {
+	return b();
+};
+
+
+
+
+# skdfjasl
+var a = b();
+var c = d();
+console.log(a);
+console.log(c);
+
+function b() {
+	return c;
+}
+
+var d = function () {
+	return b();
+};
+
+
+
+
+function b() 
+	var a
+	var b
+	var d
+	a = b();
+	c = d();
+	d = funcion () {..}
+
+# Kyle shies away of thinking about code in terms of hoisting
+# Thinking in terms of compiler, LHS, etc preferable
+
+# So cannot call a function expression before it has been given its value.
+# Note that in above the function b got hoisted first.
+
+# Proof (illustration?) that functions are hoisted before variables
+	foo (); // "foo"
+
+	var foo = 2;
+	function (foo)  {
+		console.log ("bar");
+	}
+
+function foo () {
+	console.log("foo")
+}
+
+# Declare and Compile ..
+
+function (foo)  {
+	console.log ("bar");
+}
+
+function foo () {
+	console.log("foo")
+}
+var foo  // Ignored declaration. There is already a var called foo. 
+foo (); // "foo"
+
+foo = 2;
+# What is point of hoisting in JS? 
+# Recursion is when a function calls itelf. 
+# Mutual recurion refers to two or more functions calling each other.
+# a calls b, b calls a, ..., until some terminating condtion. 
+# Turns out mutual recurion is impossible in language without hoisting.
+# Because one of functions would always be declared too late.
+#
+#
+console.log(a(1));
+
+function a (foo) {
+	if (foo > 20) return foo;
+	return b (foo +2)
+}
+
+function b (foo) {
+
+	return c(foo) + 1;
+}
+
+function c (foo) {
+
+	return a(foo*2);
+}
+
+# // 39
+
+# 'Let' Gotcha
+function foo(bar) {
+	if(bar) {
+		console.log(baz); // Reference Error
+		let baz = bar;
+		}
+	}
+
+foo("bar");
+
+# JS spec calls this 'temporal dead zone'
+# If you try (as above) to reference a variable before it
+# has been declared with 'let', it is called referencing 
+# in the temporal dead zone. 
+# "Lets don't hoist'  But committee say, shouldn't talk of
+# hoisting at all.  Talk of referencing in temporal dead  zone.
+
+																 # Exercise One
+																 # This keyword
+# Approximates the dynamic scoping model
+
+# Every function, while executing, has a reference to its current
+# execution context, called this.  
+# Technically, fibbing a bit. The execution context includes more than
+# the 'this' keyword. There is the local variable stack, for example.  
+# But for our purposes, all we care about is this binding, so we will
+# simplify and say that our execution context is the 'this' keyword. 
+# What is meant by execution context?
+# How the function is called and when its called. 
+# We saw the lexical scoping model was like taking the elevator of building to
+# various floors, where the top floor represents the global scope.
+# Metaphorically, 'this' is telling us the address of which building 
+# to go into. Metaphorically, 'this' is about how to figure out which first
+# floor to go into.
+# Four  rules for how 'this' keyword gets bound. 
+# They all depend on the call site
+# The call site is where is code a function gets executed, with its open and
+# closed parentheses. 
+# Forget about 'self' conceptions, and all comparisons of what 'this' might
+# mean in other languages. 
+# Nothing to to with OO, instances or classes in JS!
+# We need to know the four rules, and their precedence.
+# If need to know what 'this' is doing, find call-site and apply the rules
+# with due regard for precedence. 
+# When the function is called and how its called are the only things that matter.
+# Doesn't matter where a function is declared.  The only thing that
+# matters is: 'What does the call-site look like?'
+
+function foo() {					# // line1
+	console.log(this.bar)   # // line2
+	}
+
+var bar = "bar11"					# // line 5
+var o2 = {bar: "bar2", foo: foo};		# // line 6
+var o3 = {bar: "bar3", foo: foo}; 	# // line 7
+
+foo(); // Undefined (node) or bar1  # // line 9
+o2.foo(): // bar2										# // line 10
+o3.foo(); // bar3										# // line 11
+
+
+												# Rule 1.  Default Binding Rule
+# Fourth in terms of order of preference
+# In above example, when we call foo in the 'normal' sense,
+# line 9 above.
+# The call-site on line 9.  The function stands alone, all by itself
+# we can pass parms if we like. Its just a ref to function, and this is 
+# nothing else to that function call. 
+# When this is what the call site looks like, the default binding rule applies.
+# Also true with IIFEs.
+
+# The default rule is as follows:
+	# If you are in strict mode, default 'this' to undefined 
+	# If you are not in strict mode, default 'this' to global object
+# Not the mode of the entire program but the mode (strict or not) running inside the foo function
+												#
+												# Rule 2.  Implicit Binding Rule
+# In JS, everything is a ref to a fn  or a var
+# On line 6, two different references to the foo function.  The global variable foo
+# o2.foo also references it. 
+# On line 10, o2.foo(), we make a reference to a function via the object property reference.
+# When call site looks like o2.foo, ie when there is an object property reference at the 
+# call site, rule 2 (third in order of precedence) kicks in. 
+
+	# When there is an object property reference at the call site, that object at the call site
+	# becomes 'this' (this binding) 
+	
+# On line 10, this keyword point to o2. Exact same thing with line 11 (get bar3);
+
+# To further reinforce that it does not matter where a function is declared, let's have
+# a look at this example
+
+var o1 = {
+	bar: "bar1",
+	foo: function () {
+		console.log(this.bar);
+	}
+};
+var o2 = { bar: "bar2", foo: o1.foo};
+var bar = "bar3"
+var foo = o1.foo;
+
+o1.foo(); // bar1
+o2.foo(); // bar2
+foo();   // undefined (node) (bar1 in not strict)
+
+# Absolutely no difference in terms of behaviour.  Only thing
+# that matters is what the call site looks like. 
+# The global object in the browser is the window.
+# In node, it is a special global object
+# global obj has props that correspond to global variables
+
+													 # Detour Binding Confusion
+function foo () {
+	var bar = "bar1"
+	baz();
+	}
+
+function baz () {
+	console.log(this.bar);
+	}
+
+var bar = "bar2"
+foo();
+
+
+# There is no 'cross-bridge' between the lexical scoping 
+# mechanism and the 'this' scoping mechanism.
+# Apply the rules!! 
+# It is impossible to create a crossover between the lexical environment and
+# the 'this' binding mechanism.  Two fundamentally different mechanisms.
+
+													 # Rule 3 Explicit Binding
+													
+# Second in order of precedence
+# If you have a .call or a .apply at the call site, both of these utilities
+# take as their first parameter a 'this' binding (called a 'this-arg');
+# Call and apply DO have different behaviours in terms of arguments, but
+# have identical behaviour in terms of 'this'. 
+# when say
+foo()
+# this is a plain default binding rule
+# When I say
+foo.call(obj);
+#it says 'use obj as my this' 
+# We are explicitly stating with this binding we want to apply. 
+function  foo () {
+	console.log(this.bar)
+	}
+
+ var bar = "bar1"
+ var obj = {bar: "bar2"};
+ foo();
+ foo.call(obj);
+# Detour
+# This binding is very flexible. Can mean different things at
+# different times.  
+# Sometimes want 'this' behaviour to be entirely predictable.
+# Hard binding is the soln. Is there a way to take a fn
+# and 'hard bind' the 'this' keyword so that it is a predictable
+# object
+
+function foo () {
+    console.log(this.bar)
+		}
+var obj = {bar: "bar"}
+var obj2 = {bar: "bar2"}
+
+var orig = foo;  #  //line 8
+foo = function () { orig.call(obj); };
+
+foo();  #// bar   
+foo.call(obj2);  #//bar (!)
+
+# Lines 1-3 have a foo function as previous
+# But look at line 8
+# Make another reference to the same function. 
+# called 'orig'.  So it is a reference to the original
+# function. Now I overwrite the 'foo' ( I don't HAVE to
+# overwrite it) with a whole new function, in this case a 
+# function expression. 
+# What is new function coded to do? Look at line 9.
+# Whenever foo is called from now on, he will always
+# call  the original function, but he will force the 'this' reference
+# to always be 'obj'
+# No matter how foo is called 'orig' will always be called with
+# the obj binding
+# So line ll (foo()) gives bar as expected
+# but also
+# line 12 foo.call(obj2);, will give bar.
+# That is, when we try to overwrite we still get 'bar', and here's why
+# foo.call() on line12 says 'I want you to use obj2'. The 'this' binding
+# of the wrapper is ignored. This is what is called 'hard binding'
+# Very usefule in Ajax calls and asynchronous coding. 
+# This has reduced flexibility, but is entirely predictable.
+# Still a but 'clunky''
+# #whan we create a utility to do this?
+# yes
+# First step make a function called bind that
+# accepts two parameters.  A function parameter and the object you 
+# want to bind for 'this'. 
+# The utility creates a whole new function that is hard coded to 
+# call 'fn' with 'o' as his 'this', as seen on line 3 below.  
+# Same thing as the previous code, but have now created a reusable
+# utility that does not have a variable hanging out in the global
+# space. 
+# We use it in exact way you would expect.  On line 13
+# foo = bind(foo, obj);
+# Now when call foo all by himself on line 15, he still references
+# obj as bar. Not falling back to global.
+# Line 15 is not the call site anymore.  This is an important nuance.
+# The call site is actually on line 3. Subtle nuance, but super-important
+# detail. When you are finding the call site, if there is a hard-bound
+# wrapper, that is not the call site anymore. You have to go inside
+# wrapper to find call site. 
+function bind(fn, o) {
+return function () {
+fn.call(o);   # // line 3
+};
+function foo() {
+console.log(this.bar);
+}
+
+var obj = {bar: "bar"};
+var obj2 = {bar: "bar2"};
+
+foo = bind(foo, obj);
+
+foo();  # // Line 15
+foo.call(obj2);
+
+#  The function calls on lines 15 and 16 
+#  both give bar. 
+
+# Hard binding is nice, but still a bit clunky in that we have had
+# to create a global utility called 'bind'
+# CAN put this utility on function prototype. 
+# Temporarily for the purpose of this slide only will call function
+# bind2.
+
+if (!Function.prototype.bind2) {
+	Function.prototype.bind2 = function(o) {
+		var fn = this; // the function
+		return function () {
+			return fn.apply(o, arguments);
+		};
+	};
+}
+function foo(baz) {
+	console.log(this.bar + " " + baz);
+}
+var obj = {bar: "bar"};
+foo = foo.bind2(obj);
+foo("baz");
+# // returns bar baz
+
+# bind is already built into javascript as of ES5. 
+#MDN website provides a polyfill function that allows
+# you to use Function.prototype.bind in pre-ES5 browsers.
+# that's what polyfills are for. 
+# Use the one from MDN.  It is better than one Kyle derived.
+
+															 # The New Keyword
+#The fourth of our rulles. 
+#Set aside any preconceptions from the world of OO.
+#Nothing to do with instiating classes.
+#For a start JS does ot have classes
+#Secondly, the New keyword has nothing to do with instantiating
+#classes, whatever you may have been told.
+
+# What does the new keyword do in JS?
+# When you put the New keyword in front of any function it 
+# magically turns that function into what might be called a 
+# constructor call. 
+
+function foo() {
+
+this.baz = "baz";
+console.log(this.bar + " " + baz);
+
+}
+
+var baz = "bar";
+var baz = new foo();
+
