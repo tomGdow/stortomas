@@ -2,6 +2,8 @@ function foo() {
 	this.baz = "baz";
 	console.log(this.bar + " " + baz);
 }
-var baz = "bar";
+var bar  = "bar";
 var baz = new foo();
-baz.baz
+console.log(baz.baz);
+console.log(baz);
+

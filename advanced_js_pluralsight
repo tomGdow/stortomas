@@ -690,8 +690,8 @@ function foo(bar) {
 	if(bar) {
 		console.log(baz); // Reference Error
 		let baz = bar;
-		}
 	}
+}
 
 foo("bar");
 
@@ -702,8 +702,8 @@ foo("bar");
 # "Lets don't hoist'  But committee say, shouldn't talk of
 # hoisting at all.  Talk of referencing in temporal dead  zone.
 
-																 # Exercise One
-																 # This keyword
+# Exercise One
+# This keyword
 # Approximates the dynamic scoping model
 
 # Every function, while executing, has a reference to its current
@@ -735,7 +735,7 @@ foo("bar");
 
 function foo() {					# // line1
 	console.log(this.bar)   # // line2
-	}
+}
 
 var bar = "bar11"					# // line 5
 var o2 = {bar: "bar2", foo: foo};		# // line 6
@@ -743,10 +743,10 @@ var o3 = {bar: "bar3", foo: foo}; 	# // line 7
 
 foo(); // Undefined (node) or bar1  # // line 9
 o2.foo(): // bar2										# // line 10
-o3.foo(); // bar3										# // line 11
+	o3.foo(); // bar3										# // line 11
 
 
-												# Rule 1.  Default Binding Rule
+# Rule 1.  Default Binding Rule
 # Fourth in terms of order of preference
 # In above example, when we call foo in the 'normal' sense,
 # line 9 above.
@@ -757,11 +757,11 @@ o3.foo(); // bar3										# // line 11
 # Also true with IIFEs.
 
 # The default rule is as follows:
-	# If you are in strict mode, default 'this' to undefined 
-	# If you are not in strict mode, default 'this' to global object
+# If you are in strict mode, default 'this' to undefined 
+# If you are not in strict mode, default 'this' to global object
 # Not the mode of the entire program but the mode (strict or not) running inside the foo function
-												#
-												# Rule 2.  Implicit Binding Rule
+#
+# Rule 2.  Implicit Binding Rule
 # In JS, everything is a ref to a fn  or a var
 # On line 6, two different references to the foo function.  The global variable foo
 # o2.foo also references it. 
@@ -769,20 +769,20 @@ o3.foo(); // bar3										# // line 11
 # When call site looks like o2.foo, ie when there is an object property reference at the 
 # call site, rule 2 (third in order of precedence) kicks in. 
 
-	# When there is an object property reference at the call site, that object at the call site
-	# becomes 'this' (this binding) 
-	
+# When there is an object property reference at the call site, that object at the call site
+# becomes 'this' (this binding) 
+
 # On line 10, this keyword point to o2. Exact same thing with line 11 (get bar3);
 
 # To further reinforce that it does not matter where a function is declared, let's have
 # a look at this example
 
-var o1 = {
-	bar: "bar1",
-	foo: function () {
-		console.log(this.bar);
-	}
-};
+	var o1 = {
+bar: "bar1",
+		 foo: function () {
+			 console.log(this.bar);
+		 }
+	};
 var o2 = { bar: "bar2", foo: o1.foo};
 var bar = "bar3"
 var foo = o1.foo;
@@ -797,15 +797,15 @@ foo();   // undefined (node) (bar1 in not strict)
 # In node, it is a special global object
 # global obj has props that correspond to global variables
 
-													 # Detour Binding Confusion
+# Detour Binding Confusion
 function foo () {
 	var bar = "bar1"
-	baz();
-	}
+		baz();
+}
 
 function baz () {
 	console.log(this.bar);
-	}
+}
 
 var bar = "bar2"
 foo();
@@ -817,8 +817,8 @@ foo();
 # It is impossible to create a crossover between the lexical environment and
 # the 'this' binding mechanism.  Two fundamentally different mechanisms.
 
-													 # Rule 3 Explicit Binding
-													
+# Rule 3 Explicit Binding
+
 # Second in order of precedence
 # If you have a .call or a .apply at the call site, both of these utilities
 # take as their first parameter a 'this' binding (called a 'this-arg');
@@ -828,17 +828,17 @@ foo();
 foo()
 # this is a plain default binding rule
 # When I say
-foo.call(obj);
+	foo.call(obj);
 #it says 'use obj as my this' 
 # We are explicitly stating with this binding we want to apply. 
-function  foo () {
-	console.log(this.bar)
+	function  foo () {
+		console.log(this.bar)
 	}
 
- var bar = "bar1"
- var obj = {bar: "bar2"};
- foo();
- foo.call(obj);
+var bar = "bar1"
+var obj = {bar: "bar2"};
+foo();
+foo.call(obj);
 # Detour
 # This binding is very flexible. Can mean different things at
 # different times.  
@@ -848,8 +848,8 @@ function  foo () {
 # object
 
 function foo () {
-    console.log(this.bar)
-		}
+	console.log(this.bar)
+}
 var obj = {bar: "bar"}
 var obj2 = {bar: "bar2"}
 
@@ -901,20 +901,20 @@ foo.call(obj2);  #//bar (!)
 # wrapper, that is not the call site anymore. You have to go inside
 # wrapper to find call site. 
 function bind(fn, o) {
-return function () {
-fn.call(o);   # // line 3
-};
-function foo() {
-console.log(this.bar);
-}
+	return function () {
+		fn.call(o);   # // line 3
+	};
+	function foo() {
+		console.log(this.bar);
+	}
 
-var obj = {bar: "bar"};
-var obj2 = {bar: "bar2"};
+	var obj = {bar: "bar"};
+	var obj2 = {bar: "bar2"};
 
-foo = bind(foo, obj);
+	foo = bind(foo, obj);
 
-foo();  # // Line 15
-foo.call(obj2);
+	foo();  # // Line 15
+		foo.call(obj2);
 
 #  The function calls on lines 15 and 16 
 #  both give bar. 
@@ -925,20 +925,20 @@ foo.call(obj2);
 # Temporarily for the purpose of this slide only will call function
 # bind2.
 
-if (!Function.prototype.bind2) {
-	Function.prototype.bind2 = function(o) {
-		var fn = this; // the function
-		return function () {
-			return fn.apply(o, arguments);
+	if (!Function.prototype.bind2) {
+		Function.prototype.bind2 = function(o) {
+			var fn = this; // the function
+			return function () {
+				return fn.apply(o, arguments);
+			};
 		};
-	};
-}
-function foo(baz) {
-	console.log(this.bar + " " + baz);
-}
-var obj = {bar: "bar"};
-foo = foo.bind2(obj);
-foo("baz");
+	}
+	function foo(baz) {
+		console.log(this.bar + " " + baz);
+	}
+	var obj = {bar: "bar"};
+	foo = foo.bind2(obj);
+	foo("baz");
 # // returns bar baz
 
 # bind is already built into javascript as of ES5. 
@@ -947,7 +947,7 @@ foo("baz");
 # that's what polyfills are for. 
 # Use the one from MDN.  It is better than one Kyle derived.
 
-															 # The New Keyword
+# The New Keyword
 #The fourth of our rulles. 
 #Set aside any preconceptions from the world of OO.
 #Nothing to do with instiating classes.
@@ -960,13 +960,105 @@ foo("baz");
 # magically turns that function into what might be called a 
 # constructor call. 
 
-function foo() {
+	function foo() {
+		this.baz = "baz";
+		console.log(this.bar + " " + baz);  #// line 3
+	}    # // line 4
+	var bar  = "bar";
+	var baz = new foo();
+	console.log(baz.baz);
+	console.log(baz);
 
-this.baz = "baz";
-console.log(this.bar + " " + baz);
+# // undefined undefined
+# // baz
+# // { baz: 'baz' }
 
-}
+# When we put 'new' keyword in front of function  call, it is going to do
+# four things
+	#1.  A brand new object is created 'out of thin air'
+	#2.  We need to askerisk this one.  Will explain in more detail later
+	#    Will tell what is, but is not goint to make sense
+	#    Will come back later and fix explanation
+	#    The second thing that happens to our 'poof out of thin air new object' is that
+	#    it gets linked to a new object. Linkage will be explained later.
+	#3.  That brand new 'poof' object gets bound as  the 'this' keyword for the purposes of
+	#    the function call. 
+	#4	 The fourth thing that occurs when the 'new' keyword
+	#    is put in front of a function call is that
+	#    If that  function does not otherwise return anything then 
+	#    it will implicitly insert (between lines 3 and 4 in above eg) 
+	#    a 'return this'
+	
+	# So that brand new 'poof' object will be implicitly returned for us. 
+	# What this means it that you can take any function, don't care what the
+	# function does, and you have hijacked that function call as a constructor
+	# call.  It will also do all the stuff it is supposed to do, but in addition it   # will also do the above four things. 
+	# So its the 'site channel'. Create an object, link him, implicitly bind him and  # send him back to me.  
+	
+	# So in example above: 'new foo() creates a new object out of thin
+	# air. And will be assigned to 'this'. So can say on 
+	# line two 'this.baz' is "baz".
+	# When ask for 'this.bar', there IS NO 'this.bar', so will be
+	# undefined (yes!), AND at the moment, the baz variable
+	# exists BUT HAS NO VALUE, so will get undefined again
+undefined undefined
+# (That's what was obtained in node). 
+# But the final thing that occurs.  There is an implicit 'return
+# this', so that our newly created object gets assigned to our
+# baz variable (!! Yes).  So now if 
+# console.log(baz.baz) get "baz".
+#
+# So .. the fourth and final way that a 'this' keyword gets bound
+# is that it can be bound to a brand new object that it was 
+# created as part of a constructor call hijacking. 
+#
+											# Order of Precedence of Four Rules
+# Call site could conceivable conform to more than one rule.
+# Here are the questions to ask.
 
-var baz = "bar";
-var baz = new foo();
+#1. Was the function called with 'new'? 
+#   If so, use that object.
+#   This means that the 'new' keyword can overwrite all other rules.
+
+#2  Was the function called with 'call' or 'apply'.  
+#   If so use that object. (Explicit binding)
+#3. Was the function called via  containing/owming object (context)?
+#   If so, use that object
+#4  Default to global object, except in strict mode where default
+#   to undefined.  
+
+#  So ... An example of a surprising result.  Hard bound functions
+#  are a variation on the explicit binding rule. In order of 
+#  precedence, this falls at number 2. So the new keyword is even 
+#  able to over-ride hardbinding. 
+#
+																		#  Quiz
+# How do you "borrow" a function by implicit assignment of 'this'?
+# When you call the function it was in the context of an object.
+# We mutated an object to put a reference to that function
+# on the object so that we can say 'object.methodName' 
+
+# How do you explicitly bind 'this'?
+# call and apply. 
+
+# How do you seal a specific 'this' to a function? Why do that?
+# Why not?
+# Use the '.bind' utility. Create a hard-bound reference.
+# Advantage: predictability. 
+# Disadvantage: loss of flexibility.
+
+# How do you create a 'new' this object? 
+# By using the 'new' keyword. 
+#
+# To reinforce.  The 'this' mechanism is dynamic. It is a 
+# binding mechanism that looks for things at run-time. 
+# Entirely based upon how you call something. Could have
+# the same function called in four different ways and get
+# four entirely different bindings.
+# Contrast with lexical scoping which is hard-coded at author time.
+
+
+														 # New Module: Closure
+
+
 
