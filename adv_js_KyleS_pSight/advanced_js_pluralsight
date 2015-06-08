@@ -1497,3 +1497,220 @@ foo.bar(); // bar
 # modules, have 1000 versions of individual functionality.  
 #
 																 # Exercise Two
+# Exercise two completed.  Two verions - IIFE and non-IIFE.
+
+# New Module
+															 # Object Orienting
+# Kyle's take in this module a bit different from what normally accepted.
+
+# Prototype mechanism. 
+
+# Every single "object" is built by a constructor function. 
+# More accurate to say built by constructor call. 
+
+# We have already been shown this. When we call 'new' with a function it creates an object.  This is NOT the same thing as instantiating a class.
+# It just constructs objects.
+
+# As a matter of fact, Kyle would push back on 2-3 decades of 
+# precedence, and say that referring to languages such as C++
+# and Java as 'Object - Oriented' is a bit of a misnomer.  They
+# should have been called 'Class - Oriented'.  In fact, only two
+# languages today that are properly called object-orientated.
+# JavaScript and Lua. In these languages can create an object
+# without a class. 
+
+# It is often said that a constuctor makes an object 
+# "based on" its own prototype. 
+
+# Kyle does not like the above definition. He objects to the
+# phrase "based on".  It implies something about the language
+# that is not true. True in other OO languaages such as C++
+# Java. 
+# "Based on" implies that we take the prototype and we
+# stamp out a copy of it.  That's the way it works in 
+# class-oriented languages. When you have a parent class
+# and you instantiate a parent class, there is a copy of the
+# behaviour of the class into the instance, and once the 
+# two have been separated there is no more relationship between
+# the two. I have an instance that was a copy of a parent. 
+
+# That  is not what happens in JavaScript. The phrase 'based on'
+# really leads us down the wrong path. 
+
+# It is more appropiate to say that  a constructor makes an object
+# that is LINKED TO its own prototype.  
+# oWhen we discussed the 'new' keyword, we discussed the four steps.
+#
+# and I told you point 2 was that it linked to an object.  Kyle
+# said 'put an asterisk' beside no 2: we will discuss later'
+# We are now going to discuss that linkage. 
+# Next Prototype explained... 
+
+function Foo (who) {    # // Line One
+	this.me = who;   # // Line Two
+}
+Foo.prototype.identity = function() {  # // Line Four
+	return "I am " + this.me;
+};
+
+var a1 = new Foo("a1");  # // Line 8
+var a2 = new Foo("a2");
+
+a2.speak = function () { # // Line 11
+	alert("Hello, ",  + this.identity() + ".");
+};
+
+a1.constructor === Foo;   # // Line 15. 
+a1.constructor === a2.constuctor;
+a1.__proto__ === Foo.prototype; #  // Line 17
+a1.__proto__ === a2.__proto__;
+
+
+# Kyle is going to draw a diagram showing what occurs when the above
+# code is interpreted by the JS engine.  
+# The diagram is in pdf format in the exercise files ('day1')
+# Everything above dotted line indicates stuff that has already
+# happened before we get to line 1. 
+# I will represent objects as squares, and functions as circles
+# Above the dotted line  there is a FUNCTION called object
+# AND there is an object (of no particular name) to which the 
+# function is linked. The object does not have a name, but has
+# a (wierd?) name called 'object.prototype'.
+# Methods on the object include
+# toString()
+# valueOf()
+# hasOwnProperty()
+# isPrototypeOf()
+# and other things we may be familiar with built into the object. 
+# All come from the object. 
+#
+function Foo (who) {    # // Line One
+
+# What does line one do for us?
+# Creates a circle that we give the label 'Foo'. 
+# Also creates an object -Will have same arbitrary name called .prototype.
+# In addition, the object has a property on him called '.constructor'
+# NOTE '.constructor' does NOT MEAN 'was constructed by'.  In other words
+# the new object was constructed by the new function.  Not true.  The
+# word constructor is just an arbitrary word.  It could just have easily
+# been 'abracadabra'. But note the dual linkage.  .prototype point to
+# the object from the function, and .constructor points to the function
+# from the object. 
+
+# Let's now turn to line four. 
+Foo.prototype.identity = function() {  # // Line Four
+
+# We start adding properties to Foo.prototype (ie the 'square' or 
+# object of line 1).  identify() added to object box. 
+
+var a1 = new Foo("a1");  # // Line 8
+
+# Lets turn to line 8.  What are the four things that happen when
+# the 'new' keyword is invoked?
+#1  A brand new object is created.
+#   (Draw a square) 
+#2  Object get linked to Object 
+#   Draw square-to-square linkage from new object to Foo.prototype.
+#3  The context gets set to 'this'
+#   When we are calling the Foo function, the 'this' keyword will be 
+#   pointing at this particular object.  
+#   When we execute line 2 and say 'this.me', 'this' refers to the
+#   new object created out of thin air by the 'new' keyword.
+#   We are putting a property directly on this object
+
+	this.me = who;   # // Line Two
+#  Add 'me' to the object square.
+#  #4 The fourth thing that happens it that it returns 'this.  So we give
+#  a label to the object, 'a1'. 
+#  Notice that we haven't talked about classes or inheritance or
+#  instantiation, or anything like that. 
+#
+#line 9.  Does the exact same thing as line eight.  Another box created
+
+# Now lets look at line 11
+a2.speak = function () { # // Line 11
+# gets added to the a2 object.  (a2 square gets that property). 
+# Not added to a1
+
+# Now lets look at line 15
+
+a1.constructor === Foo;   # // Line 15. 
+
+# There is no constructor property on a1. 
+# Better than 99% of all JavaScript developers think there is a hidden
+# constructor property. So when we say 'a1.constuctor', and it doesnt exist
+# what happens?  It goes up the prototype chain. 
+# This is where the prototype mechanism begins to look a lot like a scope model.
+# The linkages that Kyle talked about are called the prototype link.
+# In 'spec-speak', prototype is referenced by [[Prototype]] 
+# Can see right away why that is confusing, because they call the
+# other one '.prototype'. 
+# the linkage between the a1 object and the 'parent' Foo object are
+# [[Prototype]] linkages. These are internal linkages, not available
+# publically. They are just an internal link between the two. Forms 
+# a prototype chain we can traverse. 
+#
+# By the way, let's pause here for a second...
+# Something needs to be added. 
+# Remember line1.  Well, we forgot something.  The internal linkage
+# betweent the objects. 
+#
+# So... now lets go back to line 15.
+# When we call a1.construtor, delegates to 'parent' foo object WHICH
+# DOES have a constructor, and he ends up being Foo!  Very nice
+
+# At this point you would be forgiven if you were under this misconception
+# that a1.constructor pointing at Foo means that 'Foo was the one
+# that constructed me'. That is a misconception. '.constructor' does not
+# mean 'I was constructed by', it just happens as a happy accident to
+# point to the location we would want it to.  We shall see in a few
+# slides how that assumption goes completly away in other circumstances. 
+# a2.constructor will also point to foo
+													# Prototype Examples Part 2
+
+# Now what about Line 17?
+
+a1.__proto__ === Foo.prototype; #  // Line 17
+
+# We start referencing this bizarrely name property '__proto__'.
+# Lets have an aside.  A couple of years ago, the JS community
+# was trying to come up with a better name for that, because no-one
+# wants to underscore-underscore-proto-underscore-underscore. 
+# Came up with 'dunder'. So properly 'dunder-proto'. 
+# Is there a dunder-proto on a1? No
+# Is there a dunder-proto on parent object? No
+# So up to object wihin dotted line, the one created in every JS environment
+# It turns out that there is a dunder-proto on the built-in object.prototype.
+# Not actually a property.  It is in fact a getter function. 
+# A bit like making a function call on line 17.  Guess what that function
+# call does?  It returns the internal prototype linkage of whatever the
+# 'this' binding is. 
+# At the call site on line 17, we pretend that there is some parentheses 
+# there on line 17. When we are calling a function what will the 'this'
+# keyword be inside that function call?  a1. So it is going to
+# return the internal prototype linkage of a1. [[Prototype]] is the internal
+# link.  We can say that the public link is dunder-proto or __proto__ .
+# It is a public property that references an internal characteristic. 
+# The problem with dunder-proto is that it has never been standardized. 
+# It was invented 15 years ago by Mozilla because they wanted some way
+# to public expose that internal property. But even though not 
+# standardized, everyone adopted it. Safari, Chrome but NOT IE! In a 
+# shocking twist of irony, IE - the king of non-standard add-ins - decided
+# not to add something that is not standard, but everyone else did. 
+# Could never agree on TC-39 committee how to standardize.  So became
+# a de-facto standard except for IE. 
+# But is IS standardized in ES6.  IE dropped into IE11.  
+# Next slide (see pdf), same function but different from line 15 on
+a1.__proto__ === Object.getPrototypeOf(a1)
+a2.constructor === Foo;
+a1.__proto__ == a2.__proto__;
+a2.__proto__ == a2.constructor.prototype;
+
+# Same code but Kyle wants to illustrate one other thing.
+# As dunder-proto was not standard until ES6, back in the
+# ES5 days (2009 -2011) the commitee was aware that 
+# a standard way of accessing the internal prototype 
+# characteristic was necessary. We are not going to do it with
+# dunder-proto, but will need to provide some way of doing it. 
+# They added Object.getProtoytypeOf(a1); Gives us the [[Prototype]]
+# linkage of a1.  
