@@ -1,5 +1,5 @@
 S=`j	Move down three line
-d$ 	Delete from cursor to the end of the line
+d 	Delete from cursor to the end of the line
 u	Undo
 Ctrl-R	Redo
 c2/end	Change all text from cursor to the BEGINNING of second end
@@ -911,3 +911,21 @@ http://vim.wikia.com/wiki/Remove_unwanted_spaces
 # Remove all lines except single lines (a goodie)
 :g/^\_$\n\_^$/d
 # Above from stackoverflow
+
+# Tabs 
+# To open each buffer file in new window
+:tab :sball
+:tab sball # at most six
+# without the tab modifier, opens each buffer is split view
+# See here
+http://stackoverflow.com/a/5483206/499167
+#To move between open tabs
+gt, gT, 1gt 2gt
+see here:
+http://stackoverflow.com/a/6832397/499167
+
+# Add a directory alias
+:command Cdscripts cd /home/username/.../Scripts
+# Must start with capital letter
+# See here
+http://stackoverflow.com/a/20011731/499167

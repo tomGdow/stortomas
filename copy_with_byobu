@@ -1,0 +1,11 @@
+see here
+http://stackoverflow.com/a/25924051/499167
+
+# Working on VM, ssh with Google Chrome terminal
+
+#1 Shift F3 to switch between open split (byobu) screens
+#2 Fn Alt pg_up (not keyboard pg_up) to go up using 'up-arrows'
+#3 Press space to enter select mode
+#4 Down arrows to select
+#5 return copies
+

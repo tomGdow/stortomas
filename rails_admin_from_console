@@ -1,0 +1,5 @@
+
+a = Admin.new(:email => "thomasgdowling@gmail.com", :password => 'password', :password_confirmation => 'password')
+ a.save
+ # See here
+ http://stackoverflow.com/a/4316970/499167

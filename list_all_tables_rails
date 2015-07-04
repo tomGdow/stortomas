@@ -1,0 +1,7 @@
+ActiveRecord::Base.connection.tables
+# from console, of course
+# See here
+ http://stackoverflow.com/a/2098687/499167
+ #Also ...
+ User.column_names
+

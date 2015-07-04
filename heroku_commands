@@ -1,0 +1,3 @@
+heroku run rake db:migrate:status
+heroku run rake db:migrate
+heroku run rake db:setup
