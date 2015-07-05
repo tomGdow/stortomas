@@ -2237,4 +2237,402 @@ if (!object.create) {
 # often created! Create a hierarchy and then instantiate one of
 # them. So why not create a single module....
 
-                                  ; Exercise 4
+                                  # Exercise 4
+                                  # Asynchronous Patterns
+#1 Callbacks
+#2 Generators and co-routines
+#3 Promises
+
+setTimeout(function () {  # // Line One
+console.log("callback");
+},1000);
+#The above is asynchonous code. Set up timer for 1000ms, then do other work, then 
+#Oh! It is 1000ms. Time to execute callback.
+#Multitasking is just fast context switching. 
+# Callbacks are a continuation. First part of program runs until line one. Second
+# part runs in 1000ms. The problem with callbacks is that they work OK in one split,
+# but really start to 'suck' when there is more than one split. In almost all
+# real-world code there is more than one split. 
+# Callback Hell..
+#
+setTimeout(function () {
+    console.log("one");
+    setTimeout(function () {
+        console.log("two");
+        setTimeout(function () {
+            console.log("three");
+        }, 1000);
+    },1000);
+}, 1000);
+
+# Callback hell has nothing to do with indentation! 
+# Above clearly a bunch of nested functions. 
+# But thi code does the exact same thing. 
+
+function one(cb) {
+    console.log("one");
+    setTimeout(cb, 1000);
+}
+
+function two(cb) {
+    console.log("two");
+    setTimeout(cb, 1000);
+}
+
+function three() {
+    console.log("three");
+}
+
+one(function(){
+    two(three);
+});
+
+
+# Above is 'continuation passing' style. 
+# Above code every bit as susecptible to the problems
+# of callback hell as first example. 
+# Callback hell must be something deeper than indentation
+# and nesting.
+# So what are problems with callbacks?
+#1 What if setTimout function given above was not a 
+# utility built into language that we can trust.
+# What if it were some third-party library?
+# Callbacks are a continuation. We that the entire
+# rest of our program and wrap it in a function and
+# say 'I want for YOU to exectute the rest of my
+# program at some later time'. 
+# So what happens if calling third-party library?
+# Have given away an amazing amount of trust.
+# We have done what is called 
+# Inversion Of Control
+# We used to be in control of completing of our progrm.
+# As soon as we take continuation of our program
+# and wrap it in a function and hand that off to some 
+# other utility, we have lost control of our program. 
+# An implicity trust has been created. 
+# I trust that you will call my callback
+# not too late
+# not too early
+# not too few times
+# not too many times
+# .....
+
+# Gigantic amount of trust.  Say the third-party API
+# charges a credit card, and there is a bug so  that
+# callback is called a 1000 times.  Oops ...
+# Implict problem with callback is giving control to 
+# someone else. 
+# How do we solve the inversion of control problem in
+# a different way than with callbacks?
+
+# Solving Callbacks
+#
+# trysomething_one.js
+
+function trySomething(ok, err) {
+    setTimeout(function () {
+        var num = Math.random();
+        if (num > 0.5) ok(num);
+        else err(num);
+    }, 1000);
+}
+trySomething( 
+        function(num) {
+            console.log("Success: " + num);
+        },
+        function(num) {
+            console.log("Sorry: " + num);
+        });
+
+# But this is even more implicit trust! 
+# What happens if they call the failure first?
+# Or if both functions called together.
+
+# Soo 'node-style'  or (Kyle prefers) 'error-first style'
+#
+# trysomething_two.js
+
+function trySomething(cb) {
+    setTimeout(function () {
+        var num = Math.random();
+        if (num > 0.5) cb(null,num);
+        else cb("Too low!");
+    }, 1000);
+}
+
+trySomething( 
+        function(err,num) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Number: " + num) 
+    console.log("Sorry: " + num);
+            }
+        });
+
+# Really have not done anything to solve the implicit trust problem.
+
+#meaning_of_life.js
+function getData(d, cb) {
+    setTimeout(function () {
+        cb(d);
+    }, 1000);
+}
+
+getData(10,function (num1) {
+var x = 1+ num1;
+getData(30, function (num2) {
+    var y = 1 + num2;
+    getData(
+        "Meaning of Life: " + (x + y),
+        function(answer) {
+            console.log(answer);
+            //Meaning of life: 42
+        });
+    });
+});
+
+#//Meaning of Life: 42
+
+#Obvious that if we did not trust getData function would have
+#massive inversion-of-control issue.  
+
+# Generators
+# Remember, the solution we are driving towards is to attempt to
+# express asynchronous looking code in a synchronous looking fashion. 
+# Will introduce the concept of generators, coming as of ES6.
+Generators(yield)
+# Generators break an assumption about JS code that has been
+# there since the beginning of time.  When we start executing a
+# piece of code assume that all lines of that piece of code will
+# be executed before any other line runs. This is called the 
+# 'run to completion' invariant of JS.
+# Assume code can never be interruped, or paused, and come back. 
+# The above is true of all normal functions. Not true of generators.
+# We now have a new type of function that can literally pause itself
+# in the middle of the funtion and can be resumed later. 
+# That is why called generators. 
+# New syntax. function *
+#
+#--------aside-------
+# MDN generator definition
+# A generator is a special type of function that works as a factory
+# for iterators. A function becomes a generator if it contains 
+# one or more yield expressions and if it uses the function* syntax.
+# -----------end aside -----------
+
+#generator_one.js (does not run on node.js) 
+function* gen() {
+   console.log("Hello");
+   yield null;
+   console.log("World");
+
+}
+
+var it = gen();  #//Line 7
+it.next();
+it.next();
+
+# On line 7 it look like I execute the function. 
+# But with generators, what you get is an iterator. 
+# When you call a generator function, it actually constructs
+# an iterator for you.  
+# On line 8, when I call it.next(), start up the generator will
+# will pause at next yield statement. 
+# It pauses right there is middle of the function and returns
+# control back to the program. In a minute, or five years from now
+# I can call it.next() again. The generator will resume and run
+# right to the end or until it reaches the next yield statement. 
+# A generator can pause itself, and an iterator can resume it. 
+# A generator is a funtion that does not even have to ever complete!
+#
+# coroutines.js (does not run on node)
+
+var run = coroutine(function () {
+    var x = 1 + (yield null);
+    var y = 1 + (yield null);
+    yield (x + y);
+});
+
+run(); #//line 7
+run(10);
+console.log(
+        "Meaning of life: " + run(30).value
+        );
+# 'yield' can be thought of as a two-way message passing mechanism
+# We can pass messages into generator, and receive messages back from
+# generator. 
+# When start up code by run() on line 7
+# Continues to first yield which returns a null value
+# At some later time I can say run(10) and '10' is passed in
+# as expression result of yield, so 10+1, keeps going until next yield
+# so pauses. Returns null again. At some later time run(30) (sic) so
+# now yield 42 out as yield value of function. Two-way message passing.
+# Above is all synchronous. 
+# Now for asynchronous
+
+function getData(d) {
+    setTimeout(function () {
+            run(d);
+            }, 1000);
+}
+var run = coroutine(function* () {
+        var x = 1 + (yield getData(10));
+        var y = 1 + (yield getDate(30));
+        var answer = (yield getData(
+                "Meaning of life: " + (x + y)
+                ));
+        console.log(answer);
+        });
+
+run();
+
+# When var x = 1 .. is called, it yields out to a function that in
+# not immediately going to run.  It waits 1000ms before it iterates.
+
+#The above code LOOKS  very synchronous. 
+# But underneath the covers, the code will start and stop
+# asynchronously.  That is power of generators. 
+# Generators are the new thing! But very new (and very powerful).
+# Drastically different from promises and callbacks.
+# The future is that promises and generators will work together.
+
+# Promises.
+# What are they?
+# Two methaphors. Order a burger in Supermacs.  No food, so
+# cashier hands you a receipt.  When order no is called out exchange
+# receipt for order. 
+# That, metaphorically, is what a promise is
+
+# The other metaphor. What if we call a function but
+# we are unsure when that function is going to finish but that
+# we could subscribe to an event that lets us know when that 
+# function finished. A completion event, or a continuation event.
+# A promise allows us to subscribe to a continuation event 
+#
+var wait = jQuery.Deferrrd();
+var p = wait.promise();
+
+p.done(function(value) { #// line 4
+console.log(value);
+});
+
+setTimeout(function () {  #// line 8
+wait.resolve(Math.random());
+},1000);
+
+#jQuery implemented promises in non-standard way, but Kyle says OK
+# Lines 4-6 and 8-10 will likely happen in different places in real code
+# 4-6 we are listening for event. The 'done'event
+# At some later time in code resolve that promise.  Exchange for  a
+# big Mac. 
+
+# Here is an example of how it might be used
+
+function waitForN(n) {
+    var d = $.Deferred();
+    setTimeout(d.resolve, n);
+    return d.promise();
+}
+
+waitForN(1000)
+    .then(function() {
+            console.log("Hello world");
+            return waitForN(2000);
+            })
+.then(function() {
+        console.log("finally!")
+        });
+
+# When we call '.then' we are listening for continuation event
+# on the promise. Then we call waitForN again, which generates
+# a whole new promise... Chains promises together. 
+# Can look at the code synchronously, although the code is
+# running asynchronously.
+
+# Here is why its important.  Remember inversion of control? 
+# We have re-inverted the control. We hand our code to a utility
+# and that utility hands us a promise back, and we get to decide
+# what happens next. We are now in control of entire completion
+# of program.  That is why promises are such a powerful
+# solution to callback hell. They un-invert inversion-of-control.
+
+#Promises are built-in natively as of ES6
+#we are going to get 'capital P' Promise 
+#Already there is Chrome and Node.
+
+# This code works!
+# note have just installed 'bluebird' library (github)
+
+var Promise = require("bluebird");
+
+function getData(d) {
+return new Promise(
+        function(resolve, reject) {
+        setTimeout(function() {
+            resolve(d); 
+        }, 1000)
+        });
+}
+var x;
+
+getData(10)
+    .then(function(num1) {
+        x = 1 + num1;
+        return getData(30);
+    })
+.then(function(num2) {
+    var y = 1 + num2;
+    return getData("Meaning of life: " + (x + y));
+})
+.then(function(answer) {
+    console.log(answer);
+    // Meaning of Life; 42
+});
+
+# In native promises, second function passed in handles errors.
+
+#asynquence
+# A library that Kyle wrote. 
+# Promises can become very tedious.
+# A number of libraries out there to help...
+# Kyles is asynquence. 
+# sequence = augomatically chained promises. 
+
+ASQ()
+    .then(function (done) {
+            setTimeout(done, 1000);
+            })
+.gate(
+        function(done) {
+        setTimeout(done, 1000);
+        },
+        function () {
+        setTimeout(done, 1000);
+        })
+.then(function() {
+        console.log("2 seonds passed:");
+        });
+#So what is a gate?
+# A sequence is this then this then this then this ...
+# A gate says two or more things are going to happen at the same
+# time, and I don't care which returns first or last, I am going 
+# to wait for both to be finished before I move on. 
+
+                             # Quiz Async Patterns
+
+#1 What is "callback hell"? Why do callbacks suffer from "inversion
+# of control"?
+# Handing of control over to a third party.
+#2 How do you pause a generator?
+# yield
+#3 How do you resume?
+# next
+#4 What is a Promise? How does it solve the inversiono of control issues?
+# A promise is a future value. A transaction in burger King.
+# Instead of passing my continuation in, I receive a promise back. 
+# It un-inverts inversion of control. 
+# How can we combine generators and promises for flow control?
+# Call a generator, have it yield out a promise, when the 
+# promise finishes have it re-start the generator.  
