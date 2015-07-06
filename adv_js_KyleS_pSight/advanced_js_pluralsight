@@ -2636,3 +2636,15 @@ ASQ()
 # How can we combine generators and promises for flow control?
 # Call a generator, have it yield out a promise, when the 
 # promise finishes have it re-start the generator.  
+
+                                  # Exercise 5
+# Source code is not written for computers. It is written for developers.
+# All a computer cares about is ones and zeros. An infinite number of 
+# souurce codes can produce the same pattern of ones and zeros. 
+#
+# Kyle uses .map().reduce  
+
+# There are no threads in javascript. JS is a single-threaded language. 
+# There is shared memory.
+# It is common to put each chained element on a new line (from jQuery world). 
+# --The End --
