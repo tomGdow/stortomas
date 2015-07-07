@@ -1,0 +1,83 @@
+                                    # Intro
+# .net is separate from visual studio. Most releases of Windows already 
+# have .net installed
+# You build you apps on top of .net framwork, which consists of
+#1 Common Language Runtime (CLR)
+#2 Microsoft .NET
+#3 Framework Class Library (CLR)
+
+#Windows Server 2012 will also have .net framwork installed. 
+
+# What is CLR?
+# The CLR is an execution environment for your .net applications. 
+# It is the CLR that manages your application.
+# Some of the services provided by CLR
+# Memory management
+# CLR is like a VM, like the Java JVM, the Java VM
+# Dont have to worry about OS or type of CPU
+# Common languages: C-sharp, F-sharp, Python, Visual basic.
+# CLR available for every version of  Windows since Windows XP
+
+# FCL
+# A library of functionality to build applications
+# This is what is used on a day-to-day basis.
+# BCL is the base class library.  Works everywhere. 
+# Another part of the FCL is ASP.net, and asp.net applications
+# run on a web server rather than the desktop, and uses all
+# use a web browser. 
+# Windows Communication Foundation (WCF). All computers to 
+# communicate directly and exchange data. 
+# Typically, no-one is master of all FCL but one becomes
+# maybe an expert in one area such as ASP.net. 
+
+#C# 
+# Reusable code that can be used my many appications.  A class library. 
+# C# syntax was inspired by C++, 
+# so C# is similar in syntax to Java, C++ and JavaScript (sic) 
+
+public static void Main () 
+{
+  if (DateTime.Now.DaysOfWeek == DayOfWeek.Monday)
+  {
+      Console.WriteLine("Another case of the Mondays!");
+  } 
+
+}
+
+# Defines a method called Main
+# used DateTime class 
+# uses Console class, also part of FCL 
+# C# is a compiled language.
+# Create hello.cs
+# Save ..
+# C:\Users\Thomas\Documents>c:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe hello.cs
+# hello.exe
+
+# The compiler
+# The C# compiler transforms C# code into Microsofte Intermediate Language
+# MISL
+# file.css => csc.exe => myapp.exe
+# CLR takes the Intermediate Language Instructions and translates them
+# into native instructions that can be used by the CPU. 
+
+# Hello, Visual Studio 
+# From VS
+# File -> New Program -> Visual C# -> Console Application
+# Console apps can be run from command line
+
+# Editing C#
+# In debugger, F10 steps over code.
+# In C#, types are very important. C# is a strongly typed language. 
+# Write a class to create a new type.
+# Console.is a type, and call WriteLine (but not Print) 
+# FCL does NOT provide Classes and Types specific to the problem we are trying to solve.
+# Primitive types such as int (Integer), long (Long Integer), DateTime (Date and Time Value)
+
+                                 #Classes in C#
+# We need an electronics grade book to read the scores of an individual student 
+# and then compute some simple statistics from the scores.
+
+# The grades are entered as floating-point numbers from 0 to 100, and the 
+# statistics should show the highest grade, the lowest grade, and the avarage grade. 
+# Create a class to make an abstraction of an NOUN. Grade book is a noun. 
+# 
