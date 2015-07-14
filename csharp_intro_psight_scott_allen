@@ -80,4 +80,149 @@ public static void Main ()
 # The grades are entered as floating-point numbers from 0 to 100, and the 
 # statistics should show the highest grade, the lowest grade, and the avarage grade. 
 # Create a class to make an abstraction of an NOUN. Grade book is a noun. 
-# 
+
+# Most c-sharp developers will put each class in its own file. 
+
+# Class Members fall broadly into two classes.
+#1 State
+#2 Behaviour
+# State is the data you need to work with. 
+# State for gradebook is the grades that are being entered for student.
+# Behaviour is typically methods that do work. 
+# Two c-sharp keywords: public and void. Will be discussed later. 
+# Say addAGrade, or compute statistics. 
+# Classes define a new type. 
+# Classes are one way to define a type.
+# Can use a class to instantiate one or more objects
+# It is objects that I need to work with in my program. 
+# It is objects that are allocated into memory of computer
+# and it is objects that hold the data that I need. 
+# Think of a class definition as a blueprint for creating objects of that type. 
+# Think of it as a cookie-cutter. The CLR will use my gradebook cookie-cutter to
+# create new cookies with the shape of a gradebook, and the dough that it is using
+# is the memory of the computer.  
+# Ctrl-F5 to run program without debugger. 
+# Constructors
+# Special methods used to initialize objects
+GradeBook  book = new GradeBook();
+#When I use the new keyword followed by the name of
+# a class with parentheses, I am instantiating an 
+# instance of a class. It is creating an object.
+# Creating an object will invoke a special method we call
+# a constructor. A consructor  helps to construct an object. 
+# Every class will have a defaut contstructor that exists 
+# implicitly unless I do something special. 
+# This is why I can create an instance of GradeBook
+# that works, that is that gives me an object, even
+# though I do not have a constructor explicitly defined 
+# inside GradeBook.
+# If I do define a constructor, it is very much like
+# defining a method. 
+public GradeBook () 
+
+{
+        // ... initialization code
+}
+
+# I'll use the public keyword again
+# void not necessary
+# after public keyword, define a method where the method name
+# is the same as the class.  As with method will have 
+# parentheses, which will take argumentts if you want. 
+# Also has curly braces to denote start and end of the method.
+# There are many situations where you will want to write your
+# own constructor, or multiple constructors, for a class. 
+# Allows fine control ...
+ctor # // Press Tab twice
+# recognised as code snippet in Visual Studio 
+
+# Classes versus Variables
+# A class is a blueprint for creating objects
+# Objects created from Classes with 'new' keyword
+# a class can also be used to type a variable
+GradeBook book;
+# a variable can refer to any object of the same type
+# You can think of a variable as a storage location
+# that points to a specific object. 
+
+Gradebook book = new GradeBook();
+
+# Instantiating an instance of the GradeBook class
+# referring to the new object that is being created
+# through the book variable of type Gradebook 
+# More than one variable may point to a single object
+# When an object is not referred to by variable anymore (say
+# overwritten) exists in memory but cannot refer to it anymore.
+# Garbage collector will take care of that. 
+#Common language runtime is smart enough to periodically scan
+#throught memory, figure out which objects are garbage because
+#they are not referred to by any variables in the program,
+#and can clean those object up, thus freeing up memory. 
+#Reference Types
+# When we create a class in c#, we are creating a type,
+# specifically we are creating a reference type. 
+# Reference types are one category of types in c-sharp.
+# Classes are reference types. 
+# When we have a variable that is typed as a class like GradeBook,
+# a reference type,  we have a storage location in memory
+# to remember the Gradebook, but it is incredibly important to 
+# understand that the storage location dedicated to a variable,
+# like a variable called 'book1', DOES MOT hold the GradeBook 
+# itself.. that is NOT where the GradeBook is stored. The
+# GradeBook is stored somewhere else im memory, and the
+# storage location of the variable holds a pointer to that
+# object in memory.  The variable literally contains
+# a memory address. It is like when someone gives you their7
+# business card. You don't hold the other person, you hold
+# a pointer or address to the business. 
+# part of indirection in software. 
+# One implication is that I can have multiple
+# variables (all of type GradeBook) all pointing to 
+# the same object. 
+# OOP
+# Encapsulation
+# VisualStudio. Ctrl-period to create a methods stub. 
+# void keyword: no return value
+# Access Modifiers
+# Encapsulation is the ability to hide or group related concepts
+# access modifiers are keywords like 'public' and 'private' 
+# that describe who is allowed to access certain fields and methods. 
+# Important when want to hide something from other programmers,
+# and make your classes easier to work with. 
+# For example, GradeBook keeps around a list of grades being entered.
+# The list of grades is private, meaning there is no access to the
+# list of grades from outside the GradeBook 
+# ONLY THE CODE INSIDE THE GRADEBOOK can inspect and
+# modify the list, so grades are completly encapsulated inside
+# the GradeBook
+# Gradebook also has methods such as AddGrade and ComputeStatistics
+# that use the 'public' keyword. 
+# These methods are publicly available, meaning anyone 
+# who has a variable pointing to a GradeBook object can access
+# these methods and invoke them. The methods still provide some
+# encapsulation in that we do not need to see what code is inside
+# the methods, but the methods themselves are public and open to
+# everyone. 
+# 'public' and 'private' are just two access modifiers. 
+# A constructor does not have a return type (void is a return type) 
+# Statics
+# Use static members of a class without creating an instance
+# Members of a class may be marked as static. 
+public static float MinimumGrade = 0;
+public static float MaximumGrade = 100;
+# Other examples
+Console.WriteLine("Hello!");
+# Generally speaking, to do any useful work with a Class
+# you need to use the 'new' keyword to call a constructor
+# and create an instance of that Class, but there are classes
+# out there with static members that can do work without creating
+# an instance of that Class. Instead you reference a static
+# field or static method using the Class name followed
+# by a dot followed by name of the static field or method
+# you want to access. For example:  
+Console.WriteLine(GradeBook.MaximumGrade);
+# This is also how Console.WriteLine works. Console is a
+# Class, but I do not need to create an instance of Console ...
+# It has static methods like WriteLine that I can invoke, 
+# as above. 
+# Be careful  with statics! 
