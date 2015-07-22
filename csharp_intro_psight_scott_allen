@@ -226,3 +226,217 @@ Console.WriteLine(GradeBook.MaximumGrade);
 # It has static methods like WriteLine that I can invoke, 
 # as above. 
 # Be careful  with statics! 
+
+                             # Types and Assemblies 
+
+# Every c# type falls into one of two categories
+#1 Reference type
+#2 Value type
+# Will also see how types are packaged into files called assemblies. 
+
+# Reference Types
+# Reference types in c# are types creaged from Class definitions
+# like the GradeBook created in the last module.  Anytime I 
+# create a new Class, I am creating a new reference type. 
+# Variables hold a reference to an object
+# Multiple variables can point to the same object 
+
+#public members we expose from a Class, start with a capital letter.
+
+# In reference types, variables POINT to objects that are allocated in memory. 
+
+#2 Value Types. 
+# Variables hold the value. 
+# No Pointers.  No references. 
+# Does not hold a memory address
+# For example, integers and floats are value types in .NET 
+# If I have a variable y of type int or int32 (synonyms) and I assign
+# this variable a value of 4, then the value 4 is literally stored
+# inside the memory location of variable y.  It is no longer a pointer to an object in memory. 
+# The value is wholly inside that variable. 
+# If y = 4 and I say x = y, we
+# take a copy y and put it into x.  Now both x and y hold the value 4.
+# Value types exist because they are generally faster to allocate than reference types.
+# Creating an Object is more expensive than creating a value. 
+# Most primitive types in .NET are value types. 
+# Value types are immutable. 
+# How do we create a value type? That is where the keyword 'struct' comes in ...
+# Method Parameters. 
+# In C#,  parameters pass 'by value' by default 
+# This means that when you call a method that takes a parameter, by default
+# the value that you have in your variable that is passed to the method is
+# GOING TO BE COPIED into the variable that is a parameter to a method, unless
+# you add some additional keywords.
+# However, keywords almost never used. 
+# This means for reference types, you are passing a copy of a reference, or
+# a copy of a pointer to an object. 
+# But when you pass a variable of value type to a method, you are passing a copy
+# of that value.
+# There are two keywords that may be used to change 'pass by value' behaviour.
+# These should be used very sparingly. 
+static void GiveBookAName(ref GradeBook book) 
+# Now pass BY REFERENCE
+GiveBookAName(ref g2); 
+#The other keyword is 'out'
+# Pretty much the same as ref, with one little difference
+# ref assumes that the variable being passed in has
+# already been initialized, and it does not need to
+# assign anything to it. 
+# out can take an uninitialized variable, but MUST make
+# an assignment. 
+# There is usually a better way than 'ref' and 'out'.
+
+# Struts and Enums
+# Creating Value types.
+# struct definitions create value types. 
+public strut DateTime 
+{
+  // ...
+}
+# A struct definition looks just like a Class definition ...
+# It has a name, and opening/closing curly-braces.
+# Everything inside curly braces a member of the structure. 
+# How do I decide whether to write a class or a struct?
+# General rule-of-thumb is write a class by default. 
+# Structs are meant for special cases where you 
+# want to write an abstraction that represents a single value.
+# A DateTime, for example, represets a single value 
+# Represents something we can reason about as a single value
+# Structs do best when they contain a small amount of data. 
+# They will be copied frequently, for example. 
+
+# Another way to create a value-type in c# is to 
+# create an enum. 
+# An enum creates a type that can only contain specific 
+# numerical values. 
+# An enum, short for enumeration, is a good way
+# to create named constants in your software
+# So istead of using 1 or 4 or whatever in code can use
+# PayrollType.Hourly (instead of '1'). 
+public enum PayrollType 
+{
+    Contractor = 1,
+    Salaried,
+    Executive,
+    Hourly
+}
+
+# For example
+if (employee.Role == PayroleType.Hourly) 
+{
+    // ...
+}
+
+#F12 Go to Definition.  Useful to tell if dealing with a ref
+# type or  a value type.  
+# Classes are always ref types
+# structs are always value types
+StringComparison 
+# is a built-in enumeration. 
+
+# Immutability
+# One special behaviour of value types is that
+# value types are typically immutable. 
+# Primitive types provided by Microsoft are all immutable
+# This means that once create value type cannot change. 
+# You CAN of course chane the value you are storing in a
+# variable (that's why they are called 'variables') but 
+# the actual value can never change. 
+# Cannot change value of 4
+# Cannot change the value of August 9th, 2002.
+# Two common errors new C# developers frequently run into.
+# DateTime 
+# StringType
+
+DateTime date = newDateTime (2002, 9, 11);
+date.AddDays(1)
+
+#LOOKS like can add 1 day to date ...
+# but AddDays will never change the underlying value 
+# that is inside my variable. 
+# Instead what it will do is return a new DateTime value!
+
+string name = " Scott ";
+name .Trim();
+# What is interesting about a string is that it is a REFERENCE
+# TYPE. Don't let anyone tell you any different. 
+# When you are working with strings you have a reference
+# that points to a sequence of characters. That makes it 
+# easy to pass strings around to different methods. Because
+# we pass a reference instead of passing the entire string. 
+# So string is a reference type, but it behaves like a value
+# type in many, many ways. One way is that is string is 
+# immutable. Once you have constructed a string, you cannot
+# change that string value. 
+# Let's consider 'Trim'
+# What 'Trim' will do is remove the leading and trailing
+# whitespace.
+# It does not to that by modifiying the string I am pointing at:
+# instead it creates a new string with the characters removed. 
+
+# Arrays
+# Manage a collection of variables. 
+# The array is ALWAYS a reference type. 
+# Arrays, unlike list, have a fixed size. 
+# Must specify size of array, and that size cannot be changed. 
+# Always zero indexed. 
+# We are using a list in GradeBook, rather than an array, because we do not 
+# know how many grades are going to be stored. 
+# A list will grow automatically, and grab the space necessary to hold new items. 
+# This is POSSIBLE with array, but much more difficult. 
+# One thing that an array and a list have in commmon is that they are both 
+# zero-indexed.
+# To declare an array
+const int numberOfStudents =4;
+int[] scores = new int[numberOfStudents]
+int totalScore = 0;
+foreeach(int score in scores) 
+{
+    totalScore += score;
+}
+
+double averageScore = (double)totalScore / scores.lengh;
+# Can only store integer values
+# Can only contain four values
+# Assemblies
+# Assemblies are .exe or .dll files
+# Contain metadata about all files inside 
+# Cannot leave this module without talking about the relationship between
+# types and assemblies, because all of the types we create, both ref types
+# and value types, all have to be packaged into an assembly in order for the 
+# code to execute or be used for other programs. 
+# Assemblies are just files with the .exe or .dll extension. They are
+# produced in Visual Studio program from the C# compiler.  
+# If you want to share, say the GradeBook with other people can
+# 1 Give them the source code and they can build their own assembly
+# 2 Give them a copy of the assembly itself. 
+
+# In fact Microsoft does option 2.  All of built-in types we have been 
+# looking at: integers, DateTime, strings,  lists, arrays ... 
+# all of the code for these types live in assemblies that Microsoft has
+# authored. 
+# Because they are used by every .NET program on a machine, 
+# Microsoft puts many of these .NET core assemblies into a location on 
+# your machine known as the 
+# Global Assembly Cache,
+# which is a central location to store assemblies for a machine. 
+# By default GAC is underneath Windows directory in a folder called assembly
+# C:/Windows/assembly 
+# Must load assembly into memory before using types inside. 
+# Easy approach - Reference the assembly in Visual Studio 
+# See References node within Solution Explorer
+# Contains a list of all the assemblies that the project is using. 
+# Can remove assemblies if unused.  
+# But cannot remove mscorlib 
+# If want to add a reference ...
+# Right-click on 'References'
+# => Add Reference
+# -> Dialog Box ...
+# -> Search for Speech 
+# -> Add
+
+# Test Yourself
+# Unit tests ...
+# A Visual Studio Solution can have multiple projects inside of it...
+
+# Methods, Events and Properties in C# 
