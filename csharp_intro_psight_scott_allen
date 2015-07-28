@@ -1,68 +1,4 @@
-                                    # Intro
-# .net is separate from visual studio. Most releases of Windows already 
-# have .net installed
-# You build you apps on top of .net framwork, which consists of
-#1 Common Language Runtime (CLR)
-#2 Microsoft .NET
-#3 Framework Class Library (CLR)
 
-#Windows Server 2012 will also have .net framwork installed. 
-
-# What is CLR?
-# The CLR is an execution environment for your .net applications. 
-# It is the CLR that manages your application.
-# Some of the services provided by CLR
-# Memory management
-# CLR is like a VM, like the Java JVM, the Java VM
-# Dont have to worry about OS or type of CPU
-# Common languages: C-sharp, F-sharp, Python, Visual basic.
-# CLR available for every version of  Windows since Windows XP
-
-# FCL
-# A library of functionality to build applications
-# This is what is used on a day-to-day basis.
-# BCL is the base class library.  Works everywhere. 
-# Another part of the FCL is ASP.net, and asp.net applications
-# run on a web server rather than the desktop, and uses all
-# use a web browser. 
-# Windows Communication Foundation (WCF). All computers to 
-# communicate directly and exchange data. 
-# Typically, no-one is master of all FCL but one becomes
-# maybe an expert in one area such as ASP.net. 
-
-#C# 
-# Reusable code that can be used my many appications.  A class library. 
-# C# syntax was inspired by C++, 
-# so C# is similar in syntax to Java, C++ and JavaScript (sic) 
-
-public static void Main () 
-{
-  if (DateTime.Now.DaysOfWeek == DayOfWeek.Monday)
-  {
-      Console.WriteLine("Another case of the Mondays!");
-  } 
-
-}
-
-# Defines a method called Main
-# used DateTime class 
-# uses Console class, also part of FCL 
-# C# is a compiled language.
-# Create hello.cs
-# Save ..
-# C:\Users\Thomas\Documents>c:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe hello.cs
-# hello.exe
-
-# The compiler
-# The C# compiler transforms C# code into Microsofte Intermediate Language
-# MISL
-# file.css => csc.exe => myapp.exe
-# CLR takes the Intermediate Language Instructions and translates them
-# into native instructions that can be used by the CPU. 
-
-# Hello, Visual Studio 
-# From VS
-# File -> New Program -> Visual C# -> Console Application
 # Console apps can be run from command line
 
 # Editing C#
@@ -440,3 +376,442 @@ double averageScore = (double)totalScore / scores.lengh;
 # A Visual Studio Solution can have multiple projects inside of it...
 
 # Methods, Events and Properties in C# 
+
+#Methods
+# Methods define behaviour. 
+# They are a place where we can write code
+# Code inside of a named abstraction
+# We can invoke a method to execute the code
+# Every method has an access modifier (public ...)
+# Default is 'private', which means method only
+# available to code inside same class
+# 'internal' means available to all code within same
+# project
+# Or use 'public' keyword to make method available 
+# everywhere
+# Each method also has a return type. 
+# In the example below the return type is 'void',
+# meaning that it does not return a value to
+# the caller. 
+# Next we have the method name, 'WriteAsBytes'
+# Then list of parameters
+public void WriteAsBytes(int value)
+{
+    byte[] bytes = BitConverter.GetBytes(value);
+
+    foreach(byte b  in bytes)
+    {
+        Console.Write("0x{0:x2} ", b);
+    }
+}
+
+# Some new things about methods
+#1 params => allows a method to take a variable number of parameters.
+#2 Method signature
+# Uniquely identifies a method. 
+# Consists of name of method ('WriteAsBytes') as well as
+# the NUMBER and TYPE of parameters.
+# The C# compiler can distinguish between a method named 
+# 'WriteAsBytes' that takes a single integer as parameter and
+# another method with the same name ('WriteAsBytes') that
+# takes a string as parameter. Those are two different methods to
+# the compiler. 
+# Can have both of these methods in my class.
+# That is what is called method overloading in c#.
+# You can write as many methods called 'WriteAsBytes inside
+# a single class, as long as the parameter lists are different,
+# as parameter lists are part of the signature. 
+# note that the return type of a method is NOT 
+# part of signature
+#
+#params
+#When you have 'params' in front of the last parameter to  a method,
+# that means the caller can pass as many parameters as they want. 
+# params variables are always arrays. 
+
+# Fields and Properties
+# Fields are variables of a class. 
+# So they define the state or data that you want to hold.
+# It is common to make fields private 
+
+public Class Animal
+{
+    private readonly string _name;
+
+    public  Animal(string name)
+    {
+        _name = name;
+    }
+}
+
+# '_' (underscore) is not required for private fields, this
+# is just a nameing convention that some developers used
+# for private fields. 
+# 'readonly' keyword.  This keyword is optional, but it is something that you
+# can use if you only want that field set inside the contstructor, or 
+# when you declare the field.  
+
+# How can I let code from outside get to the value of my field?
+# Do I have to write a method to return the value of any field?
+# The answer is 'no', that is where properties come in. 
+
+# Properties
+# A property is similar to a field because it controls state,
+# and the data that are associated with an object, but
+# unlike  a field a property has a special syntax that
+# we can use to control what happens when someone tries to read data,
+# or write data. The 'get' and 'set' accessors, respectively.
+# So 'get' for reading data, and 'set' for writing data.
+# And an accessor like 'get' or 'set' can have code to
+# do computations or validate something.
+
+private sting _name;
+
+public string Name
+{
+    get {return _name: }
+    
+    set 
+    {
+        if(!String.IsNullOrEmpty(value))
+        {
+            _name = value;
+        }
+    }
+}
+
+#In code snippet
+#1 Have a private field called 'name'
+# It's private so can only access that field directly from code
+# inside the same class. 
+#2 Also have PROPERTY called 'Name', and that is captitalized. 
+# Bacause the naming convention that 99% of C# programmers follow
+# is to capitalize property names (as well as method names). 
+# But I know this is a property because it has 'get' and 'set' accessors.
+# Can write as much code as I want, but ultimately must return a
+# string because I am inside a property of type string. 
+# And the way someone will access this property from code outside this
+# class will be to say 'object.name' ...
+# No parentheses are necessary. We are not invoking a method. We are
+# just reading a property. 
+# '.name' will invoke the get accessor, which in this case is just
+# going to return _name. 
+# 3 There is also the 'set' accessor.
+# Inside of a set you will have a variable named 'value'
+# This is not something you need to declare, it's a variable
+# that is magically available to you, and it is the value that
+# someone else wants to write into your property. 
+# So when someone else says 'object.name=', this will call your
+# 'set' accessor. 
+# 4 As aside, lets look at syntax for  auto-implemented  property. 
+# This is a property that has the keywords 'set' and 'get' inside
+# with semi-colons at the end. 
+
+public string Name 
+{
+    get;
+    set;
+}
+
+# So there is no executable code for 'get' or 'set'. 
+# Called auto-implemented property because c# compiler will
+# automatically create a field to store the value in. 
+# I do not have access to the field from c# code. 
+
+# A property by itself does not specify a storage location.
+# It is really just a collection of code.
+# So if I want to store that name value somewhere and
+# have it saved, behind my property I usually need a field
+# that will define a storage location.
+# That is what auto-implement does.  Automatically creates
+# backing field. 
+
+# So what is the diffence between a property and a field?
+# Syntatically can look the same.
+# A couple of good answers.
+#1 A prop allows me to write code to validate incoming values.
+# or to do computations.
+# Cannot do these with field. 
+#2 Another answer.  Pieces of .NET framework, pieces that
+# do serialization.  So they take an object and turn it 
+# into xml or json and transmit it over the network. 
+# Also pieces of the framework that do databinding, which is 
+# the process of automatically moveing  data from an object
+# into a control on the screen, many of those framework pieces
+# only work against properties, not fields. 
+# For those two reasons properties are typically the way we
+# want to expose data. 
+
+# Events
+# Another type of member you have in a class is an event.
+# Events allow a class to send notifications to other
+# classes or objects.
+#1 Publisher raises the event
+#2 One or more subscribers process the event.
+#For example
+
+# Button => Click   -> subscriber
+#                   -> subscriber
+#                   -> subscriber
+#                   -> subscriber
+
+# A button on a screen is a component that we need to keep
+# track of and we want to know when a user clicks on 
+# this component. We don't know when a user will click on
+# a button - it could happen at anytime, but we do need to 
+# be notified when it happens. 
+# Events allow a component, like a button class, to 
+# annouce to anyone who is listening, when something
+# interesting happens. 
+# We would call the click a click event and say that the 
+# button publishes this event. The code that is interested in
+# this event is code that subscribes to the event. 
+# You can have mutiple subscribers listening to a single event.
+# Three different bits of code may all execute off the same
+# event, and the beauty of events is that the button 
+# event does not need to keep track of who is subscribing AND
+# the subscribers do not need to know about each other. 
+# It is all done through the magic of delegate in c#.
+
+#Delegates.
+# One of the harder concepts in C# to understand.
+# Delegates will lead us into events (because
+# events are based on delegates).
+# Here is the story of a delegate (by Scott Allen)
+# Imagine I want to declare a variable that references
+# a method. So I am not declaring a  method to hold an integer
+# or point to a string or point to an object, I want
+# to declare a variable and point the variable to a method. 
+# That means I have a variable that encapsulates executable
+# code and I can invoke the variable just like I would invoke
+# a method. I can use parentheses on the variable and optionally
+# pass in some arguments. 
+# Imagine I have a class called Logger ..
+
+public class Logger
+{
+    
+    public void WriteMessage(String message) 
+    {
+        Console.WriteLine(message)
+    }
+
+}
+
+# I can instantiate a logger, and once I have a variable 
+# referencing a Logger I can say 
+variable.WriteMessage
+#but can also write a bit of code that instantiates a logger,
+#and then instantiates a delegate that references the WriteMessage
+# method itself. 
+# aside
+# ----------
+# in the code below the following is the delegate
+Writer writer = new Writer(logger.WriteMessage);
+#-----------
+
+Logger logger = new Logger();
+Writer writer = new Writer(logger.WriteMessage);
+writer("Success!!");
+
+# So 'Writer' is a delegate (which will need to be defined). 
+# But I am creating a  delegate,
+# and I am passing in logger.WriteMessage to a constructor
+# Notice I am not invoking logger.WriteMessage. There are
+# no parentheses after WriteMessage.  I am literally
+# passing the WriteMessage method to this writer delegate, 
+# and saving this delegate in a variable called writer. 
+# and now I can invoke logger.WriteMessage just by invoking
+# my variable named writer
+
+writer("Success!!");
+
+# In order for this to work, I do need a delegate type. 
+
+########
+# So a delegate is a type that references methods 
+########
+
+# Just like a Class is a type and a struct is a type. 
+
+# The delegate keyword creates a new type in the .NET framework
+# a type that is dedicated to referencing methods, and
+# because it is working with methods, the definition looks
+# much different from a class definition. The type defn 
+# looks almost like a method definition. 
+
+public delegate void Writer(string message); 
+
+# I am creating a type that describes the types of methods I
+# want to call. 
+# It HAS to be a method that returns void and it takes
+# one parameter, a string parameter. The name of 
+# the method does not matter. It just has to be any
+# method that returns void and returns one string parameter.
+
+# From a C, C++ background, could think of delegate as
+# a way of creating type-safe function pointer, because I 
+# do have a variable that references a method, but it is 
+# going to do type-checking to make sure the right numbers
+# and types of parameters are there, and that the return
+# type is also compatible. 
+
+# From a functional programming language background, like
+# javascript (!sic) the idea of variables pointing to 
+# functions is not new. It is just the C# syntax and
+# type checking that will need to be got used to. 
+
+# In C#, events ARE delegates 
+# events prevent subscribers from conflicting with each other. 
+
+# 99.99% of events in c# follow a convention ...
+# Not (yet) being following in GradeBook. 
+# With an event would never pass arbitrary parameters like
+# 'string' and 'string'. 
+# All events in .NET take two parameters.  
+#1 The first is always the sender
+#2 The second parameter is an object that encapsulates
+# all other information that a subscriber might need to 
+# know about this event. 
+
+#Tip Visual Studio
+# If type 'prop' and hit tab key twice, wil expand out ..
+
+# Summary of Module
+# Members are used to craft an abstraction.
+    # Fields and Properties for state
+    # Methods for behaviour
+    # Events for notification
+
+# The whole goal of seeing fields, properties, methods, 
+# constructors and events all together is to know what 
+# tools are available when you want to build an abstraction in c#,
+# where an abstraction is a component that encapsulates
+# and models some piece of our software or some object in
+# the real world. 
+
+# New Module 
+                                 # Flow Control 
+
+#1 Branching
+
+if (age <= 2) 
+    ServeMilk();
+else if (age < 21)
+    ServeSoda();
+else
+{
+    ServerDrink();
+}
+
+# Notice that I DO NOT NEED to use curly braces to surround
+# ServerMilk();
+# (but is considered a good coding style to do so by many people,
+# including Scott Allen). And ARE required if more than one
+# method is invoked by 'if'. 
+
+# The code inside an else statement is only executed if the
+# previous if statement returns false. 
+# Curly braces around (else) ServerDrink() also NOT required. 
+
+# It is also possible to nest if statements. 
+
+if (age <=2 )
+{
+    if (name == "Scott")
+    {
+        //.. 
+    }
+}
+
+# could also use if with the 'and' operator (and avoid nested ifs). 
+if(age <=2 && name == "Scott") # I presume
+
+# Closely related to the if statement is the CONDITIONAL OPERATOR.
+
+string pass = age > 20 ? "pass" : "nopass";
+
+#operator consists of question mark and colon. 
+# Also sometimes referred to as the TERNARY OPERATOR. 
+# comes in 3 pieces
+# First piece is an expression that needs to return true or false (age >20)
+# If expression returns false, return value on LHS of colon
+# if expression returns true, return value on RHS of colon.
+# age is 19, the value that is assigned to the variable pass is the
+# string value "pass".
+# Be wary of over-use of conditional operators. 
+
+#2 Switch Statements
+
+# Restricted to integers, characters, strings, and enums
+   # Case labels are constants
+   # default label is optional
+
+switch (name) {
+    case "Scott":
+        ServerSoda();
+        break;
+    case "Poona":
+        ServeMilk();
+        ServeDrink();
+        break;
+    default :
+        ServeMilk();
+        break;
+
+#switch statement matches the value inside 'switch' with
+#the values given in each case label. 
+# varibles in case must be compile-time constants. 
+# CANNOT fall through (as in C or C++). 
+# C# compiler will force you to have a 'break'
+# default is optional. 
+# The type of values you can switch on is restricted to
+# a certain subset of types. 
+# Can switch on var that are integers, characters,
+# strings, or enumeration. 
+
+# character type in c#. 
+# used in c# using 'char' keyword.
+# A char variable can hold only a single character (
+# different from string). 
+# To represt a char in c#, must use single quotes
+# instead of single quotes. 
+
+#3 Iterating
+# Iterating is a fancy term for looping over code, 
+# and executing that code repeatedly. 
+# There are four statements for iterating in the c# language
+#1 One looping statement (that we have already seen) is
+# the foreach statement. 
+int[] ages = {2, 21, 40, 72, 100};
+
+foreach(int value in ages) 
+{
+    Console.WriteLine(value);
+}
+
+#2 Can also write loops with for statement.
+# You can think of 'for' as being explicity about the
+# starting and ending conditions for looping. 
+
+for(int i = 0; i < age; i++) 
+{
+    Console.WriteLine(i);
+}
+
+# 'for' statement contains 3 pieces of information
+    #1 the initializer (int i =0)
+    #2 the condition
+    #3 the iterator.
+
+# Same as C, C++, JavaScript ...
+
+# For statement always begins my executing any statements in the
+# initializer. These statements are only executed once. 
+# Bofore any statements inside of the for loop are executed
+# the condition is evaluated.  (The condition comes after the
+# first semi-colan in 'for' loopl.
+# The condition is a boolean that returns true or false
+# a for loop will execute zero or more times. 
+# After each execution of code inside, the iterator is incremented.
+# Usually increments (or decrements) an index variable. 

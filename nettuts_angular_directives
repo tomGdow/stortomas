@@ -1,0 +1,48 @@
+# Simple HTTP Server
+python -m SimpleHTTPServer
+
+
+# To use replace: true, directive must have only one root element.
+# Four ways to add the directive 'heading' to html
+
+       <heading></heading>
+        <p heading></p>
+        <div class="heading"></div>
+        <!-- directive: heading -->
+
+# When using comment method, also must have 'replace:true' in directive object.
+
+# Scope
+# 1. Default is parent scope. 
+# 2. scope: true  // Uses child scope that prototypically inherits from parent. 
+# The directive will be given its own scope object.  However if the object does not
+# have that property or method, it will look (prototypically) to parent. 
+# When give directive its own title property, it no longer inherits from parent scope
+# In effect, have introduced shadowing. 
+# 3. Isolated Scope.
+# Perhaps the most useful. 
+
+scope { 
+title: '@title'
+}
+
+scope: {
+title: '@'
+}
+
+'@' a great way of getting a value into a directive, and not worry about
+using it after that. 
+
+However, if you want directive to change something outside of itself, need to use 2-way binding.
+
+  scope: {
+subtitle: '='
+}
+
+# subtitle attribute of our heading directive should be the name of a model that we
+# want to be able to both get and set from within the directive
+# 'should be model' is key. For example, may have in controller
+# $scope.subtitle = "Subtitle from main";
+
+# The is one more type of isolate scope.  We can create an expression that may
+# called as a function.
