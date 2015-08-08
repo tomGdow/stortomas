@@ -777,7 +777,7 @@ switch (name) {
 # To represt a char in c#, must use single quotes
 # instead of single quotes. 
 
-#3 Iterating
+#3 Iterating (Looping) 
 # Iterating is a fancy term for looping over code, 
 # and executing that code repeatedly. 
 # There are four statements for iterating in the c# language
@@ -806,12 +806,136 @@ for(int i = 0; i < age; i++)
 
 # Same as C, C++, JavaScript ...
 
-# For statement always begins my executing any statements in the
+# For statement always begins by executing any statements in the
 # initializer. These statements are only executed once. 
 # Bofore any statements inside of the for loop are executed
 # the condition is evaluated.  (The condition comes after the
 # first semi-colan in 'for' loopl.
 # The condition is a boolean that returns true or false
 # a for loop will execute zero or more times. 
+# if the condition returns false on the first pass, no code will
+# be executed. 
 # After each execution of code inside, the iterator is incremented.
 # Usually increments (or decrements) an index variable. 
+# The 'i' is called the index variable.  The iterator is used to 
+# increment or decrement the index variable, typically called 'i'.
+
+# do while statement 
+do 
+{
+  age++;
+  Console.WriteLine(age);
+
+} while (age < 100); 
+
+# The 'do' statement always executes at least once. 
+# You are guarenteed to execute the code inside at least once.
+
+# Above a little diffrent to 'while' statement
+while (age > 0) 
+{
+    age -= 1;
+    Console.WriteLine(age);
+}
+
+#Console.Out is the output stream of the console. 
+# It is something I can write into. An abstraction.  
+# And what that abstraction will do behind the scenes is that
+# evertything I write into it, it will make that text appear on screen.
+# And the type of Console.Out is a class called a textwriter. 
+
+# Jumping
+
+# break
+# continue
+# goto
+# return
+# throw
+
+# 'break' already seen inside the case label of a switch statement.
+#  but can also use 'break' inside a for loop, a while loop ...
+
+foreach(int age in ages) {
+    if(age ==2) {
+      continue;
+    }
+    if(age == 21) {
+      break;
+    }
+}
+
+# Can use 'break' to jump out of a loop and stop looping. 
+# 'continue' same as 'break' except that instead of breaking out of
+# the foreach statement, we are going to skip executing any code
+# after the continue statement and go through the next iteration
+# of the loop.
+
+# And then there is the goto statement in c#
+foreach(int age in ages) {
+    if(age == 2) {
+        goto skip;
+    }
+
+    //...
+    skip:
+        Console.WriteLine("Hello!");
+} 
+
+# Can jump to anothe statement that is marked by a label. 
+# In ten years fo c# and c++ programming, Scott Allen never used goto!
+# return 
+# CAN use a return statement with a void method. 
+# You are just not allowed to pass a value back to the caller
+
+void CheckAges() 
+{
+    foreach (int age in ComputerAges())
+        {
+            if (age ==21) return;
+        }
+}
+
+# in the above example, using return to  break out of foreach loop
+# and to break out of the method itself. 
+
+#throw
+# So ... time to talk about exceptions 
+# The 'throw' keyword in c# is used to raise an exception. 
+# An exception is a signal that an error exists. 
+# Exceptions should only be used in exceptional circumstances. 
+# Do not use to change the normal program flow. 
+# That is what if statements are for. 
+# Use exceptions when software finds itself in position where it
+# cannot move forward. If you have a bad input value, for example 
+# or the program is out of memory, or network is not available
+# for communication. 
+# When you throw an exception, you are throwing an object. 
+# This is why we say exception handling is type safe. 
+# Bacause every exception in c# is going to be of a known type
+# We also say that working with exceptions is structured, 
+# because you can set up blocks of code to handle exceptions,
+# meaning you can structure your program to anticipate certain
+# exceptions and try to recover from error. 
+# exceptions use the 'throw' keyword.
+# An interesting choice of word. 
+# Can picture your software throwing some error object which will
+# travel back through the program until it is stoppes by
+# what is called an exception handler ( a piece of
+# code that tries to recover from an exception) or,
+# if there are no exception handlers, we have what is called
+# an unhandled exception. 
+# Unhandled exceptions will typically terminate a program. 
+# This sounds terrible, but in reality it is probably better
+# to shut down a program that has an unhandled exception than it is
+# to let the program continue. Because the program might be in bad
+# state after an error occurs. 
+
+if (age == 21) 
+{
+
+    throw new ArgumentException("21 is not a legal value"); :wq
+    ;
+
+}
+# Exceptions provide save and trusted error handling in .net
+#

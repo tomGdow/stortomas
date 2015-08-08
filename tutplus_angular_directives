@@ -46,3 +46,28 @@ subtitle: '='
 
 # The is one more type of isolate scope.  We can create an expression that may
 # called as a function.
+
+# A directive may have its own controller. 
+return {
+
+        //...
+
+        controller: function ($scope, $element, $attrs) {
+            this.name = "Chart Directive";
+        
+        }
+# controller takes the same 3 props that link function does.
+# But as it is controller, it is the convention to preceed them with the '$' sign.
+# One benefit of using a controller is that we can assign values to 'this'.
+# The 'this' object is the controller object, which may  be accessed outside 
+# the directive.  
+# We can access this property from another directive using 'require'. 
+# 'require' 
+# the 'require' attribute allows us to require the controller of another directive. 
+require 'chart'
+# implies that both directives are SIBLINGS.
+require '^chart'
+# implies that we expect the chart directive to be a parent of the calling directive. 
+# Once we have required a controller, we can access it from the link
+# function as a fourth parameter! 
+

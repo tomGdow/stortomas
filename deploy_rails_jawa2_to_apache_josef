@@ -1,0 +1,169 @@
+             # Part One. New Rails-4 Project with mysql as database
+
+# Some Preliminaries
+jawa2[tgd] rails -v
+Rails 4.2.0
+jawa2[tgd] >ruby -v
+ruby 2.1.1p76 (2014-02-24 revision 45161) [x86_64-linux]
+
+# Working on Windows 8 Computer with Virtual Box installed with Ubuntu 14.04 as OS.
+# All commands invoked on Virtual Machine command line. 
+
+#1 Generate a new rails project
+
+rails new jawa2 -d mysql
+cd jawa2
+bundle install
+
+mysql -u root -p
+<enter root password>
+CREATE DATABASE jawa2;
+quit;
+
+#2 Config Rails App to use mysql database
+# In Rails app
+vim config/database.yml
+# modify so that it reads as follows:
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root    
+  password: <password>
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: jawa2db
+
+#3  Add some content to Rails app
+rails generate controller home index
+# (modify views/home/index.html.erb) 
+# In config/routes.rb
+root  'home#index'
+# Check all OK on localhost ..
+rails s -b 0.0.0 
+localhost:3000 
+
+                           # Part 2 Deploy to Apache.
+# Some preliminaries
+#Assuming Apache2 installed
+
+#1  Install Passenger
+#Needs only be done once
+
+# Preliminaries
+#Server version: Apache/2.4.7 (Ubuntu)
+#Using Agile Web Development (Rails 4) Book as source of information
+#Great tutorial -essential -
+	https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+#(Digital Ocean - Justin Ellingwood) 
+
+gem install passenger
+passenger-install-apache2-module
+
+# Note to self: Do what the above tells you!
+sudo vim /etc/apache2/apache2.conf
+#Add the passenger-install-apache2-module generated equivalent of the following:
+
+   LoadModule passenger_module /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1
+     PassengerDefaultRuby /home/thomas/.rvm/gems/ruby-2.1.1/wrappers/ruby
+   </IfModule>
+	
+# The following now needs to be done ONCE PER NEW WEBSITE
+	
+#1 For comfort (permissions) copy the site to /var/www/html/
+withjosef[tgd] >cp -R jawa2/ /var/www/html/
+#2 Key command now follows (permissions!!)
+#See tutorial quoted above
+sudo chown -R $USER:$USER /var/www/html/jawa2
+
+#3 Generate .conf file
+#  In /etc/apache2/sites-available 
+touch  jawa2.conf
+# Add something like the following.
+# !! Make sure document Root is pointed to public
+
+RackEnv development
+<VirtualHost *:80>
+
+    ServerAdmin webmaster@localhost
+        ServerName  jawa2.thomas-VirtualBox
+        ServerAlias www.jawa2.thomas-VirtualBox
+    DocumentRoot /var/www/html/jawa2/public
+        <Directory /var/www/html/jawa2/public>
+
+          #This relaxes Apache security settings
+          AllowOverride all 
+          #Multiviews must be turned off
+          Options -MultiViews
+          #Uncomment this if you're using Apache >= 2.4
+          require all granted
+
+         </Directory>
+
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+#4 Modify the hosts file
+# As working on Virtual Box with Windows 8 as OS, and with port forwarding enabled
+# will need to modify the Windows hosts file.
+# this is located in c:/windows/system32/drivers/etc/hosts
+# add teh following line (say) 
+127.1.2.1       jawa2.thomas-VirtualBox
+
+	
+# Enable the site
+# Now use the following command
+sudo a2ensite: jawa2
+sudo service apache2 restart
+
+#4  To Use different RVM Gemsets on each Virtual Host
+
+#see here for blog
+	http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server
+
+#Navigate to app directory (this is the copy in /var/www/html/...)
+#Use rvm to select correct ruby version
+#Install passenger gem 
+gem install passenger
+#Run the following command
+passenger-config --ruby-command
+#Extract necessary info and add to jawa2.conf
+#so that it look something like this
+
+
+RackEnv development
+<VirtualHost *:80>
+
+    ServerAdmin webmaster@localhost
+        ServerName  jawa2.thomas-VirtualBox
+        ServerAlias www.jawa2.thomas-VirtualBox
+    PassengerRuby /home/thomas/.rvm/gems/ruby-2.1.1/wrappers/ruby
+    DocumentRoot /var/www/html/jawa2/public
+        <Directory /var/www/html/jawa2/public>
+
+          #This relaxes Apache security settings
+          AllowOverride all 
+          #Multiviews must be turned off
+          Options -MultiViews
+          #Uncomment this if you're using Apache >= 2.4
+          require all granted
+
+         </Directory>
+
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+
+# The site should now be available at
+http://jawa2.thomas-virtualbox/
+# And it is!
