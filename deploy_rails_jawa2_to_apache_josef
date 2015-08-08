@@ -1,13 +1,16 @@
              # Part One. New Rails-4 Project with mysql as database
 
 # Some Preliminaries
-jawa2[tgd] rails -v
+jawa2[tgd] > rails -v
 Rails 4.2.0
 jawa2[tgd] >ruby -v
 ruby 2.1.1p76 (2014-02-24 revision 45161) [x86_64-linux]
 
 # Working on Windows 8 Computer with Virtual Box installed with Ubuntu 14.04 as OS.
 # All commands invoked on Virtual Machine command line. 
+# Apache2, MySql, Sqlite, Postgres, OpenSSH, Rails 4, RVM, Ruby all installed on VM
+# Apache2, OpenSSH and dbs all set up using Jim Pickrell (Pluralsight). 
+# See 'linux_server_pluralsight_log.txt'
 
 #1 Generate a new rails project
 
@@ -42,7 +45,8 @@ rails generate controller home index
 # In config/routes.rb
 root  'home#index'
 # Check all OK on localhost ..
-rails s -b 0.0.0 
+ rs0
+# Note rs0 is an alias for rails s -b 0.0.0
 localhost:3000 
 
                            # Part 2 Deploy to Apache.
@@ -166,4 +170,21 @@ RackEnv development
 
 # The site should now be available at
 http://jawa2.thomas-virtualbox/
-# And it is!
+# And it is!  (Running FireFox/Chrome on Windows) 
+
+# Notes 
+#1  Above procedure worked perfectly on Dell Vostro running Ubuntu 14 as native OS.
+# but modified the hosts file at /etc/hosts
+
+#2 Key Apache files located at:
+/var/www/html  # // alias is www
+/etc/apache2   # // alias is apa
+
+#3 hosts files
+/etc/hosts  # // Ubuntu
+c:/windows/system32/drivers/etc/hosts # //  Windows 8 
+
+#4 To Check if Rails connected to mysql db
+rake db:schema:dump
+# Should be no erors. 
+
