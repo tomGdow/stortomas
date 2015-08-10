@@ -1,0 +1,7 @@
+[ipconfig is not a Unix command]
+nm-tool [best?]
+nmcli dev list iface eth0 | grep IP4
+see here
+http://askubuntu.com/a/138131/200605
+
+ip addr

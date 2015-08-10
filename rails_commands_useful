@@ -1,0 +1,19 @@
+# Show all tables
+# From Rails Console
+ActiveRecord::Base.connection.tables
+# Also works from Heroku console
+
+
+
+<%= debug params %>
+tail -f log/development.log
+curl http://localhost:3000/bibliographies/70/edit -i
+<%= entry.inspect %>
+<%= 5.is_a? Integer %>
+<%= 5.kind_of? Integer %>
+
+#Search Rails Source Code
+grep -rin 'def link_to'
+actionview/lib/action_view/helpers/url_helper.rb:175: def link_to(name = nil, options = nil, html_options = nil, &block)
+
+git grep <searchterm>

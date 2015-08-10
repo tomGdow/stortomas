@@ -1,0 +1,28 @@
+
+#See Agile Web Development 3rd Edn, pg 232
+apacheclt
+apacheclt -V
+apachectl -V |grep HTTPD_ROOT
+# => -D HTTPD_ROOT="/etc/apache2"
+apachectl -V |grep SERVER_CONFIG_FILE
+# => -D SERVER_CONFIG_FILE="apache2.conf"
+
+#Restart Apache
+sudo /etc/init.d/apache2 restart
+sudo service apache2 restart
+sudo a2ensite depot
+
+# Phusion Passenger
+
+#To grant permissions to directory in /var/www [apache deployment]
+sudo chown -R $USER:$USER /var/www/example.com/public_html
+#See here
+https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+#To obtain the correct version of ruby (if app created with a lower version)
+#cd to the app directory
+gem install passenger
+passenger-config --ruby-command
+# The above command will give the necessary info to insert into (apache) yoursite.conf
+# see here:
+http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server
+
