@@ -1,0 +1,239 @@
+# Good site. 
+https://builtwith.angularjs.org/
+#plunker built with angular.
+#Complete web development environment that runs in browser
+
+#Two requirements for angularjs
+#1 script tag pointing to angular
+#2 ng-app directive
+# In Angular, a controller is in charge of, or is responsible
+# for building a model. 
+# A model contains the data we need to work with. 
+# A controller will do whatever it takes to grab that data. 
+# Controller Basics
+# Four basic facts we need to know about.
+# Remember the job of controller is to control the basic  information
+# we need to put on a page, or in an editing situation, to save the information
+# that the user is typing. 
+
+#1 Controller directive in HTML (ng-controller)
+ng-controller="MainController"
+#2 Controller will be a function that Angular invokes.
+# controllers ar just functions
+#3 Controller takes a $scope parameter
+#4 Attach  a model to the $scope.
+# $scope is NOT the model, but things we attach to that scope
+# are goint to be the model
+
+HTML
+<div ng-app>
+<div ng-controller="MainController"></div>
+</div>
+</div>
+
+JS
+var MainController = function ($scope) {
+    $scope.message = "hello!";
+    };
+
+# Notice that  a controller never has to directly manipulate the HTML
+# It only  manipulates $scope by attaching a model. 
+
+# We use binding expressions  to move data from the $scope into
+# the view. 
+# The view and the controller never interact directly. 
+# in jQuery, JS directly manipulates the HTML. 
+# Angular beter separation of concerns. 
+
+# A few other things that you can do with controllers.
+#1 Multiple controllers
+# multiple controllers may even be on the same page
+#2 Can have complex objects (not just a  simple message)
+#3 Nested Controllers
+
+# Can use binding to set attributes inside HTML
+
+# $http Service
+#1 Encapsulates HTTP communication (just an object) 
+#2 Can 'ask' for $http inside a controller. 
+#3 Always returns a promise 
+# promises to deliver a value in the future. 
+
+var personController = function ($scope, $http) {
+ var promise = $http.get("/users/1783");
+ promise.then(function(response) {
+    $scope.user = response.data;
+}
+
+# Passing functions to other functions to do work
+# Above may be shortened a bit as follows:
+
+var personController = function ($scope, $http) {
+ $http.get("/users/1783")
+ .then(function(response) {
+    $scope.user = response.data;
+});
+
+# Github API
+#1 Available from JS in a browser
+#2 Returns JSON (easy to convert into objects)
+#3 No authentication or client key required. 
+
+https://api.github.com/users/tomgdow
+
+#Modules
+# Controllers usually live in modules
+# Avoids the global namespace. 
+
+# Working with Modules
+
+#1 Create a module and give it a name
+    var app = angular.module("githubViewer", []);
+    #'angular' object is the one single identifier that 
+    # angular puts into the global namespace. 
+    # can use it anywhere what angular is included.
+    # Has methods such as '.module' that creates a module or
+    # gets a reference to an existing module. 
+    # To CREATE a module, pass in name of module ('githubViewer'); 
+    # and then I can pass in an array describing the dependencies 
+    # for this module. 
+    # In the above case, passing in an empty array because the githubViewer
+    # module has no other explicit dependecies. 
+#2 Register your controller in the module. 
+    # Once I have a module defined there is an API on that module that allow me
+    # to register my controllers as well as other types of objects. 
+    # And the name of the funtion to do that registration is, conveniently,
+    # 'controller' 
+#3 Tell angular to use your module with ng-app
+    <body ng-app="githubViewer"></body>
+
+# The reason an array passed in is order to avoid minification problems.
+
+# Summary (of Controller module)
+#1 Controllers manipulate $scope
+#2 Controllers can live in a module
+#3 Controllers can use services like $http 
+
+                             # Directives and Views 
+# Directives 
+# Data attached to a $scope object is usually referred to as the model.
+# The controller and model live a live completly free of worrying about
+# what appears in the browser. 
+# We use binding expressions to make data appear on the screen
+#1 $scope provides the  model
+#2 Model does not touch HTML
+#3 Data binding moves model data into view. 
+#4 Dirctives allow for indirect model view interaction. 
+
+# A nice separation of concerns
+# Controller and model focussed only on gathering the data
+# View focussed only on presenting the data 
+
+# data binding is carried out by one kind  of directive - a data binding
+# directive! 
+
+# But what is we want to move information from the view
+# back into the model. 
+# An example is a HTML form
+# Directives are all about letting the view and model work together.
+# Directives often allow two-way binding between view and model.  
+
+# ng-model. 
+# ng-model is a directive used to move data from view into model. 
+<input type ="search" ng-model = "username" />
+# As the user types into input, ng-model will push the
+# value of the input into my scope object using this expression.
+# So in this case it is going to appear in my scope as a 
+# username property, and if that property does not exist, that is OK, 
+# ng-model will create it for us. 
+
+# ng-model a very useful directive. Can apply to inputs, selects,
+# textareas. 
+
+# ng-click
+# typically with a function call.  
+
+# ng-repeat 
+# ng-repeat very like foreach loop in c#
+# A filter is something you invoke and filter data 
+# through using the pipe symbol. 
+ <td>{{repo.stargazers_count | number}}</td>
+
+ # Filters
+ # Basic Format
+ expression | filterName:parameter
+ # pipe symbol to pipe something into a filter. 
+ 
+ currency   {{amount |currency:"USD$"}}
+ date       {{startDate | date:short}}
+ filter     {{repo in repos | filter:searchTer}}
+ json       {{repo | Json}}
+ limitTo    repo in repos | limitTo:10
+ lowercase, uppercase   {{username | uppercase}}
+ number     {{stars | number:2}} #// 2 decimal places
+ orderBy    repo in repos | filter:searchTerm | orderBy:'name'
+
+
+ # json filer useful for jumping an object into display
+ # for debugging. 
+
+# ng-show and ng-hide
+
+# ng-include
+# useful in that it can bring in HTML from another source
+
+# Directives
+ng-app
+ng-bind
+ng-blur
+ng-change
+ng-class
+ng-click
+ng-copy
+ng-dblclick
+ng-disabled
+ng-focus
+ng-hide
+ng-href
+ng-if
+ng-include
+ng-init
+ng-keydown
+ng-keypress
+ng-keyup
+ng-model
+ng-mouseenter
+ng-mouseleave
+ng-mousemove
+ng-mouseover
+ng-paste
+ng-repeat
+ng-style
+ng-switch
+ng-transclude
+
+                                   # Services
+# The word 'service' has many different meanings in software, and 
+# in web development we typically thing of service  as a feature
+# offered by a web server, like the github api web service.
+# But in AngularJS a service is a different animal. 
+# In Angular a service is  a  component that performs a 
+# specific job. Like providing a timer, or providing the
+# ability to communicate over HTTP ($http SERVICE) 
+
+# The Venn of Services 
+# So Far ...
+#1 Controllers set up the model
+# by attaching properties and functions on $scope
+#2 Views consumes the model 
+#3 Direcives are an intermediary between the model and view, 
+# making sure that neither one knows too much about the other.
+# Where do servies fit into picture?
+# One way to think about a service is that if the logic
+# does not fit in model or view or directive, then
+# use a service. A service is a grab bag where everything else will fit.
+# 
+# Directives sit between the model and the view
+# A model and a view work together thanks to a 
+# directive.
+# Services also let us separate concerns. 
