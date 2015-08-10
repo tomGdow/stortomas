@@ -1,0 +1,310 @@
+#Tutorial Two
+	
+#Generate User Model [#3 of tut2]
+ #cd to project directory:
+		rails generate model User email:string password:string
+#check that app -> models -> user.rb has been generated.  
+#do migration: 
+		rake db:migrate
+	
+#Link users to the Products table (could have been done in previous migration)
+		
+		rails generate migration add_user_id_to_products user_id:integer
+	
+		rake db:migrate
+	
+#To app -> models -> user.rb  (in Class User, after 'attr_accessible :email, :password') add
+		
+		has_many :products
+	
+#Make reciprocal association
+ #To app -> models -> product.rb  add (after 'attr_accessible :description, :name, :price'): 
+		belongs_to :user
+	
+ #Open rails console (cd to project folder first, if necessary)
+		rails console
+		
+		user = User.new
+		user.email = 'zara@mail.com'
+		user.password = 'beefstick'
+		user.save
+		prod = Product.first
+		prod.user = user
+		prod.save
+		
+#Generate Users controller (to allow adding of new users through the application rather than the console)
+	
+		rails generate controller Users new	
+		
+#From RubyMine, from app -> controllers -> users_controller.rb, update UsersController class as follows: 
+	
+		def new
+		@user = User.new
+		end
+
+		def create
+		@user = User.new(params[:user])
+			if @user.save
+			redirect_to products_path, :notice => 'User creation successful!'
+			else
+			render :action => 'new'
+			end
+		end
+		
+#In app -> views -> users -> new.html.erb
+	
+		<h1>Create User</h1>
+		<%= form_for(@user) do |f| %>
+		<% if @user.errors.any? %>
+		
+        <div id="errorExplanation">
+          <h2><%= pluralize(@user.errors.count, "error") %>
+            prohibited this user from being saved:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+		<% end %>
+
+		<div class="field">
+			<%= f.label :email %>
+			<br/>
+			<%= f.text_field :email %>
+			</div>
+			<div class="field">
+			<%= f.label :password %>
+			<br/>
+			<%= f.password_field :password %>
+		</div>
+		<div class="actions">
+			<%= f.submit "Create User" %>
+		</div>
+		<% end %>
+		<%= link_to 'Back', products_path %>
+		
+#Add to config -> routes.rb (after  resources :products)
+	
+		resources :users
+	
+#In app -> views -> layouts -> application.html.erb add the following
+ #(after '<%=  link_to "Home", :controller => "welcome", :action => "home" %>  |' but before '<%= yield %>'):
+	
+		<%=  link_to "Create User", new_user_path %> |
+		
+#Go to localhost:3000/products and check that all is well	
+ #In Rails console  (Note the User.find ... capital letter in 'User')
+ 
+		user = User.new
+		user.email = 'emma@mail.com'
+		user.password = 'evileye'
+		user.save
+		retrieved_user = User.find_by_email 'emma@mail.com'
+		
+#Generate Hashed Password Migration
+ #from command line:
+		rails generate migration rename_password_to_hashed_password
+# Add this to 'def up' of the migration
+ #(see db -> migrate -> 20130312011823_rename_password_to_hashed_password.rb)
+		 rename_column :users, :password, :hashed_password
+# Add this to 'def down' of the migration
+		 rename_column :users, :hashed_password, :password
+# Run the migration
+		rake db:migrate
+#Make app -> models -> user.rb  read as follows:
+	
+		require 'digest'
+		class User < ActiveRecord::Base
+		
+			attr_accessible :email, :hashed_password, :password
+			attr_accessor :password
+			before_save :encrypt_password
+			has_many :products
+			
+			protected
+			def encrypt_password
+				return if password.blank?
+				self.hashed_password = encrypt(password)
+			end
+			
+			def encrypt(string)
+				Digest::SHA1.hexdigest(string)
+			end
+		end
+	
+#In the Rails console
+	
+		user = User.new
+		user.email = 'wesley.gorman@ncirl.ie'
+		user.password = 'iloveruby'
+		user.save
+		retrieved_user = User.find_by_email 'wesley.gorman@ncirl.ie'
+	
+#Add these class methods to app -> models -> user.rb (BEFORE protected)
+	
+		def self.authenticate(email, password)
+			user = find_by_email(email)
+			return user if user && user.authenticated?(password)
+		end
+
+
+		def authenticated?(password)
+			self.hashed_password == encrypt(password)
+		end
+	
+#From Rails console:
+	
+		authenticated_user = User.authenticate('wesley.gorman@ncirl.ie','iloveruby')
+	
+#Add User Login Functionality
+	
+	rails generate session_migration
+		
+	rake db:migrate
+		
+   [## THERE IS ALSO A RAKE COMMAND 
+	 ## rake db:sessions:create (not used here)]
+		
+#From(Note unusual loc!)  config -> initializers -> session_store.rb
+ #Comment out the default
+ #UnComment out the following line ... (where Dowlings is the name of the project, of course)
+		 
+		 Dowlings::Application.config.session_store :active_record_store
+		 
+#Generate a Sessions Controller
+	
+		rails generate controller Sessions
+		
+#To config -> routes.rb, add the following (after 'resources :users')
+	
+		resources :sessions
+		
+#Add these methods to the SessionsController class of app -> controllers -> sessions_controller
+	
+		  def create
+			if user = User.authenticate(params[:email], params[:password])
+				session[:user_id] = user.id
+				redirect_to root_path, :notice => "Logged in successfully"
+				else
+				  flash.now[:alert] = "Invalid login/password combination"
+				render :action => 'new'
+			end
+		end
+		
+		def destroy
+		  reset_session
+		  redirect_to root_path, :notice => "You successfully logged out"
+		end
+			
+#Create a  new file called new.html.erb in app -> views -> sessions and add the following
+
+		<h1>Login</h1>
+		<%= form_tag sessions_path do %>
+		
+			 <div class="field">
+			   <%= label_tag :email %><br />
+			   <%= text_field_tag :email %>
+			 </div>
+			 
+			 
+			<div class="field">
+				<%= label_tag :password %><br />
+			  <%= password_field_tag :password %>
+			</div>
+			
+			<div class="actions">
+			  <%= submit_tag 'Login' %>
+			</div>
+		<% end %>
+		
+#Add the following to config -> routes.rb 
+	
+	match '/login' => "sessions#new", :as => "login"
+    match '/logout' => "sessions#destroy", :as => "logout"	
+	
+#Add these to app -> views -> layout -> application.html.erb  (after '<%=  link_to "Create User", new_user_path %> |',say)
+	
+		<%=  link_to "Login", login_path %> |
+		<%=  link_to "Logout", logout_path %> |
+	
+#Add these to app -> controllers -> application_controller.rb  (after protect_from_forgery, say)
+	
+		protected
+		  # Returns the currently logged in user or nil if there isn't one
+		  def current_user
+			return unless session[:user_id]
+			@current_user ||= User.find_by_id(session[:user_id])
+		  end
+		  # Make current_user available in templates as a helper
+		  helper_method :current_user
+		  # Filter method to enforce a login requirement
+		  # Apply as a before_filter on any controller you want to protect
+		  def authenticate
+			logged_in? ? true : access_denied
+		  end
+			 # Predicate method to test for a logged in user
+		  def logged_in?
+			current_user.is_a? User
+		  end
+		  # Make logged_in? available in templates as a helper
+		  helper_method :logged_in?
+
+		  def access_denied
+			redirect_to login_path, :notice => "Please log in to continue" and return false
+		  end
+		  
+# Add this to app -> controllers -> products_controller (at top, say, but within  ProductsController class)
+		before_filter :authenticate, :except => [:index, :show]
+		
+ # ALSO IN app -> controllers -> products_controller, in def/create
+ # replace @product = Product.new(params[:product])  with
+ 
+		@product = current_user.products.new(params[:product])
+		
+# In app -> views -> products -> index.html.erb, add the following to appropriate PLACES in tables 
+	 [#(this is part 42 of tutorial 2)]
+	 
+		<th>UserId</th>
+		<td><%= product.user_id %></td>
+	
+#From browser, check if all is OK from
+	localhost:3000/products
+
+#Modify the layout so that only logged in users may see links to create user and logout
+ # Add this div to views -> layout -> application.html.erb
+ # Add above '<%= yield %>': 
+	
+	<div id='header'>
+		<% if logged_in? %>
+		<%= current_user.email %> |
+		<%= link_to 'Logout', logout_path %> |
+		<%= link_to "Create User", new_user_path %> |
+		<% else %>
+		<%= link_to "Login", login_path %> |
+		<% end %>
+	</div>
+
+#Go to Browser and check out that all is well..
+
+#Rails 3 Validation
+	#Add this to app -> models user.rb
+	
+	validates :email,
+            :uniqueness => true,
+            :length => {:within => 5..50},
+            :format => {:with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i}
+
+	validates :password,
+            :confirmation => true,
+            :length => {:within => 4..20},
+            :presence => true
+	
+	
+#Check out in browser ...
+
+Did Iteration 2
+
+Added a lot of template formatting 
+
+Stored Iteration 3

@@ -1,0 +1,119 @@
+Tutorial One
+	#cd to the directory where you want project folder to be created
+	#Create a New Project
+		rails new dowlings
+	#cd to the correct directory! 
+		cd ...
+	#Create the empty database
+		rake db:create
+	#Go to RubyMine and open the project folder using File -> OpenDirectory
+	#Start the Rails server
+		rails server
+	
+	#Go to browser ... Navigate to localhost:3000 and get "Welcome Aboard' Message: 
+	#Open a Second Command Line Window
+	#cd to project directory
+	#Generate Scaffold:
+		rails generate scaffold Product name:string description:text price:float
+	#Migrate
+		rake db:migrate
+	#Go to Browser and navigate to localhost:3000/products (All is well ...)
+	#Go to RubyMine, Config -> routes.rb and find line 54, uncomment and change to:
+		root :to => 'products#index' 
+	#Delete index.html from public folder
+	#From browser, navigate to localhost:3000
+	#Try adding new product ...
+	#From RubyMine, add this (for example) to db -> seeds.rb
+		Product.create(:name => "Jameson", :description => 'Irish Whiskey', :price => 1040)
+		Product.create(:name => "Powers", :description => 'Another Irish whiskey', :price =>  333)
+	#Rake to Seed the Database (from command line)
+		rake db:seed
+	#From Browser, navigate to 
+	 #localhost:3000
+	
+	#Comment:  Insert Search Box by modifying in turn Models Views Controllers...
+	#Modify the Model:  In App-> Models-> products.rb
+		def self.search(search_query)
+			if search_query
+			find(:all,:conditions => ['name LIKE ?', "%#{search_query}%"])
+			else
+			find(:all)
+			end
+		end
+			
+	#Modify the Controller: In App->Controllers -> products_controller.rb, into Class method (def index ... end)
+	 #Change @products = Product.all to: 
+		@products = Product.search(params[:search_query])
+	
+	#Modify the Views: In App -> Views -> products -> index.html.erb add the following
+	#after the closing <table> tag on line 25 (for example): 
+	
+		<%= form_tag products_path, :method => 'get' do %>
+		<p>
+		<%= text_field_tag :search_query, params[:search_query] %>
+		<%= submit_tag "Search", :name => nil %>
+		</p>
+		<% end  %>
+			
+	#Go to localhost:3000 (Should be displaying a functional search box, and all OK)
+	
+	#Generate a new Controller (Welcome/Home Leaving/ThankYou/Register.
+	#From command line...
+		rails generate controller welcome home
+	#From RubyMine, In App -> views-> welcome-> home.html.erb
+	#Change to the following: 
+		<h1>Welcome to my Homepage</h1>
+		<p>Workshop 1</p>
+	#From Browser, navigate to localhost:3000/welcome/home to check all is OK
+	
+	#From RubyMine, in config -> routes.rb, change root :to => 'products#index' (about line 53, ) to:
+		root :to => "welcome", :action => "home"
+	# In App-> Controllers -> welcome_controller.rb, add the following methods
+		 
+		def thank_you
+		end
+
+		def register
+		end
+
+	#From RubyMine, create a new  file in app-> views -> welcome
+		#ASIDE(From RubyMine, right-click on welcome folder -> New -> File is handiest way to create new file..)
+	 #called:
+	 # thank_you.html.erb
+	
+	#and add the following:
+		<h1>Thank you for visiting</h1>
+	#Similarly, create a new file in app->views->welcome called:
+	 #register.html.erb
+	 #and add the following: 
+	
+		<h1 xmlns="http://www.w3.org/1999/html">Register</h1>
+		<div class="field">
+		<%= label_tag :email %>
+		<%= text_field_tag :email %>
+		<br />
+		<%= label_tag :password %>
+		<%= password_field_tag :password %>  <br />
+		</div>
+	
+	#From RubyMine, from config -> routes.rb
+	#add the following  (after line 2, say)
+	
+		get "welcome/thank_you"
+		get "welcome/register"
+		
+	#From Browser, check out
+	 #localhost:3000/welcome/thank_you
+	 #localhost:3000/welcome/register
+	
+	#In App -> Views -> Layouts -> Application.html.erb, add the following before <%= yield %>:
+	
+		| <%= link_to "Product_Catalogue", products_path %> |
+		<%= link_to "Leave Site", :controller => "welcome", :action => "thank_you" %> |
+		<%= link_to "Register", :controller => "welcome", :action => "register" %> |
+		<%=  link_to "Home", :controller => "welcome", :action => "home" %>  |
+	
+	#Go to 
+	 #localhost:3000
+	 #Click on 'Products catalogue'
+	 #All is well ...

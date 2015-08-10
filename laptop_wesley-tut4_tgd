@@ -1,0 +1,203 @@
+#Generate a migration for SALT password security
+
+	rails generate migration add_salt_to_users
+
+#Define migration
+#To db -> migrate -> 20130316180705_add_salt_to_users.rb
+#add the following method.
+	
+	def change
+		add_column :users, :salt, :string
+	end
+	
+# Run migration
+
+	rake db:migrate
+	
+#Add method to generate alphanumeric string (the salt)
+#add this to app-> models -> user.rb  (added at end, so within 'protected')
+
+	def generate_salt
+		chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+		salt = ""
+		1.upto(10) { |i| salt << chars[rand(chars.size-1)] }
+		self.salt = salt
+	end
+
+
+#Also in user.rb, UPDATE def encrypt_password so that it reads as shown below: 
+#(changing two lines)
+#adding 
+	salt = generate_salt
+and modify appropiatly the line-before-the-end
+	encrypt(password + "ruby_rocks" + salt)
+
+#final method: 
+
+	def encrypt_password
+		return if password.blank?
+		salt = generate_salt
+		self.hashed_password = encrypt(password + "ruby_rocks" + salt)
+	end
+	
+# Update def/authenticated? as follows (note this is from the updated version of the tutorial): 
+#(also in app -> models -> user.rb)  
+
+	def authenticated?(password)
+		self.hashed_password == encrypt(password + "ruby_rocks" + salt)
+	end
+
+### Need to run migration at this stage.  Did not during attempt One!!
+#done in attempt two
+	rake db:migrate
+
+#Found at this stage could not create user unless logged in
+#Could not login with old password!!
+#Opened rails console and created new user (make sure you are in the project directory!)
+
+	rails console
+
+#Ran the following code
+
+		user = User.new
+		user.email = 'wesley.gorman@ncirl.ie'  [repeat frank@ncirl.ie]
+		user.password = 'iloveruby'  [javascript]
+		user.save
+		retrieved_user = User.find_by_email 'wesley.gorman@ncirl.ie'
+
+#could now login and created a new user
+	tomd@ncirl.ie
+	password: javascript
+
+#From rails console
+	User.last
+#(worked a treat) 
+
+
+#Now add a field to differentiate regular users from administrative users
+#Generate a migration
+
+	 rails generate migration add_admin_to_user
+
+#Update the migration as follows
+
+	def change
+		add_column :users, :admin, :boolean, :default => false
+	end
+	
+#run migration (plural in attempt 1) 
+
+	rake db:migrate
+
+#Now over to Rails console
+	me = User.find_by_email 'wesley.gorman@ncirl.ie'
+	me.admin = true
+	me.password = 'iloverails' [ilovejavascript]
+	me.save
+
+#Also, if want
+	User.last
+	
+
+# In app-> views -> products -> index.html.erb
+#The following two lines
+#<td><%= link_to 'Edit', edit_product_path(product) %></td>
+#<td><%= link_to 'Destroy', .... { confirm: 'Are you sure?' } %></td>
+#are replaced by these
+
+	<% if current_user.admin %>
+	<td><%= link_to 'Edit', edit_product_path(product) %></td>
+	<td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
+
+#created a new user
+	#noAdmin@ncirl.ie
+	#password: joesoap
+#Now if login using above, Edit and Destroy gone from products catalogue
+
+
+#Add a method to users controllers (app -> controllers -> users_controller.rb)
+ #to allow see the list of users
+	
+ #NOTE Wesley uses the following version (used here)
+
+	def index
+		@users = User.all
+	end
+  
+ #Tutorial version of the above code (not used)
+ 
+	def index
+		@users = User.find(:all)
+	end
+	
+#In app -> views -> users
+#CREATE a file called index.html.erb  Below not checked properly
+
+	<h1>Listing Users </h1>
+	<table>
+	<tr>
+	<th>Email</th>
+	<th>Admin</th>
+	<th></th>
+	<th></th>
+	<th></th>
+	</tr>
+	<% @users.each do |user| %>
+	<tr>
+	<td><%= user.email %></td>
+	<td><%= user.admin %></td>
+	<td><%= link_to 'Show', user %></td>
+	<td><%= link_to 'Edit', edit_user_path(user) %></td>
+	<td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+	</tr>
+	<% end %>
+	</table>
+	<br />
+	<%= link_to 'New User', new_user_path %> 
+
+#Go to browser
+
+	http://localhost:3000/users/
+
+#is_admin? Helper Method
+ #In app -> controllers -> application_controller.rb
+ #add the following method to the application_controller.rb
+ #after def /access_denied
+ #and before 'private'
+ 
+ helper_method :is_admin?
+	def is_admin?
+		if current_user and (current_user.admin == true)
+			return true
+		else
+			access_denied
+		end
+	end
+	
+#In users_controllers
+ #(app-> controllers -> users_controller.rb)
+ #add the following line (right at top, but WITHIN the UsersController class)
+
+ before_filter :is_admin?
+ 
+ #Go to localhost:3000
+ 
+ #Finally ...
+ #In app -> views -> products -> index.html.erb
+ #change the line 
+ #<% if current_user.admin %>
+ #to
+ 
+	<% if current_user and current_user.admin %>
+	
+#That's it!!
+
+
+
+##Aside To add a comment to erb file
+
+  <%# Stick your comment here! %>
+
+	
+

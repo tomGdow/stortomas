@@ -1,0 +1,730 @@
+#Harkl Tutorials
+
+#Lesson One.  From zero to deploy
+
+##The first application
+
+	rails new first_app
+
+#cd to first_app
+
+	bundle install
+
+	rails s
+
+##Version Control with Git 
+
+gedit.gitignore
+
+#Add the following to .gitignore (from Hartl Book site)
+
+	# Ignore bundler config.
+	/.bundle
+
+	# Ignore the default SQLite database.
+	/db/*.sqlite3
+	/db/*.sqlite3-journal
+
+	# Ignore all logfiles and tempfiles.
+	/log/*.log
+	/tmp
+
+	# Ignore other unneeded files.
+	database.yml
+	doc/
+	*.swp
+	*~
+	.project
+	.DS_Store
+	.idea
+	.secret
+
+git init
+git add .
+git commit -m 
+git remote add origin  https://github.com/tomGdow/MyFinalProject.git
+git push
+[username]
+[password]
+
+# git pull  ! [rejected]        master -> master (non-fast-forward)
+#From SO, do git pull first ...
+git pull https://github.com/tomGdow/MyFinalProject.git
+git push
+[username]
+[password]
+#All is well ..
+git status
+git log
+
+#Modified ReadMe file (it may be written in markdown!)
+#Deployment
+
+sudo gem install 
+
+#Install heroku toolkit
+
+wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+heroku keys:add
+
+heroku create
+
+#This is sample site
+
+# http://peaceful-caverns-1310.herokuapp.com/
+
+
+#The above heroku did not work
+
+#This did
+
+# in the git folder (intialized one) not in first_app but in folder before
+#Make sure sqlite db is either in .gitignore or completly commented out in gemfile
+#In this implementation, went for commenting out.  Run bundle install and then
+
+git init
+git add .
+git commit -m ""
+git status
+
+cd to first_app
+heroku keys:add
+#above may not be strictly necessary
+
+heroku create
+
+git push heroku master
+
+#(as opposed to git push origin master)
+
+#check out the following
+
+#http://immense-eyrie-9777.herokuapp.com/
+
+#Now to rename
+
+#cd to within first_app
+
+heroku rename tomdfirstapp
+
+#Now try
+
+	http://tomdfirstapp.herokuapp.com/
+
+#or just 
+
+	tomdfirstapp.herokuapp.com/
+
+#Lesson Two 
+
+###A demo app### 
+
+rails new demo_app
+
+cd ..
+
+bundle install 
+
+git init
+
+git add .
+
+git commit -m ""
+#At Github, created repository first_app
+
+git remote add origin git@github.com:tomGdow/first_app.git
+
+
+#failed had to add ssh key to account
+#See here
+https://help.github.com/articles/error-permission-denied-publickey
+#Basically had to run the following commands
+
+sudo apt-get install xclip
+
+#above installs xclip (so OK...)
+
+xclip -sel clip < ~/.ssh/id_rsa.pub
+
+# Copies the contents of the id_rsa.pub file to your clipboard
+
+#Copied to github as suggested, and all is well ...
+
+#generate scaffold
+
+rails generate scaffold User name:string email:string
+rake db:migrate
+
+git status
+git add .
+git commit -m "Created a Users resource"
+git status
+
+#new terminal
+#cd
+rails s
+#localhost:3000/users
+
+#Microposts
+
+rails generate scaffold Micropost content:string user_id:string
+rake db:migrate
+rake db:rollback
+rails destroy scaffold Micropost
+
+#git stuff
+
+rails generate scaffold Micropost content:string user_id:string
+rake db:migrate
+git add .
+git commit -am "added Micropost resource"
+
+#in micropost.rb
+
+validates :content, :length => {:maximum => 140} 
+
+#in Microposts.rb (has foreign key)
+belongs_to :user
+in Users.rb
+has_many :microposts
+
+#Some fun with rails console not recorded
+
+git add .
+git commit -am "finished demo app"
+git push
+
+# oooh
+
+#Some difficulties..
+#Solved by using following (Hartl, see above) as .gitignore
+
+	# Ignore bundler config.
+	/.bundle
+
+	# Ignore the default SQLite database.
+	/db/*.sqlite3
+	/db/*.sqlite3-journal
+
+	# Ignore all logfiles and tempfiles.
+	/log/*.log
+	/tmp
+
+	# Ignore other unneeded files.
+	database.yml
+	doc/
+	*.swp
+	*~
+	.project
+	.DS_Store
+	.idea
+	.secret
+
+#git add .
+git commit -am ""
+git push 
+
+
+#To remove origin
+
+git remote rm origin
+
+##Deploy to Heroku
+
+#had to delete one app!
+
+heroku create
+git push heroku master
+
+#Sqlite 3 error! Resolved as follows:
+#make the following changes to the Gemfile
+
+	#gem 'sqlite3'
+
+	
+gem 'sqlite3', :group => [:development, :test]
+	group :production do
+	  gem 'thin'
+	  gem 'pg'
+	end
+
+
+###Delete Gemfile.lock###
+
+#Some trouble installing pg gem
+
+sudo apt-get install libpq-dev
+sudo gem install pg 
+bundle install
+git add .
+git commit -am ""
+git push
+
+#NOW
+
+git push heroku master
+heroku rake db:migrate
+
+#All is very well!!
+
+#See
+
+http://tomd-demo-app.herokuapp.com/users
+
+http://tomd-demo-app.herokuapp.com/microposts/
+
+##Lesson Three
+
+#from now on everything is for real! 0300.flv onwards
+
+#sample app
+
+rails new sample_app -T  # Suppresses default test
+
+cd
+
+#Added the following to gem file (see Rails 3 Hartl Book)
+
+group :development do
+gem 'rspec-rails', '2.0.1'
+end
+
+
+group :test do
+gem 'rspec', '2.0.1'
+gem 'webrat', '0.7.1'
+end
+
+bundle install
+
+rails generate rspec:install
+
+
+# Substituted following in .gitignore
+
+	.bundle
+	db/*.sqlite3*
+	log/*.log
+	*.log
+	tmp/**/*
+	tmp/*
+	doc/api
+	doc/app
+	*.swp
+	* ̃
+	.DS_Store
+
+git init
+git add .
+git commit -am "Initial Commit"
+
+#Now create a git repository
+
+#sample_app repo created
+
+#had to do the following once to solve problem
+
+git remote rm origin
+
+#but, following github instructions, all is OK and got commit
+
+#Now push to Heroku
+
+heroku create
+git push heroku master
+
+#Same rubbish about sqlite 3.
+
+#So ...
+
+#added following to Gemfile
+
+	gem 'sqlite3', :group => [:development, :test]
+	group :production do
+	  gem 'thin'
+	  gem 'pg'
+	end
+
+#Delete gemfile.lock
+
+bundle install
+
+git add . #etc
+
+git push heroku master
+
+heroku rename tgd-sample-app
+
+heroku open
+
+#See
+
+http://tgd-sample-app.herokuapp.com/
+
+#Now some static pages
+
+rails generate controller Pages home contact
+
+git add .
+git commit -m "added Pages controller"
+git push #(OK?)
+
+
+git rm -r spec/views/
+git rm -r spec/helpers/
+
+rspec spec/
+
+# gives two errors
+
+##but 
+rspec
+#or
+bundle exec rspec 
+#both give no errors 
+
+#So... installed latest version of rspec (removed version numbers from gemfile) and all is well.
+
+#Fixed all errors associated with about so now ...
+
+#in pages_controller_spec.rb
+
+response.should have_selector("title", :content => "Ruby on Rails Tutorial Sample App | Home")
+
+# 4 examples, 0 failures!!
+
+git add .
+git commit -m ""
+git push heroku master
+
+heroku open  #Nice trick 
+
+#Tutorial 4
+
+#Added the following to application_helper.rb
+
+ def title
+
+    base_title = "Ruby on Rails Tutorial Sample App"
+
+    if @title.nil?
+      base_title
+
+    else
+      "#{base_title} | #{@title}"
+    end
+  end
+
+# To copy the blueprint directory (note trailing slash)
+
+cp -r ~/Downloads/blueprint-css-master/blueprint public/stylesheets
+
+#A lot of fun with Ruby 
+
+git add .
+git commit -m "added titles and stylesheets"
+git push
+
+git push heroku
+heroku open
+
+#New git branch.  A little too late but ...
+
+git checkout -b filling-in-layouts-after
+
+
+#0503 Modifying the routes and other things 
+#Including integration tesrails generate integration_test layout_links
+
+#Users controller (0504)
+
+rails generate controller Users new
+
+rm -rf spec/helpers
+rm -rf spec/views
+
+
+#more git (including merge)
+
+git checkout master
+git merge filling-in-layouts-after
+git push
+git push heroku
+heroku open
+
+#Lesson six Modelling users
+
+#Create git branch
+
+git checkout -b modeling-users
+
+rails generate model User name:string email:string
+
+rake db:migrate
+
+
+#annotate gem goodie
+
+#Modified the Gemfile as follows: 
+
+	group :development do
+	gem 'rspec-rails'
+
+	gem 'annotate'
+	end
+
+#see 0602.flv, about 8 min
+
+#now
+
+annotate
+
+#annotates the users so well!
+
+rails console --sandbox
+
+tail -f log/development.log
+
+#Note
+User.find_by_id(1)
+#returns nil if a user with id 1 does not exist.
+
+#user.reload reloads the user from the database
+
+
+#0603
+
+
+#In user.rb
+
+validates :name, presence: true
+
+rake db:test:prepare
+
+#A nice piece of DRY coding
+
+	before(:each) do
+
+	@attr = {name: "Example User", email: "user@example.com"}
+
+	end
+
+#Now in "it 'should create a new instance given a valid variable'"
+User.create(@attr)
+
+#In "it 'should require a name'"
+no_name_user = User.new(@attr.merge(name: "")
+
+#In "it 'should require an email address" do
+no_email_user = User.new(@attr.merge(email: "")
+
+#reject names that are too long
+
+long_name = "a"*51
+long_name_user = User.new(@attr.merge(name: long_name)
+long_name_user.should_not be_valid
+
+it "should accept valid email addresses" do
+
+addresses = %w(user@foo.com THE_USER@foo.bar.org first.last@foo.jp. user@host.co.uk tom.dow@student.ncirl.ie)
+
+addresses.each do |address|
+
+valid_email_user.should be_valid
+
+valid_email_user =  User.new(@attr.merge(email: address)) 
+
+valid_email_user.should be_valid
+
+end
+
+<%= @user.name %> , <%= @user.email %>end
+
+#Database index
+
+rails generate migration add_email_uniqueness_index
+
+In migration ...
+
+ def self.up
+    add_index :users, :email, :unique => true
+  end
+
+  def down
+    remove_index :users, :email
+  end
+
+rake db:migrate
+
+rake db:test:prepare
+
+#in new file, in views -> users, show.html.erb
+
+
+<%= @user.name %> , <%= @user.email %>
+
+describe "passwords" do
+
+it "should have a password attribute" do
+
+User.new(@attr).should respond_to(:password)
+
+#Add migration.  A special one as it so happens (0702.flv)
+
+rails generate migration add_password_to_users encrypted_password:string
+
+#Important.  Must also migrate the TEST db
+
+rake db:test:prepare
+
+#rspec spec/  And all is well 
+
+#register callback
+
+before_save :encrypt_password
+
+
+rails generrate migration add_salt_to_users salt:string
+
+rake db:migrate
+rake db:test:prepare
+
+
+#create a file called factories.rb inside the spec directory
+
+
+git checkout master
+
+git merge modeling-users
+rspec spec/
+git push
+
+git push heroku
+heroku open
+heroku rake db:migrate
+
+#Warning should do 'heroku run rake ..."
+
+
+#heroku console obsolete
+
+heroku run rails console  ##could not get to work
+
+ User.create!(name: "Thomas Dowling", email: "thomasgdowling@gmail.com", password: "password", password_confirmation: "password")
+
+
+
+rake db:reset
+
+git checkout -b sign-up
+
+
+#Integration tests
+
+rails generate integration_test users
+
+
+#Heroku clear out db
+
+heroku rake db:reset
+
+#Lesson 9.  Sessions and all that
+
+ra‎ils generate controller Sessions new
+
+#In spec_helper.rb
+
+  def test_sign_in(user)
+     controller.current_user = user
+  end
+
+
+
+#Git problems
+
+git push -f origin HEAD^:master
+
+
+
+ ssh -T git@github.com
+
+xclip -sel clip < ~/.ssh/id_rsa.pub
+
+
+heroku run rake db:schema:load
+
+heroku create --stack cedar
+
+rake assets:precompile
+
+#Tutorial 10
+git checkout -b updating-users
+
+rails generate integration_test friendly_forwarding
+
+rake db:migrate
+rake db:test:prepare 
+
+### faker gem
+
+#Put into gemfile (development)
+
+#in lib/tasks, create the file
+
+sample_data.rake
+
+
+created the following file
+
+-------------------
+
+require 'faker'
+
+namespace :db do
+
+  desc "Fill database with sample data"
+  task  :populate => :environment do
+   Rake::Task['db:reset'].invoke
+    User.create!(name:      "Example User",
+                 email:     "example@railstutorial.org",
+                 password:  "foobar",
+                 password_confirmation: "foobar")
+   99.times do |n|
+
+     name = Faker::Name.name
+     email = "example-#{n+1}@railstutorial.org"
+     password = "password"
+     User.create!(name: name,
+                  email: email,
+                  password: password,
+                  password_confirmation: password)
+   end
+  end
+end
+
+------------
+
+
+rake db:populate
+
+#now will-paginate
+
+#See Hartl 10.04 25.04
+
+#add admin migration 10.05 (beginning 5 min)
+
+##Lesson 11 Microposts
+
+rails generate model Micropost content:string user_id:integer
+
+rake db:migrate
+rake db:test:prepare
+
+lsof -iTCP:3000
+kill -9 23778
+
+tail -f log/test.log
+
+rspec spec/models/user_spec.rb -e 'should destroy associated microposts'
+

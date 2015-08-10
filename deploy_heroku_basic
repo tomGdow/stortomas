@@ -1,0 +1,12 @@
+
+bundle install
+git add .
+git commit -m "Set up for Heroku deploy"
+heroku create
+git push heroku master
+heroku open
+heroku rename addtwotom
+heroku open
+
+
+from 'All_completed_projects/AddTwoNumbers/addTwo_deploy_github_heroku' (Ubuntu/Vostro) 

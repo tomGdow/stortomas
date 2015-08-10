@@ -1,0 +1,316 @@
+#Tutorial three
+#Generate a scaffold for a cart
+	rails generate scaffold cart
+#Migrate
+	rake db:migrate
+#In app->controllers-> application_controller.rb, add following method (towards end). 
+
+	private
+	def current_cart
+		Cart.find(session[:cart_id])
+	rescue ActiveRecord::RecordNotFound
+		cart = Cart.create
+		session[:cart_id] = cart.id
+		cart
+	end
+	
+#Generate scaffold for line_item (linker) 
+
+	rails generate scaffold line_item enzyme_id:integer cart_id:integer
+	
+#Run the migration
+
+	rake db:migrate
+	
+#Go to browser, have a quick look...
+
+	localhost:3000/carts
+	localhost:3000/line_items
+	
+ #Click on new line item ...
+
+#In app -> Models -> cart.rb, in class Cart, add the following line: 
+
+	has_many :line_items, :dependent => :destroy
+
+	#Now in LineItems.rb (Models )
+
+#Firstly, add the following to the attr_accessible line:
+
+	, :enzyme
+	
+#so that the line reads
+
+	attr_accessible :cart_id, :enzyme_id, :enzyme
+	
+#SECONDLY??), to the same class add(ie to LineItem at app -> models -> line_item.rb) 
+
+	belongs_to :enzyme
+	belongs_to :cart
+	
+#Modify the lineItems_controller (app -> controllers -> line_items_controller.rb)
+ #modify the  def create ... end method as follows: 
+  #FIRSTLY modify the first line so that it now consists of the following four lines:
+ 
+		@cart = current_cart
+		enzyme = Enzyme.find(params[:enzyme_id])
+		@line_item = @cart.line_items.new(:enzyme => enzyme)
+		
+		
+	[#The last line above will be changed to the following later on (see about line 179)
+	 # @line_item = @cart.add_enzyme(enzyme)]
+ 
+ #ALSO, about 3 lines further down, modify, in the line beginning 'format.html...'
+ #change line_item to:
+ 
+	@line_item.cart
+	
+#so that it reads:
+
+	format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+	
+#AS A CHECK, the def create ... end method should read
+
+	def create
+		@cart = current_cart
+		enzyme = Enzyme.find(params[:enzyme_id])
+		@line_item = @cart.line_items.new(:enzyme => enzyme) 
+		
+		
+		respond_to do |format|
+		if @line_item.save
+			format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+			format.json { render json: @line_item, status: :created, location: @line_item }
+			else
+			format.html { render action: "new" }
+			format.json { render json: @line_item.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+	
+#In app -> views -> carts -> show.html.erb, modify to first line so that it consists of the following: 
+ #(leave links alone) 
+
+	<p id = "notice"><%= notice %></p>
+	<h2>Your Cart</h2>
+	<ul>
+		<% for item in @cart.line_items %>
+		<li><%= item.enzyme.name %></li>
+	<% end %>
+	</ul>
+
+#Go to 
+	localhost:3000/carts 
+
+#In app -> models -> enzymes.rb (to Class Enzyme) add the following line:
+#(after 'belongs_to :user')
+
+	has_many :line_items
+
+
+#In app -> views -> enzymes -> index.html.erb
+#add the following line after ''Are you sure?' } %></td>' (but before '</tr>')
+
+	<td><%= button_to 'Add to Cart', line_items_path(:enzyme_id => enzyme) %></td>
+
+#Go to 
+	localhost:3000/enzymes	
+
+#In app -> controllers -> carts_controller.rb
+#add the following method, just below the show method : 
+
+
+
+	def your_cart
+		redirect_to :action => "show", :id => current_cart.id
+	end
+	
+# In config -> routes.rb add (above ' match '/login' ...', maybe)  
+
+	match '/your_cart' => "carts#your_cart", :as => "your_cart"
+
+#go to
+	localhost:3000/your_cart
+	
+#In app -> views -> layouts -> application.html.erb
+ #add the following link (in obvious place, under other links) 
+
+	<%= link_to "Your Cart", :controller => "carts", :action => "your_cart" %> |
+	
+#Go to localhost:3000 ... 
+	
+#### NOW, add a smarter cart ... ####
+
+#generate migration:
+
+	rails generate migration add_quantity_to_line_item quantity:integer 
+	
+#go to migration (db -> migrate -> 20130315154942_add_quantity_to_line_item.rb) and add to method:
+	:default => 1
+#so that the line reads: 	
+
+	add_column :line_items, :quantity, :integer, :default => 1
+	
+#In app -> models -> line_item.rb
+#add 
+	, :quantity
+#so that it reads:
+
+	attr_accessible :cart_id, :enzyme_id, :enzyme, :quantity
+
+#Run migrate
+	rake db:migrate
+	
+#From app -> views -> carts -> show.html.erb
+#add the following
+
+	<%= item.quantity %> &times;
+	
+#so that it reads
+
+	<p id ="notice"><%= notice %></p>
+<h2>Your Cart</h2>
+	<ul>
+	<% for item in @cart.line_items %>
+		<li><%= item.quantity %> &times; <%=item.enzyme.name %></li>
+		<% end %>
+	</ul>
+
+##Go to localhost:3000 and check all is well... 
+
+#In app -> models -> cart.rb
+#add the following method: 
+
+	def add_enzyme(enzyme)
+		current_item = line_items.where(:enzyme_id => enzyme.id).first
+		if current_item
+			current_item.quantity += 1
+		else
+			current_item = LineItem.new(:enzyme_id => enzyme.id)
+				line_items << current_item
+		end
+			current_item
+	end
+	
+#In  app -> controllers -> line_items_controller.rb (def/create method) make the following substitution:
+
+	@line_item = @cart.add_enzyme(enzyme)
+	
+#Go to localhost:3000 
+
+#Address the multiple rows problem (optional it would seem)
+#Run the following migration: 
+
+	rails generate migration combine_items_in_cart
+	
+#Will need to write the migration.  
+#In db -> migrate -> 20130316144129_combine_items_in_cart.rb
+# modify the code so that the .up and .down methods read as follows:
+
+	def self.up
+	 #replace multiple items for a single enzyme in a cart with a single item
+
+		Cart.all.each do |cart|
+		 #count the number of each product in the cart
+		 sums = cart.line_items.group(:enzyme_id).sum(:quantity)
+			sums.each do |enzyme_id, quantity|
+			if quantity > 1
+				#remove individual items
+			cart.line_items.where(:enzyme_id => enzyme_id).delete_all
+				#replace with a single item
+				cart.line_items.create(:enzyme_id => enzyme_id, :quantity => quantity)
+				end
+			end
+		end
+	end
+
+		def self.down
+			#split items with quantity > 1 into multiple items
+			LineItem.where("quantity > 1").each do |line_item|
+				#add individual items
+				line_item.quantity.times do
+				LineItem.create :cart_id => line_item.cart_id, :enzyme_id => line_item.enzyme_id, :quantity => 1
+				end
+			#remove original item
+			line_item.destroy
+			end
+		end
+
+#Run the migration
+
+	rake db:migrate
+---
+#Define method to calulate the total price:
+#In app -> models -> cart.rb, add the following method
+
+		def total_price
+			total = 0
+			 line_items.each do |line_item|
+			total += line_item.enzyme.price * line_item.quantity
+			end
+			total
+		end	
+
+
+#In app -> views -> carts -> show.html.erb
+#insert the following after  '<% end %>' but before '</ul>'
+ 
+	Total Price: <%= @cart.total_price %>
+	
+ #AND after '<% end %>' add a linebreak
+ <br />
+	
+#Go to localhost:3000 ...
+-----
+#Add an empty cart button
+#again to app -> views -> carts -> show.html.erb, add the following (after the line just added, say)
+
+	<%= button_to 'Empty cart', @cart, :method => :delete, :confirm => 'Are you sure?' %>
+
+#AND after 'Total Price: <%= @cart.total_price %>' (but before the above line) add two linebreaks
+<br />
+<br />
+
+#Go to localhost:3000
+
+
+#Now redirect back to produts controller after deleting the cart 
+#AND ALSO clear cart from our session 
+
+ #In app-> controllers -> carts_controller.rb, make two changes:
+ #to the def/destroy method
+ #add the following line (after '@cart.destroy') 
+
+	session[:cart_id] = nil
+
+#AND modify the appropriate line to the following:
+
+	format.html { redirect_to enzymes_url, notice: 'Your cart is currently empty' }
+
+#so that the def destroy method reads as follows: 
+
+
+	def destroy
+		@cart = Cart.find(params[:id])
+		@cart.destroy
+		session[:cart_id] = nil
+		
+		respond_to do |format|
+			format.html { redirect_to enzymes_url, notice: 'Your cart is currently empty' }
+			format.json { head :no_content }
+		end
+	end
+--
+#In views -> enzymes -> index.html.erb, add the following: 
+#right at the top
+
+	<p id="notice"><%= notice %></p>
+	
+#Go to localhost:3000... 
+
+#Finally helper method for currencty and formatting ...
+#In app -> views -> carts -> show.html.erb, make the following modification (to the line previouly inserted)
+
+	Total Price: <%= number_to_currency(@cart.total_price, :unit => '&euro;') %><br />
+
+#That's it! 
