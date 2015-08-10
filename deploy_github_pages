@@ -1,0 +1,22 @@
+
+Created Separate repository
+
+git clone git@github.com:tomGdow/drag_the_dragonfly.git
+cd
+git checkout --orphan gh-pages
+git add .
+git commit -m "just before publish"
+git push origin gh-pages
+
+now deployed site is at
+
+http://tomgdow.github.io/drag_the_dragonfly/
+http://tomgdow.github.io/addTwoNumbers/
+
+git@github.com:tomGdow/angular60minimum.git
+
+http://tomgdow.github.io/angular60minimum/
+
+http://tomgdow.github.io/addTwoNumbers/
+
+From 'All_completed_projects/AddTwoNumbers/addTwo_deploy_github_heroku'  (Ubuntu/Dell Vostro)

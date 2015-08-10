@@ -1,0 +1,40 @@
+[Essential] heroku create
+[Essential] git push heroku master
+
+
+[Essential] added pg database to gemfile
+[Suspect better to leave in] added Rails12_factor 
+
+[Essential] added the following
+# config/application.rb
+config.assets.initialize_on_precompile = false
+
+removed the migration shown below
+[Essential] fixed paper clip model (backward compatibility) 
+[Essential] specified ruby version
+fixed migrations (2 not up)
+[Leave in]removed rails12 factor
+[Essential] removed offending email requirement from dashboard controller (index)
+Now ok!!
+
+heroku rename jakkinature
+heroku open
+
+Removed this migration, then added it back.  Did NOT work.  Had to bypass
+
+
+20130320200013_create_photos.rb
+class CreatePhotos < ActiveRecord::Migration
+  def change
+    create_table :photos do |t| 
+      t.decimal :long
+      t.decimal :lat
+      t.string :path_photo
+      t.string :title
+      t.integer :user_id
+
+      t.timestamps
+    end 
+  end 
+end
+

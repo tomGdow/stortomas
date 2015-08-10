@@ -1,0 +1,6 @@
+heroku run console
+u=User.find(1)
+u.admin=true
+u.save
+(naturejakki) 
+http://stackoverflow.com/a/25756329/499167
