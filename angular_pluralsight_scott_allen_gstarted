@@ -232,8 +232,271 @@ ng-transclude
 # One way to think about a service is that if the logic
 # does not fit in model or view or directive, then
 # use a service. A service is a grab bag where everything else will fit.
-# 
+# Logic will be easy to use anywhere else in application. 
+# Controllers may use services.  (A controller requires $http service, 
+# for example). Directives can also use services. You would
+# never use a service directly from a view.  A view is about presentation
+# but services can use functionality to models and directives in a 
+# re-usable way, and they can contain logic that either doesn't belong
+# in the model or directive, or it's just logic that you want to
+# reuse from several other models or directives. Or you just want to
+# package up some functionality because your controller is growing too
+# large. 
+
 # Directives sit between the model and the view
 # A model and a view work together thanks to a 
 # directive.
 # Services also let us separate concerns. 
+
+# So far have been using $http service.  Now let's consider a service 
+# that is not communication-related
+# Actually, a couple of other build-in services. 
+# The Angular timeout and interval services.
+# JavaScript provides native global functions that you can use
+# to work with timers: 
+setTimeout()
+setInterval()
+
+var doWork = function () {console.log("Working ...") };
+setTimeout(doWork, 2000);
+setInterval(doWork, 2000);
+
+# doWork invoked in 2 seconds with setTimeout
+# setInterval will continue to invoke that method every time countdown
+# expires. It will continue to do that until you cancel that interval
+# Could use these functions directly in Angular app, but DONT want to.
+# It turns out that Angular provides two services that wrap these functions
+
+# $timeout wraps setTimeout
+# $interval wraps setInterval
+
+# There are a couple of reasons to use these built-in services instead
+# of the functions that javaScript provide. 
+#1 Unit testing
+#2 Data binding will work better with AngularJS service versions
+
+# $interval is a FUNCTION and can be invoked. 
+
+# Role of Services
+# The relationship beween services and the rest of repo.
+# When you are writing a component like a controller you need
+# to focus on one thing, which is setting up the model
+# The model should contain and retrive the data that it needs,
+# as well as have the methods that are required to respond to events,
+# both from the user, and from events such as a timer, that might
+# require the model to change. 
+# When you are writing this controller code, you want some insulation
+# from the outside world. Not just for testability but also for
+# the sanity of keeping complexity out of your controller. 
+# Can wrap up all the inticate detail of HTTP communication ($http ...)
+# So can use services from controllers, but also inside of directives.
+
+#Built-in AngularJS Services
+$http
+$interval
+$timeout
+$log
+$animate
+$location
+$browser
+$window
+
+# Lets have a look at $log
+# Useful for debugging and diagnostics. 
+# $log methods
+log
+info
+error
+warn
+debug
+
+# One of great features of Angular Services is that you CAN 
+# reprogram them.
+# Can reprogram $log service to not only add message to console
+# but also to send message back to server via HTTP. 
+
+# What if I want to use a service to interact with something in browser
+# window, or on the screen? 
+# Generally, we try to keep things like services and controllers from
+# interacting with UI pieces directly, but there are some scenarios
+# where it is extremely useful to be able to invoke some behaviour
+# in the user interface from logic that is inside of the model
+# or inside of a service. Let's talk about that next.
+
+# UI Services
+# Most of the time with Angular, when we want somthing to happen in the view,
+# all we do is make a change in the model. And directives will make
+# sure that the view and the model will remain synchronized. This
+# keeps our model and controller free of UI concerns. But there
+# are some scenarios where it makes more sense to use imperative
+# JS code to interact with the view in a more direct fashion, than
+# relying on declarative HTML with directives inside. 
+# Some of these scenarios include
+#1 Forcing the browser to navigate to a new url
+#2 Popping up a modal dialog box to force a user to input data 
+
+# And the solution is again not to touch UI-related objects directly
+# from the model. Instead there are services that can wrap this kind
+# of functionality. 
+$location
+$anchorScroll
+$animate
+$browser
+$window
+
+# For example there is a  $location service in angular, and if we 
+# want to read or write the location in the address bar of the browser,
+# The model can talk to the $location service, and the service can 
+# talk to the UI component. 
+# Let's take a look at $location an $anchorScroll
+
+#1 id the HTML element you want visible
+# Use $anchorScroll service
+# $anchorSroll behaviour is a little more indirect than you might  think.
+# I do not pass the name or id of the HTML element to the $anchorScroll service.
+# Instead what I have to do is change the fragment identifier of 
+# the url. A fragment identifier is what will appear after the hash sign
+# in the address bar of the browser. 
+# So will need to set the id to 'userDetails', set the fragment identifier in url
+# to 'userDetals' and then tell anchor scroll to go. 
+$location('userDetails');
+$anchorScroll();
+
+# Building Your Own Service
+#why?
+# The big three...
+
+#1 Create reusable logic
+#2 Create Shared data
+#3 Manage complexity
+
+# Will build Github service
+
+# A Github Service
+
+var getUser = function(username) {
+    $http.get("https://api.github.com/users/" + username)
+        .then(function(response) {
+    return response.data;
+    });
+};
+
+# There is something happening here that is not immediately
+# obvious. And it can be completelhy mind-bending until you
+# get used to this particular programming paradyme. 
+# When someone calls 'getUser', a call is made
+# to $http.get and that will return a promise 
+# I will call .then on that promise so that
+# when that HTTP call is complete, it will call my fuction, 
+# passing in a response and I will dig out the data to that
+# response. And then I will return 'response.data' 
+# The not-immediately-obvious part is that when you return
+# something from a function that is invoked by .then,
+# and that something could be a number or an object,
+# could be a string, WHATEVER YOU RETURN WILL BE WRAPPED BY
+# .then INTO ANOTHER PROMISE that is given back to the caller. 
+# So whoever calls getUser, they are going to get back a PROMISE
+# that will deliver a value that the return statement provides. 
+
+# Registering a service with Angular.
+# WARNING.  There are about 24 different ways of registering
+# a service with Angular. The docs are confusing!
+# Scott will give us the one simple straightforward way to
+# register a service with Angular, and that is to use a 
+# method called factory. With factory pass in the name of service
+# (in this case github) and then pass in somthing that points to a 
+# function that returns an object with the API that you want complete, it will call my fuction, 
+# passing in a response and I will dig out the data to that
+# response. And then I will return 'response.data' 
+# The not-immediately-obvious part is that when you return
+# something from a function that is invoked by .then,
+# and that something could be a number or an object,
+# could be a string, WHATEVER YOU RETURN WILL BE WRAPPED BY
+# .then INTO ANOTHER PROMISE that is given back to the caller. 
+# So whoever calls getUser, they are going to get back a PROMISE
+# that will deliver a value that the return statement provides. 
+
+# Registering a service with Angular.
+# WARNING.  There are about 24 different ways of registering
+# a service with Angular. The docs are confusing!
+# Scott will give us the one simple straightforward way to
+# register a service with Angular, and that is to use a 
+# method called factory. With factory pass in the name of service
+# (in this case github) and then pass in somthing that points to a 
+# function that returns an object with the API that you want.
+# So now when any controller or anything else inside of the app
+# says 'give me something called github' it will get back
+# the OBJECT inside the return braces
+
+# Scott Allen typically does NOT make $http calls from inside a
+# controller, or inside of a model. 
+# Usually encapsulate inside of a service. It makes it easier to use.
+#Summary
+#1 Services as a barrier
+# Make controllers less complicated. 
+#2 Services as components
+# Services are like software components that we can 
+# pass around in the application. 
+#3 Services from custom logic
+
+# In next module, will look at yet another service from Angular
+# The Routing service. 
+
+                                   # Routing
+# What is Routing?
+# In an app each view and controller is responsible for 
+# a specific area of functionality. 
+# Now that you have functionality spread around, how do you
+# know where the user is located in your application? 
+#1 Routing is based on URL 
+# We usually thing of URL as being a way to reach a resource
+# on the server, but with Angular we can think of it as
+# being able to locate a resource on the client. 
+/users/odetocode
+#2 Routing engines capture a request
+#3 Routing rules render a response
+
+# All of this happens on the client in JavaScript
+
+# Routing with Angular
+#1 Depends on another module: angular-route.js
+#2 Configure rules into $routeProvider
+#3 Set up a layout view
+# use ng-view directive
+
+$routeProvider
+   .when("/main", {
+       $templateUrl: "main.html2,
+       controller: "MainController"
+       })
+
+# I want the url to change to /userse/githubloginid eg
+/users/tomgdow
+
+# I want this in URL for two reasons
+# Firstly, easy to pass parameter from this view/controller
+# to another view/controller by putting data into url
+# Secondly, someone can bookmark that url and come back to it
+# at any time.  Can also copy that url and send it to someone.
+# Need to go through four steps
+#1 Create Route
+#2 Create Template
+#3 Create Controller
+#4 Have search navigate to new route
+
+# Whenever the routing provider sees a segment of the url
+# with a colon before it, it treats that segment as a parameter.
+# Everything else it treats as a literal string.
+
+# The service $routeParams will give you any parameter that
+# is defined in the URL 
+$scope.username = $routeParams.username;
+#also
+$location.path("/user/" + username);
+
+# Windows
+alt back-arrow # // Go to previous window 
+
+# The end
+#
+#

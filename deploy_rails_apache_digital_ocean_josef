@@ -1,0 +1,115 @@
+# Deploy Rails to Apache Server on Digital Ocean Droplet
+
+# Digital Ocean Stuff
+
+#1 Aug 2015, with Josef at NCI.
+#2 Created account tomgdow at digital ocean 
+# see here:
+https://gorails.com/deploy/ubuntu/14.04
+#3 Set up Droplet, IP Address: 46.101.11.172
+#3 Set up user tomgdow
+#4 Gave tomgdow sudo privledges
+sudo adduser tomgdow
+sudo adduser tomgdow sudo
+su tomgdow
+#5 set up ssh key using the following commands 
+# on VM command line (host computer).
+ssh-copy-id tomgdow@46.101.11.172
+# login
+ssh tomgdow@46.101.11.172
+
+# Droplet Set-up.
+# Following loosely Jim Pickrell (Pluralsight) on Linux Server
+# logged into Droplet as tomgdow
+#1 Installed  lynx
+sudo apt-get install lynx
+#2 Installed Apache
+sudo apt-get install apache2 
+#3 installed RVM, but then removed in favour of rbenv
+
+#4 Install databases
+sudo apt-get install sqlite
+sudo apt-get install sqlite3 libsqlite3-dev
+sudo apt-get install mysql-server
+mysql -h localhost -u root -p
+sudo apt-get install postgresql postgresql-contrib
+service postgresql initdb
+sudo service postgresql start
+sudo su - postgres
+
+#5 Ruby and Rails
+sudo rbenv install -v 2.1.1
+sudo rbenv install -v 2.1.1
+gem install rails -v 4.2.0
+
+
+#6 Install Passenger
+#see 
+deploy_rails_jawa2_to_apache_josef
+
+gem install passenger
+passenger-install-apache2-module 
+
+sudo vim /etc/apache2/apache2.conf
+#Add the passenger-install-apache2-module generated equivalent of the following:
+
+   LoadModule passenger_module /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1
+     PassengerDefaultRuby /home/thomas/.rvm/gems/ruby-2.1.1/wrappers/ruby
+   </IfModule>
+
+#7 Clone Rails site
+mkdir acp;
+cd acp
+git clone https://github.com/tomGdow/r4skeptics_spa_angular.git
+cd ..
+bundle install
+rake db:migrate
+rake db:migrate:status
+rails s
+lynx localhost:3000
+
+#Copy to /var/www/html
+mv r4skeptics_spa_angular/ r4skeptics
+cp -R r4skeptics/ /var/www/html/
+sudo  chown -R $USER:$USER /var/www/html/r4skeptics/
+#  In /etc/apache2/sites-available 
+touch r4skeptics.conf
+# Add the following 
+
+RackEnv development
+<VirtualHost *:80>
+
+ServerAdmin webmaster@localhost
+ServerName r4skeptics.46.101.11.172 
+ServerAlias www.r4skeptics.46.101.11.172
+DocumentRoot /var/www/html/r4skeptics/public
+<Directory /var/www/html/r4sketpics/public>
+
+#This relaxes Apache security settings
+RailsEnv development
+AllowOverride all 
+#Multiviews must be turned off
+Options -MultiViews
+#Uncomment this if you're using Apache >= 2.4
+require all granted
+
+</Directory>
+
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+#### NOTE ####
+# NOT sure if server name is correct. It works, 
+# but may not be the best way, or the right way.
+sudo a2dissite 000-default
+sudo a2ensite r4skeptics_spa_angular
+sudo service apache2 reload
+
+# cd to sites-available, and have a look ..
+# site now availabe at 
+46.101.11.172

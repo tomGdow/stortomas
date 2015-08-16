@@ -1,0 +1,31 @@
+#1 Reveal Formatting
+Shift F1
+# See here  
+
+#1  Find your DOCX document on disk.
+#2  Change the extension of the document from .docx to .zip.
+#3  Double click on the file and open it in the default
+# archive manager.
+#4 Navigate to the "Word" folder in the zip program and open
+# Document.xml. 
+# This is the code behind what makes up the bulk of the document
+# content, although the other files also are used in other
+# nways i.e for styles or font information.
+
+#Toggle Ribbon View
+Ctrl F1
+
+# To display TOC field codes
+Alt F9
+# see here for a brilliant article
+http://word.mvps.org/FAQs/Formatting/TOCSwitches.htm:
+
+# Add a second table of contents 
+# See here (Chester Tugwell)
+https://www.youtube.com/watch?v=YMAkiErPeuU
+#1 Bookmark entire section (eg ch1)
+#2 Insert -> QuickParts -> Fields -> TOC -> Field Codes -> Options
+#3 Choose \b
+#4 leave space and add 'ch1' to field codes input box
+#5 Done!
+#

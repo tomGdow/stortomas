@@ -175,4 +175,9 @@ root password : Mynice$-dog, no alarm
  
  
  
-
+# Edit
+# install rvm from rvm site
+# Then ..
+gem install rails
+gem install sqlite3
+sudo apt-get install nodejs
