@@ -26,3 +26,6 @@ passenger-config --ruby-command
 # see here:
 http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server
 
+# To find out which is default server
+apachectl -t -D DUMP_VHOSTS
+# A real goodie.
