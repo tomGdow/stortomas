@@ -1,0 +1,4 @@
+# The emit function sends a message up the scope chain
+# all the way up to $rootScope. 
+
+# broadcast broadcasts down from $rootscope

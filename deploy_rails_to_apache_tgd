@@ -80,7 +80,7 @@
 	#Use rvm to select correct ruby version
 	#Install passenger gem
 	gem install passenger
-
+    passenger-config --ruby-command
 	#Extract necessary info and add to yourSite.conf
 	#so that it look something like this
 

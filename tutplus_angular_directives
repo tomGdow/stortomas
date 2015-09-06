@@ -70,4 +70,7 @@ require '^chart'
 # implies that we expect the chart directive to be a parent of the calling directive. 
 # Once we have required a controller, we can access it from the link
 # function as a fourth parameter! 
-
+# Summary
+& # allows you to pass in a function call as ATTRIBUTE value 
+= # A two-way binding (get and set values) 
+@ # take an attribute value to use within that directive. 

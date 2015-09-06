@@ -1,0 +1,17 @@
+# With Yeoman
+npm install -g yo
+npm install -g generator-angular
+mkdir noterious && cd $_
+yo angular notorious
+grunt server
+grunt test
+grunt
+
+
+mkdir noterious && cd $_  # A goodie"
+
+yo angular:route main  # generates a page called main and all dependencies!
+
+# The 80/20 Rule
+# The majority of the work you are going to do with AngularJS
+# will fall within a core set of AngularJS components. 

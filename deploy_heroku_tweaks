@@ -1,0 +1,9 @@
+rake assets:clobber
+heroku run rake assets:clobber
+# (see here)
+http://stackoverflow.com/a/19260632/499167
+
+# increment the config.assets.version variable in ${project-root}/config/application.rb
+# Assets were refreshed after I'd added config.assets.version = '1.1' at the end of my config file.
+# see here
+http://stackoverflow.com/a/23825899/499167

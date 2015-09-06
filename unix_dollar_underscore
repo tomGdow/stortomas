@@ -1,0 +1,3 @@
+mkdir noterious $$ cd $_ 
+# $_ special variable that stores the last argument of the last
+# command executed. 

@@ -1,0 +1,21 @@
+npm install -g gulp-cli
+npm install -g gulp
+
+#From Zamoyta, Pluralsight, Advanced SpA (Angular) coures
+
+#To create package.json
+
+npm init --yes
+#create the following
+gulpfile.js
+
+#gulpfile.js runs in node, NOT in browser. 
+#Install the following packages locally
+npm install --save-dev gulp
+npm install --save-dev gulp-concat
+npm install --save-dev gulp-angular-filesort
+npm install --save-dev gulp-strip-line
+npm install --save-dev gulp-angular-templatecache
+
+
+
