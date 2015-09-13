@@ -1,0 +1,20 @@
+# A simple definition of  AngularJS.
+# :wqA client-side JavaScript Framework for adding ineractivity to HTML
+
+#A directive is a marker on an HTML tag that tells Angular to run or
+referrence some JavaScript code
+
+#Controllers are where we define our application behaviour 
+by defining functions and values
+
+
+#1 Directives.  HTML Annotations that trigger JavaScript behaviour
+#2 Modules.  Where our application components live
+#3 Controllers Where we add our application behaviour
+#4 Expressions. How values get displayed within the page :wq
+
+# Expressions define a two-way binding. This means that expressions
+# are re-evaluated when a property changes. 
+
+# ng-init allows us to evaluate an expression in the current scope.
+#

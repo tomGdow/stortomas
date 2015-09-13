@@ -1,4 +1,6 @@
+# Lucas Ruebbelke
 # With Yeoman
+#
 npm install -g yo
 npm install -g generator-angular
 mkdir noterious && cd $_
@@ -15,3 +17,51 @@ yo angular:route main  # generates a page called main and all dependencies!
 # The 80/20 Rule
 # The majority of the work you are going to do with AngularJS
 # will fall within a core set of AngularJS components. 
+
+# $compile compiles DOM into a template
+# function that can be used to link scope
+# and the View together. 
+
+# AngularJS is MV -Whatever. 
+#He considers angular MVVM 
+# View - ViewModel - Model 
+# Commands,  Data-Bindings, Change Notificaiton
+# View is HTML injectes with Scope
+# ViewModel is Scope and Controller
+# Model is Services, or Domain Model 
+#
+# Services. Two controllers may  watch same data
+
+# Good Question.  Is ViewModel violating the single responsibility
+# principle?
+
+#$scope is the glue between Controller and View
+#The controller is responsible for constructing the model on 
+#$scope and providing commands for the view to act upon 
+#$scope provides context. 
+
+# Another free video
+# Services provide common functionality across entire application
+# Services are essentially the  Model of MVW
+# Keep your controllers SKINNY so that your models may be fat
+# The term 'Service' is totally overloaded. 
+
+# The $http service is a core Angular service that faciilitates
+# communication with the remote HTTP servers via the browser's
+# XMLHttpRequest object or via jSONP
+
+# The $http API is based on the deferred/promise APIs exposed by
+# the $q service. 
+
+$http.get
+$http.head
+$http.post
+$http.put
+$http.delete
+$http.jsonp
+
+#$head is a new one, from v1.2. Basically calls and says 'has
+# this thing changed'? But it won't actually send the payload. Saves
+# from making an expensive call. 
+#
+# The returned value of $http is a PROMISE
