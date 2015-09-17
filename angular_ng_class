@@ -1,0 +1,46 @@
+# From here
+http://stackoverflow.com/a/15397408/499167
+#Key word is 'object'.  You are passing in object
+<div ng-class ="{'myclass' : myboolean, 'myaltclass' !myboolean}> </div>
+<div ng-class="{true: 'myclass', false: 'myaltclass'}[myboolean]"></div>
+<div ng-class="myboolean ? 'myclass' : 'myaltclass'"</div>
+<div ng-class="{'myclass1 myclass2 myclass3': isTrue, 'myclass3 myclass4' isTrue}[{{isTrue}}]"
+
+#From CodeSchool (passing in an object)
+#(The free AngularJS course) 
+<div ng-class="{active : tab==1}"></div>
+
+
+# Also ..
+# Stackoverflow
+# http://stackoverflow.com/a/16245392/499167
+
+<div ng-class = "myboolean && 'myclassOne || !myboolean && 'myClassTwo'" ></div>
+
+# See also this excellent article
+https://scotch.io/tutorials/the-many-ways-to-use-ngclass
+
+<div ng-class="[styleOne, styleTwo]">Look! I'm Words!</div>
+
+# ng-repeat
+
+<ul>
+    <li ng-class="{'class-success' : $first}" ng-repeat="item in items">{{item.name}}</li>
+</ul>
+
+<ul>
+    <li ng-class="{'class-danger' : $last}" ng repeat = "item in items">{{item.name}}</li>
+</ul>
+
+<ul>
+    <li ng-class="{'class-odd': $odd; 'class-even' $even }" ng-repeat="item in items">{{item.name}}</li>
+</ul>
+
+# From free AngularJS tutorial on codeschool
+<div ng-class="{active : tab===1}"></div>
+
+#Sending in object as argument to ng-class.
+## Passing in, as a key, the NAME of the classs we want to add.
+## And as a value, an expression to evaluate. 
+## If expression is true, the class will be appended to the element
+## Otherwise do nothing. 

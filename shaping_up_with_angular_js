@@ -17,4 +17,80 @@ by defining functions and values
 # are re-evaluated when a property changes. 
 
 # ng-init allows us to evaluate an expression in the current scope.
+
+<div ng-class="{active : tab===1}"></div>
+
+#Sending in object as argument to ng-class.
+# Passing in, as a key, the NAME of the classs we want to add.
+# And as a value, an expression to evaluate. 
+# If expression is true, the class will be appended to the element
+# Otherwise do nothing. 
+
+#Note the following  goodie
+<section ng-controller="PanelController as panel">
+
+#ng-submit allows us to call a function when the form is submitted. 
 #
+#Validation in AngularJS 
+#1 Turn off HTML validation - 
+<form name="reviewForm" ... novalidate>
+#2 Mark fields that are required by adding the 'required' atttribute.
+ <select ng-model="review.stars" required>
+ # add some development code
+ <div>Review form is {{reviewForm.$valid}}</div>
+ #The dollar sign means we are referencing a built-in property of the form. 
+ 
+ <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+
+#Source before typing email
+<input name="author" class="ng-pristine ng-invalid" /> 
+#Source after typing
+<input name ="author" class="ng-dirty ng-invalid"/>
+# Sourc after typing with valid email
+<input name ="author" class="ng-dirty ng-valid" /> 
+#All angular magic by default added by AngularJS
+
+# ng-include
+ <h3 ng-include="'product-title.html' ">
+
+ # Why the double-quotes insdie the single quotes?
+ # ng-include is expecting  a variable with the name of the file to include
+ # To pass the name directly as a string, use single quotes. 
+ 
+ # Note that ng-include makes an ajax request for the ng-included file
+ # after the page (index.html, say) has loaded. 
+ 
+ # But a custom directive is the preferred way to load a template. 
+ 
+ # Angular Services
+ 
+ $http
+ $log
+ $filter
+
+ # $http
+ #1 Can use $http as a function with an options object
+ $http.get({method: 'GET', url : '/products.json'});
+ Or, use one of the shortcut methods ..
+ $http.get('/products.json', {apiKey: 'myApiKey'});
+ # Both of these method return a promise
+ # can call callbacks such as .success()  and .error()
+ 
+ # Funy array syntax and dependency injection
+ app.controller('SomeController', ['$http','$log', function($http, $log) {
+ });
+
+ # Dependency Injection
+ #1 When Angular loads, it creates an injector.
+ #2 When the built in services load, they register with injector
+ #3 When the app loads, the controller registers with injector and 
+ # psst -  I need the following services. 
+ # When page loads and the controller is used the injector grabs
+ # the services  that are needed and  injects them in as arguments
+ # to a function.  Dependencies are injected in as arguments. 
+ # $http can also do the following:
+ $http.post('/path/to/resource.json', {params: 'value'});
+ $http.delete('path/to/resource.json');
+ #OR
+ $http({method: 'OPTIONS', url: '/path/to/resource.json'});
+ $http({method: 'PATCH', url: '/path/to/resource.json'});
