@@ -1,0 +1,140 @@
+# Give Controllers, filters, services and directives their own directories
+# Also have a template file
+# Angular Routes
+# Four steps in routing in any angular app
+#1 ng-view
+#2 load ng-route module in html
+#3 import the module in app.js
+#4 write the routes
+
+
+<div ng-view></div>
+<script src="/js/vendor/angular-route.js"></script>
+angular.module("NoteWrangler", ['ngRoute'])
+.config(function ($routeProvider){
+
+$routeProvider.when('/notes', {
+templateUrl: '/templates/pages/notes/index.html'
+
+})
+.when('users', { 
+templateUrl: '/templates/pages/users/index.html'
+})
+.when ('/' { 
+templateUrl: '/templates/pages/notes/index.html'
+})
+.otherwise({redirctTo : '/'}); 
+});
+
+#NOT best practice to create an app variable. 
+re-declare angualar.module every time is better. 
+
+#So...
+#define a route
+
+.when(path, route);
+.otherwise(params);
+
+# Routes logic
+#  not only can routes have templates associated with them, they can also have controllers.
+
+# There are two ways of ading controller!
+#1 
+$routeProvider.when('/notes',  {
+templateUrl : 'path/to/template/file.html',
+controller: function () {
+}
+});
+
+# Better way.
+angular.module('NotesWrangler', [])
+.controller('NotesIndexController', function() {
+    $http({method: 'GET', url: '/notes/'}).success(function (data) {
+        controller.notes=data;
+    });
+    
+    });
+}); 
+
+#Now 
+
+$routeProvider.when('/notes',  {
+templateUrl : 'path/to/template/file.html',
+controller:  'NotesIndexController',
+controllerAs: 'indexController'
+}
+});
+
+# template
+<div class="note-wrapper">
+<a class ="card-notes" ng-repeat ="notes in indexController.notes">
+<div class ="card" title ="{{note.title}}">
+<div ng-if='icon'> 
+<i class = "icon icon-card {{notes.icon}}"></i>
+</div>
+<h2 clas="h2">{{note.title}}</h2>
+</div>
+
+</a>
+</div>
+# Displaying a single note
+#1 Note is clicked. 
+#2 Route changes 
+http://example.com/#/notes
+http://example.com/#/notes/<id>
+#3 Route loads new view
+
+# How to do this? 
+#1 Give each note an ng-href that will plug in to the note id to the path
+<div class="note-wrapper"
+<a class="card-notes"
+  ng-repeat='note in notes'
+  ng-href="#/notes/{{note.id}}'>
+</a>
+</div>
+
+#2 Now in routes 
+.when('/notes/:id', {
+templateUrl: 'templates/pages/notes/show.html',
+controller: 'NotesShowController',
+controllerAs: 'showController'
+})
+# but how to get id out of route?
+# !! $routeParms
+
+angular.module('NotesWrangler', [])
+.controller('NotesIndexController', function, ($http,$routeParams) {
+    var controller=this;
+    $http({method: 'GET', url: '/notes/' + $routeParams.id}).success(function (data) {
+controller.note=data;
+    });
+    
+    });
+}); 
+# Now create notes/show template that will display info for one single note
+<div class="card" >
+<h1>{{note.title}}</h1>
+<p>Created by: {{note.user || note.user.username}} </p>
+<h3>Description</h3>
+<p>{{note.description}}</p>
+<h3>Contents: </h3>
+<p>{{note.content}}</p>
+</div>
+
+# now notes/create controller
+
+angular.module('NoteWrangler',[])
+.controller('NoteCreateController', function () {
+        var controller =this;
+        this.saveNote= function () {
+            controller.errors=null;
+            $http({method: 'POST', url: '/notes/', data: note})
+            .catch(function(note) {
+controller.errors=note.data.error;
+            }
+            
+
+
+
+        };
+        });

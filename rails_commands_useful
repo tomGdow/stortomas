@@ -17,3 +17,5 @@ grep -rin 'def link_to'
 actionview/lib/action_view/helpers/url_helper.rb:175: def link_to(name = nil, options = nil, html_options = nil, &block)
 
 git grep <searchterm>
+
+rails new thomas && cd $_; bundle install; rails s -b 0.0.0 &
