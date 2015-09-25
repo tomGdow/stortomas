@@ -1,0 +1,1000 @@
+ 1009  vim .bashrc
+ 1010  vim .bash_aliases 
+ 1011  . ~/.bashrc
+ 1012  dr4
+ 1013  shared
+ 1014  cd app_copies/
+ 1015  ls
+ 1016  /ls
+ 1017  \ls
+ 1018  rm r4skeptics/
+ 1019  rm -rf r4skeptics/
+ 1020  skbb
+ 1021  ls
+ 1022  cd r4sketpics_SPA_angular/
+ 1023  ls
+ 1024  cp -R r4skeptics/ ~/shared/app_copies/
+ 1025  r4skk 
+ 1026  cd app/views/carts
+ 1027  ls
+ 1028  cd ..
+ 1029  cd commodities/
+ 1030  ls
+ 1031  dr4
+ 1032  ls
+ 1033  cd app/views
+ 1034  ls
+ 1035  cd products
+ 1036  ls
+ 1037  cd ..
+ 1038  cd carts
+ 1039  ls
+ 1040  vim _cart.html.erb 
+ 1041  ls
+ 1042  vim index.html.erb 
+ 1043  cd ..
+ 1044  ls
+ 1045  cd line_items/
+ 1046  ls
+ 1047  vim show.html.erb 
+ 1048  vim edit.html.erb 
+ 1049  r4skk 
+ 1050  cd app/views/commodities/
+ 1051  ls
+ 1052  vim show.html.erb 
+ 1053  vim new.html.erb 
+ 1054  st
+ 1055  vim advanced_js_pluralsight 
+ 1056  exit
+ 1057  cd app/views/commodities/
+ 1058  ls
+ 1059  vim _showPartial.html.erb 
+ 1060  cd ..
+ 1061  ls
+ 1062  cd ..
+ 1063  cd assets/stylesheets/
+ 1064  vim *
+ 1065  cd partials/
+ 1066  vim *
+ 1067  r4skk 
+ 1068  ls
+ 1069  cd app
+ 1070  vim views/commodities/_showPartial.html.erb 
+ 1071  vim views/commodities/_extraImages.html.erb 
+ 1072  exit
+ 1073  r4skk 
+ 1074  git grep $justify-content
+ 1075  git grep 'justify'
+ 1076  exit
+ 1077  cd app/views/comm
+ 1078  cd views/commodities/
+ 1079  ls
+ 1080  rm :bn
+ 1081  ls
+ 1082  mv _extra-images.html.erb _extraImages.html.erb
+ 1083  exit
+ 1084  r4skk 
+ 1085  ls
+ 1086  git grep 'justify
+ 1087  '
+ 1088  git grep '$justify'
+ 1089  :git grep 'unordered_one'
+ 1090  git grep 'unordered_one'
+ 1091  exit
+ 1092  r4skk 
+ 1093  rs0
+ 1094  exit
+ 1095  cd javascript_code_egs/
+ 1096  node this_with_call.js 
+ 1097  exit
+ 1098  r4skk 
+ 1099  git add .
+ 1100  git commit -am "added rails validation to commodities"
+ 1101  git puhs
+ 1102  git push
+ 1103  rs0
+ 1104  exit
+ 1105  ls
+ 1106  git grep
+ 1107  man git
+ 1108  ls
+ 1109  cd 
+ 1110  cd acp
+ 1111  ls
+ 1112  add_two
+ 1113  st
+ 1114  shared
+ 1115  st
+ 1116  vim advanced_js_pluralsight 
+ 1117  exit
+ 1118  cd javascript_code_egs/
+ 1119  node this_hardbinging.js 
+ 1120  node this_hardbinding_alt.js 
+ 1121  ls
+ 1122  rm -i this_hardbinding_alt.js 
+ 1123  node this_bind_fn.js 
+ 1124  exit
+ 1125  cd app/assets/stylesheets/
+ 1126  tree
+ 1127  r4skk 
+ 1128  rails generate scaffold Bibliography firstsurname:string authors:text year:integer title:text journalname:string publication:string volume:string pages:string url:string localpdflink:string accessdate:string websitetitle:string conferencetitle:string publisher:string city:string editors:string edition:string comment:text isbn:string abstract:text-
+ 1129  cd db/migrate/
+ 1130  ls
+ 1131  vim 20150522123152_create_bibliographies.rb
+ 1132  rake db:migrate
+ 1133  rvm list
+ 1134  rake db:migrate
+ 1135  vim 20150522123152_create_bibliographies.rb
+ 1136  rake db:migrate
+ 1137  r4skk 
+ 1138  ls
+ 1139  cd app/controllers
+ 1140  ls
+ 1141  vim bibliographies_controller.rb 
+ 1142  cd ..
+ 1143  cd models
+ 1144  vim bibliography.rb 
+ 1145  cd ..
+ 1146  cd views
+ 1147  ls
+ 1148  skbb
+ 1149  ls
+ 1150  mkdir mybibliostash
+ 1151  cd -
+ 1152  ls
+ 1153  mv _form.html.erb index.html.erb new.html.erb show.html.erb  ../../../../../mybibliostash/
+ 1154  ls
+ 1155  skk
+ 1156  cd app/views/bibliographies/
+ 1157  ls
+ 1158  cp create.js.erb edit.html.erb _editPartial.html.erb  index.html.erb show.html.erb _showPartial.html.erb destroy.js.erb edit.js.erb _form.html.erb new.html.erb show.js.erb  ../../../../r4sketpics_SPA_angular/r4skeptics/app/views/bibliographies/
+ 1159  r4skk 
+ 1160  cd app/views/
+ 1161  ls
+ 1162  cd bibliographies/
+ 1163  ls
+ 1164  r4skk 
+ 1165  cd config
+ 1166  vim routes.rb 
+ 1167  exit
+ 1168  ls
+ 1169  r4skk 
+ 1170  rs0
+ 1171  exit
+ 1172  exit
+ 1173  exit
+ 1174  ls
+ 1175  exit
+ 1176  r4skk 
+ 1177  rcont
+ 1178  ls
+ 1179  vim bibliographies_controller.rb 
+ 1180  ;ls
+ 1181  ls
+ 1182  vim bibliographies_controller.rb 
+ 1183  rmodel
+ 1184  ls
+ 1185  vim bibliography.rb 
+ 1186  rviews
+ 1187  rview
+ 1188  vim commodities/create.js.erb 
+ 1189  cd bibiog
+ 1190  cd bibliographies/
+ 1191  tree
+ 1192  vim new.html.erb 
+ 1193  cd ..
+ 1194  ls
+ 1195  cd commodities/
+ 1196  ls
+ 1197  vim create.js.erb 
+ 1198  :q
+ 1199  ls
+ 1200  rmodel
+ 1201  vim bibliography.rb 
+ 1202  rview
+ 1203  ls
+ 1204  cd commodities/
+ 1205  ls
+ 1206  vim _form.html.erb 
+ 1207  cd ..
+ 1208  ls
+ 1209  git clone https://github.com/tomGdow/addTwoNumbers.git
+ 1210  ls
+ 1211  cd addTwoNumbers/
+ 1212  ls
+ 1213  cd public/
+ 1214  ls
+ 1215  cd css
+ 1216  ls
+ 1217  vim main.css 
+ 1218  cd ..
+ 1219  ls
+ 1220  vim index.html 
+ 1221  firefox index.html 
+ 1222  cd app/assets/stylesheets/
+ 1223  ls
+ 1224  vim main.css.scss 
+ 1225  git add .
+ 1226  git commit -am "changed form input-error font"
+ 1227  git puhs
+ 1228  git push
+ 1229  cd 
+ 1230  st
+ 1231  cd histories/
+ 1232  ls
+ 1233  vim history_cumul_tgd
+ 1234  vim history_cumul_tgd_uniq.txt 
+ 1235  cd 
+ 1236  vim .bash_history
+ 1237  ls
+ 1238  skbb
+ 1239  ls
+ 1240  mkdir
+ 1241  mkdir tgd_logs
+ 1242  cd tgd_logs/
+ 1243  vim add_bibliomanager_log.txt
+ 1244  skbb
+ 1245  ls
+ 1246  r4skk 
+ 1247  cd db
+ 1248  vim seeds.rb 
+ 1249  mv seeds.rb  ../../../mybibliostash/
+ 1250  skk
+ 1251  cd config
+ 1252  cd ..
+ 1253  cd db
+ 1254  ls
+ 1255  cp seeds.rb ../../r4sketpics_SPA_angular/r4skeptics/db/
+ 1256  r4
+ 1257  r4skk 
+ 1258  rake db:reset
+ 1259  rs0
+ 1260  Rails.cache.clear
+ 1261  rails c
+ 1262  rs0
+ 1263  Started GET "/assets/020_breitner.jpg" for 10.0.2.2 at 2015-05-22 14:46:11 +0100
+ 1264  Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+ 1265  [2015-05-22 14:46:18] INFO  WEBrick::HTTPServer#start done.
+ 1266  Exiting
+ 1267  r4skeptics(master)[tgd] >Started GET "/assets/020_breitner.jpg" for 10.0.2.2 at 2015-05-22 14:46:11 +0100
+ 1268  Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+ 1269  [2015-05-22 14:46:18] INFO  WEBrick::HTTPServer#start done.
+ 1270  Exiting
+ 1271  r4skeptics(master)[tgd] >rake assets:clean
+ 1272  rake temp:cache:clear
+ 1273  rake tmp:cache:clear
+ 1274  rake assets:clear
+ 1275  rs0
+ 1276  cd app/controllers
+ 1277  vim bibliographies_controller.rb 
+ 1278  r4skk 
+ 1279  rs0
+ 1280  vim app/controllers/bibliographies_controller.rb 
+ 1281  vim app/assets/javascripts/ng_controllers.js 
+ 1282  cd app/assets/javascripts/
+ 1283  pwd
+ 1284  cd
+ 1285  vim .bash_aliases 
+ 1286  . ~/.bashrc
+ 1287  ngc
+ 1288  vim .bash_aliases 
+ 1289  . ~/.bashrc
+ 1290  ngc
+ 1291  vim .bash_aliases 
+ 1292  . ~/.bashrc
+ 1293  ngrout
+ 1294  r4skk 
+ 1295  cd app/assets/javascripts/
+ 1296  cd ..
+ 1297  cd 
+ 1298  vim .bash_aliases 
+ 1299  . ~/.bashrc
+ 1300  ngrout
+ 1301  rrout
+ 1302  rview
+ 1303  ls
+ 1304  rcont
+ 1305  rmodel
+ 1306  ngrout
+ 1307  rgem
+ 1308  r4skk 
+ 1309  l
+ 1310  cd config/
+ 1311  ls
+ 1312  cd 
+ 1313  vim .bash_aliases 
+ 1314  . ~/.bashrc
+ 1315  ngrout
+ 1316  rrout
+ 1317  ngview
+ 1318  rview
+ 1319  rmodel
+ 1320  model
+ 1321  cd 
+ 1322  vim .bash_aliases 
+ 1323  . ~/.bashrc
+ 1324  rgem
+ 1325  rrout
+ 1326  rjs
+ 1327  vim .bash_aliases 
+ 1328  . ~/.bashrc
+ 1329  rimg
+ 1330  rjs
+ 1331  rstyle
+ 1332  rjs
+ 1333  rcss
+ 1334  ls
+ 1335  r4skk 
+ 1336  rs0
+ 1337  ls
+ 1338  exit
+ 1339  rviews
+ 1340  rview
+ 1341  ls
+ 1342  cd bibliographies/
+ 1343  ls
+ 1344  cd ..
+ 1345  cd commodities/
+ 1346  ls
+ 1347  vim create.js.erb 
+ 1348  cd ..
+ 1349  vim bibliographies/
+ 1350  cd bibliographies/
+ 1351  ls
+ 1352  vim create.js.erb 
+ 1353  rcont
+ 1354  ls
+ 1355  vim bibliographies_controller.rb 
+ 1356  htop
+ 1357  left
+ 1358  splitleft
+ 1359  ls
+ 1360  exit
+ 1361  ls
+ 1362  exit
+ 1363  rview
+ 1364  ls
+ 1365  cd biblio
+ 1366  cd bibliographies/
+ 1367  vim _form.html.erb 
+ 1368  exit
+ 1369  ls
+ 1370  sudo apt-get update
+ 1371  sudo apt-get upgrade
+ 1372  r4skk 
+ 1373  rview
+ 1374  vim commodities/show.html.erb 
+ 1375  vim line_items/index.html.erb 
+ 1376  git grep price
+ 1377  git grep euro
+ 1378  clear
+ 1379  git grep euro
+ 1380  vim commodities/_showPartial.html.erb 
+ 1381  git grep price
+ 1382  vim carts/show.html.erb 
+ 1383  rcont 
+ 1384  vim commodities_controller.rb 
+ 1385  exit
+ 1386  rs0
+ 1387  r4skk 
+ 1388  rs0
+ 1389  exit
+ 1390  r4skk 
+ 1391  rview 
+ 1392  vim bibliographies/_form.html.erb 
+ 1393  st
+ 1394  vim advanced_js_pluralsight 
+ 1395  r4skk 
+ 1396  rview
+ 1397  vim commodities/_form.html.erb 
+ 1398  git add .
+ 1399  git status
+ 1400  git add -A 
+ 1401  git commit -am "updated create actions on bibliographies and commodities"
+ 1402  git push
+ 1403  ls
+ 1404  rcont
+ 1405  vim *
+ 1406  rviews
+ 1407  rview
+ 1408  vim commodities/edit.js.erb 
+ 1409  r4skk 
+ 1410  git grep &euro;
+ 1411  ls
+ 1412  ps
+ 1413  jobs
+ 1414  fg
+ 1415  git grep euro
+ 1416  exit
+ 1417  r4skk 
+ 1418  git grep @extend
+ 1419  exit
+ 1420  r4skk 
+ 1421  git grep Oops
+ 1422  git euro
+ 1423  git grep euro
+ 1424  exit
+ 1425  ngr
+ 1426  ngrout
+ 1427  exit
+ 1428  r4skk 
+ 1429  rs0
+ 1430  rview
+ 1431  ngrout
+ 1432  rview
+ 1433  vim commodities/index.html.erb 
+ 1434  rcont
+ 1435  vim commodities_controller.rb 
+ 1436  ngc
+ 1437  exit
+ 1438  ls
+ 1439  cd app
+ 1440  cd helpers
+ 1441  ls
+ 1442  vim application_helper.rb 
+ 1443  st
+ 1444  cd ruby_progs/
+ 1445  ruby pluralize.rb 
+ 1446  irb
+ 1447  exit
+ 1448  r4
+ 1449  r4skk 
+ 1450  rs0
+ 1451  st
+ 1452  mkdir
+ 1453  mkdir ruby_progs
+ 1454  cd ruby_progs/
+ 1455  touch pluralize.rb
+ 1456  vim pluralize.rb 
+ 1457  quit
+ 1458  exit
+ 1459  cd rjs
+ 1460  rjs
+ 1461  touch inflections.rb
+ 1462  vim inflections.rb 
+ 1463  ls
+ 1464  rm inflections.rb 
+ 1465  r4skk 
+ 1466  cd config/initializers/
+ 1467  ls
+ 1468  vim inflections.rb 
+ 1469  :exit
+ 1470  exit
+ 1471  tgdup
+ 1472  shared
+ 1473  tree
+ 1474  man tee
+ 1475  man tree
+ 1476  lsd
+ 1477  cd app_copies
+ 1478  ls
+ 1479  rm r4skeptics/
+ 1480  rm -rf r4skeptics/
+ 1481  ls
+ 1482  skbb
+ 1483  ls
+ 1484  cd r4sketpics_SPA_angular/
+ 1485  ls
+ 1486  cp -R ~/shared/app_copies/
+ 1487  cp -R  r4skeptics/ ~/shared/app_copies/
+ 1488  rview
+ 1489  vim commodities/_editPartial.html.erb 
+ 1490  rcont
+ 1491  vim commodities_controller.rb 
+ 1492  rview
+ 1493  cd commodities/
+ 1494  ls
+ 1495  vim *.js.erb
+ 1496  touch _update.js.erb
+ 1497  vim _update.js.erb 
+ 1498  ls
+ 1499  mv _update.js.erb update.js.erb
+ 1500  ls
+ 1501  vim edit.js.erb
+ 1502  vim _newPartial.html.erb 
+ 1503  vim _form.html.erb 
+ 1504  exit
+ 1505  quit
+ 1506  exit
+ 1507  rgem
+ 1508  cd app/assets/javascripts/
+ 1509  vim application.js 
+ 1510  exit
+ 1511  ngr
+ 1512  ngrout
+ 1513  rs0
+ 1514  rview
+ 1515  git grep stash
+ 1516  cd ..
+ 1517  git grep stash
+ 1518  git grep 'stash'
+ 1519  r4skk 
+ 1520  git grep stash
+ 1521  git grep 'stash'
+ 1522  rview
+ 1523  ls
+ 1524  cd bibliographies/
+ 1525  ls
+ 1526  grep stash
+ 1527  vim myeditstash.js.erb 
+ 1528  exit
+ 1529  git grep datepicker
+ 1530  clear
+ 1531  git grep datepicker
+ 1532  git grep datepicker | grep *.js.erb
+ 1533  git grep datepicker | grep '*.js.erb'
+ 1534  git grep datepicker | grep 'create.js.erb'
+ 1535  git grep datepicker | grep 'edit.js.erb'
+ 1536  quit
+ 1537  hview
+ 1538  rview
+ 1539  cd biblio
+ 1540  cd bibliographies/
+ 1541  ls
+ 1542  vim create.js.erb 
+ 1543  rm myeditstash.js.erb 
+ 1544  exit
+ 1545  ls
+ 1546  rview
+ 1547  cd commodities/
+ 1548  vim _form.html.erb 
+ 1549  vim *
+ 1550  ls
+ 1551  vm _ErrorMessage.html.erb _errorMessage.html.erb
+ 1552  mv _ErrorMessage.html.erb _errorMessage.html.erb
+ 1553  l
+ 1554  rm mystash.rb 
+ 1555  vim _form.html.erb 
+ 1556  r4skk 
+ 1557  git grep from partial
+ 1558  grip grep partial
+ 1559  git grep 'from partial'
+ 1560  git grep -i 'from partial'
+ 1561  rview
+ 1562  vim commodities/_editPartial.html.erb 
+ 1563  clear
+ 1564  vim commodities/_form.html.erb 
+ 1565  vim bibliographies/_form.html.erb 
+ 1566  vim commodities/create.js.erb 
+ 1567  vim commodities/update.js.erb 
+ 1568  rcont
+ 1569  ls
+ 1570  vim commodities_controller.rb 
+ 1571  rview
+ 1572  vim commodities/update.js.erb 
+ 1573  ls
+ 1574  cd commodities/
+ 1575  ls
+ 1576  vim update.js.erb 
+ 1577  cd .
+ 1578  cd ..
+ 1579  cd bibliographies/
+ 1580  ls
+ 1581  toutch update.js.erb
+ 1582  touch update.js.erb
+ 1583  cd comm
+ 1584  cd ..
+ 1585  vim commodities/update.js.erb 
+ 1586  vim commodities/_editPartial.html.erb 
+ 1587  exit
+ 1588  r4skk 
+ 1589  rs0
+ 1590  rview
+ 1591  ls
+ 1592  cd commodities/
+ 1593  ls
+ 1594  cd ..
+ 1595  cd bibliographies/
+ 1596  ls
+ 1597  touch myeditstash.js.erb
+ 1598  vim  edit.js.erb 
+ 1599  vim index.html.erb 
+ 1600  r4skk 
+ 1601  cd db/
+ 1602  ls
+ 1603  vim seeds.rb 
+ 1604  clear
+ 1605  rview
+ 1606  ls
+ 1607  vim commodities/_form.html.erb 
+ 1608  r4skk 
+ 1609  git grep markdown
+ 1610  git grep markdown | grep commodities
+ 1611  git grep markdown | grep comm
+ 1612  git grep markdown | grep biblio
+ 1613  rview/commodities
+ 1614  rview
+ 1615  cd commodities/
+ 1616  ls
+ 1617  vim new.html.erb
+ 1618  vim show.html.erb 
+ 1619  cd ..
+ 1620  cd partials/
+ 1621  ls
+ 1622  vim _markdown.html.erb 
+ 1623  r4skk 
+ 1624  git grep markdown | grep render
+ 1625  exit
+ 1626  cd commodities/
+ 1627  lss
+ 1628  l
+ 1629  cd ..
+ 1630  ls
+ 1631  cd partial
+ 1632  cd partials
+ 1633  ls
+ 1634  cd ..
+ 1635  ls
+ 1636  cd commodities/
+ 1637  vim _errorMessage.html.erb 
+ 1638  cp _errorMessage.html.erb  ../bibliographies/
+ 1639  ls
+ 1640  cdp show.js.erb ../bibliographies/
+ 1641  cp show.js.erb  ../bibliographies/
+ 1642  cd .. 
+ 1643  cd bibliographies/
+ 1644  ls
+ 1645  vim _errorMessage.html.erb 
+ 1646  cd ..
+ 1647  cd commodities/
+ 1648  ls
+ 1649  vim update.js.erb 
+ 1650  cd ..
+ 1651  vim commodities/_form.html.erb 
+ 1652  vim bibliographies/edit.js.erb 
+ 1653  vim bibliographies/edit.html.erb 
+ 1654  vim commodities/edit.js.erb 
+ 1655  r4skk 
+ 1656  rso
+ 1657  rs0
+ 1658  bundle install
+ 1659  rs0
+ 1660  man git 
+ 1661  git add -A
+ 1662  git status
+ 1663  git status | less
+ 1664  git add .
+ 1665  git status
+ 1666  ls
+ 1667  cd log
+ 1668  ls
+ 1669  rm development.log
+ 1670  git add .
+ 1671  git commit -am "completed server-side validation"
+ 1672  git push
+ 1673  rgem
+ 1674  r4skk 
+ 1675  bundle install
+ 1676  rrout
+ 1677  vim app/assets/javascripts/application.js 
+ 1678  rview
+ 1679  cd bibliographies/
+ 1680  vim _form.html.erb 
+ 1681  cd ..
+ 1682  rjs
+ 1683  ls
+ 1684  vim main.js
+ 1685  exit
+ 1686  rview
+ 1687  ls
+ 1688  cd bibliographies/
+ 1689  vim _form.html.erb 
+ 1690  rgem
+ 1691  rjs
+ 1692  vim main.js 
+ 1693  vim application.js 
+ 1694  vim main.js 
+ 1695  exit
+ 1696  r4skk 
+ 1697  rails s
+ 1698  clear
+ 1699  rs0
+ 1700  exit
+ 1701  r4skk 
+ 1702  rs0
+ 1703  clear
+ 1704  rs0
+ 1705  git grep Judge
+ 1706  rrout
+ 1707  rs0
+ 1708  rjs
+ 1709  vim application.js 
+ 1710  r4skk 
+ 1711  git grep 'judge'
+ 1712  rjs
+ 1713  vim main.js 
+ 1714  rs0
+ 1715  rview
+ 1716  cd bibliographies/
+ 1717  vim _form.html.erb 
+ 1718  r4skk 
+ 1719  rs0
+ 1720  exit
+ 1721  rs0
+ 1722  r4skk 
+ 1723  rs0
+ 1724  bundle install
+ 1725  rs0
+ 1726  rform
+ 1727  rview
+ 1728  cd bibliographies/
+ 1729  vim _form.html.erb 
+ 1730  r4skk 
+ 1731  rs0
+ 1732  rview
+ 1733  cd bibliographies/
+ 1734  vim _form.html.erb 
+ 1735  exit
+ 1736  rcont
+ 1737  vim bibliographies_controller.rb 
+ 1738  rview
+ 1739  cd bibliographies/
+ 1740  ls
+ 1741  touch new.js.erb
+ 1742  vim new.js.erb 
+ 1743  exit
+ 1744  rview
+ 1745  vim bibliographies/_form.html.erb 
+ 1746  quit
+ 1747  exit
+ 1748  ngc
+ 1749  rcont
+ 1750  vim bibliographies_controller.rb 
+ 1751  exit
+ 1752  vim app/controllers/bibliographies_controller.rb 
+ 1753  rview
+ 1754  cd bibliographies/
+ 1755  ls
+ 1756  rm new.js.erb 
+ 1757  ls
+ 1758  vim create.js.erb 
+ 1759  exit
+ 1760  rview
+ 1761  cd bibliographies/
+ 1762  ls
+ 1763  vim mystash.html.erb 
+ 1764  rm mystash.html.erb 
+ 1765  ls
+ 1766  touch new.js.erb
+ 1767  vim new.js.erb 
+ 1768  rm new.js.erb 
+ 1769  rcont
+ 1770  vim bibliographies_controller.rb 
+ 1771  rview
+ 1772  vim bibliographies/_form.html.erb 
+ 1773  bibliographies
+ 1774  views
+ 1775  vim bibliographies/create.js.erb 
+ 1776  rjs
+ 1777  vim main.js 
+ 1778  rview
+ 1779  cd bibliographies/
+ 1780  ls
+ 1781  vim create.js.erb 
+ 1782  st
+ 1783  vim advanced_js_pluralsight 
+ 1784  cd javascript_code_egs/
+ 1785  node bind_prototype.js 
+ 1786  vim bind_prototype.js 
+ 1787  node bind_prototype.js 
+ 1788  vim bind_prototype.js 
+ 1789  node bind_prototype.js 
+ 1790  vim bind_prototype.js 
+ 1791  node bind_prototype.js 
+ 1792  vim bind_prototype.js 
+ 1793  node bind_prototype.js 
+ 1794  vim bind_prototype.js 
+ 1795  node bind_prototype.js 
+ 1796  vim bind_prototype.js 
+ 1797  cd ..
+ 1798  vim advanced_js_pluralsight 
+ 1799  :q
+ 1800  exit
+ 1801  r4skk 
+ 1802  rs0
+ 1803  exit
+ 1804  r4skk 
+ 1805  vim 
+ 1806  rs0
+ 1807  rcont
+ 1808  vim bibliographies_controller.rb 
+ 1809  vim views
+ 1810  rviews
+ 1811  rview
+ 1812  cd bibliographies/
+ 1813  vim create.js.erb 
+ 1814  vim new.html.erb 
+ 1815  exit
+ 1816  r4skk 
+ 1817  rview
+ 1818  vim bibliographies/create.js.erb 
+ 1819  r4skk 
+ 1820  rs0
+ 1821  exit
+ 1822  st
+ 1823  mkdir closures
+ 1824  rm closures
+ 1825  rmdir closures/
+ 1826  cd javascript_code_egs/
+ 1827  mkdir closures
+ 1828  cd closures/
+ 1829  vim make_calc_closure.js
+ 1830  node make_calc_closure.js 
+ 1831  vim make_calc_closure.js 
+ 1832  node make_calc_closure.js 
+ 1833  :q
+ 1834  vim make_calc_closure.js 
+ 1835  node make_calc_closure.js 
+ 1836  vim make_calc_closure.js 
+ 1837  node make_calc_closure.js 
+ 1838  vim make_calc_closure.js 
+ 1839  node make_calc_closure.js 
+ 1840  vim make_calc_closure.js 
+ 1841  node make_calc_closure.js 
+ 1842  vim make_calc_closure.js 
+ 1843  node make_calc_closure.js 
+ 1844  vim make_calc_closure.js 
+ 1845  node make_calc_closure.js 
+ 1846  vim make_calc_closure.js 4
+ 1847  node make_calc_closure.js 
+ 1848  vim make_calc_closure.js 4
+ 1849  vim make_calc_closure.js 
+ 1850  node make_calc_closure.js 
+ 1851  :vim
+ 1852  vim make_calc_closure.js
+ 1853  node make_calc_closure.js 
+ 1854  :q
+ 1855  node make_calc_closure.js 
+ 1856  vim make_calc_closure.js
+ 1857  node make_calc_closure.js 
+ 1858  vim make_calc_closure.js
+ 1859  node make_calc_closure.js 
+ 1860  vim make_calc_closure.js
+ 1861  node make_calc_closure.js 
+ 1862  vim make_calc_closure.js
+ 1863  node make_calc_closure.js 
+ 1864  vim make_calc_closure.js
+ 1865  vim introduce_me_closure.js
+ 1866  node introduce_me_closure.js 
+ 1867  vim 
+ 1868  node introduce_me_closure.js 
+ 1869  vim introduce_me_closure.js
+ 1870  node introduce_me_closure.js 
+ 1871  :q
+ 1872  node introduce_me_closure.js 
+ 1873  vim introduce_me_closure.js
+ 1874  node introduce_me_closure.js 
+ 1875  vim introduce_me_closure.js
+ 1876  node introduce_me_closure.js 
+ 1877  ls
+ 1878  cp introduce_me_closure.js introduce_me_closure_alt.js
+ 1879  vim introduce_me_closure_alt.js 
+ 1880  node introduce_me_closure_alt.js 
+ 1881  :q
+ 1882  ls
+ 1883  vim introduce_me_closure_alt.js 
+ 1884  node introduce_me_closure_alt.js 
+ 1885  vim introduce_me_closure_alt.js 
+ 1886  vim lexical_moxilla.js
+ 1887  node lexical_moxilla.js 
+ 1888  cp lexical_moxilla.js  closure_mozilla.js
+ 1889  vim closure_mozilla.js 
+ 1890  node closure_mozilla.js 
+ 1891  :q
+ 1892  vim closure_mozilla.js 
+ 1893  node closure_mozilla.js 
+ 1894  vim make_adder_mozilla.ja
+ 1895  node make_adder_mozilla.ja 
+ 1896  :q
+ 1897  exit
+ 1898  node make_adder_mozilla.ja 
+ 1899  ssh
+ 1900  exit
+ 1901  man scp
+ 1902  man scp | vim
+ 1903  man scp
+ 1904  st
+ 1905  ls
+ 1906  vim ip_addresses 
+ 1907  man openssl
+ 1908  cd underscore/
+ 1909  ls
+ 1910  cd ..
+ 1911  git grep ssh
+ 1912  history
+ 1913  exi
+ 1914  exit
+ 1915  ls
+ 1916  touch foo.txt
+ 1917  vim foo.txt 
+ 1918  openssl enc -in foo.txt -aes-256-cbc -pass stin > foot.txt.enc
+ 1919  openssl enc -in foo.txt -aes-256-cbc -pass stdin > foot.txt.enc
+ 1920  ls
+ 1921  rm foo.txt
+ 1922  openssl enc -in foo.txt.enc 
+ 1923  openssl enc -in foo.txt.enc -d -aes-256-cbc -pass stdin > foor.txt
+ 1924  ls
+ 1925  rm foor.txt
+ 1926  openssl enc -in foot.txt.enc -d -aes-256-cbc -pass stdin > foor.txt
+ 1927  ls
+ 1928  vim foor.txt 
+ 1929  exit
+ 1930  ls
+ 1931  st
+ 1932  git pull
+ 1933  r4skk 
+ 1934  git pull
+ 1935  rs0
+ 1936  rvm use 2.1.1
+ 1937  bundle install
+ 1938  rs0
+ 1939  rake db:migrate
+ 1940  rs0
+ 1941  tgdup
+ 1942  shared
+ 1943  ls
+ 1944  st
+ 1945  ls
+ 1946  rm q
+ 1947  lsg angular_
+ 1948  lsg lucas
+ 1949  vim unix_dollar_underscore 
+ 1950  vim angular_
+ 1951  lsg angular
+ 1952  git logg
+ 1953  lsg rails
+ 1954  vim rails_commands_useful 
+ 1955  cd
+ 1956  vim the_riddle_of_the_sands_two
+ 1957  ls
+ 1958  vim the_riddle_of_the_sands_two
+ 1959  ssh thomas@46.101.11.172 
+ 1960  ssh thomas@46.101.11.172
+ 1961  ssh 46.101.11.172
+ 1962  ssh tomgdow@46.101.11.172
+ 1963  pwd
+ 1964  ls
+ 1965  scp the_riddle_of_the_sands_two 46.101.11.172 
+ 1966  ssh tomgdow@46.101.11.172
+ 1967  ls
+ 1968  man scp
+ 1969  scp the_riddle_of_the_sands_two tomgdow@46.101.11.172 the_riddle
+ 1970  scp the_riddle_of_the_sands_two tomgdow@46.101.11.172
+ 1971  scp ~the_riddle_of_the_sands_two tomgdow@46.101.11.172:~
+ 1972  scp the_riddle_of_the_sands_two tomgdow@46.101.11.172:~
+ 1973  st
+ 1974  scp the_riddle_of_the_sands_two tomgdow@46.101.11.172:~
+ 1975  cd 
+ 1976  vim the_riddle_of_the_sands_two 
+ 1977  st
+ 1978  ls
+ 1979  lsg digitalocean 
+ 1980  vim digitalocean 
+ 1981  rm digitalocean 
+ 1982  vim scp_examples
+ 1983  git add .
+ 1984  git commit -am "added scp example"
+ 1985  git push
+ 1986  cd 
+ 1987  ls
+ 1988  whoami
+ 1989  vim app/assets/javascripts/application.js 
+ 1990  scp the_riddle_of_the_sands_two tomgdow@46.101.11.172:~
+ 1991  ssh tomgdow@46.101.11.172
+ 1992  st
+ 1993  ls
+ 1994  sudo apt-get update
+ 1995  sudo apt-get upgrade
+ 1996  ls
+ 1997  exit
+ 1998  ls
+ 1999  vim the_riddle_of_the_sands_two 
+ 2000  st
+ 2001  lsg capistrano
+ 2002  git grep capistrano
+ 2003  ls
+ 2004  cd 
+ 2005  vim the_riddle_of_the_sands_two 
+ 2006  scp the_riddle_of_the_sands_two tomgdow@46.101.11.172:~
+ 2007  history
+ 2008  history > sept_history
