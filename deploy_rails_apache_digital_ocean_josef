@@ -36,7 +36,10 @@ sudo apt-get install postgresql postgresql-contrib
 service postgresql initdb
 sudo service postgresql start
 sudo su - postgres
-
+#  Note it is sudo su -postgres!!  
+#  A good ref is here 
+#  http://serverfault.com/questions/110154/whats-the-default-superuser-username-password-for-postgres-after-a-new-install
+#  Note A password was NOT inserted! 
 #5 Ruby and Rails
 sudo rbenv install -v 2.1.1
 sudo rbenv install -v 2.1.1

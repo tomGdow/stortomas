@@ -1,0 +1,21 @@
+# How do I reload .bashrc without logging out and back in?
+
+ # See here
+ http://stackoverflow.com/questions/2518127/how-do-i-reload-bashrc-without-logging-out-and-back-in
+
+ #1
+ source ~/.bashrc
+ . ~/.bashrc
+
+
+ #2
+ exec bash
+
+#Notes
+#. is a BASH shortcut for the "source" builtin command
+
+#source is a built-in shell command that executes the content of the file passed as argument,
+#in the current shell. 
+#So in your example, it executes .bashrc file in the current shell.
+# And exec command replaces the shell with a given program, 
+# in your example, it replaces your shell with bash (with the updated configuration files) 
