@@ -1,0 +1,108 @@
+
+
+See Here (github)
+https://github.com/tomGdow/deploy_rails
+
+Succeeded in deploying to Heroku, starting with sqlite in
+devlelopment, but could not deploy to Digital Ocean 
+in PRODUCTION, so abandoned and tried to create a
+Rails project with pg as only db. 
+
+
+
+# VM, acp
+# rails new deploy_rails $$ cd $_; bundle install
+rs0
+rails generate scaffold Product name:string description:text price:float
+rake db:migrate
+#config/routes.rb
+route to products/index
+rs0
+All OK
+
+#Github repo set up, initialized and pushed
+
+[Essential] added pg database to gemfile
+group :production do
+    gem 'pg'
+    gem 'rails_12factor'
+end
+
+group :development, :test do
+    gem 'sqlite3'
+end
+
+# config/application.rb
+config.assets.initialize_on_precompile = false
+
+bundle install
+git add .
+git commit -am ""
+
+heroku create
+git push heroku master
+https://git.heroku.com/vast-river-8627.git
+# remove the 's' from https
+ooooh
+heroku run rake db:migrate
+http://git.heroku.com/vast-river-8627.git
+# All OK
+heroku rename deployrails
+
+http://deployrails.herokuapp.com/products/new
+
+#All is well 
+
+Go to Digital ocean
+www
+cd html
+sudo git clone <repo>
+sudo chown -R $USER:$USER /var/www/html/deploy_rails
+#Phushion Passenger
+gem install passenger
+
+Add the following to Apache Config file
+
+LoadModule passenger_module /home/tomgdow/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.20/buildout/apache2/mod_passenger.so                                                                                  
+   <IfModule mod_passenger.c>
+     PassengerRoot /home/tomgdow/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.20
+     PassengerDefaultRuby /home/tomgdow/.rbenv/versions/2.2.0/bin/ruby
+   </IfModule>
+
+   *** But of course the above has already been done**
+   
+   apa
+   cd sites-available
+   created deploy_rails.conf
+   
+   # Now go to digital ocean online
+   
+   
+   back to DO command line
+   
+   sudo a2ensite deploy_rails
+   sudo service apache2 restart
+   
+   www
+   cd html
+   cd deploy_rails
+   bundle install
+   
+   
+   rake db:migrate
+   
+   http://deployrails.tomgdow.com/products
+   Works!! 
+   
+   NO! not in production
+   working from here : http://stackoverflow.com/questions/29241053/incomplete-response-received-from-application-from-nginx-passenger
+   
+   
+   Tried adding sectret key to .bashrc, but did not work!
+   
+  Left things here, and decided to create Rails project with pg as only db (no sqlite)
+   
+   sudo service postgresql start
+   su -postgres
+   
+ 

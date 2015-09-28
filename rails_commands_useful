@@ -19,3 +19,8 @@ actionview/lib/action_view/helpers/url_helper.rb:175: def link_to(name = nil, op
 git grep <searchterm>
 
 rails new thomas && cd $_; bundle install; rails s -b 0.0.0 &
+
+
+# Check value of ENV variable from Rails Console 
+rails c  
+ENV["PGRAILS_DATABASE_PASSWORD"]

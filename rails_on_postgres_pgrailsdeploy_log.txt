@@ -1,0 +1,348 @@
+# App called 'pgrailsdeploy'
+# Developed on localhost
+# Deployed on Heroku, Digital Ocean (Apache)
+# All databases are pg (development,test, production)
+# Ubuntu 14.04 VM
+# ruby-2.1.1
+# Rails 4.2.4 (Reinstalled) 
+
+#1 Generate App in Rails
+rails new pgrailsdeploy -d postgresql
+bundle install
+cd config
+vim database.yml
+# modify as follows
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: pgrailsdeploy_development
+  username: thomas
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+ 
+ test:
+  <<: *default
+  database: pgrailsdeploy_test
+  username: thomas
+  password: <%= ENV['PGRAILS_DATABAroot 'products#index'SE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  
+ production:
+  <<: *default
+  database: pgrailsdeploy_production
+  username: thomas
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  
+rails generate scaffold Product name:string description:text price:float
+rake db:migrate 
+rs0
+# all is well
+vim config/routes.rb
+root 'products#index'
+rs0
+# all is well 
+
+#2 Deployment to Heroku
+
+# In gemfile added
+group :production do
+   gem 'rails_12factor'
+end
+
+# config/application.rb
+config.assets.initialize_on_precompile = false
+
+#3 Version Control (Bitbucket) 
+repo: pgrailsdeploy
+git init
+git add .
+git commit -am ""
+#successfully pushed to bitbucket
+
+heroku create
+git push heroku master
+
+# Oops ...
+# Syntax problem with Gemfile -fixed! (an extra 'end') 
+# Added gem 'rails_12factor' above but forgot to bundle
+bundle install
+git push heroku master
+# Deployment OK but ...
+'Something went wrong'
+# Ooops!
+heroku run rake db:migrate
+http://serene-anchorage-7937.herokuapp.com/products/1
+# All is well
+
+heroku rename pgrailsdeploy
+
+https://pgrailsdeploy.herokuapp.com/ 
+https://git.heroku.com/pgrailsdeploy.git
+
+Now all ok at
+http://pgrailsdeploy.herokuapp.com/ 
+  
+# Successfully deployed Rails to Heroku with no sqlite db!! 
+
+# Deploy on Digital Ocean Droplet (Apache Server) 
+ssh tomgdow@tomgdow.com
+www (alias)
+cd html
+git clone ... (from bitbucket)
+sudo !!
+# All Ok
+sudo chown -R $USER:$USER /var/www/html/pgrailsdeploy
+
+#Added to .bashrc (this will be changed below, will add to .profile) 
+export PGRAILS_DATABASE_PASSWORD='*******$***'
+
+# configure virtual host
+apa (alias)
+sites-available
+setup pgrailsdeploy.conf
+
+# On digital ocean DNS (Web Browser) created
+pgrailsdeploy as sub-domain of tomgdow.com
+
+back to Digitical Ocean command line
+apa
+sudo a2ensite pgrailsdeploy
+
+in www/html/pgrailsdeploy (app folder)
+bundle install
+RAILS_ENV=production rake db:migrate
+#!! oops ...
+user thomas no longer correct!
+
+# Some housekeeping work on Digital Ocean 
+$ sudo apt-get purge postgresql*
+$ sudo apt-get purge pgadmin3
+gem install rails
+sudo apt-get update
+sudo apt-get upgrade
+$ sudo apt-get install postgresql
+
+sudo -u postgres createuser -s tomgdow
+sudo -u postgres psql
+\password tomgdow
+*******$***
+
+#updated username in config/database.yml
+
+#cd to app folder
+RAILS_ENV=production rake db:migrate
+# oops db does not exist! 
+
+rake db:create:all
+RAILS_ENV=production rake db:migrate
+# Seemed to work OK! 
+ 
+ but when checked on Web browser ...
+ 'Incomplete response received from application'
+ 
+ #Went to www/html/pgrailsdeploy
+ # Check if OK on localhost on Digital Ocean
+ rake db:migrate
+ rails server $
+ lynx localhost:3000
+ All OK!
+ 
+ # Check if production ENV is working on localhost
+ rails s -e production &
+ lynx localhost:3000
+ #Also OK 
+ 
+ #Go to app folder
+ #reset secret key
+ #see here 
+ http://stackoverflow.com/a/29456249/499167
+ #restarted apache
+ sudo service apache2 start
+ #no go! 
+ 
+# removed 12factor gem 
+# deleted Gemfile.lock
+ bundle install
+#no go!
+ 
+# Check if Development Env works 
+ changed env to development in virtual host (pgrailsdeploy.conf) 
+# same problem!! Browser gives 'incomplete response...'
+
+# reset the secret key giving as original (string) in secrets.yml, no longer env variable
+# now pg does not recognize password (Browser error) 
+'fe_sendauth: no password supplied'
+ 
+ # So now check  the pg_hba.conf file
+ 
+sudo -u postgres psql
+postgres=# SHOW hba_file;
+/etc/postgresql/9.3/main/pg_hba.conf
+ 
+# changed line 90 from peer to trust
+# changed line  92 from md5 to trust
+# changed line  94 from md5 to trust
+ 
+# also gave ACTUAL password in the database.yml file 
+ (got rid of ENV variable) 
+ 
+ 
+sudo service  postgresql start
+sudo service apache2 restart
+
+see here 
+http://stackoverflow.com/a/9630739/499167
+
+## Success!! 
+# We are now up-and-running in development mode on  digital ocean apache!
+http://pgrailsdeploy.tomgdow.com/products/1
+
+# may be just restarting pg db that made the difference? 
+
+#In database.yml
+#put password back to env variable,  and the problem RETURNED!! 
+fe_sendauth: no password supplied  # (Browser)
+ 
+#ie in config/database.yml, setup as follows: 
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+
+## So this it the problem!! ##
+ 
+ Took the env variable from .bashrc
+ added to .profile
+ 
+ source ~/.bashrc
+ source ~/.profile
+ 
+ # Now seems to work!!  (development)
+ # See here
+  http://stackoverflow.com/a/28231281/499167
+  
+ # so ...
+ # Also moved the secret key ENV variable from .bashrc to .profile
+ now like this
+ export PGRAILS_DATABASE_PASSWORD='***$***'
+ export SECRET_KEY_BASE=e2c3b017a0d93352daetcetcetc
+ 
+#changed pgrailsdeploy.conf environment vars to production.
+It now looks like:
+-----------
+RackEnv production
+<VirtualHost *:80>
+
+ServerAdmin webmaster@localhost
+ServerName pgrailsdeploy.tomgdow.com
+DocumentRoot /var/www/html/pgrailsdeploy/public
+<Directory /var/www/html/pgrailsdeploy/public>
+RailsEnv production
+#This relaxes Apache security settings
+AllowOverride all 
+#Multiviews must be turned off
+Options -MultiViews
+#Uncomment this if you're using Apache >= 2.4
+require all granted
+
+</Directory>
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+-----------
+ 
+## All now seems to be working!! 
+## Suspect do not need to change pg_hba.conf 
+# permissions.  The main problems is that
+# the secret key and env variables were
+# not being read from .bashrc in Rails 4.2
+# and need to be added to .profile 
+
+-------------------
+Extras 
+ 
+## Rails Command Goodie
+ 
+ rails check env variable
+ rails c  
+ ENV["PGRAILS_DATABASE_PASSWORD"]
+ 
+ 
+sudo su - postgres
+psql
+\l
+
+                                          List of databases
+           Name            |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+---------------------------+----------+----------+-------------+-------------+-----------------------
+ pgrailsdeploy_development | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ pgrailsdeploy_production  | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ pgrailsdeploy_test        | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres                  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0                 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                           |          |          |             |             | postgres=CTc/postgres
+ template1                 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                           |          |          |             |             | postgres=CTc/postgres
+(6 rows)
+
+\conninfo
+You are connected to database "postgres" as user "postgres" via socket in "/var/run/postgresql" at port "5432".
+
+postgres=# \dg[+]
+                                    List of roles
+ Role name |                   Attributes                   | Member of | Description 
+-----------+------------------------------------------------+-----------+-------------
+ postgres  | Superuser, Create role, Create DB, Replication | {}        | 
+ tomgdow   | Superuser, Create role, Create DB              | {}        | 
+ 
+ login as postgres
+ psql
+ GRANT ALL  on DATABASE pgrailsdeploy_production to tomgdow; 
+ GRANT  # if all is ok
+ #See here
+ http://www.postgresql.org/message-id/4BDE2E41.5090505@agliodbs.com
+ ## above unnecessary? 
+ 
+ \c pgrailsdeploy_development;
+ You are now connected to database "pgrailsdeploy_development" as user "postgres".
+ 
+ \dt
+               List of relations
+ Schema |       Name        | Type  |  Owner  
+--------+-------------------+-------+---------
+ public | products          | table | tomgdow
+ public | schema_migrations | table | tomgdow
+(2 rows)
+
+
+pgrailsdeploy_development=# SELECT * from products;
+ id |  name  |        description         | price  |         created_at         |         updated_at         
+----+--------+----------------------------+--------+----------------------------+----------------------------
+  1 | a Bike | A vehicle with two wheels  | 456789 | 2015-09-27 20:07:43.740594 | 2015-09-27 20:07:43.740594
+
+#Created new product (browser)
+#logout/login
+sudo su - postgres
+psql
+\l
+\c pgrailsdeploy_production
+\dt
+select * from products;
+
+pgrailsdeploy_production=# select * from products;
+ id |       name       |                 description                  | price |         created_at         |         updated_at         
+----+------------------+----------------------------------------------+-------+----------------------------+----------------------------
+  1 | A production car | It looks like pg is working with  production |  2232 | 2015-09-27 23:01:23.854864 | 2015-09-27 23:01:23.854864
+  2 | A Car            | A four wheeled vehicle that uses petrol      |   223 | 2015-09-28 11:12:35.680222 | 2015-09-28 11:12:35.680222
+(2 rows)
+
+# --end --

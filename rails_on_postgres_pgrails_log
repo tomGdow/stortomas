@@ -1,0 +1,130 @@
+pgrails (Version Control on Bitbucket)
+First successful Rails App with pg as db
+have a look at the iteachu app (performance fundamentals) 
+pgrails  is in acp/bitbucket/rails 
+
+see also here
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-14-04
+
+#purge pg database and setup
+see here
+Setting up postgreSQL for RoR development
+http://www.idyllic-software.com/blog/setting-up-postgresql-for-ror-development/
+$ sudo apt-get purge postgresql*
+$ sudo apt-get purge pgadmin3
+$ sudo apt-get install postgresql
+
+
+#Postgres
+sudo -u postgres createuser -s thomas
+sudo -u postgres psql
+\password thomas
+*******$***
+(same as Ubuntu login/password
+
+#Rails 
+rails new pgrails -d postgresql
+cd 
+config/database.yml
+# As follows
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: pgrails_development
+  username: thomas
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+
+  
+  test:
+  <<: *default
+  database: pgrails_test
+  username: thomas
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  
+  
+  production:
+  <<: *default
+  database: pgrails_production
+  username: thomas
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  
+  In .bashrc
+  export PGRAILS_DATABASE_PASSWORD='*******$***'
+  
+  rake db:create:all
+  rails generate scaffold Product name:string description:text price:float
+  rake db:migrate
+  rs0
+  Success!! 
+ 
+
+# A Look at what PG Created  
+  sudo su - postgres
+  psql
+  \l 
+  
+   Name         |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+---------------------+----------+----------+-------------+-------------+-----------------------
+ pgrails_development | thomas   | UTF8     | en_IE.UTF-8 | en_IE.UTF-8 | 
+ pgrails_production  | thomas   | UTF8     | en_IE.UTF-8 | en_IE.UTF-8 | 
+ pgrails_test        | thomas   | UTF8     | en_IE.UTF-8 | en_IE.UTF-8 | 
+ postgres            | postgres | UTF8     | en_IE.UTF-8 | en_IE.UTF-8 | 
+ template0           | postgres | UTF8     | en_IE.UTF-8 | en_IE.UTF-8 | =c/postgres          +
+                     |          |          |             |             | postgres=CTc/postgres
+ template1           | postgres | UTF8     | en_IE.UTF-8 | en_IE.UTF-8 | =c/postgres          +
+                     |          |          |             |             | postgres=CTc/postgres
+					
+(6 rows)
+
+postgres=# \conninfo
+You are connected to database "postgres" as user "postgres" via socket in "/var/run/postgresql" at port "5432".
+
+\dg[+]
+
+                                    List of roles
+ Role name |                   Attributes                   | Member of | Description 
+-----------+------------------------------------------------+-----------+-------------
+ postgres  | Superuser, Create role, Create DB, Replication | {}        | 
+ thomas    | Superuser, Create role, Create DB              | {}        | 
+ 
+ 
+ --------------
+ 
+ Some Useful PG command
+ 
+psql --version
+which psql
+gem unstall pg
+
+#Is postgres running? 
+sudo service --status-all
+ps aux | grep postgres
+
+#this is brillo 
+SHOW hba_file;
+ /etc/postgresql/9.3/main/pg_hba.conf
+ 
+
+sudo su - postgres
+whoami
+psql
+\list # list all tables ;
+\l+
+\l
+\dt  # list all tables
+\connect database_name
+
+\dg[+]  list roles
+\conninfo
+#a brillo
+You are connected to database "postgres" as user "postgres" via socket in "/var/run/postgresql" at port "5432"
+http://dba.stackexchange.com/a/1288
