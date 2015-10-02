@@ -1,0 +1,472 @@
+#Install ng-route
+
+bower install angular-route#1.4.0
+npm install angular-rouute@1.4.0
+http://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js
+
+# Once code downloaded, there are three steps
+
+#1 Reference the angular-route.js file
+#2 And ngRoute as a module dependency
+#3 Add an ng-view directive
+
+
+(function () {
+
+    var app = angular.module('app', ['ngRoute']);
+
+		app.config(['$routeProvider', function ($routeProvider) {
+		    $routeProvider
+				    /when('/', {
+						    controller: 'HomeController',
+								controllerAs: 'home'
+								templateUrl: 'app/templates/home.html'
+						});
+		});
+
+}())
+
+# Redirect to 
+
+			.when('/classrooms, {
+				controller: 'AllClassroomsController',
+				controllerAs: 'classrooms',
+				templateUrl: '/app/templates/allClassrooms.html',
+				redirectTo: '/schools'
+				}
+
+
+# Can use function with redirectTo
+
+			.when('/classrooms/:id', {
+				controller: 'AllClassroomsController',
+				controllerAs: 'classrooms',
+				templateUrl: '/app/templates/allClassrooms.html',
+				redirectTo: function (params, currPath, currSearch) {
+					console.log(params);
+					console.log(currPath);
+					console.log(currSearch);
+					return '/';
+				}
+
+# Type this into browser url-bar
+
+http://localhost:3000/#/classrooms/1?foo=bar
+
+# in console, get
+
+Object {id: "1"}
+app.js:28 /classrooms/1
+app.js:29 Object {foo: "bar"}
+
+
+# Case insensitive match
+			.when('/schools', {
+				controller: 'AllSchoolsController',
+				controllerAs: 'schools',
+				templateUrl: '/app/templates/allSchools.html',
+			    caseInsensitiveMatch: true
+
+			})
+
+# Using the $route Service
+
+#1 Methods
+reload() # Not the same as clicking hte reload button in browser
+# merely reloads the current route within Angular App 
+# Treats route as if you were visiting it for the first time
+updateParams(newparams);
+# allows you to reload the url with a new set of route params 
+
+#2 Properties
+current
+routes
+# The current property gives you a reference to the current route definition
+# and allows you to examine the controller for the routes, scope and other variables.
+
+# The routes property is an object containing all the routes definitions for your application. 
+
+#3 Events
+# $routeChangeStart
+# $routeChangeSuccess
+# $routeChangeError
+# $routeUpdate
+
+# Run functions.
+# Run functions are a great place to put any initialization code your module needs
+# In app.js
+# app.run(['$rootscope', '$log'], function () {
+#
+# });
+# You can specify that the id values is  a parameter by prefixing it with a colon
+# There is nothing special about the word 'id'. Can if like call teacher 
+# Routes can have multiple parameters, and can even be made optional. 
+# Controller
+.when('classrooms/:id', 
+
+#Browser
+localhost:3000/#/classrooms/1
+
+# Relevant Controller
+
+var classroomId = $routeParams.id
+#
+# Can make a parameter optional by adding a question mark after it.
+:month? 
+
+# Resolve Property
+# The Resolve property allows you to specify a list of dependencies that
+# will be injected into the routes controller when it is instantiated. 
+# You assign to the resolve property an object. 
+# Each property on the object will be assigned a function
+# Before the app transitions to the new route, all of the functions
+# will be executed and the results stored in the associated property. 
+# Paramenters with those property names will then be injected into the controller.
+# If any of the functions return promises, then all the promises must be 
+# resolved before the route transition takes place. 
+# The result of the resolve promise will then be injected into the controller. 
+# This is a nice way to make sure a controller has all of the data it needs 
+# before transitioning to the new route. 
+
+.when('/activities', {
+   controller: 'AllActivitiesController'
+	 controllerAs: 'activities',
+   templateUrl: '',
+	 resolve: {
+	   activities: function (dataService) {
+       return dataService.getAllActivities();
+		 }
+	 }
+});
+
+#Hashbang mode
+# HTML-5 Mode
+
+#In HTML=5 mode, no hash in url,
+# When Angular is configured to run in HTML-5 mode
+# it attempts to use the Browser's History API
+# Hashbang is default mode
+# HTML-5 mode must be configured with $locationProvider
+# In Hashbang, all urls will contain hash sign
+# In HTML5 mode no hash, except in older browsers
+# that do not support HTML-5 History API
+# In those cases Angular will fall-back to hashbang
+# (and will get a hash in url)
+# Links are NOT rewritten in hash-bang mode
+# but will be used exactly as created
+# In HTML-5 mode, some links potentially rewritten
+# No server-side configuration for hashbang
+# In HTML-5 mode, server must rewrite links to
+# app entry point. 
+
+# By default, hashbang mode only includes a hash symbol. 
+# To change, do the following ...
+#1 In app.js, inject $locationProvider  into .config function
+#2 Call the hashPrefix function on it 
+$locationProvider.hashPrefix('!');
+#3 Change the links in the navbar to #! 
+# (change made in  index.html) 
+#
+
+# To Change to HTML5 mode 
+$locationProvider.html5Mode({
+				enabled: true,
+				requireBase: true,
+				rewriteLinks: true
+				
+				
+				});
+
+# but ...
+# easier way
+
+		$locationProvider.html5Mod(true);
+
+#4 Add base tag in head of index.html
+	<base href="/">
+#5 Modify links so that they do not contain hash symbol at all.
+
+
+# UI Router
+# An alt to ng-route
+# Very like ng-route, but state-based!
+
+#What is state?
+#UI-router describes state as place in applicaiton
+#Brice adds that state is the combination of controller and view,
+# and can exist independent of any url. 
+#With ng-route, routes are defined by associated url
+#Technicially states can exist in UI-router without giving them a url at all!
+
+# States can be nested.  
+# A state may be the combination of several states, which just creates additional places
+
+# So ... States are places in your application.
+
+# Getting UI-Router
+#1 bower install angular-ui-router
+# bower install angular-ui-router#0.2.15
+#2 npm install angular-ui-router
+# npm install angular-ui-router@0.2.15
+
+# Now
+#1 Ref angular-ui-router.js
+#2 Add ui.router as module dependency
+#3 Add a ui-view directive (like ng-view) 
+
+#1 -normal way
+#2  angular.module('app, ['ui-router']) 
+#3 <div ui-view></div>
+
+# Now configure States
+
+(function () {
+
+var app = angular.module['app', ['ui-router']);
+
+app.config(['$stateProvider', function($stateProvider) {
+
+    $stateProvider
+     .state('home', {
+        url: '/',
+        controller: 'HomeController',
+        controllerAs: 'home',
+        templateUrl: 'app/templates/home.html'
+     });
+});
+
+}());
+
+
+# Three ways of activating a state
+#1 
+$state.go('classrooms');
+#2 from views use ui-sref directive
+<a ui-sref="classrooms">Classrooms</a>
+# Set equal to STATE, not url, of the state you want to link to
+#3 can use the href attr of anchor tag, just as normal
+<a href="/classrooms">Classrooms</classrooms
+#if url matches one of states, that state will be activated.
+
+# $stateService has a number of other interesting methods
+go()
+reload();
+get()
+# and Properties
+current
+params
+# and Events
+$stateChangeError
+$stateChangeStart
+$stateChangeSuccess
+$stateNotFound 
+
+
+# State Parameters (ui-router)
+# Very like ng-router. 
+# Declare parameter in url, by prefixing with colon
+.state('classrooms', {
+     url: '/classrooms/:id'
+});
+
+# When the state is activated, the value assigned to the parameter will be retrieved from
+# the url and stored with the name specified in the url template configured on the state
+localhost:3000/#/classrooms/3
+#In code
+function ClassroomController ($stateParams) {
+var classroomId = $stateParams.id;
+}
+
+#Parameters are one of the areas where ui-router adds a few new tricks above what is offered
+# by ng-route. 
+# A number of those tricks are related to how you declare params.
+#1 Already seen
+.state('schools', {
+    url: '/schools/:id'
+});
+#2
+.state('schools', {
+    url: '/schools/{id}'
+		});
+#Will work exactly the same as #1, but the curly-braces give some addtional functionality
+# You can INCLUDE A REGULAR EXPRESSION RULE for the parameter inside the braces. 
+# the parameter will only be set if the value matches the regular experssion 
+#3 Use the params property on the state configuration object 
+.state('activities', {
+    url: '/activities',
+		params: {
+              id : {value: 42}
+		        }
+});
+
+# can declare default values for url params, or to declare new params that will not exist in url
+
+# Parameters are optional by default in ui-router. 
+#
+# Resolve property of ui-router works almost exactly like that of ng-router
+# List of dependencies to inject into the controller
+# Promises must resolve before the state change occurs
+# The result of the resolve promise will be injeted into the controller with
+# the name specified in resolve
+
+.state('activities', {
+    // ...
+    templateUrl: '/app/templates/allActivities.html',
+		resolve: {
+      activities: function (dataService) {
+          return dataService.getAllActivities();
+			}
+		}
+
+})
+
+# Assigning Data to States
+# ui-router also lets you assign bits of data to a state.
+
+.state('activities', {
+    // ...
+    templateUrl: '/app/templates/allActivities.html',
+		data: {
+       name: "My Activity"
+			 desc: "Fun!" 
+		}
+		}
+
+})
+
+# The property name 'data' is not required, but is recommended. 
+# Can use any property name you want! 
+# ui-router will add property to the configuration object
+# properties added to state are prototypically inherited by child states
+
+
+# Advanced Configurations
+#Templates
+#    templateUrl property
+#    templateProvider property
+
+# Have already seen how we can use the templateUrl property 
+# to specify a path to a template file
+# but you can also assign a function to the  property 
+# that returns a path to a template file
+
+# A second option for specifying templates is the templateProvider property
+# You also set it equal to a function but the function you assign it is
+# fully injectable. Rather that return the path to a template file, it must
+# return the actual HTML. 
+#
+# Controller have some similar options. 
+# controller Property
+# controlerProvider Property
+
+# state configuration objects also have onEntry and onExit properties that can be
+# used to specify callback functions when a state is entered or exited. 
+
+# Revolutionary Changes in UI-router
+
+#1 Nested States and Views
+
+# Nested States are described as having a PARENT-CHILD relationship
+
+# Parent
+.state('classroom', {
+    url: '/classroom/:id',
+		resolve: {},
+		data: {},
+		template: '<div ui-view><div>' 
+});
+
+# Nested states are a mechanism for defining a 
+# hierarchy of states that allow state properties
+# and even the url to be inherited from the parent state
+# to the child state 
+
+# Child
+.state('classroom.detail', {
+    url: '/classroom_detail/:id',
+		templateUrl: 'somefile.html'
+});
+
+# One way to specify that a state is the child of another state is to
+# use a dot in the child state name
+# One of the features of nested child states is that they inherit certain
+# properties from their parent states
+# In above example, the resolve and data properties will be inherited by child state
+# In the case of the resolve property, promises returned by the parent state
+# will be injected into the child state's controller.
+# Similarly, the data prop on the parent will be inherited by child
+
+# The idea that states are nested makes more sense when we look at views. 
+# The child state has a template just like any other, but it will be inserted
+# into a ui-view defined on the parent state. 
+
+
+# There are three ways one can specify that one state can be a child 
+# of another
+#1 Use the dot syntax
+.state('classroom.summary',{})
+#2 Use the parent property on a  configuration object
+	.state('classroomDetail', {
+	parent: 'classroom'
+}
+#3 Almost identical to the above
+# Assign a state object to the parent property instead of using a string
+
+.state('classroomSchedule', {
+    url: '/classroom_schedule/:id',
+		parent: classroom
+});
+
+# There is as special version of a parent state known as 
+# an abstract state. The primary difference between an abstract
+# state and any other parent state is that an abstract state
+# cannot be activated.  
+# Think of it as being similar to an abstract class in c# or java
+# You cannot create an instance of an abstract class, and you cannot
+# activate an abstrat state. 
+# They are activated IMPLICITLY by child states.
+# If you have defined a resolve property, for instance, on the abstract state
+# the functions that need to execute on the resolve property will run when one
+# of the child states are activated. 
+# Abstract states can specify a URL, which will be prepended to child states 
+# so that final url will be concatenated url from parent and child.
+# Otherwise abstract states function just like any other parent states.oo
+
+		.state('classroom_parent', {
+				abstract: true,
+				url: '/classrooms/:id',
+				templateUrl: '/app/templates/classroom_parent.html'
+
+			})
+
+# The template file MUST contain a ui-view directive where the child state
+# can insert states can insert their views. 
+
+# Multiple Named Views-
+#
+# The ability to create multiple views within a single template
+# is another powerful featur of ui-router that you do not get
+# with ng-route.
+# To specify multiple views, simpley add the-
+# ui-view directive to a template multiple times.-
+<div ui-view="classMessage"></div>
+<div ui-view="classInfo"></div>
+ 
+ 
+ .state('/classroom', {
+			url: '/',
+      views: {
+          'classMessage' : {
+                templateUrl: '/app/templates/classroom_message.html',
+                controller: 'ClassroomMessageController'
+            },
+           'classInfo' : {
+                templateUrl: '/app/templates/classroom_info.html',
+                controller: 'ClassroomInfoController'
+}
+
+      }
+});
+
+# Notice that the templates and controllers are different in each case!!
+

@@ -1,0 +1,80 @@
+
+#Update r4skeptics to production on Digital Ocean
+
+#In Digital Ocean droplet....
+apa 
+cd sites-available
+#In .conf file, changed the two
+#occurences of development to production
+#In app folder 
+cd config
+vim database.yml
+
+# Changed production from 
+
+production:
+   <<: *default
+ database: db/production.sqlite3
+ 
+ #to the following
+ 
+ 
+ production:
+  adapter: postgresql
+  database: r4skeptics_production
+  encoding: unicode
+  pool: 5
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  timeout: 5000
+  
+  In application folder ... 
+  
+ rake db:create:all
+RAILS_ENV=production rake db:migrate
+rake db:seed
+ rake db:seed RAILS_ENV=production
+ # last one works!!
+ 
+ 
+sudo su - postgres
+psql
+\l
+ 
+                                           List of databases
+           Name            |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+---------------------------+----------+----------+-------------+-------------+-----------------------
+ deployrails_production    | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ pgrailsdeploy_development | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/tomgdow          +
+                           |          |          |             |             | tomgdow=CTc/tomgdow
+ pgrailsdeploy_production  | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/tomgdow          +
+                           |          |          |             |             | tomgdow=CTc/tomgdow
+ pgrailsdeploy_test        | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres                  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ r4skeptics_production     | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0                 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                           |          |          |             |             | postgres=CTc/postgres
+ template1                 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                           |          |          |             |             | postgres=CTc/postgres
+(8 rows)
+ 
+ 
+ \c r4skeptics_production
+ 
+ \dt
+ 
+               List of relations
+ Schema |       Name        | Type  |  Owner  
+--------+-------------------+-------+---------
+ public | admins            | table | tomgdow
+ public | bibliographies    | table | tomgdow
+ public | carts             | table | tomgdow
+ public | commodities       | table | tomgdow
+ public | line_items        | table | tomgdow
+ public | schema_migrations | table |SELECT * from commodities; tomgdow
+ public | users             | table | tomgdow
+(7 rows)
+SELECT * from commodities;
+SELECT * from users;
+\q
+exit

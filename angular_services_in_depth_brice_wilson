@@ -1,0 +1,97 @@
+# Angular Services in Depth.
+# Brice Wilson
+
+# There are 5 Different ways to create a service in Angular.
+
+# Services and Providers
+
+# There are 5 functions that may be used to create a service in Angular
+# All these fns may be called on the built-in provide service
+# All are also exposed on the module object as a convenience
+
+#1 The most fundamental service provider function is 
+provider()
+# Allows you to explicitly create a configurable provider
+# object 
+# Three of the remaining 4 functions all internally call
+# the provider. Just shortcuts if you don't need all the
+funtionality provided by provider.
+#2 The first of these is factory(). The first of the
+#wrapper funtions. Will probably become your primary 
+#service creation function. 
+#3 service().  Just a simple wrapper around the factory function
+# When you call the service function it will internally call
+# the factory function, which will then call the provider function.
+#4 The value function is similarly a wrapper around the factory function.
+#5 The constant function. This one looks similar but is actually
+#fundamentally different. It does NOT call the factory function
+# or the provider function. 
+
+# Services are designed to be injected into the other components
+# of your application. Their creation is very much part of Angular's
+# dependency injection system. 
+## Injectable services are known as providers. 
+# So before a service is created there must be a provider that
+# knows how to create this. 
+# The $provide service is used to do that. It is one of the services
+# that ships with Angular. It has several components to register
+# components with the Angular injector. 
+# Once registered, the injector knows how to find the correct instance
+# and pass it as a parameter to other components needing them. 
+
+#The basic process of creating a service is that a provide SERVICE
+# creates a provider which contains a function that is used to
+# create a service. 
+
+# The first function on the $provide service we'll look at is the
+# provider() function. 
+# This is the most fundamental way to create a service.
+
+$provide.provider('books', function () {
+		this.$get = function () {
+		var appName = "Book Logger";
+		return {
+			appName: appName
+	};
+}
+
+# All other methods, except constant, are wrappers around the provider 
+# service
+
+# Using $provide.provider()
+# call the 'provider' function on the $provide service
+# in above example, the name of service is 'books'
+# and the name of the provider will be booksProvider
+
+# The NUMBER ONE RULE for using a provider function is that
+# function you provide to it must contain a property named
+# $get
+# The function assigned to that property is the function that
+# will be called by Angular to create your service. 
+# The service will then be represented by the return value
+# of that function. 
+# Creating services withe the provider function is a little more 
+# complicated than the other techniques we'll look at. 
+# The benefit it offers in exchange for that complexity is the ability
+# to configure the underlying provider for your services.  
+# None of the other service creation functions allows you to do this. 
+# GO TO DEMO. 
+
+# 'Brice' 2.04 of creating services
+# "I am using Angular's controllerAs syntax, so I am not injecting
+# a scope" !!
+
+# You don't have to inject the provide service into the 
+# config function and then call provider directly on the $provide
+# service.
+# As a convenience, the provider function is also exposed as a function
+# directly on the Module object.
+#
+# angular automatically appends the word 'Provider' to the name
+# of the service you specify when creating the underlying provider for
+# the service
+#
+# Factory and Service Functions
+
+# Using $provide.service
+# stopped here

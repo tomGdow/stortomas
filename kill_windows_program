@@ -1,0 +1,5 @@
+taskkill /im filename.exe
+taskkill -im brackets.exe  # Worked! (as written)
+#see here
+http://www.wikihow.com/Force-a-Program-to-Close-%28Windows%29
+

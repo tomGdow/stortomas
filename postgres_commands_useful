@@ -35,3 +35,13 @@ psql
 \c pgrailsdeploy_production
 \dt
 select * from products;
+
+
+# Login as superuser
+# see here
+http://stackoverflow.com/a/9309377/499167
+# Login as superuser:
+
+sudo -u postgres psql
+
+ 

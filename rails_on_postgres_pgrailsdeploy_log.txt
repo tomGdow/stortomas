@@ -44,6 +44,8 @@ development:
   
 rails generate scaffold Product name:string description:text price:float
 rake db:migrate 
+## note the following command also possibly executed here
+rake db:create:all:
 rs0
 # all is well
 vim config/routes.rb

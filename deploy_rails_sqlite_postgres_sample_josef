@@ -106,3 +106,62 @@ LoadModule passenger_module /home/tomgdow/.rbenv/versions/2.2.0/lib/ruby/gems/2.
    su -postgres
    
  
+### So after success of pgrailsdeploy, returned to this project 
+
+# In config/database.yml, modified production env as follows:
+
+production:
+  adapter: postgresql
+  database: deployrails_production
+  encoding: unicode
+  pool: 5
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  timeout: 5000
+  
+ rake db:create:all
+ # Error message that sqlite already exists, but OK
+ # In app folder
+ RAILS_ENV=production rake db:migrate
+ 
+ http://deployrails.tomgdow.com/products
+ 
+ ## All is well!!
+ #(have not touched secrets.yml)
+ 
+ 
+ # So now check pg
+ sudo -u postgres psql
+ 
+ postgres=# \l
+                                          List of databases
+           Name            |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+---------------------------+----------+----------+-------------+-------------+-----------------------
+ deployrails_production    | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ pgrailsdeploy_development | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/tomgdow          +
+                           |          |          |             |             | tomgdow=CTc/tomgdow
+ pgrailsdeploy_production  | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/tomgdow          +
+                           |          |          |             |             | tomgdow=CTc/tomgdow
+ pgrailsdeploy_test        | tomgdow  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres                  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0                 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                           |          |          |             |             | postgres=CTc/postgres
+ template1                 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                           |          |          |             |             | postgres=CTc/postgres
+						
+postgres=# \c deployrails_production 
+You are now connected to database "deployrails_production" as user "postgres".
+deployrails_production=# \dt
+              List of relations
+ Schema |       Name        | Type  |  Owner  
+--------+-------------------+-------+---------
+ public | products          | table | tomgdow
+ public | schema_migrations | table | tomgdow
+(2 rows)deployrails_production=# select * from products;
+ id |   name    |            description             | price |         created_at         |         updated_at         
+----+-----------+------------------------------------+-------+----------------------------+----------------------------
+  1 | A sissors | An implement for cutting           |   222 | 2015-09-28 12:21:25.304079 | 2015-09-28 12:21:25.304079
+  2 | a needle  | An implement for sewing on buttons |   255 | 2015-09-28 12:23:31.410592 | 2015-09-28 12:23:31.410592
+(2 rows)
+
+## Success!! 
