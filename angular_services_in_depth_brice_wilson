@@ -93,5 +93,43 @@ $provide.provider('books', function () {
 #
 # Factory and Service Functions
 
-# Using $provide.service
-# stopped here
+#1  Using $provide.factory()
+# Simple version of provider when addtional configuration is unnecessary. 
+# Registes a service factory function that will return a service instance
+# The following is the Angular Source code for the factory function
+
+function factory(name, factoryFn, enforce) {
+    return provider(name, {
+		    $get : enforce !== false ? enforceReturnValue(name, factoryFn) : factoryFn
+		});
+	}
+
+#2 using $provide.service()
+# Calls factory function which calls provider function
+# Executes constructor function with "new" operator
+# Angular source code for $provide.service()
+
+function service(name, constructor) {
+    return factory(name, ['$injector', function ($injector) {
+		    return $injector.instantiate(constructor);
+		}]);
+	}
+
+# The service function is just a very thin wrapper around the
+# factory function.  The only difference is that the function
+# you pass to the service method will be treated as a constructor
+# function and called with the javaScript 'new' operator
+# It uses the instantiate method of the injector to pass
+# to call the function you pass to the service method.
+# The instantiate method will then use the new operator
+# to execute the function that creates the service. 
+
+# You would use the service method instead of the factory method
+# if you specifically needed your function to be treated as
+# a constructor and called witht the 'new' operator. 
+# There are several reasons why you might want that behaviour.
+# One is if you defined an inheritance hierarchy in your code.
+# Creating an instance with 'new' will make sure that
+# your instantiated object properly inherits from
+# its prototype. 
+# [Demo] BookLogger App ...
