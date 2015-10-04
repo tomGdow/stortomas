@@ -1,0 +1,44 @@
+testparm # test if all is ok after modifying smb.conf
+
+pdbedit -x -u <username> to delete Samba user
+	
+
+#Other useful commands
+
+sudo smbstatus --shares
+smbtree
+ps aux | grep smbd
+sudo service  smbd restart
+sudo smbpasswd -a <username>
+
+sudo service --status-all | grep samba
+sudo iftop -nN
+# Samba Config file
+
+/etc/samba/smb.conf 
+
+#Some good  sites
+http://superuser.com/a/243768
+http://www.howtogeek.com/howto/ubuntu/share-ubuntu-home-directories-using-samba/
+http://www.howtogeek.com/howto/ubuntu/install-samba-server-on-ubuntu/
+http://superuser.com/a/258103  ## Excellent
+
+# Great Video
+https://www.youtube.com/watch?v=zTujwRSsIBw
+
+# Brief log to setup
+sudo apt-get install samba
+sudo smbpasswd -a <username>
+sudo smbpasswd -a thomas # on zara VM
+password My
+# Modified the smb.conf file, firstly just to allow readonly
+# In virtual box set up a host-only adaptor.
+# In windows explorer (Not a web explorer)
+\\192.168.56.101\thomas
+#Straigh in! 
+
+# Rails Projects
+# Created a rails project (sampaExpt) and rejigged smb.conf to allow
+[home] sharing read and write privledges.   Now can edit a vm file
+within a rails project using braceks 'native' to Windows OS. 
+
