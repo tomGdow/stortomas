@@ -1,0 +1,38 @@
+rwx read, write, execute
+u(user), g(group), o(other)
+
+#A chmod in symbolic mode
+#1 + operator
+# adds the designated permission to file or directory.
+#2 - operator
+# removes the designated permission from file or directory
+#3 = operator
+# Sets the designated permissions
+
+chmod o+wx testfile
+chmod u-x testfile
+chmod g=rx testfile
+chmod o+wx,u-x,g=rx testfile
+
+#B chmod with Absolute Permissions
+
+0  - no permissions
+1  - execute
+2 -  write
+3 - write + execute ( 2 +1)
+4 - read 
+5 - read + execute (4 +1)
+6 - read and write (4 +2)
+7 - read, write, and execute (4+2+1) 
+
+chmod 755 testfile
+$chmod 043 testfile
+
+# Changing owners
+ chown user filelist
+
+sudo chown -R $USER:$USER /var/www/html/deploy_rails
+# for deployment rails, in www/html file
+
+# See Here
+http://www.tutorialspoint.com/unix/unix-file-permission.htm

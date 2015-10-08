@@ -929,3 +929,10 @@ http://stackoverflow.com/a/6832397/499167
 # Must start with capital letter
 # See here
 http://stackoverflow.com/a/20011731/499167
+
+
+vim +/Choose <filename>
+vim +2 <filename>
+#Two Goodies
+# See here 
+http://www.thegeekstuff.com/2010/11/50-linux-commands/

@@ -1,0 +1,11 @@
+# To view rails running on virtual machine on native windows browser
+
+rails -s 0.0.0
+localhost:3000 # in Firefox/Chrome, native to Windows
+# Alternatively, set up a second host-only adaptor on virtualbox
+
+hostname -I
+10.0.2.15 192.168.56.101 
+#now
+rails s -b 192.168.56.101
+192.168.56.101:3000  # from browser on Windows (Firefox/Chrome)

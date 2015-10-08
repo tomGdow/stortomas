@@ -133,3 +133,46 @@ function service(name, constructor) {
 # your instantiated object properly inherits from
 # its prototype. 
 # [Demo] BookLogger App ...
+
+#3 Value and Constant Services
+#3a The Value Service
+# The 'value' function is just shorthand for calling 
+# the factory function with no parameters. 
+# If you don't need to inject anything into your factory
+# function you can use the value function instead. 
+
+#3b The constant function is not a short-hand version of anything. 
+# It simply registers service with injector, no factory/provider calls.
+# It allows you to register an object literal function or some other constant
+# with the inject, but it doesn't call the service, factory or provider methods
+# behind the scenes. 
+
+# A value service can't be injected into a module configuration function but
+# a constant service can. 
+
+# Final difference concerns decorators.  Decorators are a way to over-ride
+# or modify the bahaviour of an existing service.
+# Value services CAN be overridden by AngularJS decorators, but 
+# constant services CANNOT. 
+
+# The syntax for both types of service is very similar and straight-forward.
+# [Demo BookLogger project] 
+
+# Brice 'Remember services created with the value function are just thin
+# wrappers around the factory function. You can use 'value' instead of 
+# 'factory' if you don't need to injecct anything into the new service you
+# are creating. 
+#
+# The object that is passed to represent the service in the example just
+# has a single property, which is the retriveBadge function below 
+#
+angular.module('app)
+    .value('badgeService, {
+		    retrieveBadge: retriveBadge
+		});
+
+function retrieveBadge(minutesRead) {
+  // my function stuff
+	}
+
+

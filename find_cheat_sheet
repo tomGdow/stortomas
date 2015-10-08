@@ -110,3 +110,9 @@ locate -i spring.jar      # case-insensitive search
 ## TGD examples
 find -name index.html.erb
 find -name index.html.*
+find . -name index.html -type f
+find . -name index.html.erb -type f
+find -name home -type d
+find . -name home -type d
+
+find . -name *.yml -type f -exec grep -l production {} \;

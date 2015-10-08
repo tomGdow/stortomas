@@ -42,3 +42,13 @@ password My
 [home] sharing read and write privledges.   Now can edit a vm file
 within a rails project using braceks 'native' to Windows OS. 
 
+
+## On Digital Ocean
+sudo apt-get install samba
+# set up /etc/samba/smb.conf 
+# identical to virtual box VM
+sudo smbpasswd -a tomgdow
+My
+\\46.101.11.172\tomgdow
+## Straight in! 
+

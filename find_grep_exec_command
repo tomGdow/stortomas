@@ -1,0 +1,39 @@
+# Usage
+find . -name *.yml -type f -exec grep -l production {} \;
+find . -name *.yml -type f -exec grep -il production {} \;
+
+./config/secrets.yml
+./config/database.yml
+
+find . -name *.yml -type f -exec grep -il production  {} +
+
+./config/secrets.yml
+./config/database.yml
+
+
+find . -name *.yml -type f -exec ls -lAtr {} \;
+
+-rw-rw-r-- 1 thomas thomas 964 May 15 15:15 ./config/secrets.yml
+-rw-rw-r-- 1 thomas thomas 552 May 15 15:15 ./config/database.yml
+-rw-rw-r-- 1 thomas thomas 4025 Sep 25 14:24 ./config/locales/devise.en.yml
+-rw-rw-r-- 1 thomas thomas 634 May 15 15:15 ./config/locales/en.yml
+
+
+# Good Site
+http://unix.stackexchange.com/a/12904
+
+# Some Explanation
+
+# The command that you want to execute needs to contain a special macro argument {}, 
+# which will be replaced by the matched filename on each invocation of
+# -exec or -execdir predicate.  You can use {} multiple times in command and each time.
+# It will evaluate to the same file and path each time you use it.
+# You need to specify \; (or ';' ) at the end of the command. 
+# (If the \ is left out, the shell will interpret the ; as the end of the find command.) 
+#If your macro file substitution argument is the last in generated command 
+#you can use {} + instead of {} \;  . 
+#In this case find will process multiple arguments in xargs fashion grouping 
+#multiple arguments in a single command.
+
+# see here
+http://www.softpanorama.org/Tools/Find/using_exec_option_and_xargs_in_find.shtml
