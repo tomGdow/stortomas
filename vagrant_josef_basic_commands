@@ -1,0 +1,53 @@
+#1
+vagrant -v
+    
+#This should return the version of Vagrant that is installed. 
+#2 Install a Vagrant box
+
+    vagrant box add ubuntu/trusty64
+    
+#3 List installed Vagrant boxes
+
+    vagrant box list
+    
+#4 Create a Virtual Development Environment
+# Create a folder in a convenient location such as on the desktop
+#Navigate/cd into this folder and execute vagrant init {name of box} from the host command line
+
+    vagrant init ubuntu/trusty64
+    
+# This command will create a Vagrantfile file which contains the primary configuration for your Vagrant virtual development environment. 
+# It is written in Ruby, but there is no need to know Ruby.
+#5 Create a Vagrant box
+
+    vagrant up
+    
+# The vagrant up command will create and configure the Vagrant box according to the settings in your Vagrant file. 
+# This command is also used to restart the Vagrant box.
+#6 Login
+
+    vagrant ssh
+    
+# The command vagrant ssh will connect you to the Vagrant box as user 'vagrant'. 
+#7. Logout
+
+    exit
+    
+# Typing exit will log you out of your Vagrant box.
+
+#8 Suspending Vagrant box
+
+    vagrant suspend
+    
+# Executing vagrant suspend will stop the virtual machine and save the current running state. 
+# Use vagrant up to start up the Vagrant box again and continue from where you left off.
+#11 Halting Vagrant box
+    
+    vagrant halt
+
+# The command vagrant halt will completely shut down the Vagrant box. Use vagrant up to restart
+#12. Destroying Vagrant box
+
+    vagrant destroy
+    
+# The command vagrant destroy will completely remove and delete all traces of the Vagrant box from your system.

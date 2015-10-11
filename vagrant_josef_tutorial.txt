@@ -1,0 +1,94 @@
+
+to install Vagrant
+
+These days web developers have a huge selection of ways to build their web development environment.
+
+Development on a local server such as XAMPP, MAMP, WAMP is a great way to start but what if you want your development [environment] environment to be the same as your production environment?
+
+Or maybe you are just learning Ubuntu, Debian, CentOS, Fedora or some other Unix-like operating system, and you need a playground to mess around with all the commands you have never heard about [alt: ... to mess about with all the commands you have heard the cool Rails developers talking about]
+
+Or perhaps you are a 'Windows' person but would like to develop your application on a Unix platform from your 'Windows' machine
+
+Or maybe you would like the 'Mac' people and the 'Windows' people on your development team to work on an identical development environment no matter what OS they are using
+
+Then virtualization is a great way to go, and Vagrant allows you to quickly and simply create a virtual development environment.
+
+In this tutorial I will show you how to provision a virtual machine with Ubuntu Server 14.04 LTS as guest operating system using Vagrant installed on Virtualbox from Oracle
+
+Both Vagrant and Virtualbox are [completelly] completely free and may be installed on every major operating system
+1. Download Virtualbox
+
+Head over to Virtualbox and install Virtualbox
+2. Download Vagrant
+
+Now head over to Vagrant and install the program using the appropriate installer or package for your operating system.
+
+The installer should automatically add Vagrant to your system path so that the commands below may be run from any directory on the host terminal
+
+If you encounter problems, try logging out and logging back in to your system (this is particularly so for Windows OS).
+3. Check if Vagrant is installed
+
+Open the terminal on your host system and type
+
+    vagrant -v
+    
+This should return the version of Vagrant that is installed. In my case it's Vagrant 1.7.2
+4. Install a Vagrant box
+
+The Atlas website allows you to search for and download a wide range of boxes. Just make sure to click on virtualbox provider before selecting one.
+
+Vagrantbox is another alternative offering a choice of over 280 boxes.
+
+To install ubuntu/trusty64 as guest OS, run the following command from the host terminal window
+
+    vagrant box add ubuntu/trusty64
+    
+Alternatively, the following command will install [I don't understand this bit] name and url. In command below I used name amd64
+
+vagrant box add amd64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.b
+
+5. List installed Vagrant boxes
+
+    vagrant box list
+    
+My terminal returns ubuntu/trusty64 (virtualbox, 20150609.0.10) as I installed vagrant box using the vagrant box add ubuntu/trusty64 command
+6. Create a Virtual Development Environment
+
+Create a folder in a convenient location such as on the desktop
+
+Navigate/cd into this folder and execute vagrant init {name of box} from the host command line
+
+    vagrant init ubuntu/trusty64
+    
+This command will create a Vagrantfile file which contains the primary configuration for your Vagrant virtual development environment. It is written in Ruby, but there is no need to know Ruby.
+7. Create a Vagrant box
+
+    vagrant up
+    
+The vagrant up command will create and configure the Vagrant box according to the settings in your Vagrant file. This command is also used to restart the Vagrant box.
+8. Login
+
+    vagrant ssh
+    
+The command vagrant ssh will connect you to the Vagrant box as user 'vagrant'. Now you have opportunity to execute all the Ubuntu commands you ever wanted to try. The command whoami, for example will return 'vagrant', and hostname -I will return something like 10.0.2.15
+9. Logout
+
+    exit
+    
+Typing exit will log you out of your Vagrant box.
+
+10. Suspending Vagrant box
+
+    vagrant suspend
+    
+Executing vagrant suspend will stop the virtual machine and save the current running state. Use vagrant up to start up the Vagrant box again and continue from where you left off.
+11. Halting Vagrant box
+    
+    vagrant halt
+
+The command vagrant halt will completely shut down the Vagrant box. Use vagrant up to restart
+12. Destroying Vagrant box
+
+    vagrant destroy
+    
+The command vagrant destroy will completely remove and delete all traces of the Vagrant box from your system.
