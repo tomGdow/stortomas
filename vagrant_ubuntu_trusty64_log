@@ -1,0 +1,21 @@
+# Worked from Josef's procedure
+
+# In Vagrant file, 
+# Uncommented the following line
+config.vm.network "private_network", ip: "192.168.33.10"
+# also uncommented and modified the following
+config.vm.network "forwarded_port", guest: 3000, host: 3000
+# After intalling Rails can now
+
+rails s -b 192.168.33.10
+From Server: 192.168.33.10:3000
+
+# Installed nodejs, rvm, rails 4, lynx 
+# Installed sqlite3 and mysql as per jim Pickerell, pluralsight, 
+linux_server_pluralsight_log.txt   
+
+# installed postgres as per 
+rails_on_postgres_pgrailsdeploy_log.txt 
+
+#password is My
+

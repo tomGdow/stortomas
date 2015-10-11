@@ -9,3 +9,13 @@ hostname -I
 #now
 rails s -b 192.168.56.101
 192.168.56.101:3000  # from browser on Windows (Firefox/Chrome)
+
+#In Rails 3, used to have to use
+rails s -b 3000
+
+# Have the following two alii set up
+alias rs0='rails s -b 0.0.0'
+alias rs3='rails s -b 3000'
+
+# See here
+http://stackoverflow.com/a/29084070/499167

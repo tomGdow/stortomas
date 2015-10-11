@@ -175,4 +175,103 @@ function retrieveBadge(minutesRead) {
   // my function stuff
 	}
 
+# CAN inject constant service into an app.config module, but if you try to
+# inject a value service such as badgeService into the app.config module get the following
+# error in console
 
+Uncaught Error: [$injector:modulerr] Failed to instantiate module app due to:
+Error: [$injector:unpr] Unknown provider: badgeService
+
+# THIS IS IMPORTANT. This is not an error specific to value services. You also cannot inject
+# services creates with the factory or service functions.  You can only inject the underlying
+# PROVIDER for those services (or a constant service as we saw earlier) 
+# Remember that angular creates an underlying provider for services defined with the
+# factory and service functions.  THE NAME OF THE PROVIDER is the name of the service
+# with the word 'provider' appended to the end.  Injecting in badgeServiceProvider WORKS!! 
+# also dataServiceProvider works !
+
+# Dependency Annotations
+# Exist for a couple of resons
+#1 They inform the injector what services to inject
+#2 They suppor minification of javaScript code
+# Minification may result in mangled parameter names that causes all code to break
+
+# There are THREE ways to annotate dependencies
+
+#1 Implicitly from function paramater names
+#(that's just what we have done so far) - and it is the simplest technique
+# But out code would stop working if we tried to minify. 
+#2 Use the  $inject property annotation
+#You can assign to the inject property of a service an array of the service names
+# that should be injected into the service. 
+#3 Using the inline array annotation  (Probably the most common)
+# To do this, pass an array of strings which are the dependencies as the
+# second parameter to your service creation function. The last parameter of the
+# array is the function that will create or represent the service. 
+# [BookLogger demo] 
+
+# Common Built-in Services
+
+# Promises and the $q service
+# the $q service makes it easier to implement asynchronous patterns
+# in your angular app. 
+#
+# The $q service is often referred to as a 'promise library'
+
+# Let's start by defining promises.
+# A nice definition by Martin Fowler
+# ' In JavaScript, promises are objects that represent the pending result
+# of an asynchronous operation'
+# See here
+http://martinfowler.com/bliki/JavascriptPromise.html
+# The $q service is actually more than just a promise library.
+# A promise is the pending result of an asynchronous operation.
+# The $q service provides an API for working with promises.
+# But is also provides an API for so-called deferred objects that
+# return promises to the calling code and signal them with results 
+# when the asynchronous operation is complete. 
+
+# Asynchronous calls with $q
+# There are two parts. 
+# We can think of the two parts as a Client and a Service (sic)
+# The Client is a component or function that wants to perform
+# some work asynchronously.
+# The Service is the component that will actually perform the work,
+# and notify the client when the work is complete. 
+#1 The first thing a client will do is initiate an asynchronous call to the Service
+#2 When the Service receives the call it will first use the $q service to 
+#  create a new deferred object. The deferred object will act as a conduit through
+#  which the service can communicate the status of the asycchronous work back to the client.
+#  The deferred object will immediately return a promise back to the client.
+#  This will prevent the call to the service from blocking execution while the work 
+#  is performed. 
+#3 Once the promise is received by the client,  the client can use the promie API to configure 
+#  callback functions that execute when the work in the Service is complete. It may also
+#  go about its business performing other work. 
+#4 Meanwhile, the Service is performing the work the Client requested. 
+#5 When the work is complete, the Service uses the deferred API to signal the status
+#  of the work (complete, error) to the Client. 
+#6 The client executes the appropiate callback function. 
+# BookLogger App.  
+
+# $timeout is just a wrapper around the javaScript timeout function
+# $timeout takes two arguments.  The first is the function you want to execute;
+# the second is the delay in milliseconds. 
+
+#The first two parameters to the then function are 'success'and 'error' callbacks. 
+# The first defines the function that should execute if the deferred object in the
+# service is resolved successfully with the resolve function
+# The second defines the function that should execute if the deferred object is rejected. 
+# COULD define as in-line anonymous functions, but Brice thinks that it would be better
+# (easier to read) to define as named functions. 
+
+# The deferred object is also capable of another neat trick
+# In addition to reporting the success or failure of the work
+# being performed, it can also send notifications back to the
+# caller WHILE the work is being performed. 
+# In order to send messages about the status of the work
+# You just call the notify function on the deferred object,
+# and pass it the message you want to send to the caller. 
+
+# The 'then' function may take a third parameter.  The
+# third parameter is the function that should handle notifications 

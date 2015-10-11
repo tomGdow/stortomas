@@ -1,0 +1,23 @@
+# On c: drive, created
+tomgdow.com
+# Added the following
+set "vms=cd C:\Users\Thomas\VirtualBox VMs"
+set "vagrant=cd C:\Users\Thomas\VirtualBox VMs\vagrant_tgd"
+
+# After opening new command window, run:
+
+cmd.exe /k c:\tomgdow.cmd
+
+# See here 
+https://gist.github.com/vladikoff/38307908088d58af206b
+
+# See also here
+http://superuser.com/questions/502358/easier-way-to-change-environment-variables-in-windows-8
+
+# Access via 
+
+%vms%
+%vagrant%
+
+
+
