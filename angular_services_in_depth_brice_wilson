@@ -275,3 +275,47 @@ http://martinfowler.com/bliki/JavascriptPromise.html
 
 # The 'then' function may take a third parameter.  The
 # third parameter is the function that should handle notifications 
+
+# We have seen how to handle the rejection of the promise by specfiying 
+# a callback function as the second parameter to the 'then' function
+# However, there is actually a better way to handle the rejection of the
+# promise as well as other errors that may occur.
+# In addition to the 'then' function, promise objects also have a 
+# function called 'catch'.  You pass to it a function that will
+# handle errors in much the same way as the second parm to the 
+# 'then' function handles errors. The 'catch' function is particularly
+# useful when you chain it together with the 'then' function.
+# The 'then' function also returns a promise, which means you can
+# call the 'catch' function on its return value. 
+service.returnsPromise()
+    .then(successFn)
+        .then(allErrorsFn)
+
+# This is a much more robust solution 
+
+# And finally there is the 'finally' function, which can also
+# be chained to the 'then' and 'catch' functions.
+# It allows you to define a callback that will be executed regardless
+# of whether the promise was resolved or rejected. 
+# It is a great place to put in cleanup code you want to make sure is
+# executed regardless of the result of the promise. 
+
+# Final technique that may be used with promises
+
+# It is possible to wait on an entire array of promises to be resolved 
+# before taking some action.
+$q.all([booksPromise, readersPromise])
+    .then(getAllDataSuccess)
+		    .catch(getAllDataError)
+# The 'all' function will return a promise when 
+# all of the promises in the array have been 
+# resolved or rejected. 
+# We can then process that promise by calling 'then' and 'catch'
+# etc. just like any other promise. 
+# The one additional wrinkle is that the data passed
+# to the success handler (named dataArray in code eg)
+# is actually an array of the data returned from 
+# the promises in the array. 
+# The data will be returned in the same index position
+# as the promise it goes with in the array passed to the
+# all function. 

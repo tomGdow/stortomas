@@ -1,0 +1,5 @@
+ls -la | sort -k5n
+
+-n is numeric
+-k is key
+'5' refers to column
