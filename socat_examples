@@ -1,0 +1,30 @@
+# Socat format
+socat [options] <address> <address>
+protocol:ip:port
+
+# An example of Socat
+# Using BookLogger App as example
+http-server
+Starting up http-server, serving ./public
+Available on:
+  http:127.0.0.1:8081
+  http:10.0.2.15:8081
+  http:192.168.56.101:8081
+  
+# On Browser, the following works
+http://192.168.56.101:8081
+
+# This does NOT
+http://localhost:3000/
+
+#Now 
+socat TCP-LISTEN:3000,fork TCP:localhost:8081
+#This NOW WORKS
+http://localhost:3000/
+
+#Note the following
+netcat -z -v localhost 8081
+Connection to localhost 8081 port [tcp/tproxy] succeeded!
+
+
+# Usually will be port 8080, but had app already running on port 8080 when above done.  

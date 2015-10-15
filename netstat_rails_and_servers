@@ -1,0 +1,13 @@
+netstat -na | grep 8080
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN 
+
+# And note (Vm)
+netstat -an | grep 3000
+tcp        0      0 127.0.0.1:3000          0.0.0.0:*               LISTEN    
+
+rs0
+netstat -na | grep 3000
+tcp        0      0 0.0.0.0:3000            0.0.0.0:*               LISTEN   
+
+## Funnily enough, at least once rails s caused binding to 0.0.0.0, and could 
+## view in 'Windows' browser.  Not reproducible, thought

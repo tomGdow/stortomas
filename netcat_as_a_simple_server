@@ -1,0 +1,22 @@
+
+To use netcat as server (simple, unsecure!)
+#1 make index.html (do so on zara-VM)
+netcat -l 8888 < index.html  # zara-VM
+hostname -I
+10.0.2.15 192.168.56.101
+http://192.168.56.101:8888/
+# Works perfectly on Chrome. Firefox renders as raw html
+
+#To keep connection open until Ctrl-C is pressed 
+
+while true; do nc -l 8888 < index.html; done
+
+Also works on chrome with digital ocean.
+46.101.11.172:8888
+
+
+# See here
+
+https://www.digitalocean.com/community/tutorials/how-to-use-netcat-to-establish-and-test-tcp-and-udp-connections-on-a-vps
+
+

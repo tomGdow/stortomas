@@ -19,3 +19,13 @@ alias rs3='rails s -b 3000'
 
 # See here
 http://stackoverflow.com/a/29084070/499167
+
+
+# Note also (netstat) 
+#
+netstat -an | grep 3000
+tcp        0      0 127.0.0.1:3000          0.0.0.0:*               LISTEN----
+
+rs0
+netstat -na | grep 3000
+tcp        0      0 0.0.0.0:3000            0.0.0.0:*               LISTEN---

@@ -1,0 +1,13 @@
+t transfer a file
+#1 on Digital ocean (say)
+netcat -l 4444 > received_file
+#1 On zara-VM (say)
+echo "Hello, this is a file" > original_file
+netcat 46.101.11.172 4444 < original_file
+
+# Transfers!! - a goodie
+
+
+#see here:
+https://www.digitalocean.com/community/tutorials/how-to-use-netcat-to-establish-and-test-tcp-and-udp-connections-on-a-vps
+

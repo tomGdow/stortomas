@@ -1,0 +1,4 @@
+#To see what's running on port 3000, type the following into the terminal:
+ lsof -i tcp:3000
+# See here
+https://teamtreehouse.com/community/i-am-getting-an-error-message-when-i-try-to-start-the-rails-server

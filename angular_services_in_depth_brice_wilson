@@ -319,3 +319,28 @@ $q.all([booksPromise, readersPromise])
 # The data will be returned in the same index position
 # as the promise it goes with in the array passed to the
 # all function. 
+#
+# Routing Overview
+# Important.  Angular Source Code for Routes Service
+
+var ngRouteModule = angular.module('ngRoute', ['ng'])
+                            .provider('$route, $RouteProvider)
+
+# Remember that only services that are created with the provider function
+# are configurable in the module's config function.
+# The routes service IS configured with the provider function, using code we
+# might write ourselves to create a configurable service.  
+# Note that the service being created is named '$route', which means that angular
+# will create an underlying provider by appending the word 'provider' to the
+# end of the service name. 
+# Therefore, we will be injecting $RouteProvider into our modules config function
+# in order to configure our routes. 
+
+# $routeParams is a service that allows you to retrive values passed as params
+# in the url. 
+
+# otherwise function (routes)
+# Brice 'It is worth noting that in Angular prior to version 1.3, you had to pass
+# a route config object to 'otherwise' function. You still can, but if the route you
+# want to redirect to already has an entry in a 'when' routes function, you can just
+# pass the string that represents the route. 

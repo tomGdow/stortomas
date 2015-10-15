@@ -1,0 +1,9 @@
+# Scan a port with netstat
+netcat -z -n -v 46.101.11.172 1-1000 2>&1 | grep succeeded
+
+Connection to 46.101.11.172 22 port [tcp/*] succeeded!
+Connection to 46.101.11.172 80 port [tcp/*] succeeded!
+Connection to 46.101.11.172 139 port [tcp/*] succeeded!
+Connection to 46.101.11.172 445 port [tcp/*] succeeded!
+# See here
+https://www.digitalocean.com/community/tutorials/how-to-use-netcat-to-establish-and-test-tcp-and-udp-connections-on-a-vps

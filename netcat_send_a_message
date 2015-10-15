@@ -1,0 +1,15 @@
+# netcat
+
+netcat [options] host port
+# see here (digital ocean)
+https://www.digitalocean.com/community/tutorials/how-to-use-netcat-to-establish-and-test-tcp-and-udp-connections-on-a-vps
+
+#1 to send messages using netstat
+# On digital ocean droplet (say)
+netstat -l 4444
+# on zara-VM (say)
+netcat 46.101.11.172 4444
+# Now type a message on either system and  Press return. 
+# Active on both systems
+
+# 46.101.11.4444 is ip of digital ocean droplet

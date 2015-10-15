@@ -1,0 +1,8 @@
+nslookup tomgdow.com
+
+Server:         127.0.1.1
+Address:        127.0.1.1#53
+
+Non-authoritative answer:
+Name:   tomgdow.com
+Address: 46.101.11.172
