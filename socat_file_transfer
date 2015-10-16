@@ -1,0 +1,21 @@
+#1 Transfer file, where the server SENDS  the file
+
+#on digital Ocean Droplet (ip = 46.101.11.172) 
+socat -u FILE:file_to_transer TCP-LISTEN:9876,reuseaddr
+# on zara-VM
+socat -u TCP:46.101.11.172:9876 OPEN:name_of_transferred_file,creat
+
+
+
+#2  Transfer file where the server RECEIVES the file
+# On server (digital ocean droplet)
+socat -u TCP-LISTEN:9876,reuseaddr OPEN:tomout.txt,creat
+#On client (zara-VM)
+ socat -u FILE:test.txt TCP:46.101.11.172:9876
+
+#alt line 1
+socat -u TCP-LISTEN:9876,reuseaddr OPEN:tomout.txt,creat && cat tomout.txt
+
+
+# See here
+http://unix.stackexchange.com/questions/22308/socat-reliable-file-transfer-over-tcp

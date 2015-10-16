@@ -1,0 +1,17 @@
+# See here
+http://askubuntu.com/a/160334/200605
+
+# To Encrypt
+Openssl des3 < your_file_to_encrypt > your_file_to_encrypt.des3
+# For example
+Openssl des3 < the_riddle_of_the_sands_two > the_riddle_of_the_sands_two.des3
+# Will be prompted for password
+
+# To Decrypt
+openssl des3 -d < your_encrypted_file.des3 > your_decrypted_file.txt
+# For example
+openssl des3 -d < the_riddle_of_the_sands_two.des3 > tomgg.txt
+
+
+# Comment on SO
+Why des3? You can do much better encryption faster with openssl aes-128-cbc – Brendan Long 
