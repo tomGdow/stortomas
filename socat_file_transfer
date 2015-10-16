@@ -1,21 +1,47 @@
-#1 Transfer file, where the server SENDS  the file
+#A Transfer a file where the SERVER RECEIVES
 
-#on digital Ocean Droplet (ip = 46.101.11.172) 
-socat -u FILE:file_to_transer TCP-LISTEN:9876,reuseaddr
-# on zara-VM
-socat -u TCP:46.101.11.172:9876 OPEN:name_of_transferred_file,creat
+#1 On Client, set PUTME variable. (The name of the file you want to transfer)
+PUTME=tom.txt
+#2 If necessary, set TOIP (to-ip-address) and MYPORT (port-number)
+#3 On server, set GETME variable (the name you want to give the transferred file)
+GETME=tom.txt
+#4 If necessary, set MYPORT
+#5 on server (must set listner first)
+socatsrs
+#6 on client
+socatsrc
+]
+# --notes--
+server: socatsrs socat server-receives-server
+client: socatsrc socat-server-receives-client
+## Aliases
+alias socatsrs='socat -u TCP-LISTEN:${MYPORT:-9876},reuseaddr OPEN:${GETME},creat'
+alias socatsrc='socat -u FILE:${PUTME} TCP:${TOIP:-46.101.11.172}:${MYPORT:-9876}'
+
+# ====  end server receives ====
 
 
+#B Transfer a file where the server sends
 
-#2  Transfer file where the server RECEIVES the file
-# On server (digital ocean droplet)
-socat -u TCP-LISTEN:9876,reuseaddr OPEN:tomout.txt,creat
-#On client (zara-VM)
- socat -u FILE:test.txt TCP:46.101.11.172:9876
+#1 on server set PUTME variable (the name of the file you want to tranfer)
+PUTME=tom.txt
+#2 on client set the GETME variable (the name you want to give to the received file)
+GETME=tomreceived.txt
+#3 on server (must set listner first)
+socatsss
+#4 on Client
+socatssc
+#5 Transfers! 
 
-#alt line 1
-socat -u TCP-LISTEN:9876,reuseaddr OPEN:tomout.txt,creat && cat tomout.txt
+-- Notes --
 
+server socatsss (socat-server-sends-server)
+server socatssc (socat-server-sends-client)
 
-# See here
+alias socatsss='socat -u FILE:${PUTME} TCP-LISTEN:${MYPORT:-9876},reuseaddr'
+alias socatssc='socat -u TCP:${FROMIP:-46.101.11.172}:${MYPORT:-9876} OPEN:${GETME},creat'
+
+# ====  end server sends ====
+
+#C  See here
 http://unix.stackexchange.com/questions/22308/socat-reliable-file-transfer-over-tcp
