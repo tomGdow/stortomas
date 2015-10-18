@@ -344,3 +344,123 @@ var ngRouteModule = angular.module('ngRoute', ['ng'])
 # a route config object to 'otherwise' function. You still can, but if the route you
 # want to redirect to already has an entry in a 'when' routes function, you can just
 # pass the string that represents the route. 
+
+# the filter function works on arrays, and returns an array. 
+
+# Resolve Property.  
+# The resolve property is another property available on
+# the route configuration object that allows you to specify a list of dependencies that
+# will be injected into the controller when changing to the route. 
+# Most of the time you will configure that dependency to be a promise. 
+# When that is the case, the router will wait for the promise to be resolved before
+# continuing to the route. 
+
+
+.when('/EditBook/:bookID, {
+    templateUrl: '',
+		controller: '',
+		controllerAs: '',
+		resolve: {
+        books: function (dataService) {
+				    return dataService.getAllBooks();
+				}
+		}
+});
+
+
+# You set resolve property equal to an object,
+# where each property on the object represents a 
+# dependency that the router will wait on.
+# In above, just one named 'books'
+# It is set to a function that will return a promise
+# so that the router will wait for the promise to resolve.
+# In this case, the asynchronous call is retrieving data that
+# will will be displayed in the view. 
+# So that by defining the resolve here, we can wait for the
+# data to be available before displaying the new view. 
+# This can get rid of the problem you see occasionaly where 
+# a form will appear first followed a second or so later by 
+# the data 
+# In order to access the data returned from the promise, we just
+# need to inject the property we defined on the resolve 
+# into the controller. 
+# Since Brice named it 'books', just need to inject 'books' into the controller. 
+# That parameter will then contain the result of the resolve promise. 
+
+# $route Events 
+# The events fired when using the routes service 
+# There are several events fired related to routing
+# AND THESE ARE ALL BROADCAST on the $rootScope !!
+# In order to handle them, need to inject $rootScope to define 
+# event handlers.
+# use $rootScope.$on() to specify event types to listen for. 
+# The $route service defines four events
+#1 $routeChangeStart
+#  Fired BEFORE a route change while dependencies are resolved
+#  and view templates are retrieved.
+#2 $routeChangeSuccess
+#  Fires after all dependencies have been resolved. 
+#  This triggers the instantiation of the controller to be used
+#  on the new route. 
+#3 $routeChangeError
+#  Fires if any resolve properties are rejected. 
+#4 $routeUpdate 
+#  Fires when routes are being updated, and the same 
+#  instance of the controller will be used. 
+#  [Demo BookLogger]
+#
+# Angular modules have a function called 'run' when you can use to
+# add  any initialization code your module may need. 
+
+# $cookies and $cookieStore
+
+# Cookies have been around seemingly forever, but they are still
+# a convenient way to store small bits of data on the client. 
+# Angular makes it easy to continue to do that. 
+# The cookies services are available in the ngCookies module. 
+# If all you need to do is store a string value, you can use the $cookies service
+# Just inject it where you need it and inject a new property on it to hold the string
+# you want to store. You can retrieve it later by referring to the property you defined. 
+
+# If you need to store an OBJECT, you can use the $cookieStore service.  
+# It is 
+# 	1 Serialized/deserialized to and from JSON
+# 	2 get(key)
+# 	3 put (key, value)
+# 	4 remove(key)
+# Using this service only slightly more complex than using the $cookies service. 
+# Each object is stored with a key, which is string. 
+# You create a new cookie by calling the 'put' function on the service
+# and passing it a key and the object you want to store. 
+# You can then retrive the object by calling the 'get' function with
+# the key, or delete it by calling remove. 
+# You can easily create cookies in one service or controller and retrieve them
+# in another.
+# However, do NOT be tempted to use cookies to share data among controllers. 
+# A better way is to use custom services, covered in a later module. 
+
+# $log service.
+# We have seen Brice use 'console.log' in demos, which can be a handy 
+# debugging technique. 
+# The $log service was built with this in mind, and is just a simple wrapper 
+# around the most common functions on the console object.
+# functions:
+#  log()
+#  info()
+#  warn();
+#  error();
+#  debug();
+
+# Each of these functions just take a string as a parameter and output
+# to console by default. 
+
+# There is one small configurable piece you may want to take advantage of:
+# You can configure whether  or not calls to debug will be shown in the console
+# using the $logProvider.  
+# This can be handy as you can sprinkle calls to debug throught your code during 
+# development, and then as part of a production build process, disable the
+# outputting of those messages so your users will never see them. 
+# The $log service is very simple, but it can be made considerably more interesting
+# through the use of decorators. 
+# There is an entire module dedicated to decorators later in the course! 
+# [Demo BookLogger]

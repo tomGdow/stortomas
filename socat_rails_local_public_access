@@ -1,0 +1,60 @@
+# Enabling Public Access To Development Rails App
+
+# That is, run rails app with 'rails s' on local server (webbrick)
+# and  access the application PUBLICLY at, for example,  tomgdow.com:8090 
+# (ie from digital ocean droplet, port 8090) 
+ # From Developer Diary of Joon You (see ref at bottom of page)
+
+#1 Create rails project (on Virtual Machine)
+
+mkdir socat_rails_expt
+rails new socatextp
+rails generate scaffold Product name:string description:text price:float
+#fix routes
+rake db: migrate
+
+rails s &
+# make sure rails server is running! 
+
+#2 Open ssh tunnel
+# open ssh tunnel that binds port 8088 of remote machine to localhost:3000
+# Using digital ocean droplet as server 
+
+
+ssh -R 8088:localhost:3000  tomgdow@46.101.11.172 -N
+
+# (can also add ampersand in above command
+# ie ssh -R 8088:localhost:3000  tomgdow@46.101.11.172 -N &)
+
+#from blog 'This creates a tunnel that binds remote TCP port 8088 to local TCP port 3000.'
+# login ... 
+#from digital ocean droplet ... 
+curl localhost:8088
+#works
+
+#3 Open a Public Port On Server
+
+# open up a public port to route traffic to local machine
+# Do this using socat, as follows:
+ 
+ socat TCP-LISTEN:8090,fork,reuseaddr TCP-CONNECT:127.0.0.1:8088 &
+ 
+#'fg' brings it back to foreground. Then 'Ctrl-C' kills
+
+#4  Now access the Rails app publicly ...
+ 
+ tomgdow.com:8090
+ 
+ # Add product from remote site
+ # Check database on local machine. 
+ # It is there! 
+ # A goodie! 
+ 
+ #5 Notes
+ 
+ # See here
+ http://blog.rubyhead.com/2013/05/03/enabling-public-access-to-development-machine/
+ 
+ # From Developer Diary of Joon You
+ 
+ # Have checked on Virtual Box VM and Vagrant VM 

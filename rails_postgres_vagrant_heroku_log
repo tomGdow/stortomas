@@ -1,0 +1,105 @@
+# Rails using pg as sole db, developed on Vagrant VM
+# Deploy to Heroku (with Josef). 
+
+# With Josef, Fri night in NCI
+#1 Installed heroku toolbelt on vagrant/ubuntu vm
+wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+#2 Install PG
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get purge postgresql*
+sudo apt-get purge pgadmin3
+sudo apt-get install postgresql
+sudo -u postgres createuser -s vagrant
+sudo -u postgres psql
+\password vagrant
+*******$***
+#3 Create Rails App
+rails new pgrailsdeploy -d postgresql
+cd
+bundle install
+# Problem with bundle install pg gem fixed with the following
+sudo apt-get install libpq-dev
+# see here
+http://stackoverflow.com/a/20754173/499167
+bundle install
+# now works !
+
+#4 Github
+# Set up git repo 'pgrailsdeploy'
+https://github.com/tomGdow/pgrailsdeploy.git
+# configured pg in config/database.yml
+# now reads
+
+#=== start ====
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  timeout: 5000
+  
+  development:
+  <<: *default
+  database: pgrailsdeploy_development
+  username: vagrant
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  
+  test:
+  <<: *default
+  database: pgrailsdeploy_test
+  username: vagrant
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  
+  production:
+  <<: *default
+  database: pgrailsdeploy_production
+  username: vagrant
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  
+  == finish == 
+  
+# set ENV variable in .bashrc
+export PGRAILS_DATABASE_PASSWORD='*******$***'
+source ~/.bashrc
+
+rails generate scaffold Product name:string description:text price:float
+rake db:migrate
+## No database error
+rake db:create:all
+rake db:migrate
+
+#5 Deploy to Heroku 
+#5.1 Added the following to Gemfile
+ group :production do
+   gem 'rails_12factor'
+end
+#5.2 Added the following line to config/application.rb
+config.assets.initialize_on_precompile = false
+# Now ...
+bundle install
+git add .
+git commit -am "message"
+git push ...
+# Now push to Heroku
+heroku create
+git push heroku master
+heroku run rake db:migrate   # Essential!
+heroku rename vagrails
+http://vagrails.herokuapp.com/
+
+## Note ##
+# To Run Rails locally using passenger
+# add the following to Gemfile
+gem 'passenger'
+# now
+bundle install
+passenger start
+# view on localhost:3000
+# Works perfectly!
+

@@ -28,3 +28,34 @@ Connection to localhost 8081 port [tcp/tproxy] succeeded!
 
 
 # Usually will be port 8080, but had app already running on port 8080 when above done.  
+
+#2 === Rails Example ==
+# On zara -vm
+
+rails s -p 4000
+netstat -an | grep 4000
+socat TCP-LISTEN:3000,fork TCP:localhost:4000 &
+# now this works from Windows browser
+localhost:3000
+# More detailed analysis of above
+rails s -p 4000
+
+netstat -an | grep 4000
+tcp        0      0 127.0.0.1:4000          0.0.0.0:*               LISTEN     
+
+lsof -i
+COMMAND   PID   USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+ruby    32115 thomas    8u  IPv4 1309445      0t0  TCP localhost:4000 (LISTEN)
+
+socat TCP-LISTEN:3000,fork TCP:localhost:4000 &
+[1] 13991
+
+netstat -an | grep 4000
+tcp        0      0 127.0.0.1:4000          0.0.0.0:*               LISTEN     
+netstat -an | grep 3000
+tcp        0      0 0.0.0.0:3000            0.0.0.0:*               LISTEN     
+
+lsof -i
+COMMAND   PID   USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+socat   13991 thomas    3u  IPv4 1348924      0t0  TCP *:3000 (LISTEN)
+ruby    32115 thomas    8u  IPv4 1309445      0t0  TCP localhost:4000 (LISTEN)

@@ -1,0 +1,7 @@
+#1 Add the following to Gemfile
+gem 'passenger'
+#2 bundle install
+passenger start
+passenger start -b 0.0.0.0 
+# Above also needs to work
+#

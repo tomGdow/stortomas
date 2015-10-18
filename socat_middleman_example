@@ -1,0 +1,11 @@
+MiddleMan Socat  (start listeners first)
+#On zara-VM
+socat - tcp:192.168.1.6:5552  # do this last
+#On Digital Ocean Droplet (ipaddress is 46.101.11.172)
+socat -v PIPE tcp-listen:5553,fork
+
+#thomas-vostro-2520 (ipaddress is 192.168.1.6) 
+socat -v tcp-listen:5552,fork tcp:46.101.11.172:5553
+
+# Now on VM (zara-VM), type a message and press return
+# Will be echoed on Digital Ocean Droplet and on thomas-vostro-2520
