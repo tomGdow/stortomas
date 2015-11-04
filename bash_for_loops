@@ -1,0 +1,10 @@
+#1
+ for i in just a few words; do echo $i; done
+
+#2 The C-Style FOR Loop
+for (( INIT; TEST; UPDATE )); do
+> ;;loop code 
+done
+
+#see 
+bash_advanced_pluralsight 

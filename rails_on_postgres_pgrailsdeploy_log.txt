@@ -348,3 +348,23 @@ pgrailsdeploy_production=# select * from products;
 (2 rows)
 
 # --end --
+
+
+# -- Extra Extra --
+
+To DROP a database 
+
+postgres=# DROP DATABASE pgtomrails_production;
+# => DROP DATABASE
+postgres=# DROP DATABASE pgtomrails_test;
+# => DROP DATABASE
+## Dont forget about the semi-colon!
+
+
+# An Alternative way to connect to psql from command line
+# See here: http://stackoverflow.com/a/2172592/499167
+sudo -u postgres psql postgres
+# From within postgres 
+postgres=# \conninfo
+You are connected to database "postgres" as user "postgres" via socket in "/var/run/postgresql" at port "5432".
+postgres=# 

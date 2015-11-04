@@ -1,0 +1,35 @@
+Sed - An Introduction and Tutorial by Bruce Barnett
+# See here
+http://www.grymoire.com/Unix/Sed.html
+echo Sunday | sed 's/day/night/'  # Sunnight
+~[tgd] >echo Sunday | sed 's/day/(&)/' # Sun(day)
+~[tgd] >echo Sunday | sed 's:day:night(&):' # Sunnight(day)
+~[tgd] >echo Sunday | sed 's:day:(&):'  #  Sun(day)
+
+# Sed command to mimic grep
+sed -n '/PATTERN/p' file
+# Example
+  ls | grep socat
+  s | sed -n /socat/p
+
+# If you have many commands and they won't fit neatly on one line, 
+# you can break up the line using a backslash:
+
+sed -e 's/a/A/g' \
+    -e 's/e/E/g' \
+    -e 's/u/U/g'  <old >new
+
+sed --version
+sed --help
+
+# Sed comments are lines where the first non-white character is a "#."
+#
+If you wanted to delete the first number on line 3, 
+# just add a "3" before the command:
+
+  sed '3 s/[0-9][0-9]*//' <file >new
+  
+ # Useful sed
+ # print the first 10 lines of file
+ sed 10q < fiename. 
+

@@ -1,0 +1,5 @@
+sed -n '/PATTERN/p' file
+# Example
+ls | grep socat
+ls | sed -n /socat/p
+

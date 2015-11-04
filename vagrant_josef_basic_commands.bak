@@ -4,7 +4,7 @@ vagrant -v
 #This should return the version of Vagrant that is installed. 
 #2 Install a Vagrant box
 
-    vagrant box add Ubuntu/trusty64
+    vagrant box add ubuntu/trusty64
     
 #3 List installed Vagrant boxes
 
@@ -14,7 +14,7 @@ vagrant -v
 # Create a folder in a convenient location such as on the desktop
 #Navigate/cd into this folder and execute vagrant init {name of box} from the host command line
 
-    vagrant init Ubuntu/trusty64
+    vagrant init ubuntu/trusty64
     
 # This command will create a Vagrantfile file which contains the primary configuration for your Vagrant virtual development environment. 
 # It is written in Ruby, but there is no need to know Ruby.

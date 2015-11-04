@@ -1,0 +1,15 @@
+# See here
+http://www.grymoire.com/Unix/Regular.html
+Bruce Barnett
+# The C shell uses "!^" to specify the first argument
+# of the previous line, and "!$" is the last argument
+# on the previous line
+
+echo !$
+echo tompracice
+tompracice
+stortomas(master)[tgd] >grep ^A. < tompracice 
+A man shot a dog
+stortomas(master)[tgd] >echo !^
+echo ^A.
+^A.

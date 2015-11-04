@@ -1,0 +1,7 @@
+# To solve, just use Ctrl-q
+# See here
+http://unix.stackexchange.com/a/72092/139349
+# OR
+# add the following the .bashrc
+#so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
+stty -ixon

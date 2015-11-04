@@ -12,6 +12,7 @@ ps aux | grep postgres
 SHOW hba_file;
  /etc/postgresql/9.3/main/pg_hba.conf
  
+# login 
 sudo su - postgres
 whoami
 psql
@@ -40,8 +41,53 @@ select * from products;
 # Login as superuser
 # see here
 http://stackoverflow.com/a/9309377/499167
-# Login as superuser:
 
+
+# Two ways to login 
 sudo -u postgres psql
+#1
+sudo -u postgres psql postgres
+\conninfo
+# for above, see here
+http://stackoverflow.com/a/2172592/499167
 
- 
+#2 
+sudo su - postgres
+psql
+\l
+# From root of rails app
+rails db
+# Insert password
+#From within postgres
+tomgdow_development=# \conninfo
+You are connected to database "tomgdow_development" as user "thomas" on host "localhost" at port "5432".
+SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
+
+
+# Connect from root of Rail app (a gooodie)
+# From root of rails app
+rails db
+# Insert password
+#From within postgres
+tomgdow_development=# \conninfo
+You are connected to database "tomgdow_development" as user "thomas" on host "localhost" at port "5432".
+SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
+# See here ( Pramod Shinde comment) 
+http://stackoverflow.com/q/29870610/499167 
+
+
+# DROP DATABASE 
+sudo su - postgres
+psql
+\l
+postgres=# DROP DATABASE pgtomrails_production;
+# => DROP DATABASE
+postgres=# DROP DATABASE pgtomrails_test;
+# => DROP DATABASE
+## Dont forget about the semi-colon!
+# Make sure you get the 'DROP DATABASE' message
+
+# pg_shadow and pg_roles
+# From command line
+ psql  -d postgres -c 'select * from pg_shadow'
+ psql  -d postgres -c 'select * from pg_roles'

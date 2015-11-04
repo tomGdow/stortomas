@@ -1,0 +1,7 @@
+psql -lqt | cut -d \| -f 1 | grep -w pgzoe_production | wc -l
+# => 1
+psql -lqt | cut -d \| -f 1 | grep -w pgzoee_production | wc -l
+# => 0
+
+#See here
+http://stackoverflow.com/a/16783253/499167

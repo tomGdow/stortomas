@@ -24,3 +24,34 @@ rails new thomas && cd $_; bundle install; rails s -b 0.0.0 &
 # Check value of ENV variable from Rails Console 
 rails c  
 ENV["PGRAILS_DATABASE_PASSWORD"]
+# From bin directory of rails app, run the following
+
+
+
+# Get Database configurationns (done here with posgres)
+# See here (Rails docs)
+# http://guides.rubyonrails.org/configuring.html
+bin[tgd] >rails runner 'puts ActiveRecord::Base.configurations'
+
+{"default"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000}, "development"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000, "database"=>"tomgdow_development", "username"=>"thomas", "password"=>"Mysweet$ara", "host"=>"localhost", "port"=>5432}, "test"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000, "database"=>"tomgdow_test", "username"=>"thomas", "password"=>"Mysweet$ara", "host"=>"localhost", "port"=>5432}, "production"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000, "database"=>"tomgdow_production", "username"=>"thomas", "password"=>"Mysweet$ara"}}
+
+# Note that the password is there (unencrypted) 
+# From root of rails app
+
+
+# Connect to postgres from root of Rails app. 
+rails db
+# Insert password
+#From within postgres
+tomgdow_development=# \conninfo
+You are connected to database "tomgdow_development" as user "thomas" on host "localhost" at port "5432".
+SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
+
+
+# See here
+http://stackoverflow.com/q/29870610/499167   
+#( Pramod Shinde comment) 
+
+\dt 
+select * from products;
+

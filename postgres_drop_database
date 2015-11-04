@@ -1,0 +1,9 @@
+sudo su - postgres
+psql
+\l
+postgres=# DROP DATABASE pgtomrails_production;
+# => DROP DATABASE
+postgres=# DROP DATABASE pgtomrails_test;
+# => DROP DATABASE
+## Dont forget about the semi-colon!
+# Make sure you get the 'DROP DATABASE' message

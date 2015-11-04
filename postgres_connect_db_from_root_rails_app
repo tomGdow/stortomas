@@ -1,0 +1,16 @@
+# From root of rails app
+rails db
+# Insert password
+#From within postgres
+tomgdow_development=# \conninfo
+You are connected to database "tomgdow_development" as user "thomas" on host "localhost" at port "5432".
+SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
+
+
+# See here
+http://stackoverflow.com/q/29870610/499167   
+#( Pramod Shinde comment) 
+
+\dt 
+select * from products;
+

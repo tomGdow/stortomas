@@ -1,0 +1,11 @@
+# From bin directory of rails app, run the following
+
+bin[tgd] >rails runner 'puts ActiveRecord::Base.configurations'
+
+{"default"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000}, "development"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000, "database"=>"tomgdow_development", "username"=>"thomas", "password"=>"Mysweet$ara", "host"=>"localhost", "port"=>5432}, "test"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000, "database"=>"tomgdow_test", "username"=>"thomas", "password"=>"Mysweet$ara", "host"=>"localhost", "port"=>5432}, "production"=>{"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "timeout"=>5000, "database"=>"tomgdow_production", "username"=>"thomas", "password"=>"Mysweet$ara"}}
+
+# Note that the password is there (unencrypted) 
+
+
+#See here (Rails docs)
+guides.rubyonrails.org/configuring.html

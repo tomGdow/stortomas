@@ -1,0 +1,3 @@
+# From command line
+ psql  -d postgres -c 'select * from pg_shadow'
+ psql  -d postgres -c 'select * from pg_roles'

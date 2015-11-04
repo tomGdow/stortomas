@@ -464,3 +464,452 @@ var ngRouteModule = angular.module('ngRoute', ['ng'])
 # through the use of decorators. 
 # There is an entire module dedicated to decorators later in the course! 
 # [Demo BookLogger]
+
+# To disable $log.debug 
+#1 Inject $logProvider into app.config (in app.js)
+#2 call the following
+$logProvider.debugEnabled(false);
+
+# Networking 
+#1 $HTTP Service 
+# It is just a function
+# You pass to is a configuration OBJECT that specifies the details
+# about the type of request and the how it should be performed.
+# The function RETURNS a promise just like any other promise
+# except that there are two additional methods: success and error. 
+# The $http configuration object contains all the details about
+# how the request should be executed.  It is just an object literal
+# you pass to the $Http service
+# The method property specifies the HTTP verb
+# The url property is where you speicify url
+# where the request should be sent. May be specified
+# as absolute or relative url. 
+# The params property lets you specify key-value pairs that
+# will be APPENDED to the url 
+# The data property is used to send data to the server
+# Essentially the body of the $HTTP request
+# The headers property is an object that allow you to 
+# specify addtional HTTP headers to include with the request
+# The cache property is a simple boolean that specifies whether
+# or not Angular should cache the request. If set to 'true', the
+# request will be cached in the default HTTP cache. 'False' will
+# disable caching. You can also specify a cache object if you want
+# to perform caching using something other than the default. 
+
+# Now let's talk about the RESPONSE OBJECT that the HTTP request
+# generates.
+# The first thing to note is that is does not actually return
+# a response object.  It returns a promise, and the response object
+# will be passed as a parameter to the callback functions that
+# process the promise. 
+# Contains serveral properties
+# The data property contains the body of the response. If you
+# were making a request for JSON data, for example, the raw
+# JSON would be stored in the JSON property
+# The STATUS property contains the HTTP status code
+# - 200 for OK, 404 for not found.
+# the statusText property contains the corresponding HTTP
+# status message. 
+# You can use the headers property to access the Http response
+# headers. This property actually returns a function and you
+# pass to it an optional header name. 
+# Finally the config property contains the config object that was
+# passed to the HTTP service when the request was made. You have
+# access to everything about the request while working with the response. 
+
+# Promises returned flrom %http
+
+$http({ 
+    method: 'GET',
+		url: 'api/books'
+		})
+		.success(function(data, status, headers, config) {
+		    // do success stuff
+		})
+		.error(function(data, status, headers, config) {
+		    // do error stuff
+				});
+
+# The 'success' and 'error' functions are just convenient
+# addtional functions that give you a way to register 
+# callbacks to process the HTTP response. 
+# Responses for the statuss  code between 200 and 299 are
+# considered successful and will trigger the success callback.
+# Any other status code will trigger the error callback 
+#
+# The success and error functions are each passed a function as
+# a parameter.  Those functions are passed a decomposed version
+# of a HTTP response object. Rather than receiving a single parameter
+# that is the response object, these functions receive four
+# different parameters containing data available in the response. 
+# It is for this reason that Bryce DO NOT normally use the
+# 'success' and 'error' functions. He thinks that sticking to the
+# normal promise API produces cleaner, simpler and more consistent
+# code. But nearly identical to how AJAX responses are processed
+# in jQuery. But learn how to use promise API. 
+
+# HOW to return a promise from a HTTP call
+
+function getAllBooks () {
+    return $http({
+		    method: 'GET',
+				url: 	  'api/books'
+		});
+}
+
+# VERY easy to write code such as the above
+# HOWEVER, a couple of reasons Bryce does not like!
+#1 Forces the caller to process the http response object
+#  in order to get the data it was requesting. 
+#2 This technique exposes the  details of how the data are
+#  gathered which are leaked to other components. 
+# Better to encapuslate those details inside the service
+# making the HTTP call, and only expose to the caller the data
+# it wants. 
+# Let's look at example
+
+# Abstract HTTP Response Away from Caller
+function (getAllBooks) {
+    
+		return $http({
+		    method: 'GET',
+				url:    'api/books'
+		})
+		.then(sendResponseData)
+		.catch(sendGetBooksError)
+
+}
+
+function sendResponseData(response) {
+    return response.data;
+
+		function sendResponseData(response) {
+	
+	    return response.data;
+	}
+
+	function sendGetBooksError(response) {
+	    return $q.reject('Error' + response.status);
+	}
+
+	function sendResponseData(response) {
+
+    return response.data;
+}
+
+function sendGetBooksError(response) {
+    return $q.reject('Error' + response.status);
+}
+
+function sendResponseData(response) {
+    return response.data;
+}
+
+function sendGetBooksError(response) {
+    return $q.reject('Error' + response.status);
+}
+
+function sendResponseData(response) {
+    return response.data;
+}
+
+function sendGetBooksError(response) {
+    return $q.reject('Error' + response.status);
+}
+
+function sendResponseData(response) {
+    return response.data;
+}
+
+function sendGetBooksError(response) {
+    return $q.reject('Error' + response.status);
+}
+
+function sendResponseData(response) {
+    return response.data;
+}
+
+function sendGetBooksError(response) {
+    return $q.reject('Error' + response.status);
+}
+
+# In the above code, rather than simply return the
+# promise from the HTTP call, I chain it to a call to
+# 'then' and 'catch'. That allows me to process the
+# response with the callback passed to those functions
+# and still return a promise to the caller, since 'then'
+# and 'catch' both return promises. 
+# The parameters passed to 'then' and 'catch' will be the
+# HTTP response object. This allows me to encapsulate 
+# all the details of dealing with HTTP right here in my
+# data servcice.  The caller, which is probably on of the
+# controllers in my app, can just call 'getAllBooks() and 
+# not worry about the details. 
+# The data service can now examine the response object and
+# take whataever action is necessary. 
+# The details of how the data are gathered and processed. 
+# are encapsulated in the data service. The calling controller
+# can just make a call to 'getAllBooks()' and know that the
+# promise returned will either be resolved with exactly the 
+# data it needs, or a reason why it was unavailable. 
+
+# Rest-ful Services
+# Representational State transfer
+# An architectural pattern for moving data around
+# Brice prefers the terms 'Web API' or 'HTTP API' to
+# 'REST', as the latter term can have a lot of baggage.
+# REST 
+#1 Uses HTTP verbs to speify CRUD operations
+#2 Use URL conventions to address individual
+#  as well as collections of resources
+#3 HTTP response codes indicate the server action for
+#  success/failure
+# Examples
+# CREATE
+#     POST http://localhost/api/books
+#     If successful, return HTTP 201 created
+# READ
+#     GET http://localhost/api/books OR http://localhost/api/books/5
+#     If successful, return HTTP 200 success
+# UPDATE
+#     PUT http://localhost/api/books/5
+#     If successful, return HTTP 204 No Content
+# DELETE
+#     DELETE http://localhost/api/books/5
+#     If successful, return HTTP 204 No Content
+
+# No need to send anything in the body of a delete request.
+
+# [Demo BookLogger]
+# In demo, will replace data hardcoded in dataService with actual
+# data in Web service. 
+# Just as a quic reminder, the Webservice for the BookLogger app is
+# a very simple nodejs application. All of the required code and
+# files are included with the downloads, and IS ALL INSIDE THE
+# SERVER FOLDER. 
+# All data stored in simple text files (no db connections to bother with)
+
+# $Http Shortcue methods
+# In demo, make all HTTP calls using the $http service as a function. That technique
+# gives you the most flexibility. 
+# Shortcuts.
+# The function names on the shortcut service match the HTTP verb that will
+# be used for the request. 
+#1  GET shortcut
+  $http.get(url, [config]) #  config object is optional
+#2  DELETE shortcut
+  $http.delete(url, [config]) 
+#3 POST shortcut
+  $http.post(url, data, [config])
+#4 PUT
+  $http.put(url, data, [config]) 
+
+# Other shortcut functions available are HEAD, JSONP and PATCH
+
+# All shortcut functions take url as first parameter, and can optionally
+# pass them a configuration object. 
+# [DEMO BookLoggger]
+#
+# Transforming Requests and Responses.
+# It can be helpful to shape 'third-party' data before it is
+# send to or received by the server. 
+# Angular provides a mechanism for transforming data sent and received by
+# the $HTTP service so that the client and server always get it in exactly
+# the same form.
+# A transformation function conceptually sits between the client application
+# and the server. It can then examine the data send in the body of a http
+# request and manipulate it, before letting it continue on its way to the
+# server.  
+# Similarly, you can also configure a transformation function to receive
+# data from the server and transform it before handing it off to the client. 
+
+# Transformations can be a single function or an array of functions.
+# If it is AN ARRAY, each of the funcions will be applied in the order
+# that they appear in the array. 
+# Angular provides default transformations for both requests and responses.
+$http.defaults.transformRequest
+$http.defaults.transformResponse
+# They can be accessed as properties on the $http.defaults object. 
+# Can override defaults on $http configuration object
+
+# Interceptors
+# Conceptually similar to transformations. 
+# Interceptors give you a method to intercept  and modify
+# the $http object before a request is sent to the server
+# and the response objects before they are handed over to your
+# application.  
+# They are implementes as a service factory, and you use them my
+# adding them to the $httpProvider.inceptors array. 
+# There are two kinds of interceptors
+# Request and Response.
+# There are also two kinds of rejection interceptors, which
+# intercept errors related to request and responses. 
+# [Demo Book Logger] 
+# Interceptors are implemented as Services
+
+# Last big topic of this module
+# $resource Service
+# Essenntially an abstraction layer above $http
+# Works with REST-ful web services
+# So if the web service you are using generally follows the REST
+# guidlines (outlined above), then the $resouce service can 
+# provide you with a quick and easy way to hook up your app
+# to that service. 
+# The service is a FACTORY that returns the resource with commonly
+# used server methods aleady implemented. 
+# For instance, it includes methods to query a collection of
+# items from the server, as well as a method to query an individual
+# item.
+# Equivalent to the getAllBooks and getBookByID implemented in 
+# BookLoggger app. 
+# It also includes methods to add and delete items. 
+
+# The biggest benefit of the $resource service is that it allows
+# you to quickly connect your  app to a web service with a lot less
+# initial code than you might write if you were using the $http service
+# directly. 
+# One important concept to understand while working with the $resource service
+# it the differece between $resouce CLASSES and INSTANCES
+# These are terms used in Angular documentation
+# A resource CLASS in the value returned from directly calling 
+# the $resource service
+
+#  // Create a resource "class"
+
+  var Books = $resource('/api/books/:book_id');
+
+# You pass the service a url template, and optionally some 
+# configuration information, and it returns what the documentation
+# calls a $resource class. The class has some default methods that
+# allow you to interact with data available at the specified url
+
+# You can use the $resource class to retrieve $rescource instances
+
+# // Create a resouce "instance"
+
+  var book = Books.get({book_id: 5});
+
+# In the above example, Brice is calling the 'get' method on the
+# class to retrived the book with a book_id of 5
+# The specific book retrieved is a RESOURCE INSTANCE
+# It will have all the normal book properties like 'title', 'author' etc
+# but it willl also have the same set of methods that are defined on the
+# $resouce class, so that you can easily perform operations on that 
+# particular instance.
+
+# There ARE some difference in the properties and  methods
+# available on $resource classes and $resource instances. 
+#1 Classes
+get() # retrieve a particular item
+save() # create a new item
+query() # allows you to retrive all items
+remove()
+delete()
+# Custom methods may also be defined
+
+#2 Instances (similar but additional items)
+# Have all the entity properties you would expect (title, author, etc) 
+$promise  # // access to the underlying promise when communicating with
+# the server asynchronously
+$resolved # A boolean that lets you know if the promise has been resolved
+#yet or not 
+# Instances also include a set of methods that match those on the $resource
+# class
+$get()
+$save()
+$query()
+$remove()
+$delete()
+# Custom methods (with $ prefix) 
+
+# Brice prefers $http over $resoure because of the control the former offers. 
+# Will demonstrate a 'quick and easy' data service, to allow quick wiring up
+# of CRUD functionality
+
+# Caching and Sharing Data
+# Topic 1: $cacheFactor
+# Topic 2: Caching $http requests
+# Topic 3: Custom services to share data between controllers in your app
+
+# There are a number of ways to solve the data sharing problem, bu Brice thinks
+# services are a clean and simple way to encapsulate similar functionality 
+# and data so that it can be used whereever it is needed. 
+
+# Caching data in angular begins with cache factory service, $cacheFactory
+# $cacheFactory creates cache objects
+# The data you want to store is associated with cache object
+# Will probably find that get most benefit from caching by using it in
+# conjunction with the $http service
+
+# Using the $cacheFactory 
+
+var dataCache = $cacheFactory('bookLoggerCache');
+
+# To create a new cache object, you call the service like a function
+# and pass it a string that will be the name of the newly created object
+# To retrieve a previously created object from cache factory,
+# just call 'get' method. 
+
+var dataCache = $cacheFactory.get('bookLoggerCache');
+
+# By injecting the cache factory service into different controllers,
+# you can retrieve and access the data on a cache object in multiple
+# controllers and in multiple places in you app
+# One method for shaing data. Can also use custom services.
+# It is cache OBJECTS that are used to manage data in caches 
+# Cache objects have several straightforward methods on them
+put(key, value) # // Adds a new value to the object
+#Pass it a key, which is the way you will refer to the value
+# followed by the value you want to store.
+get(key) # // To retrive a value 
+remove(key) 
+removeAll() 
+destroy()  # // deletes the entire cache object, and remove it from set
+# objects maintained by the cache factory. 
+info () # // returns some basic info about the cache object, such as
+# name and size. 
+# [Demo] BookLogger App. 
+# Add a new feature to the bookLogger app.
+# Want to gather and calculate some very basic summary data about the 
+# number of books and readers. Want to display on Home screen of App, but I
+# don't want to retrive and calculate it every time the screen loads. 
+# So we will cache it until we determine the source data has changed. 
+# First thing need to do in inject the $cacheFactory ... 
+# [Demo, BookLogger ...]
+
+# $Http Caching
+# To enable caching for an http request, set
+# the cache property on the http configuration object to TRUE
+# Angular will then cache $httpResponse object in the default $http
+# cache.
+# If you would prefer to cache the response in your own cache object, you
+# can specify that object as the value of cache property instead of simply
+# specifying 'true'
+# As we have already seen, items are stored in cache objects as
+# key-value pairs.  When you cache an http request, the URL is the
+# cache key (that is, the url specified on the http config object) 
+# The actual value that is cached is the http response object. 
+# The promise returned from the http service will be resolved with the
+# cached response object. 
+# The processing of the call will behave as if the call had actually gone
+# to the server.  
+
+# $httpCacheObjects
+# // use the default $http cache object
+
+  return $http({
+	    method: 'GET',
+			url:    'api/books',
+			cache:  true
+			});
+
+# // use a custom cache object
+
+  var dataCache = $cacheFactory.get('bookLoggerCache');
+  return $http({
+	    method: 'GET',
+			url:    'api/books',
+			cache:  dataCache
+			});
+
+# [Demo BookLogger]
