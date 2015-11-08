@@ -1,0 +1,6 @@
+# On digital ocean, say, to expose a Rails app running locally to public access
+rails s
+socat TCP-LISTEN:8090,fork TCP:localhost:3000
+# Now rails app running locally on digital ocean is
+# available publically at
+tomgdow.com:8090
