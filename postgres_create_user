@@ -1,0 +1,7 @@
+sudo -u postgres createuser -s tomgdow
+sudo -u postgres psql
+\password tomgdow
+*******$***
+
+# See  rails_on_postgres_pgrailsdeploy_log.txt
+#about line 136
