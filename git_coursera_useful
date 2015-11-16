@@ -1,0 +1,4 @@
+
+git status .
+git ls-files .
+git add -u adds everything not already under version control
