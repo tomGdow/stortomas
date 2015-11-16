@@ -1,0 +1,4 @@
+
+gem install passenger
+passenger start
+localhost:3000
