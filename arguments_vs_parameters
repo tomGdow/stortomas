@@ -1,0 +1,7 @@
+You define parameters, and you make arguments
+
+A parameter is a variable in a method definition. When a method is called, the arguments are the data you pass into the method's parameters.
+
+# See here
+
+http://stackoverflow.com/a/156787/499167
