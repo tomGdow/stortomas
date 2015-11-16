@@ -1,0 +1,230 @@
+compiled vs interpreted language
+# Not so much a feature of language syntax as of how language is converted into
+# machine instructions
+
+# Interpreter
+    takes commands one at a time, converts them into machine code, and executes
+	allows interactive programming at a shell prompt, as in python or Mathlab
+	can't take advantage fo optimizing over an entire program
+	  does not know what is coming next
+	must translate each command while running the code,
+	possibly many times over loop 
+# Compiled language
+    The program must be written in one or more files (source code)
+	These files are input data for the compileer, which is a computer
+	program that anlayzes the source code and converts it into object code
+	the object code is than passed to a linker or loader that turns one or
+	more objects into an exectable
+	why two steps?
+	Object code contains symbols such as variable that may be
+	defined in other objects.  Linkder resolves such symbols and
+	converts them into addressses in memory
+	Often large programs consist of many separate files and/or
+	library routines - don't want to re-compile them all when only
+	one is changed. (Later we'll use Makefiles) 
+	
+# Fortran History
+    Prior to Fortran, programs written in machine code or assembly language
+	# Fortran = FORmula TRANslator
+	
+	Fortran 1: 1954 -1957 followed by Fortran II, III, IV, Fortran 66, (ie 1966)
+	Major changes in Fortran 77, which is still widely used
+	
+	Tony Hoare, 1982, 'I don't know wht the language of the year 2000 will
+	look like, but I know it will be called Fortran'
+	
+	Major changes again from Fortran 77 to Fortran 90
+	
+	Fortran 95 Minor changes
+	
+	WE WILL USE Fortran 90/95
+	
+	gfortran GNU open source compiler
+	Several commercial compilers also available
+	
+	Big difference in syntax between Fortran 77 and Fortran 90/95
+	
+	Fortran 77 Still widely used
+	   Legacy codes (written long ago, millions of lines of code
+	   Faster for some things
+	
+	Note: in general adding more high-level programming features
+	to a language makes it harder for compiler to optimized into
+	fast-running code. 
+	
+	Pointers used in C not used in Fortran
+	
+    One big difference Fortran 77 and prior versions
+	required fixed format of lines
+	Executable statements must start in column 7 or greater
+	Only first 72 columns are used, the rest is ignored! 
+	
+Fortran 90: free format
+    Indentation is optional but highly recommended
+	gfortran will compile Fortran 77 or 90/95
+	Use file extension .f for fixed format (column 7 ...)
+	Use file extension .f90 for free format
+	
+! UWHPSC/codes/fortran exampe1.f90
+program example1
+    implicit none
+	real (kind=8)  :: x, y, z
+	
+	x = 3.d0
+	y = 1.d-1
+	z = x + y
+	print *, "z = ", z
+end program example1
+
+NOTES:
+    Indentation optional (but make it readable!)
+	First declaration of variables, then executable statements
+	'implicit none' means all variables must be declared
+	'd0' is double precision
+	'y=1.d-1' means y is 0.1
+	'kind=8' means 8-byte double precision
+	'four-byte' is single precision
+	'*' in print statement means not specifiying a particular format
+	
+Compiling and running Fortran
+   suppose 'example1.f90 contains this program
+   Then:
+ $ gfortran example1.f90
+   compiles and links and creates an EXECUTABLE named a.out 
+   (default .out is default, but may change)
+   
+  To run the code after compiling
+   
+  ./a.out  # => z = 3/20000000000000 
+
+   The command ./a.out executess this file (in the current
+   directory).
+
+   Can give executable a different name with -o flag
+    
+	$ gfortran example1.f90 -o example1.exe
+   
+    $ ./example1.exe # => Same result
+	
+	Can separate link and compile steps
+	
+	$ gfortran -c example1.f90 # creates exampl1.o
+	$ gfortran example1.o -o example1.exe
+	$ ./example1.exe  # => Same result
+	
+   #Variables refer to particular storage locations,
+   # must declare variable to be a particular type
+   and this won't change
+   The statement 
+       implicit none
+	means all variables muse be explicitly declared
+	
+	Otherwise you can use a variable without prior
+	declaration and the type will depend on what letter the name
+	starts with
+	Default:
+	  integer if i,j,k,l,m,n
+	  real (kind=4) otherwise (single precision
+	Many older Fortran codes use this convention
+	
+	MUCH Safer to use implite none for clarity,
+	  and to help avoid typos
+	  
+	
+	Old fortran 77 did not have implicit none statement
+	
+Fortran array and loops
+   
+    ! $UWHPSC/codes/fortran/loop1.f90
+	program loop1
+	    implicit none
+		integer, parameter :: n = 10000
+		real (kind=8), dimension(n)  :: x, y
+		integer :: i
+		
+		do i=1,n
+		  x(i) = 3.d0 * i
+		  enddo
+		
+		do i=1,n
+		  y(i) = 2.d0 * x(i)
+		  enddo
+		
+		print *, "Last y computed: ", y(n)
+	end program loop1
+	
+'parameter' means not a variable (gives more info to compiler)
+not going to change during program execution. 
+
+#Comments
+    integer, parameter means this value wont be changed
+    dimension (n) :: x, y means these are arrays of length n
+
+    Fortran uses parentheses rather than (as in python) square brackets
+    for the elements of the array
+	
+	instead of endo, can also use labels ...
+	do 100 1=1,n
+	    x(i) = 3.d0 * i
+	100 continue
+	
+	The number 100 is arbitrary. Useful for long loops
+	Often seen in older code
+	
+# Fortan if-then-else
+
+    ! $UWHPC/codes/fortran/ifelse1.90
+	
+	program ifelse1
+	    implicit none
+		real(kind=8) :: x
+		integer :: i
+		
+		i = 3
+		
+		if (i<=2) then
+		    print *, "i is less than or equal to 2"
+		else if (i /=5) then
+		    print *, "i is greater than 2, not equal to 5"
+		else
+		    print *, "i is equal to 5"
+		endif
+	end program ifelse1
+
+#Booleans: .true. .false.
+    (In fortran, logical statements)
+	
+Comparisons:
+< or .lt.  <= or .le.
+> ro .gt.  >= or .ge.
+== or .eq . /= or .ne.
+
+if ((i >= 5)) .and. (i < 12)) then
+
+if (((i .lt. 5) .or. (i .ge. 12)) .and. &
+(i .ne. 20)) then
+
+#Note:  '&' is the Fortran continuation character.
+    Statement continues on the next line 
+	
+#Example
+
+    ! $UWHPSC/codes/fortran/boolean1.f90
+	program boolean1
+	    implicit none
+		integer :: i,k
+		logical :: ever_zero
+		ever_zero = .false.
+		do i=1,10
+		    k = 3*i - 1
+			ever_zero = (ever_zero .or. (k==0) )
+			enddo
+		
+		if (ever_zero) then
+		    print *, "3*i -1 takes the value 0 foor some i"
+		else
+		    print *, "3*i - 1 is never 0 for i tested"
+		endif
+	end program boolean1
+	
+# End week 3, lecture 7
