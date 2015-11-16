@@ -1,0 +1,144 @@
+
+Python is an OO general purpose language
+++
+    can be used interactively from a Python shell
+	(same as Mathlab)
+	Can also write scripts to execute from Unix Shell
+	Little overhead to start programmming
+	Powerful modern language
+	Many modules are available for specialized work
+	Good Graphics and visualization moduless
+	Easy to combine with other languages  (eg Fortran)
+	Open source and runs on all platforms
+	
+--
+    Can be slow to do certain things, such as looping over arrays
+	Code is interpreted rather than compiled
+	Need to use suitable modules (such as numPy)
+	
+Can easily create custom modules from compiled code written in
+Fortran, , etc.
+
+Can also use extensio such as Cython that makes it easier to mix
+Python code with C code that will be compiled
+
+Python is often sed for high-level scritps that eg download
+data from the web, run a set of experiments, collate and
+plot results
+
+Nearly everything in python is an object of some class
+The class description tells what data the object holds
+(attributes) and what operations (methods or functions) 
+are defined to interact with the object 
+
+Every 'variable' is really just a pointer to some object.
+you can reset it to point to some other object at will
+
+So variables don't have 'type' (eg Integer, float, string)
+(But objects they currently point to do)
+
+>>> print id(x), type(x)
+In python a list is mutable
+a tuple is like a list but immutable
+Instead of square brackets, use parentheses
+
+Python modules
+from numpy import sqrt
+
+When you import modname, Python looks on its search path
+for the file called modname.py
+
+You can add more directories using the Unix environment variable
+PYTHONPATH
+
+Or, in Python, using the sys modue
+>>> import sys
+>>> sys.path
+>>> sys.path.append('new directory') # returns list of directories
+
+The empty string '' in the search path means 'look first in the
+current directory'
+
+from numpy import *  # not inside function
+import numpy
+# NOW
+numpy.sqrt(2.)
+import numpy as np
+ipython --pylab
+
+
+Graphics and visualization
+
+# Many tools available
+Some open source options
+    matplotlib    for 1d-plots and 2d plots
+	Mayavi        for 3D plots
+#Mayavi is easiest to get going by installing
+# the Enthought Python Distribution (EPD)
+(also includes NumPy, SciPy, matplotlib) 
+
+ipython --pylab
+
+L = [1,2,3]
+2*L # [1,2,3,1,2,3]
+# So... use numPy array
+a = array (L)
+a*2
+
+x = linspace(0, 5 * pi, 100)
+y = cos(x)
+plot(x,y) 
+clf() # clears frame
+plot(x, -y, 'r--')  # red dashed line 
+figure()
+subplot(2,2,1)
+
+ipython notebooks 
+
+ipython notebook --pylab inline
+
+mate lectur4pyetc
+git add !$
+
+Unlike lists, all element in a numPy array are of the same type
+
+Python modules often end with a section that look like this
+
+if __name__ == "__main__":
+
+# Some code
+
+This code is NOT executed if the file is imported as a module, but
+is only executed if the file is run as a script eg
+$ python filename.py
+
+in python 'underscore-underscore' used to signify a 'private' variable
+
+in python 
+>>> execfile("filename.py")
+in ipython
+run filename.py
+
+time sqrt(2.)
+#better
+timeit sqrt2(2).
+
+time (unix command)
+xming
+chmod 755 public
+sudo ls -s public /var/www/public
+
+In python can separate commands on same line with semicolon
+
+Debugging with pdb
+import pdb; pdb.set_trace()
+list
+x
+h
+c
+# In ipython can turn on auto pdb calling
+pdb
+
+from mysqrt import sqrt2
+from numpy import *
+import mysqrt.py
