@@ -1,3 +1,4 @@
+
 #Unix/Ubuntu Tutorial
 mkdir unixtutorial && cd $_
 mkdir mydir{a..c}
@@ -8,6 +9,7 @@ ls
 echo "Hello from myfile1" >> myfile1.txt
 cat myfile1.txt
 cp myfile1.txt myfile1_copy.txt
+ls | grep copy
 mv myfile1_copy.txt myfile1_alt.txt
 ls
 ls | grep copy
@@ -19,6 +21,7 @@ echo "This is another line" >> myfile1_alt.txt
 cat myfile1_alt.txt
 wc -l myfile1_alt.txt
 wc -l < myfile1_alt.txt
+ls ../mydira/
 ls ../mydira/ | wc -l
 #Set an env variable (for 'MDB' read 'my directory B')
 # Make sure you are in 'mydirb' before executing next command
@@ -47,6 +50,8 @@ cd $MYU
 rm -rf mydirb/*
 cp $MDA/* $MDB
 cd $MDB && ls
+rm -rf my*[1-3].txt
+ls | wc -l
 
 ## GIT PRACTICE
 cd $MYU
@@ -84,6 +89,8 @@ Q2 The command 'mkdir unixtutorial && cd $_' can be done
    into it?
 Q3 What is the command 'mkdir mydir{a..c} doing?
    What is the function of the curly braces?
+   What is 'brace expansion' in unix/ubuntu? 
+   Can you use 'range' with brace expansion? 
    What is the function of the two dots in 'a..c'
 Q4 Explain the command 'echo "Hello from myfile1" >> myfile1.txt'
 Q5 What does the command 'cp myfile1.txt myfile1_copy.txt' do?
@@ -96,6 +103,8 @@ Q11 What does the command 'echo "This is another line" >> myfile1_alt.txt' do?
 Q12 What does the command 'wc -l myfile1_alt.txt' do?
 Q13 And the command 'wc -l < myfile1_alt.txt' ?
 Q14 And the commmands 'ls | wc -l' and 'ls ../mydira/ | wc -l' ? 
+Q15b What does the pipe symbol ('|') do? 
+Q15c what does the command 'cd ..' do 
 Q15 (An important one to understand) What does the command ' MDB="$(pwd)" ' do?
 Q16 What are the command  'cd $MDB && ls' doing? 
 Q17 What are the command  'cd -' do? 
@@ -105,21 +114,21 @@ Q19 What does the command 'ls  $MDA/* ' do?
 Q20 What does the command 'cp  $MDA/* unixtutorial/mydirc/' do?
 Q21 What does the command 'rm -rf mydirb/*' do? 
 Q22 What does the command 'cp $MDA/* $MDB' do?
-Q23 What does 'git checkout 21031dca3d714' do?
+Q23 What does the command 'rm -rf my*[1-3].txt' do? 
+Q24 What does 'git checkout 21031dca3d714' do?
     How many lines in the file?
-Q24 What does the commmand 'git checkout master' do?
+Q25 What does the commmand 'git checkout master' do?
 Q26 Why no 'git push' in the above example? 
-Q26 What does the command 'echo "Hello $(whoami)" ' do? 
+Q27 What does the command 'echo "Hello $(whoami)" ' do? 
     How does it work?
     What is the construct "$(whoami)" called?
     What is 'command substitution in Unix/Ubunutu?
     Would 'echo "Hello ${whomai}" ' work?  
     why/why not? 
-Q27 Why does 'echo "The value of 'MYU' is  ${MYU}" ' work? 
+Q28 Why does 'echo "The value of 'MYU' is  ${MYU}" ' work? 
     Would  'echo "The value of 'MYU' is  $(MYU)" ' work? 
     Why/why not? 
     
-
 
 
 
