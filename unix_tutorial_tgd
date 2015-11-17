@@ -1,0 +1,128 @@
+#Unix/Ubuntu Tutorial
+mkdir unixtutorial && cd $_
+mkdir mydir{a..c}
+ls
+cd mydira
+touch myfile{1..10}.txt
+ls
+echo "Hello from myfile1" >> myfile1.txt
+cat myfile1.txt
+cp myfile1.txt myfile1_copy.txt
+mv myfile1_copy.txt myfile1_alt.txt
+ls
+ls | grep copy
+ls | grep alt
+cp myfile1.txt ../mydirb/
+mv myfile1_alt.txt ../mydirb/
+cd ../mydirb && ls
+echo "This is another line" >> myfile1_alt.txt 
+cat myfile1_alt.txt
+wc -l myfile1_alt.txt
+wc -l < myfile1_alt.txt
+ls ../mydira/ | wc -l
+#Set an env variable (for 'MDB' read 'my directory B')
+# Make sure you are in 'mydirb' before executing next command
+MDB="$(pwd)"
+echo $MDB
+cd  && ls 
+cd $MDB && ls
+cd 
+cd -
+ls
+!!
+cd ../mydira/
+MDA="$(pwd)"
+echo $MDA
+cd  
+# should now be in your 'home' directory
+ls  $MDA/* 
+cp  $MDA/* unixtutorial/mydirc/
+cd unixtutorial/mydirc/ && ls
+cd ..
+MYU="$(pwd)"
+# for 'MYU' read 'MY Unix Directory'
+echo $MYU
+cd 
+cd $MYU
+rm -rf mydirb/*
+cp $MDA/* $MDB
+cd $MDB && ls
+
+## GIT PRACTICE
+cd $MYU
+mkdir mygit && cd $_
+touch gitfile1.txt
+echo "This is commit one" >> gitfile1.txt
+cat gitfile1.txt
+git init
+git add .
+git commit -am "first commit"
+git status
+echo "second commit" >> gitfile1.txt
+cat gitfile1.txt
+wc -l < gitfile1.txt
+git ad..
+git commit -am "second commit"
+git status
+git log
+git checkout 21031dca3d714  ## SUBSTITUTE the first 8 or more characters of COMMIT 1 uid instead of '21031dca3d714' here
+cat gitfile1.txt
+wc -l < gitfile1.txt
+git checkout master
+cat gitfile1.txt
+wc -l < gitfile1.txt
+
+## Extra Extra
+echo "Hello $(whoami)"
+echo "The value of 'MYU' is  ${MYU}"
+
+## Questions 
+Q1 What does '$_' do in the command 'mkdir unixtutorial && cd $_'? 
+Q2 The command 'mkdir unixtutorial && cd $_' can be done
+   in at least two different ways. 
+   What are some other ways of making a directory and 'cd-ing' 
+   into it?
+Q3 What is the command 'mkdir mydir{a..c} doing?
+   What is the function of the curly braces?
+   What is the function of the two dots in 'a..c'
+Q4 Explain the command 'echo "Hello from myfile1" >> myfile1.txt'
+Q5 What does the command 'cp myfile1.txt myfile1_copy.txt' do?
+Q6 What does the command 'mv myfile1_copy.txt myfile1_alt.txt' do?
+Q7 What does 'ls | grep copy' do?
+Q8 What does 'grep' stand for?
+Q9 What does the command 'cp myfile1.txt ../mydirb/' do?
+Q10 What does the command 'mv myfile1_alt.txt ../mydirb/' do?
+Q11 What does the command 'echo "This is another line" >> myfile1_alt.txt' do?
+Q12 What does the command 'wc -l myfile1_alt.txt' do?
+Q13 And the command 'wc -l < myfile1_alt.txt' ?
+Q14 And the commmands 'ls | wc -l' and 'ls ../mydira/ | wc -l' ? 
+Q15 (An important one to understand) What does the command ' MDB="$(pwd)" ' do?
+Q16 What are the command  'cd $MDB && ls' doing? 
+Q17 What are the command  'cd -' do? 
+Q18 What does the command '!!' do?
+Q19 What does the command 'ls  $MDA/* ' do?
+    What is the function of the '*'
+Q20 What does the command 'cp  $MDA/* unixtutorial/mydirc/' do?
+Q21 What does the command 'rm -rf mydirb/*' do? 
+Q22 What does the command 'cp $MDA/* $MDB' do?
+Q23 What does 'git checkout 21031dca3d714' do?
+    How many lines in the file?
+Q24 What does the commmand 'git checkout master' do?
+Q26 Why no 'git push' in the above example? 
+Q26 What does the command 'echo "Hello $(whoami)" ' do? 
+    How does it work?
+    What is the construct "$(whoami)" called?
+    What is 'command substitution in Unix/Ubunutu?
+    Would 'echo "Hello ${whomai}" ' work?  
+    why/why not? 
+Q27 Why does 'echo "The value of 'MYU' is  ${MYU}" ' work? 
+    Would  'echo "The value of 'MYU' is  $(MYU)" ' work? 
+    Why/why not? 
+    
+
+
+
+
+
+
+

@@ -1,0 +1,150 @@
+#Ruby Beyond the Basicss
+#John Cinnamond
+#Mats "Ruby is Simple in Appearance, but if very complex inside"
+
+	2.times do
+	puts "hello".upcase
+	end
+
+#but why cannot you write this?
+
+	do 2 times
+	  puts.upcase "hello2
+	end
+#In Rails you can write this!
+	class Person < ActiveRecord::Base
+	    has_many :addresses
+	end
+
+# Three big ideas shape ruby  (How Ruby Works)
+
+	1.  Object Orientation
+	2.  Functional Programming
+	3.  Metaprogramming
+
+#Each of these ideas gets its own module.
+
+#Ruby has its own inbuilt REPL (Read, Evaluate, Print, Loop) called IRB
+
+gem install pry
+
+# Ruby is OO language, but what does this mean?
+# OO languages
+# JavaScript, C++, C#, Ruby, Python, Java, Smalltalk, Objective-C
+
+# Alan Kay, the person who invented the term 'objjected orienated' had this to say about c++
+
+    # I can tell you that C++ wasn't what I had in mind"
+    # (OOPSLA, 1997) 
+
+# Is Ruby what Alan Kay had in mind? 
+# Well maybe. Ruby was inspired by Smalltalk, a language written by Alan Kay 
+# In Ruby objects are defined by two things:
+    #1  Local state
+        #   What is local state?
+        #   Imagine we have two people each represented by different objects
+        #   Each person has a name. Mary and Bob, say. 
+        #   Mary does not share the name with anyone else
+        #   If we change the name of Bob to David, then Mary IS COMPLETLY UNAFFECTED
+        #   True even if both objects called 'Mary' (changing the name of one will
+        #   leave the other completely unaffected)
+    #2  Objects can send messages to one another
+        # Messages, of course, are method calls
+        # One object can send a message to another object, it is then up to that other
+        # object what to do about it.
+        # 'Change your name Mary'
+        # Mary: OK
+        #       No! You can't tell me what to do. (Raise an exception)
+        #       Look back blankly  (No method error) 
+        # An object can only send messages. It cannot control what happens when message is received.
+        # Think of objects are autonomous.
+
+# In Ruby, almost everything is an object.
+ruby> a = 10
+# 'a' is an object
+
+ruby> c=%i(a b c)   # => [:a, :b, :c]
+# The array is an object
+# each symbol is an object
+=> [:a, :b, :c]
+
+class User; end
+john = User.new
+# John, of course, is an object
+# But class is also an object
+ruby >User.class
+=> Class
+
+r = (1..10)e
+
+
+ruby >code = Proc.new {"I am not an object, I am a free man"}
+=> #<Proc:0x00000004fa7248@(pry):6>
+ruby >code.class
+=> Proc
+
+# An 0bject in Ruby was defined above as something with local state that responds to messages
+# But if everything is an object, this has some implications for locat state
+# local state must be a colloction of objects.
+# After all, everything (almost) is an object, so there is nothing else local state can be. 
+# We can now give a complete definition for an object in Ruby. 
+    # An object is a collection of references to other objects (local state) that responds to certain
+    # messages
+# The messages an object responds to are controlled by defining methods in the object's class.
+# But wait! everthing is an object. Are methods objects? Yes. 
+# We do not normally deal with methods as objects, but it is possible to do so. There is a special
+# method in every object called method 
+ruby >str ="str object"
+=> "str object"
+ruby >m=str.method(:upcase)
+=> #<Method: String#upcase>
+
+# The method is an object. It has an associated class and it has local state, and you can send messages
+# to it.
+# The most interesting message is probably call
+ruby >m.call()
+=> "STR OBJECT"
+# This idea of everything being an object has some implications for how we write Ruby code.
+# WE SHOULD ALWAYS TRY TO DO IT BY SENDING MESSAGES TO OBJECTS. 
+# A very good example of this is looping over values in an array
+# In a less OO-orientated language you might have to use a control structure to do this,
+# such as a 'for' loop. 
+# In Ruby, typically send method called 'each' to our array, 
+# togeher with a block of code to be exected for each value
+
+
+
+ruby >arr.each do |i| 
+     |  puts "hello" * i
+     |end  
+hello
+hellohello
+hellohellohello
+hellohellohellohello
+=> [1, 2, 3, 4]
+
+#The definition of an object in Ruby as something with
+#local state that can respond to messages can lead to probems
+# where local state is a collection of referneces to other
+# objects. 
+
+# Imagine we have user class with two attributes: name and age
+# The name is a STRING OBJECT.
+# The age is a fixnum object
+# But what about the local state for string and fixnum?
+# Let's consi0der fixnum. lets say user age is  37.
+# It has  a value of 37, but this cannot be a reference to
+# another object. 
+
+    #1 String
+    #2 Float
+    #3 Fixnum
+    #4 Array
+    #5 Rational
+    #6 Hash
+    #6 True
+    #7 False
+    #8 Symbol 
+
+# These may be considered primitive data types. That is they
+# cannot be represented by another object.  

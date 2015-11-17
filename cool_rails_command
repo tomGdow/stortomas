@@ -1,0 +1,9 @@
+
+Hello Josef,
+You probably know all about $_, but I just found
+out about it!
+
+rails new thomas && cd $_; bundle install; rails s -b 0.0.0 &
+
+
+fg  to bring to process to foreground
