@@ -1,0 +1,5 @@
+
+scp -r thomas@192.168.1.5:/home/thomas/treehouse/treehouse_angular_newCourse_complete  /home/thomas/
+
+#see here
+http://stackoverflow.com/a/11304926/499167
