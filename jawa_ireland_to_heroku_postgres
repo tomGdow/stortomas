@@ -1,0 +1,73 @@
+# Convert jawaireland db from sqlite3 to postgres with no loss of data
+# and deploy to Heroku (using Josef's method for conversion to msyql db) 
+# see also here
+http://stackoverflow.com/questions/1670154/convert-a-ruby-on-rails-app-from-sqlite-to-mysql
+
+# Begin ... 
+
+cp -R jawa_ireland_final/ jawa_ireland_postgres
+
+#Gemfile
+gem 'yaml_db'
+bundle install
+rake db:dump
+# In gemfile
+# delete 'sqlite3' gem
+# replace with
+gem 'pg'
+# Changed config/database.yml to the following
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: jawa_development
+  username: thomas
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: localhost
+  port: 5432
+
+ # deleted test and production completly (from database.yml)
+ 
+ #Set env variable
+ POSTGRES_PASSWORD="My********"
+ export  POSTGRES_PASSWORD
+ 
+bundle install
+
+rake db:create
+rake db:schema:load
+rake db:load
+
+rs0
+# All OK
+# Prepare for Heroku
+# Added this to gemfile
+gem 'rails_12factor', group: :production
+
+# Added this to config/application.rb
+config.assets.initialize_on_precompile = false
+
+heroku create
+git push heroku master
+heroku run rake db:migrate
+heroku run rake db:load
+heroku rename jawaireland
+http://jawaireland.herokuapp.com/rails db
+
+
+# On local machine, check postgres db
+
+rails db
+jawa_development=# \conninfo
+You are connected to database "jawa_development" as user "thomas" on host "localhost" at port "5432".
+SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
+\dt
+select * from motorbikes;
+all OK!

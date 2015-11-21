@@ -1,0 +1,14 @@
+
+# Make a Rails project with mysql as development db
+mysql -u root -p
+Mysweet$ara
+create database tomgdow_development;
+create database tomgdow_production;    # This was a mistake?
+create user 'deploy'@'localhost' IDENTIFIED BY 'thomas';
+grant all privileges on tomgdow_development . * TO 'deploy'@'localhost';
+flush privileges;
+SELECT User FROM mysql.user;
+show grants for 'deploy'@'localhost';
+rails new tomgdow -d mysql
+# needed to run the following for mysql to install via bundler (see Josef email)
+sudo apt-get install mysql-server mysql-client libmysqlclient-dev
