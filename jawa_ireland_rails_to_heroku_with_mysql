@@ -1,0 +1,161 @@
+
+# Make a Rails project with mysql as development db
+mysql -u root -p
+Mysweet$ara
+create database tomgdow_development;
+create database tomgdow_production;    # This was a mistake?
+create user 'deploy'@'localhost' IDENTIFIED BY 'thomas';
+grant all privileges on tomgdow_development . * TO 'deploy'@'localhost';
+flush privileges;
+SELECT User FROM mysql.user;
+show grants for 'deploy'@'localhost';
+rails new tomgdow -d mysql
+# needed to run the following for mysql to install via bundler (see Josef email)
+sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+
+
+jawa-ireland deploy to Heroku with mysql-db. 
+
+mysql -u root -p
+Mysweet$ara
+create database jawa_development;
+grant all privileges on jawa_development . * TO 'deploy'@'localhost';
+flush privileges;
+
+#In jawa_ireland_mysql app
+# To convert from mysqlite to mysql2 WITHOUT DATA LOSS
+#Gemfile
+gem 'yaml_db'
+bundle install
+rake db:dump
+
+# this will create db/data.xml
+
+# now in gemfile
+#1 get rid of mysqlite gem
+#2 add the following
+gem 'mysql2', '~> 0.3.12'
+gem 'yaml_db'
+
+#update config/database.yml as follows
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: jawa_development
+  pool: 5
+  username: deploy
+  password: thomas
+
+## get rid of production and test altogether!
+
+# now
+bundle install
+
+rake db:create
+rake db:schema:load
+rake db:load
+
+# See this stackoverflow question and Josef email
+http://stackoverflow.com/a/1671363/499167
+
+# Now data is loaded 
+# Should be OK on localhost
+
+# For deployment to Heroku 
+# modify Gemfile as follows
+gem 'rails_12factor', group: :production
+# can also specify version of ruby (a goodie)
+# in config/application.rb, add the following
+config.assets.initialize_on_precompile = false
+
+heroku create
+git push heroku master
+#failed!
+
+#From Heroku website will need to active this
+ClearDB MySQL :: Database  AS ADD-ON (from within your app) 
+# Also from Heroku website, DELETE THE PG database for the app. 
+# Josef : IMPORTANT: Login into Heroku dashboard and delete postgres database othervise you will not be able to set database url
+heroku addons:create cleardb:ignite
+heroku config | grep CLEARDB_DATABASE_URL
+
+Connect to db by executing the following from command line
+
+heroku config:set DATABASE_URL='mysql2://b31597f69b84fa:8059cd72@us-cdbr-iron-east-03.cleardb.net/heroku_d01e8bd87ddedfc?reconnect=true'
+
+heroku run rake db:migrate
+heroku run rake db:load
+heroku rename jawaireland 
+
+
+-- josef 'i did it' emailConvert a Ruby on Rails app from sqlite to MySQL?
+  http://stackoverflow.com/questions/1670154/convert-a-ruby-on-rails-app-from-sqlite-to-mysql
+
+
+install mysql on development server created using vagrant ( this needs to be done before adding mysql2 gem otherwise bundle install keeps failing) --> sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+
+setup database and user with privileges
+
+
+add gem 'mysql2', '~> 0.3.12' to Gemfile and remove gem 'sqlite3' ( https://rubygems.org/gems/mysql2/versions )
+
+
+
+
+Update database.yml file
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: vagrant_development
+  pool: 5
+  username: deploy
+  password: josefzacek
+
+
+follow stackoverflow link above to dump data from sqlite3, setup database.yml and load data into MySQL database
+
+db/data.xml file created contains content form Sqlite3 and needs to be loaded into Mysql (push this to heroku as well)
+
+
+
+HEROKU
+
+heroku create jawa-moto-ireland
+
+
+
+add line to Gemfile  -->  ruby '1.9.3'   (without this line heroku used ruby version 2.2.0 (which is installed on my computer but has nothing to do with jawa application ) and I think I will alway add this line to every ROR projects as it is a good idea, especially if you return to project after a couple of years)
+
+
+add line to application.rb  -->    config.assets.initialize_on_precompile = false
+http://simonecarletti.com/blog/2012/02/heroku-and-rails-3-2-assetprecompile-error/
+
+
+add -->  gem 'rails_12factor', group: :production  this is recommended by Heroku to prevent injection
+
+
+bundle install
+
+
+Create MySQL database
+heroku addons:create cleardb:ignite
+
+
+Get MySQL database url
+heroku config | grep CLEARDB_DATABASE_URL
+
+
+Set database url (this can also be done in Heroku app settings tab)
+IMPORTANT: Login into Heroku dashboard and delete postgres database othervise you will not be able to set database url
+heroku config:set DATABASE_URL='mysql2://b7fe8a861d5eb0:1ca9e81a@us-cdbr-iron-east-03.cleardb.net/heroku_44318e4e01f9d35?reconnect=true' (I'm using gem 'mysql2' so I had to add 2 after mysql as recommended in documentation  https://devcenter.heroku.com/articles/cleardb) 
+
+
+Migrate database
+heroku run rake db:migrate
+
+
+Load data into databses from data.yml file 
+heroku run rake db:load

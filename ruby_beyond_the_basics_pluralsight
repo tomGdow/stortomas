@@ -148,3 +148,547 @@ hellohellohellohello
 
 # These may be considered primitive data types. That is they
 # cannot be represented by another object.  
+# But Ruby does not want to break the the idea of everything being
+# an object. Indeed, when you create a value like 37 it has 
+# methods you can call on it, and it has a class called fixnum
+# (methods include odd? even? zero?) 
+# So are these things really objects. Well ..., yes. You
+# can treat them as if they were objects, but they are special
+# kinds of objects. 
+# They are special in two ways:
+    #1 They hold special internal state that is NOT a ref to another object
+    #2 The also have special constructors 
+    #  We normally create an object by calling the 'new' methd
+    #  on the obects clase
+        object = class.new()
+    # but for these special objects, we normally create them directly.
+    # For example, to create a new fixnum, we just write:
+        num = 42
+    # The ruby interpreter recognises this and creates a new fixnum
+    # object for us. The same applies to strings and so on. 
+    # This makes sense. If call fixnum.new() what arg will you pass in
+    # Only thing that makes sense is the number itself, but this
+    # leads to an infinite regress. No use. 
+# But can forget about special nature and treat these objects as
+# normal objects. 
+    # Can assign them to variables
+        a = [1,2,]
+        b = " - "
+    # Can call methods on them
+        a.size
+    # Pass them as parameters to other methods
+        a.join(b)
+# Can also treat classes as normal classes
+# Can for example define new method on string classs that
+# counts the number of vowels.
+
+class String
+    def number_of_vowels
+        gsub(/[^aeiou]/, '').size
+    end  
+end  
+=> :number_of_vowels
+ruby >"hello".number_of_vowels
+=> 2
+
+#just because you can add methods to built-in classes like string
+# does not necessarily mean you have to. 
+# Rails, however, does this quite a lot. 
+ruby >require 'active_support'
+=> true
+ruby >require 'active_support/core_ext/numeric'
+=> true
+ruby >4.minutes.ago
+=> 2015-11-19 02:08:48 +0000
+# 'Minutes' is just a new method defined on the fixnum class.
+# The special constructors for these special classes are just that -
+# constructors.   And they are just creating objects
+# The local state for these objects is special, unnecessarily so,
+# but most of the time you do not need to worry about the details. 
+
+
+# Classes
+# To create a class, use keyword 'class' followed by name of 
+# class. The name can be pretty much anything you want, but must
+# start with capital letter.
+# Now add some methods to class. Do this by writing ;'def'
+# followed by method name, followed by method body, finally
+# closed by keyword 'end'. Method name anything you want. But must
+# start with lc.
+# close clase by typing 'end'
+ruby >class User
+     |  def can_vote?
+     |    @age >=18
+     |  end  
+     |end  
+=> :can_vote?
+ruby >require 'date'
+=> false
+ruby >require 'date'
+=> false
+# There is a special method called 'initialize that gets run
+# by default when you create a new instance of this class
+# We can add an intialiaze method to our class to store the users
+# age in an instance variable. 
+# Variable names that begin with '@' designate instance variables.
+# IN RUBY THE LOCAL STATE OF AN OBJECT IS THE SET OF ITS
+# INSTANCE VARIABLES. 
+ruby >class User
+     |  def initialize(date_of_birth)
+     |    days_since_birth = Date.today - Date.parse(date_of_birth)
+     |    @age = days_since_birth / 365
+     |  end  
+     |end  
+=> :initialize
+# Variable such as 'days_since_birth' are scoped to the method'
+# Only instance varibles may be accessed from other methods. 
+# Ruby is a dynamic language and as such the definition of a class
+# is never finalized. 
+# To add the intialize methood to a class that already existed,
+# we simply reopened it. 
+#
+# To create an object of this class, we call the 'new' method on it.
+# ANY ARGUMENTS YOU PASS TO NEW WILL BE PASSED ON TO THE OBJECTS
+# INITIALIZE METHOD. 
+# The object created will then respond to any methods you have defined.
+#
+ruby >john = User.new("2000-01-01")
+=> #<User:0x000000040a10c8 @age=(5801/365)>
+ruby >john.can_vote?
+=> false
+
+# In Ruby, the local state of an object is the sum of its instance
+# variables 
+
+# Very easy to create a class. But this is Ruby, so there is usually
+# more to the story. Classes are objects too.  This means they also
+# have methods. You can create class methods alongside object methods
+# in the class defintion. The only difference is that class methods
+# are prefixed by 'self.'
+# Class methods are typically used to create objects.
+# There is already a class method that we have been using
+# called 'new' that exists by default on all classes. 
+
+ruby >class User
+     |  def self.new_voter
+     |    date_of_birth = Date.today - (18 * 365)
+     |    new(date_of_birth.to_s)
+     |  end  
+     |end  
+=> :new_voter
+# call class method on User class
+ruby >voter = User.new_voter
+=> #<User:0x00000004110bd0 @age=(18/1)>
+ruby >voter.can_vote?
+=> true
+
+# Methods
+# Methods add behaviour to a class
+
+ruby >def yet_another_method(first_arg, second_arg)
+     |  "you have passed in #{first_arg}, #{second_arg} "
+     |end  
+=> :yet_another_method
+
+# name is lc with underscores
+
+ruby >class User
+     |  def initialize(name)
+     |    @name = name
+     |  end  
+     |  def name
+     |    @name
+     |  end  
+     |  def name=(name)
+     |    @name = name
+     |  end  
+     |end  
+=> :name=
+ruby >obj = User.new("Bob"
+     |)  
+=> #<User:0x00000003865b20 @name="Bob">
+ruby >obj.name="Mary"
+=> "Mary"
+ruby >obj.name
+=> "Mary"
+
+#1 Methods that return an attribute value are usually 
+#  named after the attribute
+#  For example if you have a method called 'name' the
+#  method to access this should also be called 'name'
+#  and not, for example, 'getname'
+#  Methods that SET an attribute are named after the attribute
+#  followed by an equals sign. So the method to set 'name' 
+#  should be called 'name='
+#  This allows some special ruby synntax that lets us write
+       obj.name="Mary"
+#   Ruby spots the special assignment syntax and calls the
+#  'name=' method.
+
+#2 Methods that return true or false usually end with a question mark
+ruby >class Person
+     |  def initialize(age)
+     |    @age = age
+     |  end  
+     |  
+     |  def can_vote?
+     |    @age > 18
+     |  end  
+     |end  
+
+#3 Methods can end with an exclamation mark if they do something
+#  unexpected or destructive.
+#
+ruby >class Person
+     |  def reset!
+     |    @age = nil
+     |    ene
+     |  end     
+     |end  
+=> :reset!
+# The exclamation mark here should mean 'look out!'
+# It is good practice to have a method without the exclamation
+# mark that does something safer. 
+ruby >a =[1,2,3,4,5]
+=> [1, 2, 3, 4, 5]
+ruby >a.select(&:even?)
+=> [2, 4]
+ruby >a
+=> [1, 2, 3, 4, 5]
+ruby >a.select!(&:even?)
+=> [2, 4]
+ruby >a
+=> [2, 4]
+# Adding an exclamation mark to select modifies the original array
+# It is also quite common in Rails for the exclamation mark
+# at the end of a method to indicate that the method raises an
+# excetion.
+user = User.new
+user.save
+user.save!
+#Both do the same thing if successful
+#but if for some reason save fails, then '.save' return false
+# whereas '.save!' returns an exception.
+# This practice is less widely adopted outside Rails community.
+
+#3 after method name comes parameter list
+# arg names are separated by commas
+# parm list is optional
+# Optional Parameters
+
+ruby >def greet(name, informal=false)
+     |  if informal
+     |    "hi #{name}"
+     |  else  
+     |    "hello #{name}"
+     |  end  
+     |end  
+=> :greet
+ruby >greet 'tom'
+=> "hello tom"
+ruby >greet('tom', informal=true)
+=> "hi tom"
+ruby >greet('tom', informal=true)
+=> "hi tom"
+ruby >greet 'tom', true
+=> "hi tom"
+# Can have multiple optional parameters. 
+# The only rule is that they must be the first or last parameters
+    def optional_first(first=1,second=2, third)
+    def optional_last(first, second=2, third=3)
+# Cannot, for example, have first and last parmeters optional and
+# have required second parameter
+    de no_holes_allowed(first=1, second, third=3)
+# Probably good practice for to have just one optional parameter
+# and for that to be the final one. 
+# Starting in Ruby 2, it is possible to use named parameters.
+# In Ruby 2.0, this allowed you to add named defaults
+# Ruby 2.1 extended this to named-required-arguments
+
+ruby >def greeet (name, informal=false, shout=false)
+     |  greeting = if informal then "hi" else "hello" end
+     |  message = "#{greeting} #{name}"
+     |  if shout
+     |    message.upcase
+     |  else  
+     |    message
+     |  end  
+     |end  
+=> :greeet
+ruby >greeet("thomas", false, true)
+=> "HELLO THOMAS"
+# Forced to provide second argument.
+# Also, not immediately obvious what arguments mean
+# Rewrite using named parameters. 
+
+ruby >def greet (name,informal: false, shout: false)
+     |  greeting = if informal then "hi" else "hello" end
+     |  message ="#{greeting} #{name}"
+     |  if shout 
+     |    message.upcase
+     |  else  
+     |    message
+     |  end  
+     |end  
+=> :greet
+ruby >greet("thomas", shout:true)
+=> "HELLO THOMAS"
+ruby >greet("thomas", informal: true, shout: true)
+=> "HI THOMAS"
+# You might notice that this looks a lot like hash syntax. 
+# And you would be right! This was introduced into Ruby
+# because a lot people were using hashes to pass options into methods.
+# Using named parameters works much the same way BUT THE ARGUMENTS
+# ARE CHECKED, which stops you using arguments that are not supported. 
+# THEY CAN ALSO BE GIVEN DEFAULT VALUES IN THE PARAMETER LIST
+# Ruby 2.1 added support for named parameters without a default
+# Thi means you can write the parameter name followed by a colon
+# but then not provide any default value. 
+
+ruby >def greet(name:)
+     |  "hello #{name}"
+     |end  
+=> :greet
+ruby >greet(name: "John")
+=> "hello John"
+
+# This can be great for providing extra documentation for what the
+# arguments do
+merge(from: list1, into: list2)
+
+# Every method in Ruby returns a value
+ruby >class MyClass
+     |  def odd_or_even(num)
+     |    if num.odd?
+     |      "odd"
+     |    else  
+     |      "even"
+     |    end  
+     |  end  
+     |end  
+=> :odd_or_even
+ruby >MyClass.new.odd_or_even(3)
+=> "odd"
+#  Duck Typing
+# Let's talk about Ruby's dynamic nature
+# We have already seen how we can reopen classes to define new methodss
+# We can also redefine methods
+# There is no guarentee you can look at Ruby code and be certain
+# about how it will behave at runtime
+# This difficulty has lead to a shift in the way Ruby developers
+# think about type safety.  
+# Instead of checking what type of object has been passed to a method,
+# which gives us no guarentee about the messages it will accept, it
+# is more common to use something called Duck Typing. 
+# "If it walks like a duck and quacks like a duck, it probably is 
+# a duck 
+# What this means is that instead  of checking the class of an object,
+# we ask questions about its behaviour. That is WE ASk WHAT MESSAGES
+# IT WILL RESPOND TO. 
+# An example of Duck typing
+ruby >def print_info(obj)
+     |  if obj.class == User
+     |    obj.name
+     |  else  
+     |    obj.to_s
+     |  end  
+     |end  
+=> :print_info
+# The above code could fail
+# So use Duck typing to replace the class check with
+# checking the object's behavior.
+# This works by using the method 'respond_to'
+
+ruby >def print_info(obj)
+     |  if obj.resond_to?(:name)
+     |    obj.name
+     |  else  
+     |    obj.to_s
+     |  end  
+     |end  
+=> :print_info
+# Writing the code in this way also brings some other advantages
+# For examole could use this method by passing in an object that
+# isn't a user but that does respond to name
+# Perhans its an admin user. Our code does not care.
+# It is not concerned about what the object IS, only about how
+# the object behaves. 
+# Good Ruby code should not be concerned with Classes but instead
+# concentrate on the messages passed between objects.
+# It should be easy to change the object being used as long as it 
+# responds to the same messages. 
+
+# Attributes.  
+# Instance variables in Ruby are much more straightforward
+# The usual way to create a method in Ruby is to define it
+# as part of a class. 
+# For  an instance variable, however, the usual method is just
+# to use it.  There is no need to declare in advance or specify
+# its type. We treat instance variables like normal variables except
+# that their name has to start with a single '@' symbol 
+# EVERY INSTANCE VARIABLE IS GUARENTEED TO CREATE  A VALUE
+# If you have not assigned a value, it will return a value 'nil' 
+# when used. 
+
+ruby >class BuggyUser
+     |  def initialize(name)
+     |    @name = name
+     |  end  
+     |  
+     |  def say_my_name
+     |    puts "My name is #{@naem}" # Oh no! a typo!
+     |  end  
+     |end  
+=> :say_my_name
+ruby >me = BuggyUser.new("thomas")
+=> #<BuggyUser:0x00000003aca438 @name="thomas">
+ruby >me.say_my_name
+My name is 
+=> nil
+#   In addition, you cannot access an instance variable from outside
+#  an object
+# The only interaction with objects that Ruby supports is sending
+# messages to them, and getting objects back in response.
+# So if you want to get the value of another object's instance
+# variable, you have to send it a message. 
+# Adding support for these messages is pretty trivial.
+# If you want to return the value of an instance variable
+# we simply add a reader method. 
+
+ruby >class User
+     |  def name
+     |    @name
+     |  end  
+     |end  
+=> :name
+
+# All thsi method does is return the instance variable
+# More accurately, it is returning a reference to the object
+# that the instance variable points to
+
+# If we want an external object to set the value of an instance
+# variable, then we use a writer method. 
+# THIS IS A METHOD NAME ENDING IN EQUALS
+# and it takes a single argument of the new value of the
+# instance variable. 
+
+ruby >class User
+     |  def name=(name)
+     |    @name = name
+     |  end  
+     |end  
+=> :name=
+
+# This allows a special synthatic form.
+ruby >user=User.new
+=> #<User:0x00000003c8fd40>
+ruby >user.name="thomas"
+=> "thomas"
+ruby >user.name
+=> "thomas"
+ 
+# Running these methods might get a little tedious, so Ruby
+# adds some keywords to create them for you.  
+# In your class definition you can create a reader
+# method by typing 'attr_reader followed by a symbol
+# with the name of your instance variable
+    attr_reader :name 
+# Adding writer methods is just as easy. 
+   attr_writer :name
+# To add both reader and writer method,
+   attr_accessor :name
+
+ruby >class User
+     |  attr_reader :name, :age
+     |  attr_writer :name
+     |end  
+=> nil
+ruby >class User
+     |  attr_accessor :name
+     |end  
+=> nil
+ruby >User.public_instance_methods(false).grep(/name/)
+=> [:name, :name=]
+ruby >User.public_instance_methods(false)
+=> [:name, :name=, :age]
+
+# Reuse
+# Ruby provides two ways of sharing behaviour bettween different classes
+#1 Inheritance
+#2 Modules
+
+    #1 Inheritance
+# Ruby supports single inheritance
+# Every class in ruby has exactly one superclass
+# Specify a superclass by typing 'less than (<)' followed
+# by the name of the superclass
+
+ruby >class User
+     |  attr_reader  :name
+     |  
+     |  def initialize(name)
+     |    @name = name
+     |  end  
+     |end  
+=> :initialize
+
+ruby >class AdminUser < User
+     |  def is_admin?
+     |    true
+     |  end  
+     |end  
+=> :is_admin?
+
+ruby >user = AdminUser.new("Tom")
+=> #<AdminUser:0x000000051e3160 @name="Tom">
+ruby >user.name
+=> "Tom"
+ruby >user.is_admin?
+=> true
+
+# A class inherits all of the methods from its superclass unless
+# it explicitly overrides or removes them
+# If you do not explicitly set the superclass, then Ruby assumes
+# that it is 'Object'
+# The superclass of 'object' is BasicObject
+
+ruby >AdminUser.superclass
+=> User
+ruby >User.superclass
+=> Object
+ruby >Object.superclass
+=> BasicObject
+ruby >BasicObject.superclass
+=> nil
+# We can always reopen classes
+# For example, if we reopen the Object class and add a method
+# this becomes available for all objects 
+
+ruby >class EmptyClass
+     |end  
+=> nil
+ruby >obj = EmptyClass.new
+=> #<EmptyClass:0x000000052945f0>
+ruby >obj.ping
+NoMethodError: undefined method `ping' for #<EmptyClass:0x000000052945f0>
+from (pry):24:in `__pry__'
+ruby >class Object
+     |  def ping
+     |    "pong"
+     |  end  
+     |end  
+=> :ping
+ruby >obj.ping
+=> "pong"
+# Can call this method on new objects as well
+
+ruby >new_object = EmptyClass.new
+=> #<EmptyClass:0x00000005320668>
+ruby >new_object.ping
+=> "pong"
+ruby >"Hello".ping
+=> "pong"
+ruby >7.ping
+=> "pong"
+ruby >[1,2,3].ping
+=> "pong"
