@@ -1,0 +1,124 @@
+
+cp -r jawa_ireland_final/ jawa_ireland_postgres
+gem 'yaml_db'
+bundle install
+rake db:dump
+
+# In gemfile
+# delete 'sqlite3' gem
+# replace with
+gem 'pg'
+
+ #Set env variable
+ POSTGRES_PASSWORD="My********"
+ export  POSTGRES_PASSWORD
+
+# setup config/database.yml as follows
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  timeout: 5000
+development:
+  <<: *default
+  database: jawa_ireland_development
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  
+test:
+  <<: *default
+  database: jawa_ireland_test
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+  
+production:
+  <<: *default
+  database: jawa_ireland_production
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+
+
+bundle install
+  
+rake db:create
+rake db:schema:load
+rake db:load
+
+# copied above to www/html/jawaireland
+
+#### In config/database.yml deleted all but production so now it looks like this
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  timeout: 5000
+production:
+  <<: *default
+  database: jawaireland_production
+  username: tomgdow
+  password: <%= ENV['PGRAILS_DATABASE_PASSWORD'] %>
+
+
+# bundle installed.
+
+## Key problems solved
+
+rails s -e production 
+# The above would not work unless the following command executed. 
+bundle exec rake assets:precompile
+
+# now
+rails s -e production
+
+sudo service apache2 restart
+
+jawaireland.conf looks like this
+
+
+RackEnv production
+<VirtualHost *:80>
+ServerAdmin webmaster@localhost
+ServerName jawaireland.tomgdow.com
+DocumentRoot /var/www/html/jawaireland/public
+PassengerRuby /home/tomgdow/.rvm/gems/ruby-1.9.3-p551/wrappers/ruby
+<Directory /var/www/html/jawa_ireland/public>
+RailsEnv production
+#This relaxes Apache security settings
+AllowOverride all
+#Multiviews must be turned off
+Options -MultiViews
+#Uncomment this if you're using Apache >= 2.4
+require all granted
+</Directory>
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+
+
+
+
+####
+
+Some problems getting to deploy on digital ocean
+key commands are as follows 
+
+bundle exec rake assets:precompile
+passenger-config about ruby-command
+
+# Apache log files are ar at
+/var/log/apache2
+
+may need to use sudo -s or sudo -i to access
+(if using sudo -s, dont forget to exit!)
