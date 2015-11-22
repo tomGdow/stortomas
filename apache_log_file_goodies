@@ -1,0 +1,14 @@
+
+ #Detect where apache log file is:
+  passenger-config --detect-apache2
+  
+ # see here
+ https://www.phusionpassenger.com/library/admin/apache/log_file/#location-of-the-log-file
+
+ # May need to use sudo to cd into apache directory (protected) 
+ You can use sudo -i to elevate your self to super user. 
+ sudo -i
+ # see here
+ http://askubuntu.com/a/291677/200605
+ 
+ sudo -s might also work 
