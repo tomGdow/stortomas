@@ -1,0 +1,11 @@
+# On deployment, a 'you do not have the necessary permissions' error
+# was solved by executing the following command.
+
+
+sudo chmod -R 755 /var/www
+
+# This was as well as the usual
+sudo chown -R $USER:$USER /var/www/classiccars
+# see here
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
