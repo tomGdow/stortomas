@@ -1,3 +1,12 @@
 # see here
 http://terratakashi.logdown.com/posts/190823-use-different-rvm-gemset-for-rails-app-on-apache-server
 
+
+
+<VirtualHost *:80>
+    ServerName helloworld.tw
+    ServerAlias www.helloworld.tw
+    DocumentRoot /var/www/localhost/htdocs/helloworld
+    PassengerAppRoot /home/railsapp/helloworld
+    PassengerRuby /usr/local/rvm/wrappers/ruby-2.0.0-p247@mygemset/ruby
+</VirtualHost> 

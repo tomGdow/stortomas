@@ -1,0 +1,5 @@
+# From Ubuntu OS on VM, run the following
+ipython notebook --ip=0.0.0.0 --port=3000  lecture5tgd.ipynb 
+# open on Windows browser
+localhost:3000
+# Note: Changes make on windows browser will be saved to VM file
