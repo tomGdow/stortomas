@@ -1,5 +1,8 @@
-S=`j	Move down three line
-d 	Delete from cursor to the end of the line
+# Smash into Vim.  Andrew Stewart (Pluralsight)
+
+3j	Move down three line
+3k  Move up three lines
+d$ 	Delete from cursor to the end of the line
 u	Undo
 Ctrl-R	Redo
 c2/end	Change all text from cursor to the BEGINNING of second end
