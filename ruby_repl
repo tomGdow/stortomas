@@ -1,0 +1,11 @@
+
+#ruby repl josh cheek pry video
+# Put the following into a .rb file
+loop {p eval gets}
+
+#now
+ruby repl.rb
+
+#See here (video)
+
+http://pryrepl.org/

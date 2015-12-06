@@ -1,0 +1,22 @@
+#1 Everything in python is an object
+#2 IDLE is IDE after Eric Idle of Monty Python
+#3 has a  type
+#4 built in fn 'type' 
+#5 Two fundamental types of type
+    a. Scalar. Indivisible. The 'atoms'
+       int, float, boolean(true/false)
+       no char. Instead has strings (str)
+    b. Non-Scalar.
+       Expression. An expression is a sequence of operands and operators
+       The operands are objects
+    "a" + "b" => ab
+    The operator '+' is overloaded
+    In an overloaded operator, the meaning depends on the operands.
+
+# Floats are NOT the same as reals. They are  a computer scientists approximation
+# to real numbers. Not quite the same.
+
+# In python, a variable is simply a name for an object
+# an assignment binds a name to an object
+
+y =float(raw_input("Enter a Number: '))

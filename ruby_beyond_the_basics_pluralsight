@@ -692,3 +692,1569 @@ ruby >7.ping
 => "pong"
 ruby >[1,2,3].ping
 => "pong"
+# If you want to see where a method came from
+# we can use the Method class to investigate it
+
+ruby >m=obj.method(:ping)
+=> #<Method: EmptyClass(Object)#ping>
+ruby >m.receiver
+=> #<EmptyClass:0x00000003fdf4f0>
+ruby >m.owner
+=> Object
+
+#receiver is called on instance of Empty Object, where we got method
+
+# Modules
+# A module in Ruby is really just a collection of methods
+#1 Defined in much the same way we define classes
+
+
+ruby >require 'date'
+=> false
+
+ruby >module Employee
+     |  attr_accessor :start_date
+     |  
+     |  def employment_length
+     |    days = Date.today - start_date.to_date
+     |    "#{days.to_i} days"
+     |  end  
+     |end  
+=> :employment_length
+
+ruby >class User
+     |  include Employee
+     |end  
+=> User
+ruby >u = User.new
+=> #<User:0x0000000420e140>
+ruby >u.start_date = Date.today - 365
+=> #<Date: 2014-11-29 ((2456991j,0s,0n),+0s,2299161j)>
+ruby >u.employment_length
+=> "365 days"
+
+#2 We can even use helpers like attr_accessors
+#3 Modules: a collectin of methods
+#4 We can add a module to a class by using the keyword 'include'
+# followed by the module name.
+# This makes all the methoods in the vomdule availablt to the class.
+# It is though you typed out the methods of the module at this point
+#5 When we instantiate the class, we have access to all the methods
+# in the module
+
+# If you think a module looks a bit like a class, then you would be
+# right!
+# **** The SuperClass of Class is actually "Module'
+# So Classes are just special types of modules, oness that we
+# can instantiate by calling 'new'
+# However, although a class can only have one supercalls, you can 
+# include as many modules as you want. 
+# We have just sctatched the surface with Modules. The world is just
+# about to get more complex, and more interesting.
+
+# Extend
+# There is anoher way to use modules, and this new way is more interesting
+# We have already used the 'include' keyword to add the methods in a module
+# to a class
+# But we can also use the 'extend' keyword to add the methods to a
+# single instance of a class
+
+ruby >require 'date'
+=> false
+
+ruby >module Employee 
+     |  attr_accessor :start_date
+     |end  
+=> nil
+
+ruby >class User
+     |end  
+=> nil
+
+ruby >user = User.new
+=> #<User:0x00000004020bf8>
+ruby >user.extend(Employee)
+=> #<User:0x00000004020bf8>
+ruby >user.start_date = Date.today
+=> #<Date: 2015-11-29 ((2457356j,0s,0n),+0s,2299161j)>
+
+# Our new object now has the methods from the module!
+# ** But where did these methods go? ***
+# The most obvious place would be into the object's class
+User.public_instance_methods.grep(/start_date/)
+=> []
+# No!
+
+ruby >user.methods.grep(/start_date/)
+=> [:start_date, :start_date=]
+ruby >another_user.methods.grep(/start_date/)
+=> []
+# methods not available to another instance of the class!!
+# Sp where do the methods go?
+# When we use 'extend' we suddenly have methods that are not defined in
+# the class
+# It LOOOKS LIKE we have methods defined in the Class and Object!!
+# Ruby does not do this!
+# Instead does something that is simultaneously wonderful and confusing
+# *** It adds a special class to each object to hold
+# methods that get added to just that obejct and not that
+# object's class
+# Every Object has its own class, and every class has a superclass
+# ** But very object also has its own class, called a Singleton Class
+# that allows an individual object to be extended without affecting the 
+# other instances of that class.
+# Each objject has its own singleton class with its own methods
+#  SEE DIAGRAM 
+# Every object in Ruby has its own singleton class
+# In more recent versions of Ruby, can access Singleton class by
+# calling a method on an object
+# So here are the missing start_date methods!! 
+
+ruby >user.singleton_class.public_instance_methods.grep(/start_date/)
+=> [:start_date, :start_date=]
+
+# When ee extend an object it is like we include an object in the modules
+# singleton class
+
+# Method Dispatch
+# Just a fancy way of saying "When I call a method How does Ruby work out
+# where that method was defined?"
+
+obj.do_something
+
+#1 When we call a method on an object, Ruby first checks in the Singleton Class
+# for the method definitin
+#2 Then it looks in the object's Class
+
+# *** To keep things consistent, the object's class is the superclass of the
+# object's singleton class ***
+
+#3 It the method is not found in object's class, then looks in ITS superclass
+
+#4 It keeps going up the inheritance chain until it reaches basic object
+
+#5 The superclass for Basic Object, and only for Basic Object, the superclass is nil
+
+#6 So now Ruby knows that the object has no matching method, ie it doess
+# not respond to the message?  WELL KINDA!!  This is not the full story
+
+#7 If Ruby gets all the way to Basic Object and the method is still not  defined,
+#  then is goes all the way back down to the singleton class and starts again.
+#  but this time it looks for a method called 'method_missing'
+obj.method_missing
+# ** If method_missing is found in the singleton class, then thig gets called**
+# If not proceeds again up the Class inheritance chain, all the way up to 
+# Basic Object. At which point, if it cannot find 'method missing', it has
+# no place to go. It finally gives up and raises a '#NoMethodError'
+# method missing takes three arguments
+method_missing(name, *args, &block) 
+#1 name
+#2 a list of params from original method call
+#3 an optional block
+
+#2 We splat the arguments for param list
+# When we write an asterisk before the paramater name
+# it really just means 'take all the arguments left over
+# at this point and turn them into a single array. 
+some_method(a,b,c) -> some_method([a,b,c])
+# In Ruby, we call that a splat
+
+ruby >class AnyP
+     |  def method_missing(name, *args)
+     |    if name.to_s.start_with?('p')
+     |      "You called #{name} with #{args.inspect}"
+     |    else  
+     |      super
+     |    end  
+     |  end  
+     |end  
+=> :method_missing
+
+ruby >has_p = AnyP.new
+=> #<AnyP:0x000000041ce900>
+ruby >has_p.catcus
+NoMethodError: undefined method `catcus' for #<AnyP:0x000000041ce900>
+from (pry):25:in `method_missing'
+
+ruby >has_p.xylophone
+NoMethodError: undefined method `xylophone' for #<AnyP:0x000000041ce900>
+from (pry):25:in `method_missing'
+
+ruby >has_p.thomas
+NoMethodError: undefined method `thomas' for #<AnyP:0x000000041ce900>
+from (pry):25:in `method_missing'
+
+ruby >has_p.pancake
+=> "You called pancake with []"
+
+ruby >has_p.pancake(true, 17, :whatever)
+=> "You called pancake with [true, 17, :whatever]"
+
+#1 The method name is symbol.  Need to turn it into string
+#2 'super' just means call exactly the same method with exactly the
+#  same arguments as is defined in my superclass
+
+# Constants
+
+#Constants in Ruby much the same as in other languages
+# They look a bit like variables, but they start with a capital letter
+# Conventional to use UC words for constants
+PI = 3.14
+# Ruby ALLOWS you to change constants. Issues a warning but assumes you
+# know what you are doing. 
+#2 Constants are scoped to the surrounding module
+
+ruby >module Geometry
+     |  PI = 3.14
+     |end  
+=> 3.14
+
+ruby >module Circle
+     |  PI = 3.142
+     |end  
+=> 3.142
+
+ruby >Geometry::PI == Circle::PI
+=> false
+
+# Class names also have to start with a capital letter
+# This is NOT a coincidence
+# *** Classes are constants! ***
+# When you define a new class, then is just creates a new constant using
+# the Class name and assigns it to the Class you just defined. 
+# By default, Classes are created as constants under the object class
+
+# Ruby provides some handy methods for looking at constants
+
+ruby >Object.constants
+=> [:Object,
+ :Module,
+ :Class,
+ :BasicObject,
+ :Kernel,
+ :NilClass,
+ :NIL,
+ :Data,
+ :TrueClass,
+ :TRUE,
+ :FalseClass,
+ :FALSE,
+ :Encoding,
+ :Comparable,
+ :Enumerable,
+ :String,
+ :Symbol,
+ :Exception,
+ :SystemExit,
+ :SignalException,
+ :Interrupt,
+ :StandardError,
+ :TypeError,
+ :ArgumentError,
+ :IndexError,
+ :KeyError,
+ :RangeError,
+ :ScriptError,
+ :SyntaxError,
+ :LoadError,
+ :NotImplementedError,
+ :NameError,
+ :NoMethodError,
+ :RuntimeError,
+ :SecurityError,
+ :NoMemoryError,
+ :EncodingError,
+ :SystemCallError,
+ :Errno,
+ :ZeroDivisionError,
+ :FloatDomainError,
+ :Numeric,
+ :Integer,
+ :Fixnum,
+ :Float,
+ :Bignum,
+ :Array,
+ :Hash,
+ :ENV,
+ :Struct,
+ :RegexpError,
+ :Regexp,
+ :MatchData,
+ :Marshal,
+ :Range,
+ :IOError,
+ :EOFError,
+ :IO,
+ :STDIN,
+ :STDOUT,
+ :STDERR,
+ :ARGF,
+ :FileTest,
+ :File,
+ :Dir,
+ :Time,
+ :Random,
+ :Signal,
+ :Process,
+ :Proc,
+ :LocalJumpError,
+ :SystemStackError,
+ :Method,
+ :UnboundMethod,
+ :Binding,
+ :Math,
+ :GC,
+ :ObjectSpace,
+ :Enumerator,
+ :StopIteration,
+ :RubyVM,
+ :Thread,
+ :TOPLEVEL_BINDING,
+ :ThreadGroup,
+ :Mutex,
+ :ThreadError,
+ :Fiber,
+ :FiberError,
+ :Rational,
+ :Complex,
+ :RUBY_VERSION,
+ :RUBY_RELEASE_DATE,
+ :RUBY_PLATFORM,
+ :RUBY_PATCHLEVEL,
+ :RUBY_REVISION,
+ :RUBY_DESCRIPTION,
+ :RUBY_COPYRIGHT,
+ :RUBY_ENGINE,
+ :TracePoint,
+ :ARGV,
+ :Gem,
+ :RbConfig,
+ :Config,
+ :CROSS_COMPILING,
+ :ConditionVariable,
+ :Queue,
+ :SizedQueue,
+ :MonitorMixin,
+ :Monitor,
+ :Noexec,
+ :FileUtils,
+ :Etc,
+ :Pathname,
+ :Bundler,
+ :Delegator,
+ :SimpleDelegator,
+ :Tempfile,
+ :OptionParser,
+ :Digest,
+ :URI,
+ :StringScanner,
+ :ScanError,
+ :BasicSocket,
+ :Socket,
+ :SocketError,
+ :IPSocket,
+ :TCPSocket,
+ :TCPServer,
+ :UDPSocket,
+ :UNIXSocket,
+ :UNIXServer,
+ :Addrinfo,
+ :Timeout,
+ :TimeoutError,
+ :Net,
+ :Zlib,
+ :StringIO,
+ :Date,
+ :DateTime,
+ :CGI,
+ :Fcntl,
+ :OpenSSL,
+ :SecureRandom,
+ :Resolv,
+ :Set,
+ :SortedSet,
+ :TSort,
+ :Forwardable,
+ :SingleForwardable,
+ :PrettyPrint,
+ :PP,
+ :Pry,
+ :MethodSource,
+ :Shellwords,
+ :CodeRay,
+ :Slop,
+ :PryDoc,
+ :YARD,
+ :RUBY18,
+ :RUBY19,
+ :SymbolHash,
+ :Insertion,
+ :OpenStruct,
+ :Logger,
+ :Readline,
+ :Employee,
+ :User,
+ :AnyP,
+ :Geometry,
+ :Circle,
+ :RUBYGEMS_ACTIVATION_MONITOR]
+
+# Now create a new class 
+ruby >class ExampleClass
+     |end  
+=> nil
+ruby >Object.constants.grep(/ExampleClass/)
+=> [:ExampleClass]
+
+# We can use this constant in the same way we have been using our class
+# or example, by calling 'new' on it. 
+
+ruby >Object::ExampleClass.new
+=> #<ExampleClass:0x0000000402ced0>
+
+# This is because the new constant IS out new class
+
+# We can do more with constants than simply listing them
+# We could, for example, delete them
+
+# There is a method called 'remove_const' 
+
+ruby >Object.remove_const(:ExampleClass)
+NoMethodError: private method `remove_const' called for Object:Class
+from (pry):50:in `__pry__'
+
+# We cannnot call remove_const on Object as it is a private method
+# However, Ruby is a very permissive language
+# Saying a method is private is merely just advisory
+
+#We can work around the above restriction by using a special method called 'send'
+
+ruby >Object.send(:remove_const, :ExampleClass)
+=> ExampleClass
+
+# now
+ruby >ExampleClass.new
+NameError: uninitialized constant ExampleClass
+from (pry):53:in `__pry__'
+
+
+# This gives us a convenient way of undefining Classes
+# This might not seem to be particularly useful
+# But is forms part of how Dynamic Reloading works in Rails
+# Rails keeps track of the classes you load
+# So that if it wants to reload everything, all it has to do is
+# use a remove_const to throw away the classes and then load everything again
+
+# We an also use the const_set method to define new classes
+# The special keyword class that we have been using is 
+# *** actually unnecessary***
+
+ruby >Object.const_set(:NewClass, Class.new do
+     |    def ping
+     |      "pingpong"
+     |    end  
+     |end)    
+=> NewClass
+ruby >NewClass.new.ping
+=> "pingpong"
+
+# Ruby's OO nature follows a small set of rules.
+# and follows them consistently
+# Objects really ARE at the heart of Ruby
+
+# Most of Ruby  sticks to the behaviour outlined in this module
+# There is one exception
+# First-class functions!
+
+# Functions
+# As well as OO, Ruby influenced by functional programming
+# Ruby selective in what it takes from functional programming
+
+# What if functional programming?
+# Essentially a type of programming that
+# uses the mathematical notion of functions to perform
+# calculations.
+
+# ** In mathematics a function is defined as the relation
+# between a set of input values and a set of output values
+double(x) = x*2
+          
+# maximun of two numbers
+# Mathematics: a definition of the relationship 
+# between input and output values
+
+           | x  if x > y
+max(x.y) = | 
+           | y  otherwise
+
+# Ruby - the set of steps necesssary to produce correct value
+
+ruby >def max (x,y)
+     |  if x > y
+     |    x
+     |  else  
+     |    y
+     |  end  
+     |end  
+=> :max
+
+ruby >max(100,2)
+=> 100
+ruby >max(2,100)
+=> 100
+
+# First even example
+#
+                   | nil                     if empty?(list)
+first_even(list) = | head(list)              if even?(head(list))
+                   | first_even(tail(list))  otherwise
+
+# Some very procedural Ruby code
+
+ruby >def first_even(list)
+     |  for i in list
+     |    if i.even?
+     |      break i
+     |    end  
+     |  end  
+     |end  
+
+=> :first_even
+ruby >first_even([1,3,5,7,66,4])
+
+# The mathematical funcion is recursive.  That is, the definition
+# of the function contains the function itself. 
+
+ruby >def first_even_recursive(list)
+     |  return nil if list.empty?
+     |  i = list.shift
+     |  if i.even?
+     |    i
+     |  else  
+     |    first_even_recursive(list)
+     |  end  
+     |end  
+=> :first_even_recursive
+
+ruby >first_even_recursive([1,3,5,66,4,5])
+=> 66
+
+# There is another difference between the mathematical defined
+# function and the original Ruby one. 
+# In the original Ruby fn, we assigned values to the variable 'i'
+# and this var changes for each iteration of the loop. 
+
+# In the mathematical function, we do not use any assignment
+# inside the definition. AND IF WE DID WE WOULD NOT BE ABLE TO
+# MODIFY THE ASSIGNED VALUES
+
+# This is the start of a much bigger idea about the bigger
+# idea of mutability and the very fancy-sounding 
+# referential transparency.  
+## Wikipedia aside
+
+# Referential transparency and referential opacity are properties of parts
+# of computer programs. An expression is said to be
+# referentially transparent if it can be replaced with its value without 
+# changing the behavior of a program (in other words, yielding a program 
+# that has the same effects and output on the same input).
+# The opposite term is referential opacity.
+# While in mathematics all function applications are referentially 
+# transparent, in programming this is not always the case
+# Referential transparency is one of the principles of functional programming;
+# --end--aside--
+
+# Immutablity
+# IN the mathematica world, if I say
+a =10
+# I am NOT assigning a value ffo 10 to a variable
+# I am giving a definition of a
+a =11 # is WRONG
+# This is different from the world of Ruby programming, where
+a = 10 
+# is an assignment, and this assignment can change. 
+# In the mathematial world, when something is defined, this 
+# definition cannot be changed. 
+a = 10
+double_a = a x 2
+# In fact a function where a definition contains 'a' is
+# exactly the equivalent of a function where a has
+# been replaced by its definition
+
+also_double_a = 10 x 2
+
+# This means that the definition of a function cannot change,
+# and it cannot be affected by anything else changing.
+# So if we call double_a, we know it will always return the
+# same result. 
+
+# In general terms, we know that every time we call a function 
+# passing in the same values, the output of the function will be 
+# the same.  This is referential transparency.  
+
+# This is NOT always the case with Ruby
+
+a = 10
+def double_a
+ a * 2
+end
+double_a #=> 20
+# but if make change
+a = 11 # ...!
+# now returns 22.
+# In practice, we cannot know the outcome of function just
+# by looking at it. We need to know what ASSIGNMENTS have been made.
+
+# Functional programming. Another hallmark.
+# It allows you to treat functions as first-class citizens.
+# For example
+even(x) = x % 2 triple-stroke-equal 0
+# now we can use this definition just like any other value.
+# Crucially, can pass as arg to another function. 
+
+# Now we can redefine our function to get the first element in list
+# making it more generic
+
+                  | nil                      if empty(list)
+first(list, fn) = | head(list)               if fn(head(list))
+                  | first(tail(list), fn)    otherwise 
+
+# We can use fn as second input and use this function to decide
+# whether or not an element is even.
+
+first([1,2,3], even)
+# This is a higer order function. Takes another function as input
+
+# Three inportant features that come from mathematical world that
+# we will use when doing functional programming
+ 
+#1 Functions are definitions, not a list of instructions
+#2 Immutable definitions, not variables
+#  (we don't assign values, we define things) 
+#  We dont have variables that can change as the program runs
+#3 Functions are first-class citizens.
+#  Perhaps most important one We can use them anywhere we would use
+#  any other variable, including passing in as argument to another
+#  function. 
+#  Next video looking at first-class functions in real Ruby code
+#
+#  Map
+
+# Apply discount
+ruby >def apply_discount(prices)
+     |  discounted_prices =[]  
+     |  prices.each do |price|  
+     |    reduced_price = price - (price * 0.15)    
+     |    discounted_prices << reduced_price
+     |  end  
+     |  discounted_prices
+     |end  
+=> :apply_discount
+
+ruby >apply_discount(ruby_prices)
+=> [85.0, 63.75, 76.5, 68.0, 42.5]
+
+# Now add tax
+ruby >def add_tax(prices)
+     |  prices_with_tax=[]
+     |  prices.each do |price|
+     |    prices_with_tax << price + (price * 0.2)
+     |  end  
+     |  prices_with_tax
+     |end  
+=> :add_tax
+
+ruby >add_tax(ruby_prices)
+=> [120.0, 90.0, 108.0, 96.0, 60.0]
+
+# At some level of abstraction, the only thing that is different
+# is what they do to each price
+# Would like to to something like this
+ruby >def map(list, fn)
+     |  results = []
+     |  list.each do | item |
+     |    # apply the function
+     |  end  
+     |end  
+=> :map
+
+# Need a way of passing one function to another function.
+# Then apply that function to each value
+
+#1 How do we pass one function to another
+
+# One way, create a Proc object
+
+>discount = Proc.new do | price |
+     |  price - (price * 0.15)
+     |end  
+=> #<Proc:0x00000004535c10@(pry):34>
+ruby >discount.call(100)
+=> 85.0
+
+# now ...
+
+ruby >def map(list, fn)
+     |  results = []
+     |  list.each do |item|
+     |    results << fn.call(item)
+     |  end  
+     |  results
+     |end  
+=> :map
+
+ruby >map(ruby_prices, discount)
+=> [85.0, 63.75, 76.5, 68.0, 42.5]
+
+# tax
+ruby >tax = Proc.new do | price |
+     |  price + (price * 0.2)
+     |end  
+=> #<Proc:0x000000042a97a8@(pry):47>
+
+ruby >map(ruby_prices, tax)
+=> [120.0, 90.0, 108.0, 96.0, 60.0]
+
+# But there IS A BETTER BUILT_IN Map function
+ruby >ruby_prices.map(&tax)
+=> [120.0, 90.0, 108.0, 96.0, 60.0]
+ruby >ruby_prices.map(&discount)
+=> [85.0, 63.75, 76.5, 68.0, 42.5]
+
+# *** Notice the ampersand! *** 
+
+# For now, think of it as way of telling Ruby that the argument
+# contains some code that we want to run
+
+# The funny ampersand character
+
+# In last video, created proc object to pass into a function
+# This technique common in Ruby
+# Has own special syntax
+# Quite often will never use Proc anywhere else!
+# Useful to create anonymous proc to use once
+# Ruby supports this by allowing you to
+# pass blocks of code to methods
+
+ruby >ruby_prices.map(&tax)
+=> [120.0, 90.0, 108.0, 96.0, 60.0]
+
+# This is not the usual way of creating and
+# using a proc
+
+ruby >ruby_prices.map do |price |
+     |  price + (price * 0.2)
+     |end  
+=> [120.0, 90.0, 108.0, 96.0, 60.0]
+
+# So what does a method that takes a block of code 
+# look like?
+# Two additional bits of ruby necessary to support blocls
+
+#1 The block of code might be optional
+# Can do this using
+block_given?
+
+# An example
+
+ruby >def called_with_block?
+     |  if block_given?
+     |    puts "you called me with a block"
+     |  end  
+     |end  
+=> :called_with_block?
+ruby >called_with_block?
+=> nil
+ruby >called_with_block? do
+     |  1 + 2
+     |end  
+you called me with a block
+=> nil
+
+#2 So how do we use a block?
+   # The next special method is called 'yield'
+
+# Example one
+ruby >def print_and_yield
+     |  puts "before calling yield"
+     |  yield
+     |  puts "After calling yield"
+     |end  
+=> :print_and_yield
+
+ruby >print_and_yield do 
+     |  puts "I am the block"
+     |end  
+before calling yield
+I am the block
+After calling yield
+=> nil
+
+# Example two
+ruby >def print_and_yield_two
+     |  puts "before calling yield"
+     |  yield
+     |  yield
+     |  puts "after calling 2 yields"
+     |  yield
+     |  puts "after calling final yield"
+     |end  
+=> :print_and_yield_two
+
+ruby >print_and_yield_two do
+     |  puts "I am a block of code"
+     |end  
+before calling yield
+I am a block of code
+I am a block of code
+after calling 2 yields
+I am a block of code
+after calling final yield
+=> nil
+
+# Running a block of code isn't that useful
+# We want to be able to pass values into it,
+# and get values back in return
+
+# Passing values in is easy: 
+# Simply pass them as arguments to yield
+# For example to implement our own version of Ruby's built-in each method
+
+
+ruby >def each_in_list(list)
+     |  for i in 0..(list.length - 1)
+     |    yield list[i]
+     |  end  
+     |end  
+=> :each_in_list
+
+ruby >each_in_list([1,2,3,5]) do |x|
+     |  puts x * 2
+     |end  
+2
+4
+6
+10
+=> 0..3
+
+#2 Using a return value is similarly easy.
+# 'yield' returns the value returned from the block
+
+#For example we can write a function that takes a string
+# splits the string into a list of words
+# passes each word into block
+# then adds the result of block to a results array
+
+ruby >def map_words(input)
+     |  results =[]
+     |  input.split.each do |word|
+     |    results << yield(word)
+     |  end  
+     |  results
+     |end  
+=> :map_words
+
+ruby >map_words("My name is thomas") do |x|
+     |  x.size
+     |end  
+=> [2, 4, 2, 6]
+
+
+# Blocks are very common in Ruby, and you will almost always use a block
+# when dealing with lists of data
+# You will use them much more than you use proc objects directly.
+# And certainly much more than 'for' loops for manipulating lists
+
+#In fact, almost all of Ruby's functional influence can be reduced to 
+# just saying
+  # *** "Use Blocks when dealing with lists of data ***
+# More accuretly, perhaps:
+  # Ruby's functional influences can mostly be found in the method
+  # list of the enumerable module
+
+# But not the full story ...
+
+# Procs and Blocks ..
+# There are some great things about Ruby, but the multiple
+# syntax options for creating Proc objects is not one of them
+# There are a few different way of creating and calling procs
+# There is also a lot of overlap between procs and blocks
+# They aren't quite the same thing, and they are normally used 
+# for different purposes
+
+# Let's start with blocks of code
+
+# We have already seen that you can pass them into methods by
+# following the method call by the keyword 'do',
+# followed by a parameter list in pipes,
+# followed by the code you want to run
+# followed by the keyword 'end'
+
+# An example
+ruby >prices = [10, 100, 40, 75, 30]
+=> [10, 100, 40, 75, 30]
+
+ruby >prices.select do |x|
+     |  x < 50
+     |end  
+=> [10, 40, 30]
+
+# There is also another way to specify a block of code,
+# and that is to use curly braces
+
+ruby >prices.select { |x| x < 50}
+=> [10, 40, 30]
+
+# *** It is common to use curly braces when the code fits on one line
+# and do-end when the code spans multiple lines ***
+
+#2 Proc Objects
+# We have already seen how to create this by calling 'new' on the 
+# Proc class, and passing in a block of code. 
+
+ruby >cheap = Proc.new do |price|
+     |  price < 50
+     |end  
+=> #<Proc:0x00000004f05a38@(pry):30>
+
+ruby >cheap2 = Proc.new {|price| price < 50}
+=> #<Proc:0x00000004f33050@(pry):34>
+
+# There a  few different ways to call a proc
+#1 As already seen, you can send the message 'call' to it.
+ruby >cheap.call(100)
+=> false
+# Any parameters given to 'call' are assigned to pararmeter list
+
+#2 You can also follow the name of the proc object by a list of arguments
+# wrapped in square brackets
+ruby >cheap[100]
+=> false
+# This is identical to sending the message 'call' to the proc
+
+#3 Can also send a pair of parentheses as a message to the proc, making
+# it look a bit like a method call. John thinks this just looks wrong!
+# He recommends to stick using 'call' explicitly, or using square 
+# bracket syntax.
+
+# Proc objects and Lambdas.
+# Lambda comes from Lambda Calculus
+# Developed in 1930s and hugely influential in computer science
+
+# Can create a lambda using the keyword 'lambda' followed by a block
+
+#The object returned is just a special type of proc eobject
+# You can call it in the same way you call any other proc
+
+ruby >cheap = lambda {|price| price < 50}
+=> #<Proc:0x00000004ee69f8@(pry):37 (lambda)>
+ruby >cheap.call(100)
+=> false
+
+ruby >[100, 40, 30, 2, 100].map(&cheap)
+=> [false, true, true, true, false]
+
+#Since Ruby 1.9, there is a new way of writing lambda
+#1 arrow pointing right
+#2 followed by parameter list
+#3 followed by block 
+
+ruby >cheap = -> price { price < 80}
+=> #<Proc:0x00000004db5728@(pry):41 (lambda)>
+
+ruby >[70,80,80].map(&cheap)
+=> [true, false, false]
+
+# *** Note how parameter list IS MOVED OUT OF THE BLOCK and 
+# immediately follows the arrow ***
+
+# This also OK
+ruby >cheap = -> (price) { price < 10}
+
+cheaptest = -> price1, price2 { [price1, price2].min}
+
+# lambdas written in this way are called STABBY LAMBDAS
+
+# Very succinct syntax
+
+# Lambdas and Procs behave slightly differently as regards checking of arguments
+
+ruby >p = Proc.new { |x| "You called me with #{x.inspect}"}
+=> #<Proc:0x0000000289f880@(pry):49>
+ruby >p.call("begorrah")
+=> "You called me with \"begorrah\""
+ruby >p.call
+=> "You called me with nil"
+
+ruby >l = -> x { "You called me with #{x.inspect}"}
+=> #<Proc:0x00000004ac0608@(pry):52 (lambda)>
+ruby >l.call("begorrah")
+=> "You called me with \"begorrah\""
+ruby >l.call
+ArgumentError: wrong number of arguments (0 for 1)
+from (pry):52:in `block in __pry__'
+
+
+# Notice that calling the lamda-proc without any arguments gives rise to argument
+# error. John recons that is what want most often.  
+
+# Lets go back to blocks again
+# When we write a method that takes a block, we can assign that block
+# to a parameter using some special syntax
+
+# *** -- You can specify an optional final parameter to hold the block
+# prefixed by an ampersand *** --
+
+ruby >def modify_prices(prices, &block)
+     |  block.inspect
+     |end  
+=> :modify_prices
+
+ruby >prices =[10, 100, 89]
+=> [10, 100, 89]
+
+ruby >modify_prices(prices) { |p| p * 1.2}
+=> "#<Proc:0x00000004058be8@(pry):6>"
+
+# We can see that the block  parameter is now actually a proc!!
+# How consistent of Ruby!
+# Does this mean we can just pass a proc object in as the final parameter
+# Well NOT QUITE!
+# Blocks are a very syntatic form in Ruby.
+# So if you try to pass in a proc object, in this case a stabby lambda
+# the Ruhy interpreter does not quite understand what is going on, and
+# thinks we have passed in too many arguments
+
+ruby >add_tax = -> prices { prices * 0.2}
+=> #<Proc:0x00000004083e38@(pry):8 (lambda)>
+
+ruby >modify_prices(prices, add_tax)
+ArgumentError: wrong number of arguments (2 for 1)
+from (pry):1:in `modify_prices'
+
+ruby >modify_prices(prices, &add_tax)
+=> "#<Proc:0x00000004083e38@(pry):8 (lambda)>"
+
+# John has never called a method like this, but 
+# at least we now know how!
+
+# *** Howerver, this trick does get interesting when used with
+# an interesting method on the symbol class.
+
+# You can send a message to_proc to any symbol 
+# for example, the symbol :even?, and it returns a proc object
+ruby >:even?.to_proc
+=> #<Proc:0x000000040d9db0>
+
+# The proc that gets returns takes a sinle parameter, 
+# then tries to call a method matching the original symbol
+# on that parameter. 
+
+# For example: 
+ruby >:even?.to_proc.call(4)
+=> true
+ruby >:even?.to_proc[4]
+=> true
+
+# This will not work
+ruby >:even?.to_proc.call("hello")
+NoMethodError: undefined method `even?' for "hello":String
+from (pry):16:in `call'
+
+# *** What this gives us then is a shorthand method for
+# creating a proc which just says: 'call this message on
+# a  value'
+
+# For example, say we have a list of prices and we want to 
+# find which ones are even
+
+ruby >prices = [75, 100, 4, 3]
+=> [75, 100, 4, 3]
+
+ruby >prices.select { |p| p.even?}
+=> [100, 4]
+# Shorthand
+ruby >prices.select(&:even?)
+=> [100, 4]
+# We pass in symbol-even? and prefix with ampersand.
+# Ampersand doing two things
+#1 Firstly, calling to_proc on the symbol for us
+#2 Also tells Ruby that this proc will act like a block
+#  being passed to the method
+
+# This gives us a very succinct way of calling a single method
+# on a list of objects
+
+# For example (**goodies**)
+ruby >prices.map(&:to_f)
+=> [75.0, 100.0, 4.0, 3.0]
+
+ruby >prices.map(&:to_s)
+=> ["75", "100", "4", "3"]
+ 
+# In practice we will use blocs and lambdas a lot
+# When to use which?
+# Use a block when you are calling a method and expect 
+# the code you are passing in to be run as part of the method
+# Use a lambda when you want to store a block of code and use it
+# later. Maybe when you want to delay execution until later.
+# Will probably use the clever &:tosymbol trick quite a lot
+# when you want to call a single method on a list of objects.
+
+# Lambdas can be used for a lot more ... read on.  
+
+# Currying.
+
+# In this video we will look at partial application, also known
+# as currying. 
+# This allows us to call a proc with some arguments now, and with
+# the rest of the arguments  later. 
+
+# -- wikipedia aside
+# In mathematics and computer science, currying is the technique of 
+# translating the evaluation of a function that takes multiple arguments
+# (or a tuple of arguments) into evaluating a sequence of functions,
+# each with a single argument. It was introduced by
+# Moses Schönfinkel[1][2][3] and later developed by Haskell Curry
+# -- end aside --
+
+# First developed by Schonfinkel, but Curry first applied to lamda
+# calculus
+
+# Lets say we have a Proc that multipies two numbers together
+ruby >mult = -> x, y {x * y}
+=> #<Proc:0x000000051dd9e0@(pry):8 (lambda)>
+ruby >mult[2,3]
+=> 6
+ruby >mult.call(2,3)
+=> 6
+
+# can also Curry
+double = mult.curry[2]
+=> #<Proc:0x0000000522b780 (lambda)>
+
+ruby >double[3]
+=> 6
+ruby >double[8]
+
+# So why would we use Currying?
+# Let's look at a simple example
+
+
+
+# we use square brackets with Curry to let Ruby know that the
+# argument are for the original Proc
+
+# Lets say we have an e-commerce platform in Ruby
+# We want to run some promotions sometime
+
+ruby >class Promotion
+     |  def initialize (description, calculator)
+     |    @description = description
+     |    @calculator = calculator
+     |  end  
+     |  def apply(total)
+     |    total - @calculator[total]
+     |  end  
+     |end  
+=> :apply
+
+# Create promotion class with description and with
+# proc to calculate promotion amount.
+
+# For example, to discount everything by 15%
+
+ruby >discount = Promotion.new(
+     |  "15% off everything",  
+     |  -> total {total * 0.15}
+     |)  
+=> #<Promotion:0x00000003fa2730
+ @calculator=#<Proc:0x00000003fa2758@(pry):12 (lambda)>,
+ @description="15% off everything">
+
+
+# The problem comes when we have to create many different
+# promotions that work in similar ways.
+
+# Lets say our promotion deducts 10% if you spend over $50
+# and 15% if you spend over 100 dollars
+
+ruby >ten_pc = Promotion.new(
+     |  "10% if you spend over fifty dollars",
+     |  -> total {total > 50 ? total * 0.1 : 0}
+     |)  
+=> #<Promotion:0x00000005293a88
+ @calculator=#<Proc:0x00000005293ab0@(pry):18 (lambda)>,
+ @description="10% if you spend over fifty dollars">
+
+ruby >ten_pc.apply(45)
+=> 45
+ruby >ten_pc.apply(100)
+=> 90.0
+
+ruby >fifteen_pc = Promotion.new(
+     |  "15% if you spend more than 100 dollars",
+     |  -> total {total > 100 ? total * 0.15 : 0}
+     |)  
+=> #<Promotion:0x000000052fd280
+ @calculator=#<Proc:0x000000052fd2a8@(pry):24 (lambda)>,
+ @description="15% if you spend more than 100 dollars">
+
+ruby >fifteen_pc.apply(45)
+=> 45
+ruby >fifteen_pc.apply(100)
+=> 100
+ruby >fifteen_pc.apply(150)
+=> 127.5
+
+# But the calculators we are using here are pretty similar.
+# The only differences are the values involved
+
+# Lets create a more general calculator and Curry it with the values 
+# we want
+
+ruby >calc = -> threshold, discount, total do
+     |  total > threshold ? total * discount : 0
+     |end  
+=> #<Proc:0x000000053c6338@(pry):30 (lambda)>
+
+ruby >ten_pc_calc = calc.curry[50, 0.1]
+=> #<Proc:0x000000053db530 (lambda)>
+ruby >fifteen_pc_calc = calc.curry[100, 0.15]
+=> #<Proc:0x000000053dc3e0 (lambda)>
+
+ruby >ten_pc_calc[45]
+=> 0
+ruby >ten_pc_calc[50]
+=> 0
+ruby >ten_pc_calc[100]
+=> 10.0
+ruby >fifteen_pc_calc[100]
+=> 0
+ruby >fifteen_pc_calc[150]
+=> 22.5
+# now ...
+# can use in our promotions. 
+                                  ^
+ruby >ten_pcc = Promotion.new(
+     |  "10% if you spend over 50 dollars",
+     |ten_pc_calc)  
+=> #<Promotion:0x000000051a84c0
+ @calculator=#<Proc:0x000000053db530 (lambda)>,
+ @description="10% if you spend over 50 dollars">
+
+ruby >ten_pcc.apply(100)
+=> 90.0
+
+ruby >fifteen_pc = Promotion.new(
+     |  "15% if you spend over 100 dollars",
+     |  fifteen_pc_calc
+     |)  
+=> #<Promotion:0x00000005095858
+ @calculator=#<Proc:0x000000053dc3e0 (lambda)>,
+ @description="15% if you spend over 100 dollars">
+
+ruby >fifteen_pc.apply(150)
+=> 127.5
+ 
+# Currying allows us to write very generalized functions that may be
+# specialized in our problem domain
+
+# Functional Composition
+
+# Just a fancy way of saying 'joining functions together'
+# Illustrate refactoring some code
+# Lets say we work for e-commrece and we have been asked to report on
+# how well the products are selling.
+
+products.sample
+Product price =10, rating =1, color=:green, sales =2251
+
+# inject
+# takes a single parameter for an inital value
+# Then it takes a block with two parameters
+# The first parameter is result of the last time the block was run
+# OR the intial value when it first runs :  
+# The second parameter gets set to each item in our array
+# and then the block gets run once per product
+
+# -- inject/reduce aside
+
+# #inject and #reduce are the same thing in Ruby. Also called
+# fold in other programming languages.
+
+# map and collect are also idential
+
+# see here
+# http://stackoverflow.com/a/13813295/499167
+
+ruby >[1,2,3,4].inject(100) {|a,b| a + b}
+=> 110
+ruby >[1,2,3,4].inject(&:+)
+=> 10
+ruby >[1,2,3,4].inject(100, &:+)
+=> 110
+ruby >[1,2,3,4].reduce(100, &:+)
+=> 110
+# --end of aside --
+
+
+# Products Report  - Basic
+
+ruby >class Report
+     |  def initalize(products)
+     |    @products = products
+     |  end  
+     |  
+     |  def run 
+     |    money_taken = @products.inject(0) do | total, product |
+     |      (product.price * product.sales) + total
+     |    end  
+     |    
+     |    total_sales = @products.inject(0) do | total, product |
+     |      product.sales + total
+     |    end  
+     |    
+     |    money_taken / total_sales
+     |  end  
+     |end  
+=> :run
+
+# Now lets say there is a run on Red items ...
+
+ruby >class Report
+     |  def initalize(products)  
+     |    @products = products    
+     |  end    
+     |  
+     |  def run(red_only: false)
+     |    selection = @products
+     |    
+     |    if red_only
+     |      selection  = selection.select {|product| product.color == :red}
+     |    end  
+     |    money_taken = @products.inject(0) do | total, product | 
+     |      (product.price * product.sales) + total      
+     |    end      
+     |    total_sales = @products.inject(0) do | total, product |
+     |      product.sales + total      
+     |    end      
+     |    
+     |    {
+     |      averarge_sales_price: money_taken / total_sales,
+     |      money_taken: money_taken
+     |    }  
+     |  end  
+     |end  
+=> :run
+
+# Now want to report top-selling methods
+
+ruby >class Report
+     |  def initalize(products)  
+     |    @products = products    
+     |  end    
+     |  def run(red_only: false)  
+     |    selection = select_products(red_only)    
+     |    money_taken = @products.inject(0) do | total, product |    
+     |      (product.price * product.sales) + total      
+     |    end      
+     |    total_sales = @products.inject(0) do | total, product |    
+     |      product.sales + total      
+     |    end      
+     |    {    
+     |      averarge_sales_price: money_taken / total_sales,      
+     |      money_taken: money_taken      
+     |    }      
+     |    def top_selling(red_only: false)    
+     |      select_products(red_only).sort_by(&:sales).last(3)      
+     |    end      
+     |    def select_products(red_only)    
+     |      selection = @products      
+     |      if red_only      
+     |        selection = selection.select { | product | product.color == :red}        
+     |      end        
+     |      selection      
+     |    end      
+     |  end    
+     |end  
+=> :run
+
+# So how can we avoid things getting out of control?
+
+# Lets create a lambda to create average sales price
+
+ruby >avg_sales_price = -> products { sales_value[products]  / total_sales[products]}
+=> #<Proc:0x00000004ab91f0@(pry):197 (lambda)>
+
+ruby >sum = -> list {list.inject(&:+)}
+=> #<Proc:0x0000000497df48@(pry):198 (lambda)>
+
+ruby >sales_value = -> products do
+     |  product_revenue = products.map { | product | product.sales * product.price }
+     |  sum[product_revenue]
+     |end  
+=> #<Proc:0x00000004a367a0@(pry):202 (lambda)>
+
+ruby >total_sales = -> products { sum[products.map(&:sales)] }
+=> #<Proc:0x00000004982ef8@(pry):206 (lambda)>
+
+ruby >red = -> products { products.select { |p| p.color == :red}}
+=> #<Proc:0x00000004b07990@(pry):208 (lambda)>
+
+# Now, create FunctionalReport Clas
+
+ruby >class FunctionalReport
+     |  def initialize(products, *fns)  
+     |    @products = products    
+     |    @fns = fns    
+     |  end    
+     |  def run  
+     |    @fns.inject(@products) do | last_result, fn |
+     |      fn[last_result]
+     |    end  
+     |  end  
+     |end  
+=> :run
+
+# Now can do something like this
+
+ruby >FunctionlReport.new(PRODUCTS, avg_sales_price).run 
+
+ruby >FunctionlReport.new(PRODUCTS, red, avg_sales_price).run
+
+ruby >green = -> products {products.select { |p| p.color == :green}}
+=> #<Proc:0x000000048e91b8@(pry):234 (lambda)>
+
+ruby >high_rating = -> products {products.select { |p| p.rating >= 3}}
+=> #<Proc:0x00000004999220@(pry):235 (lambda)>
+
+ruby >FunctionalReport.new(PRODUCTS, green, high_rating, total_sales).run
+
+# But still quite a bit of repetition 
+#Build generic function to select products by some attribute
+#and then use currying to create specific queries
+
+ruby >by_attribute = -> attr, op, value, products do
+     |  products.select { |p| p[attr].send(op, value) }
+     |end  
+=> #<Proc:0x00000005836a80@(pry):1 (lambda)>
+
+ruby >by_color = by_attribute.curry[:color, :==]
+=> #<Proc:0x0000000585ea80 (lambda)>
+
+ruby >blue = by_color.curry[:blue]
+=> #<Proc:0x00000005882890 (lambda)>
+
+ruby >blue[PRODUCTS].take(3)
+NameError: uninitialized constant PRODUCTS
+from (pry):7:in `__pry__'
+
+ruby >by_max_rating = by_attribute.curry[:rating, :<]
+=> #<Proc:0x000000058a6100 (lambda)>
+
+ruby >low_rating = by_max_rating.curry[3]
+=> #<Proc:0x000000058c9da8 (lambda)>
+
+ # But should we write code like this?
+
+# Fuunctional thinking
+
+# Advantages of Functional Programming
+#1    Add features without changing existing code
+#2    Create each step of report with very little code
+#3    No need to write unrelated code from other steps
+
+# but ... not very 'Ruby-ish'
+# Clojure is a 'proper' functional programming language
+
+# Recommended functional techniques
+
+map, select, inject ...
+
+blocks for lists of data
+
+lambdas for code to be run later
+
+
+# but ...
+currying, composing lambda
+# will be used only rarely, maybe?
+
+#  the red product filter implemenented a short piece of specific functionality, but 
+# it also treats the data as being immutable - a characteristic of functinla programming. 
+
+# Immutability and referential transparency make it much easier to reason about code
+#
+# Final Module
+# Metaprogramming
+
+# In Rails
+
+class Post < ActiveRecord::Base
+    has_many :comments
+    belongs_to :user
+end
+
+# 'has_many' and 'belongs_to' are really just Ruby method calls. 
+# but they are calls to methods that will spit out new ruby code
+# In this casss they both add extra methods to your active record model to help
+# you accss other associated collections or classes 
+
+# These are also class methods.  That is, they get evaluated when the
+# class is defined. 
+#
+# Online dating app for dinosars
+
+# The only thing you see is describing what we want to achieve
+# The start of a bigger idea: DSL 
+#
+# DSL is Domain-specific language
+# A good DSL will make the underlying programming language disappear
+# into the background. 
+
+# class instance variables
+
+# -- stackoverflow aside
+
+# Class variables are shared between a given class and its subclasses.
+# Class instance variables belong to exactly one class; its subclasses
+#  are separate.
+# -- end aside --
+
+# Classes in Ruby are just objects.  A subclass is a different object
+# Class instance variables are just instance variables with the 
+# same syntax as instance variables. The only difference is that we
+# call from inside class methods. 
+
+# Ruby is a powerful language
+# Ruby is not a simple language
+
+#  The power of Ruby comes from three ideas
+
+#1 Object Orientation
+#2 Functions
+#3 Metaprogramming 
+#  (Dynamic nature controlled throught metaprogramming) 
+
+# -- the end 
+
+
+## tgd currying aside ---
+
+ruby >addtwo = -> (x, y) {x +y}
+=> #<Proc:0x00000004a61f40@(pry):245 (lambda)>
+ruby >addtwo.call(100,2)
+=> 102
+ruby >plustwo=addtwo.curry[2]
+=> #<Proc:0x00000004af2450 (lambda)>
+ruby >plustwo[89]
+=> 91
+ruby >
+
+ addtwoalt = lambda {|x,y| x + y}
+ addtwoalt.call(100,2)
+ addtwoalt[100,2]
+ plustwoalt = addtwoalt.curry[2]
+ plustwoalt[100]
+

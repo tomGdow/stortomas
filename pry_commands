@@ -1,0 +1,27 @@
+
+gem-cd
+.pwd
+# read in a file
+pry -r ./dinosaur.rb 
+whereami
+nesting
+cd ..
+jump-to 0
+
+cd Products
+ls -h # goodie, any command
+ls -M 
+ls -m 
+ls Array -M
+ls -i # instance variables.  A goodie goodie goodie
+
+show-doc Array#in_groups_of 
+show-method 
+show-models Array#in_groups_of 
+show-routes
+edit-nethod
+
+#run shell command by prefixing with period
+#debug
+binding.pry
+# pry's cat command much smarter than shell equivalent.  Hightlighting

@@ -1,0 +1,37 @@
+#Lecture One MIT, Introduction to Computer Science and Programming
+# John Guttag
+
+# The basic notion of a stored program computer is that instructions and data are
+# the same.  The is no distinction between the program that implements the algorithm
+# and the data on which the algorithm acts
+
+# Turing showed that there are only six primitive instructions each of which acts on
+# a bit of data, and with those six instructions you can do anything you want with a computer.
+
+# Wiki move tape left (plus?), Move tape right (minus?) read, write, change state, halt
+
+
+
+# Guttag, again
+# Declarative knowledge is statements of fact; imperative knowledge is "how to" knowledge
+# Any programming language has three defining features
+#1 Syntax
+#2 Static Semantics
+#3 Semantics 
+
+#1 Syntax Which sequence of characters and symbols constitute a well-formed string
+x = 3 + 4 is syntatically correct.
+x = 3 4 (3-blank-four) is not 
+By analogy with English syntax tells whether a sentence is well-formed, but not
+necessarily meaningful
+
+#2 Static semantics tells which strings are meaningful
+
+#3 Semantics attache a real meaning to strings that are both syntatically correct
+# and semantically-statically correct
+
+Syntax determines whether a string is legal, static semantics determine whether the string has meaning, and semantics assigns a meaning to a legal sentence (assuming no static semantic errors).
+
+What sort of errors can occur in a program
+
+ It can crash, run forever, or give a wrong answer.
