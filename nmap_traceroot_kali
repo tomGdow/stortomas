@@ -1,0 +1,3 @@
+
+nmap -v --traceroute tomgdow.com
+# a goodie
