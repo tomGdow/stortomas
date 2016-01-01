@@ -1,0 +1,20 @@
+
+$:ping www.pluralsight.com -c 3
+	PING www.pluralsight.com (52.11.173.170) 56(84) bytes of data.
+
+	--- www.pluralsight.com ping statistics ---
+	3 packets transmitted, 0 received, 100% packet loss, time 2016ms
+
+# note packet loss
+
+$:hping3 -S www.pluralsight.com -p 80 -c 3
+	HPING www.pluralsight.com (eth0 52.11.173.170): S set, 40 headers + 0 data bytes
+	len=46 ip=52.11.173.170 ttl=44 DF id=0 sport=80 flags=SA seq=0 win=17922 rtt=173.4 ms
+	len=46 ip=52.11.173.170 ttl=44 DF id=0 sport=80 flags=SA seq=1 win=17922 rtt=173.0 ms
+	len=46 ip=52.11.173.170 ttl=44 DF id=0 sport=80 flags=SA seq=2 win=17922 rtt=172.9 ms
+
+	--- www.pluralsight.com hping statistic ---
+	3 packets transmitted, 3 packets received, 0% packet loss
+	round-trip min/avg/max = 172.9/173.1/173.4 ms
+
+# note no packet loss

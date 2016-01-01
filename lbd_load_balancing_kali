@@ -1,0 +1,14 @@
+
+$:lbd tomgdow.com
+
+	lbd - load balancing detector 0.4 - Checks if a given domain uses load-balancing.
+					    Written by Stefan Behte (http://ge.mine.nu)
+					    Proof-of-concept! Might give false positives.
+
+	Checking for DNS-Loadbalancing: NOT FOUND
+	Checking for HTTP-Loadbalancing [Server]: 
+	 Apache/2.4.7 (Ubuntu)
+
+	Checking for HTTP-Loadbalancing [Diff]: FOUND
+
+	tomgdow.com does Load-balancing. Found via Methods: HTTP[Diff]
