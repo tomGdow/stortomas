@@ -54,8 +54,7 @@ gem 'rails_12factor', group: :production
 # Added this to config/application.rb
 config.assets.initialize_on_precompile = false
 
-heroku create
-git push heroku master
+
 heroku run rake db:migrate
 heroku run rake db:load
 heroku rename jawaireland

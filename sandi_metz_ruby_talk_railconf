@@ -1,0 +1,540 @@
+
+ruby >1.to_s
+=> "1"
+ruby >1.send(:to_s)
+=> "1"
+ruby >1+2
+=> 3
+
+ruby >1.send(:+,2)
+=> 3
+ruby >1.class
+=> Fixnum
+# So what do fixnums know?
+
+ruby >Fixnum.instance_methods(false)
+=> [:to_s,
+ :inspect,
+ :-@,
+ :+,
+ :-,
+ :*,
+ :/,
+ :div,
+ :%,
+ :modulo,
+ :divmod,
+ :fdiv,
+ :**,
+ :abs,
+ :magnitude,
+ :==,
+ :===,
+ :<=>,
+ :>,
+ :>=,
+ :<,
+ :<=,
+ :~,
+ :&,
+ :|,
+ :^,
+ :[],
+ :<<,
+ :>>,
+ :to_f,
+ :size,
+ :bit_length,
+ :zero?,
+ :odd?,
+ :even?,
+ :succ]
+ruby >1.succ
+=> 2
+ddruby >
+ 
+# In the above, you will find the following: :+ 
+# This is what is real. This is the truth at the bottom
+# of all things!  WE ARE JUST SENDING A MESSAGE TO AN OBJECT
+# When you say ' 1 <space> + <space> 1, this is a special syntatic sugar!!
+# that is put on top of message sending.  
+# There just to make it look like math. 
+
+ruby >1==1
+=> true
+ruby >1.send(:==,1)
+=> true
+ruby >true.class
+=> TrueClass
+# what is true? Well it is the singleton instance of TrueClass
+
+ruby >TrueClass.instance_methods(false)
+=> [:to_s, :inspect, :&, :|, :^, :pretty_print_cycle, :pretty_print]
+ruby >true.send(:to_s)
+=> "true"
+# So ... true is an object.  Sandi was unsurprised at this idea coming
+# from Smalltalk. 
+# But she WAS surprised to find that Ruby had a special syntax for
+# dealing with booleans! 
+
+# SmallTalk Keywords
+# true, false, nil, self, super thisContext
+# Six no matter which way you count them
+# But look at Ruby
+alias
+and
+BEGIN
+begin
+break
+case
+class
+def
+defined?
+do
+else
+elseif
+END
+end
+ensure
+false
+for
+if
+in
+module
+next
+nil
+not
+or
+redo
+rescue
+retry
+return
+self
+super
+then
+true
+undef
+unless
+until
+when
+while
+yield
+
+# Note that 'if' is a keyword!
+# Special syntax for dealing with booleans
+
+# Here is how you use that special syntax
+
+ruby >if (1 ==1)
+     |  'is true'
+     |else  
+     |  'is false'
+     |end  
+=> "is true"
+
+ruby >if (true)
+     |  # code to eval when 'true'
+     |else  
+     |  # code to eval when 'false'
+     |end  
+=> "is true"
+
+# A little more complicated ...
+
+ruby >if (truthy)
+     |  # code to eval when 'truthy'
+     |else  
+     |  # code to eval when 'falsey'
+     |end  
+=> "is true"
+
+# This is a typecheck, and we don't do typchecks in OO
+# We hate this idea
+
+if (some object whose type I know) 
+    # code to do some stuff
+else
+    # code to do some other stuff
+end
+
+# As an OO programmer, I do not want to have this syntax.
+# I just want to send a message to an object
+
+# If you came to Ruby from a procedural language (as most of us
+# did?), then it probably seemed reasonable to write long conditionals
+
+# But the very presence of 'if' in Ruby makes it easier to retain
+# that procedural mindset, and it keeps you from learning OO and
+# taking advantage of the power of objects
+
+# Let's change Ruby to have Smalltalk-like syntax for
+# dealing with condtionals ...
+
+ruby >class TrueClass
+     |  def if_true
+     |    yield
+     |    self
+     |  end  
+     |  
+     |  def if_false
+     |    self
+     |  end  
+     |end  
+=> :if_false
+
+ruby >class FalseClass
+     |  def if_true
+     |    self
+     |  end  
+     |  
+     |  def if_false
+     |    yield
+     |    self
+     |  end  
+     |end  
+=> :if_false
+
+# if implement above monkey-patch, can now write the following
+
+ruby >(1 == 1).if_true {puts "evaluated block"}
+evaluated block
+=> true
+ruby >(1 == 1).if_false {puts "evaluated block"}
+=> true
+ruby >(1 == 2).if_false {puts "evaluated block"}
+evaluated block
+=> false
+
+# This is not quite right, as we really need 'truthy'/'falsey'
+
+ruby >class Object
+     |  def if_true
+     |    yield
+     |    self
+     |  end  
+     |  
+     |  def if_false
+     |    self
+     |  end  
+     |end  
+=> :if_false
+
+ruby >class NilClass
+     |  def if_true
+     |    self
+     |  end  
+     |  
+     |  def if_false
+     |    yield
+     |    self
+     |  end  
+     |end  
+=> :if_false
+
+ruby >"anything".if_true {puts 'evaluated block'}
+evaluated block
+=> "anything"
+ruby >"anything".if_false {puts 'evaluated block'}
+=> "anything"
+
+ruby >nil.if_true {puts 'evaluated block'}
+=> nil
+ruby >nil.if_false {puts 'evaluated block'}
+evaluated block
+=> nil
+
+#  So ... no need for special syntax
+# to deal with booleans. We can just send
+# messages to objects
+
+# but ...
+# "I don't want to change Ruby"
+# "I want to change YOU!"
+
+# How would you write OO code if there were no 'if' statements
+# The fact that Sandi was trained in OO in a language that
+# did not have an 'if' statement made her permanently, irrevocably
+# and unrepentently condition-adverse
+
+# Here is a method that she hates
+Animal.find('pig')
+# gives you back an object if you pass id it knows. OK
+# but ...
+Animal.find('')
+=> nil
+ --- Aside from talk ---
+# See this blog by Sandi Metz
+http://www.sandimetz.com/blog/2014/12/19/suspicions-of-nil
+
+# What is 'nil'?
+# A straightforward defn is that it is an instance of NilClass
+# and a special kind of Ruby singleton that responds to 70+ public/protected
+# methods
+ruby >nil.class
+=> NilClass
+ruby >nil.singleton_class
+=> NilClass
+
+# In Ruby, nil (and also true and false) are defined in a slightly special
+# way, such that their class and their singleton class are the same
+
+
+ruby >NilClass.instance_methods.count
+=> 75
+ruby >NilClass.instance_methods.sort
+=> [:!,
+ :!=,
+ :!~,
+ :&,
+ :<=>,
+ :==,
+ :===,
+ :=~,
+ :^,
+ :__binding__,
+ :__id__,
+ :__send__,
+ :class,
+ :clone,
+ :define_singleton_method,
+ :display,
+ :dup,
+ :enum_for,
+ :eql?,
+ :equal?,
+ :extend,
+ :freeze,
+ :frozen?,
+ :gem,
+ :hash,
+ :if_false,
+ :if_true,
+ :inspect,
+ :instance_eval,
+ :instance_exec,
+ :instance_of?,
+ :instance_variable_defined?,
+ :instance_variable_get,
+ :instance_variable_set,
+ :instance_variables,
+ :is_a?,
+ :kind_of?,
+ :method,
+ :methods,
+ :nil?,
+ :object_id,
+ :pretty_inspect,
+ :pretty_print,
+ :pretty_print_cycle,
+ :pretty_print_inspect,
+ :pretty_print_instance_variables,
+ :private_methods,
+ :protected_methods,
+ :pry,
+ :public_method,
+ :public_methods,
+ :public_send,
+ :rationalize,
+ :remove_instance_variable,
+ :respond_to?,
+ :send,
+ :singleton_class,
+ :singleton_method,
+ :singleton_methods,
+ :taint,
+ :tainted?,
+ :tap,
+ :to_a,
+ :to_c,
+ :to_enum,
+ :to_f,
+ :to_h,
+ :to_i,
+ :to_r,
+ :to_s,
+ :trust,
+ :untaint,
+ :untrust,
+ :untrusted?,
+ :|]
+# Many of these were inherited from Object. Let's reduce this list
+# to just those methods defined in NilClass
+
+ruby >NilClass.instance_methods(false)
+=> [:to_i,
+ :to_f,
+ :to_s,
+ :to_a,
+ :to_h,
+ :inspect,
+ :&,
+ :|,
+ :^,
+ :nil?,
+ :to_r,
+ :rationalize,
+ :to_c,
+ :pretty_print_cycle,
+ :if_true,
+ :if_false]
+
+# So far, mundane. NilClass is clearly a class and nil is the one and 
+# only instance of that class. No magic here
+# nil is a regular old object that responds to its own set of objects
+# just like any other. 
+
+# However, despite this apparent normalcy, we create problems for ourselves
+# because it's easy to treat nil as something other than a straightforward
+# object. For example, it's common to use nil to signal the absence of a 
+# result to the sender of messages. As a matter of fact, one might 
+# defensively argue that this is part of nil's purpose
+
+
+ruby >class Animal
+     |  attr_reader :name
+     |  
+     |  def self.find(id)
+     |    if id == ''
+     |      nil
+     |    else  
+     |      new(id)
+     |    end  
+     |  end  
+     |  
+     |  def initialize(name)
+     |    @name = name
+     |  end  
+     |end  
+=> :initialize
+
+ruby >Animal.find('pig')
+=> #<Animal:0x0000000433e808 @name="pig">
+ruby >Animal.find('dog')
+=> #<Animal:0x000000043ad000 @name="dog">
+ruby >Animal.find('')
+=> nil
+# If someone innocently does the following:
+
+ruby >ids = ['pig', '', 'sheep']
+=> ["pig", "", "sheep"]
+ruby >ids.map {|id| Animal.find(id)}
+ruby >animals = ids.map {|id| Animal.find(id)}
+=> [#<Animal:0x00000004621fc0 @name="pig">, nil, #<Animal:0x00000004621f48 @name="sheep">]
+
+# But ...
+
+ruby >animals.each { | animal| animal.name}
+NoMethodError: undefined method `name' for nil:NilClass
+from (pry):96:in `block in __pry__'
+#Key ...
+ruby >animals.map {|animal| animal.class}
+=> [Animal, NilClass, Animal]
+
+
+# At least two ways around it ..
+
+ruby >animals.each {| animal|
+     |  puts animal.nil? ? 'no name' : animal.name
+     |}  
+pig
+no name
+sheep
+=> [#<Animal:0x00000004621fc0 @name="pig">, nil, #<Animal:0x00000004621f48 @name="sheep">]
+
+from (pry):109:in `__pry__'
+ruby >animals.each {|animal| puts animal && animal.name}
+pig
+
+sheep
+=> [#<Animal:0x00000004621fc0 @name="pig">, nil, #<Animal:0x00000004621f48 @name="sheep">]
+
+# If working through Rails console (with pry ...)
+
+ruby >animals.each do | animal|
+     |  puts animal.try(:name)
+     |end  
+pig
+
+goat
+=> [#<Animal:0x00000003426550 @name="pig">,
+ nil,
+ #<Animal:0x000000034264d8 @name="goat">]
+
+# But, handy though this is, try IS AN ENABLER
+
+# The fundamental problem here is that the code
+# is forcing the sender of messages to check the
+# type of return and then supply the missing behaviour
+# In flexible, forgiving, easily maintainable OO, the objects
+# returns from message sends conforms to a common API; they behave
+# exactly as you would expect. 
+# If you go down one of the workarounds suggested above, your app
+# at some stage may need 'shotgun surgery'
+
+## -- back to video --
+
+# note this one
+ruby >animals
+=> [#<Animal:0x00000003426550 @name="pig">,
+ nil,
+ #<Animal:0x000000034264d8 @name="goat">]
+
+ruby >animals.compact
+=> [#<Animal:0x00000003426550 @name="pig">,
+ #<Animal:0x000000034264d8 @name="goat">]
+ruby >
+
+# Sometimes nil IS  nothing! 
+# If so, you can compact the array and all is well!
+
+# *** But if you are sending it a message, nil is something ***
+
+# But lets be honest ...
+
+puts animal.try(:name)
+# is really ...
+puts animal.nil? ? '' : animal.name
+# which is really this ...
+puts animal == nil ? '' : animal.name
+# which is really this ..
+puts animal.is_a?(NilClass) ? '' : animal.name
+
+# if write out the above line
+if animal.is_a?(NilClass)
+    puts ''
+else
+    puts animal.name
+end
+
+# but the above is really this, which is what
+# Sandi is complaining about!
+
+if (some object whose type I know)
+   # code to do some stuff
+else
+   # code to to some other stufff
+end
+
+But it is actually worse!
+
+if (some object whose type I know)
+    # I'll supply the behaviour
+else
+    # I'll send a message
+end
+
+# The core problem is that conditions always get worse
+
+# Sandi is condition-adverse, but message centric
+
+# She just want to send a message to an object, this message:
+
+if animal.is_a?(NilClass)
+    puts 'no animal'
+else
+    puts animal.name
+end
+
+t  
+
+
