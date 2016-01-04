@@ -1,0 +1,8 @@
+# login 
+sudo su - postgres
+whoami
+psql
+\l # list all tables ;
+postgres=# DROP DATABASE pgtomrails_test;
+# => DROP DATABASE
+## Dont forget about the semi-colon!
