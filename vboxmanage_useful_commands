@@ -1,0 +1,15 @@
+# The Program is located here
+C:\Program Files\Oracle\VirtualBox> 
+
+VBoxManage startvm Mavericks_tgd_1
+VBoxManage controlvm Mavericks_tgd_1 poweroff
+VBoxManage list vms
+VBoxManage showvminfo "Mavericks_tgd_1"
+VBoxHeadless --startvm "Ubuntu Server" &
+# See here:
+https://dannyxhoo.wordpress.com/2013/01/02/using-vboxmanage-command-line-2/
+
+#Set Path
+PATH=%PATH%;C:\Program Files\Oracle\VirtualBox
+
+VBoxManage startvm xUbuntu
