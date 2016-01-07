@@ -11,7 +11,13 @@ sudo gparted
 
 May also be done from gparted iso
 
+Jan 2016
+Increased HD size of virtual box by just executing the following command
+from the folder containing the .vdi file
 
+VBoxManage modifyhd xUbuntu.vdi --resize 50000
+
+Worked great!
 
 
  

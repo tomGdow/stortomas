@@ -13,3 +13,13 @@ https://dannyxhoo.wordpress.com/2013/01/02/using-vboxmanage-command-line-2/
 PATH=%PATH%;C:\Program Files\Oracle\VirtualBox
 
 VBoxManage startvm xUbuntu
+
+# Increase HD size of VM 
+
+Jan 2016
+Increased HD size of virtual box by just executing the following command
+from the folder containing the .vdi file
+
+VBoxManage modifyhd xUbuntu.vdi --resize 50000
+
+Worked great!
