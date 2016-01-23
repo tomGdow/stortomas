@@ -1,0 +1,10 @@
+script tom.txt
+exit
+cat tom.txt | more
+
+
+#2 
+script -a -t 2> time.txt tom.txt
+exit
+
+scriptreplay time.txt tom.txt

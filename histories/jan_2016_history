@@ -1,0 +1,1000 @@
+ 1040  cd..
+ 1041  cd ...
+ 1042  cd ..
+ 1043  rs0
+ 1044  cd app/views/products
+ 1045  vim index.html.slim 
+ 1046  cd ../..
+ 1047  cd ..
+ 1048  rs0
+ 1049  ls
+ 1050  cd
+ 1051  ls
+ 1052  cd bin
+ 1053  vim factor12 
+ 1054  rm pryrails 
+ 1055  cp factor12 pryrails
+ 1056  vim pryrails 
+ 1057  cd
+ 1058  pry
+ 1059  cd bin
+ 1060  vim factor12
+ 1061  vim pryrails 
+ 1062  vd
+ 1063  cd 
+ 1064  ls
+ 1065  pryrails pv
+ 1066  pryrails -v
+ 1067  vim Gemfile
+ 1068  cd bin
+ 1069  vim Gemfille
+ 1070  vim pryrails
+ 1071  vim factor12 
+ 1072  cd
+ 1073  factor12 -v
+ 1074  vim Gemfile
+ 1075  factor12-v
+ 1076  factor12 -v
+ 1077  pryrails -v
+ 1078  cd 
+ 1079  cd bin
+ 1080  vim pryrails 
+ 1081  vim factor12 
+ 1082  cd 
+ 1083  vim Gemfile
+ 1084  factor12 -v
+ 1085  vim Gemfile
+ 1086  factor12
+ 1087  vim Gemfile
+ 1088  factor12 -v
+ 1089  vim Gemfile
+ 1090  cd bin
+ 1091  vim factor12 
+ 1092  cd 
+ 1093  vim Gemfile
+ 1094  cd bin 
+ 1095  vim deve
+ 1096  vim factor12 
+ 1097  cd 
+ 1098  factor12 -v
+ 1099  cd bin
+ 1100  vim factor12 
+ 1101  cd
+ 1102  pryrails 
+ 1103  vim Gemfile
+ 1104  cd bin
+ 1105  vim pryrails 
+ 1106  cd
+ 1107  pryrails -v
+ 1108  cd bin
+ 1109  vim pryrails 
+ 1110  cd
+ 1111  pryrails -v
+ 1112  factor12 
+ 1113  vim Gemfile
+ 1114  factor12 
+ 1115  cd 
+ 1116  pryrails
+ 1117  vim Gemfile
+ 1118  cd bin
+ 1119  vim pryrails 
+ 1120  cd 
+ 1121  pryrails 
+ 1122  vim Gemfile
+ 1123  pryrails -v
+ 1124  cd bin
+ 1125  vim pryrails 
+ 1126  cd
+ 1127  grep -v 'pry-doc'| grep -v 'pry-rails' |grep -c  '^pry[[:space:]]\{1,3\}' Gemfile
+ 1128  cd bin
+ 1129  vim
+ 1130  ls
+ 1131  vim prypractive
+ 1132  vim prypractice 
+ 1133  ls
+ 1134  cd
+ 1135  prypractice -v
+ 1136  cd bin
+ 1137  vim prypractice 
+ 1138  cd
+ 1139  prypractice -v
+ 1140  vim bin/prypractice 
+ 1141  vim Gemfile
+ 1142  grep -v 'pry-doc'| grep -v 'pry-rails' |grep -c  '^pry[[:space:]]\{1,3\}' Gemfile
+ 1143  grep 'pry' Gemfile
+ 1144  gem "pry\S"
+ 1145  gem "pry\S" Gemfile
+ 1146  gem "pry[\S]" Gemfile
+ 1147  gem "pry" Gemfile
+ 1148  grep "pry"
+ 1149  grep "pry" Gemfile
+ 1150  grep "pry[^ \s]" Gemfile
+ 1151  grep "pry[^ \s-]" Gemfile
+ 1152  grep "pry[^ \-]" Gemfile
+ 1153  grep "pry[^\-]" Gemfile
+ 1154  cd bin
+ 1155  a
+ 1156  vim prypractice 
+ 1157  cd
+ 1158  prypractice 
+ 1159  :q
+ 1160  cd bin
+ 1161  vim prypractice 
+ 1162  cd
+ 1163  prypractice 
+ 1164  vim bin/prypractice 
+ 1165  prypractice 
+ 1166  vim bin/prypractice 
+ 1167  prypractice 
+ 1168  vim bin/prypractice 
+ 1169  prypractice 
+ 1170  vim bin/prypractice 
+ 1171  prypractice 
+ 1172  vim bin/prypractice 
+ 1173  prypractice 
+ 1174  vim bin/prypractice 
+ 1175  prypractice 
+ 1176  vim bin/prypractice 
+ 1177  prypractice 
+ 1178  gem list | grep -c pry
+ 1179  gem list | grep -c "pry[^\-]"
+ 1180  vim bin/prypractice 
+ 1181  prypractice 
+ 1182  vim bin/prypractice 
+ 1183  prypractice 
+ 1184  vim bin/prypractice 
+ 1185  prypractice 
+ 1186  vim bin/prypractice 
+ 1187  prypractice 
+ 1188  vim bin/prypractice 
+ 1189  pryrails
+ 1190  vim Gemfile
+ 1191  pryrails
+ 1192  vim Gemfile
+ 1193  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -c  '^pry[[:space:]]\{1,3\}'
+ 1194  vim Gemfile
+ 1195  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -c  '^pry[[:space:]]\{1,3\}'
+ 1196  vim Gemfile
+ 1197  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -c  'pry$'
+ 1198  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -c  'pry'
+ 1199  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -c  '/pry/'
+ 1200  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  'pry'
+ 1201  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  'pry$'
+ 1202  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  'pry '
+ 1203  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  'pry'
+ 1204  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  'pry\d$'
+ 1205  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry.$"
+ 1206  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry['].$"
+ 1207  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry[']?$"
+ 1208  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry[']?"
+ 1209  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry['].?"
+ 1210  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry[']+"
+ 1211  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pr[y]$"
+ 1212  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pr[y]\$"
+ 1213  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pr[y]"
+ 1214  vim Gemfile
+ 1215  grep -v 'pry-doc' Gemfile| grep -v 'pry-rails' |grep -o  "pry[^\s-]"
+ 1216  vim Gemfile
+ 1217  vim
+ 1218  cd bin
+ 1219  vim pryrails 
+ 1220  cd bin
+ 1221  ls
+ 1222  rm prypractice
+ 1223  cp pryrais aprecompile
+ 1224  cp pryrails aprecompile
+ 1225  ls
+ 1226  vim aprecompile 
+ 1227  vim aprecompile
+ 1228  st
+ 1229  vim tomas
+ 1230  vim h
+ 1231  vim
+ 1232  lsg heroku
+ 1233  vim jawa_ireland_to_heroku_postgres 
+ 1234  cd bin
+ 1235  ls
+ 1236  cd
+ 1237  cd bin
+ 1238  vim aprecompile 
+ 1239  cd bin
+ 1240  vim aprecompile 
+ 1241  grep 'pry[^\-]' Bd
+ 1242  grep 'pry[^\-]' V
+ 1243  pryrails
+ 1244  vim Gemfile
+ 1245  pryrails
+ 1246  vim Gemfile
+ 1247  vim bin/pryrails 
+ 1248  vim Gemfile
+ 1249  pryraills
+ 1250  pryrails -v
+ 1251  vim Gemfile
+ 1252  pryrails
+ 1253  Y
+ 1254  ls
+ 1255  vim bin/pryrails 
+ 1256  echo "$(grep -v '#' "${1}" | grep -c  'pry[^\-]')"
+ 1257  echo "$(grep -v '#' Gemfile | grep -c  'pry[^\-]')"
+ 1258  echo "$(grep -v '#' Gemfile | grep -c  'gem[[:space:]]\{1,3\}pry[^\-]')"
+ 1259  echo "$(grep -v '#' Gemfile | grep -c  'gem pry[^\-]')"
+ 1260  vim Gemfile
+ 1261  echo "$(grep -v '#' Gemfile | grep 'gem' |  grep -c  'pry[^\-]')"
+ 1262  vim bin/pry
+ 1263  vim bin/pryrails 
+ 1264  cd
+ 1265  cd acp
+ 1266  ls
+ 1267  cd rails_haveago
+ 1268  ls
+ 1269  railspg -c new arsenal
+ 1270  ls
+ 1271  cd arsenal
+ 1272  rootrails products
+ 1273  factor12
+ 1274  pryrails
+ 1275  scaffoldp
+ 1276  rails c
+ 1277  rs0
+ 1278  rails c
+ 1279  ls
+ 1280  st
+ 1281  lsg gemfile
+ 1282  git grep elll
+ 1283  lsg heroku
+ 1284  vim deploy_heroku_basic 
+ 1285  vim jawa_ireland_to_heroku_postgres 
+ 1286  sc
+ 1287  cd acp
+ 1288  cd
+ 1289  cd apc
+ 1290  cd acp
+ 1291  ls
+ 1292  cd rails_haveago/
+ 1293  ls
+ 1294  cd arsenal
+ 1295  cd config
+ 1296  vim application.rb
+ 1297  grep 'rails' -i config/application.rb
+ 1298  cd ..
+ 1299  grep 'rails' -i config/application.rb
+ 1300  grep 'config.' -i config/application.rb
+ 1301  grep 'config.assets' -i config/application.rb
+ 1302  vim config/application.rb 
+ 1303  grep 'config.assets' -i config/application.rb
+ 1304  grep 'config.assets.initialize.precompile' -i config/application.rb
+ 1305  grep 'config.assets.initialize_on_precompile' -i config/application.rb
+ 1306  grep -c 'config.assets.initialize_on_precompile' -i config/application.rb
+ 1307  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb
+ 1308  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| cut -f1 -d:
+ 1309  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb
+ 1310  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| cut -f-1
+ 1311  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| cut -f2
+ 1312  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| cut -f8
+ 1313  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| cut -f2
+ 1314  man cut
+ 1315  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| rev
+ 1316  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| rev | cut -d -f1
+ 1317  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| rev | cut -f1
+ 1318  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| rev | cut -f1 -d ' '
+ 1319  grep -n 'config.assets.initialize_on_precompile' -i config/application.rb| rev | cut -f1 -d ' ' | rev
+ 1320  grep  'config.assets.initialize_on_precompile' -i config/application.rb| rev | cut -f1 -d ' ' | rev
+ 1321  aprecompile
+ 1322  vim config/application.rb 
+ 1323  aprecompile
+ 1324  bash -x aprecompile
+ 1325  aprecompile 
+ 1326  vim config/application.rb 
+ 1327  aprecompile 
+ 1328  vim
+ 1329  cd bin
+ 1330  ls
+ 1331  cd
+ 1332  cd bin
+ 1333  vim
+ 1334  ls
+ 1335  vim aprecompile 
+ 1336  cd
+ 1337  cd acp
+ 1338  cd rails_haveago/
+ 1339  cd arsenal/
+ 1340  aprecompile 
+ 1341  bash -x app/
+ 1342  bash -x aprecompile
+ 1343  ls
+ 1344  bash -x aprecompile
+ 1345  vim config/application.rb 
+ 1346  aprecompile 
+ 1347  vim config/application.rb 
+ 1348  aprecompile 
+ 1349  sed -i "$i gem 'pry-rails', group: :development" 'config/application.rb'
+ 1350  sed -i "i gem 'pry-rails', group: :development" 'config/application.rb'
+ 1351  vim config/application.rb 
+ 1352  sed -i "${i} gem 'pry-rails', group: :development" 'config/application.rb'
+ 1353  sed -i "${i}gem 'pry-rails', group: :development" 'config/application.rb'
+ 1354  sed -i "$igem 'pry-rails', group: :development" 'config/application.rb'
+ 1355  sed -i "$ gem 'pry-rails', group: :development" 'config/application.rb'
+ 1356  sed -i "\$i  gem 'pry-rails', group: :development" 'config/application.rb'
+ 1357  vim config/application.rb 
+ 1358  sed -i "\$i  gem 'pry-rails', group: :development" 'config/application.rb'
+ 1359  vim config/application.rb 
+ 1360  aprecompile 
+ 1361  vim config/application.rb 
+ 1362  aprecompile 
+ 1363  vim config/application.rb 
+ 1364  aprecompile 
+ 1365  vk
+ 1366  vim config/application.rb 
+ 1367  aprecompile 
+ 1368  vim config/application.rb 
+ 1369  aprecompile 
+ 1370  vim config/application.rb 
+ 1371  echo "$(sed -n '/:development[[:space:]]\{1,3\}do/,/end/p' Gemfile
+ 1372  "
+ 1373  echo "$(sed -n '/:development[[:space:]]\{1,3\}do/,/end/p'  Gemfile"
+ 1374  echo "$(sed -n '/:development[[:space:]]\{1,3\}do/,/end/p'  Gemfile)"
+ 1375  bfd
+ 1376  grep :development[[:space:]]\{1,3\}do Gemfile
+ 1377  grep ":development[[:space:]]\{1,3\}do" Gemfile
+ 1378  grep ":development[[:space:]]\{1,3\}do.*end" Gemfile
+ 1379  grep ":development[[:space:]]\{1,3\}do*end" Gemfile
+ 1380  grep ":development[[:space:]]\{1,3\}do[\s\S]*?" Gemfile
+ 1381  grep ":development[[:space:]]\{1,3\}do[\s\S]*" Gemfile
+ 1382  grep -o ":development[[:space:]]\{1,3\}do[\s\S]*" Gemfile
+ 1383  grep -o ":development[[:space:]]\{1,3\}do[\s\S]" Gemfile
+ 1384  grep -n ":development[[:space:]]\{1,3\}do[\s\S]" Gemfile
+ 1385  grep -n ":development[[:space:]]\{1,3\}do" Gemfile
+ 1386  grep -Pzo ":development[[:space:]]\{1,3\}do" Gemfile
+ 1387  grep -zo ":development[[:space:]]\{1,3\}do" Gemfile
+ 1388  grep -zo ":development[[:space:]]\{1,3\}do.*" Gemfile
+ 1389  grep -z ":development[[:space:]]\{1,3\}do.*" Gemfile
+ 1390  grep -zo ":development[[:space:]]\{1,3\}do.*" Gemfile
+ 1391  grep -z ":development[[:space:]]\{1,3\}do.*" Gemfile
+ 1392  grep -zn ":development[[:space:]]\{1,3\}do.*" Gemfile
+ 1393  grep -n ":development[[:space:]]\{1,3\}do" Gemfile
+ 1394  grep -Pzo '.*Untracked files(.*\n)*' Gemfile
+ 1395  grep -Pzo '.*development(.*\n)*' Gemfile
+ 1396  grep -Pzo 'development(.*\n)*' Gemfile
+ 1397  grep -Pzo 'development[[:space:]]\{1,3\}do(.*\n)*' Gemfile
+ 1398  grep -Pzo 'development[[:space:]]\{1,4\}do(.*\n)*' Gemfile
+ 1399  grep -Pzo 'development[[:space:]]\{1,4\}do' Gemfile
+ 1400  grep -Pzo 'development[[:space:]]' Gemfile
+ 1401  grep -Pzon 'development[[:space:]]' Gemfile
+ 1402  grep -zon 'development[[:space:]]' Gemfile
+ 1403  grep -zn 'development[[:space:]]' Gemfile
+ 1404  grep -zn 'development[[:space:]]\{1,3\}' Gemfile
+ 1405  grep -zn 'development[[:space:]]\{1,3\}do' Gemfile
+ 1406  grep -n 'development[[:space:]]\{1,3\}do' Gemfile
+ 1407  grep -n 'development[[:space:]]\{1,3\}do(.*\n)*' Gemfile
+ 1408  grep -n 'development[[:space:]]\{1,3\}(.*\n)*' Gemfile
+ 1409  grep -Pn 'development[[:space:]]\{1,3\}(.*\n)*' Gemfile
+ 1410  grep -Pn 'development[[:space:]]\{1,3\}do' Gemfile
+ 1411  grep -n 'development[[:space:]]\{1,3\}do' Gemfile
+ 1412  echo "$(sed -n '/:development[[:space:]]\{1,3\}do/,/end/p' Gemfile)"
+ 1413  $(sed -n '/:development[[:space:]]\{1,3\}do/,/end/p' Gemfile)
+ 1414  sed -n '/:development[[:space:]]\{1,3\}do/,/end/p' Gemfile
+ 1415  pry
+ 1416  ls
+ 1417  cp finance_inout.cpp finance_lesson5.cpp
+ 1418  vim finance_lesson5.cpp 
+ 1419  vim divisor.h 
+ 1420  vim finance_lesson5.cpp 
+ 1421  touch divisor.cpp
+ 1422  vim divisor.cpp 
+ 1423  g++ finance_lesson5.cpp  -o finance_l5.out
+ 1424  vim finance_lesson5.cpp 
+ 1425  g++ finance_lesson5.cpp  -o finance_l5.out
+ 1426  vim divisor.h 
+ 1427  vim divisor.cpp
+ 1428  g++ finance_lesson5.cpp  -o finance_l5.out
+ 1429  vim finance_lesson5.cpp 
+ 1430  mkdir Finance
+ 1431  mv finance* Finance/
+ 1432  s
+ 1433  ls
+ 1434  mv divisor.cpp divisor.h Finance/
+ 1435  cd Finance
+ 1436  ls
+ 1437  divisor.h
+ 1438  vim divisor.h
+ 1439  vim divisor.cpp
+ 1440  vim finance_lesson5.cpp 
+ 1441  vim divisor.cpp
+ 1442  vim finance_lesson5.cpp 
+ 1443  g++ finance_lesson5.cpp  -o finance_l5.out
+ 1444  g++ finance_lesson5.cpp divisor.cpp  -o finance_l5.out
+ 1445  ./finance.l5.out
+ 1446  ./finance_l5.out 
+ 1447  cp divisor.h multiplier.h
+ 1448  vim multiplier.h 
+ 1449  cp divisor.cpp multiplier.cpp
+ 1450  vim multiplier.cpp
+ 1451  g++ finance_lesson5.cpp divisor.cpp multiplier.cpp  -o finance_l5.out
+ 1452  ./finance_l5.out 
+ 1453  cp finance_lesson5.cpp  l6_ finance_ajduncan.cpp
+ 1454  cp finance_lesson5.cpp  l6_finance_ajduncan.cpp
+ 1455  vim l6_finance_ajduncan.cpp 
+ 1456  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp  -o finance_l5.out
+ 1457  vim l6_finance_ajduncan.cpp 
+ 1458  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp  -o finance_l5.out
+ 1459  :q
+ 1460  vim l6_finance_ajduncan.cpp 
+ 1461  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp  -o finance_l5.out
+ 1462  vim l6_finance_ajduncan.cpp 
+ 1463  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp  -o finance_l5.out
+ 1464  financel5.out
+ 1465  ./finance_l5.out 
+ 1466  vim l6_finance_ajduncan.cpp 
+ 1467  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp -o l6_finance.out
+ 1468  ./l6_finance.out 
+ 1469  vim l6_finance_ajduncan.cpp 
+ 1470  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp -o l6_finance.out
+ 1471  vim l6_finance_ajduncan.cpp 
+ 1472  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp -o l6_finance.out
+ 1473  ./l6_finance.out 
+ 1474  vim l6_finance_ajduncan.cpp 
+ 1475  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp -o l6_finance.out
+ 1476  vim l6_finance_ajduncan.cpp 
+ 1477  g++ l6_finance_ajduncan.cpp  divisor.cpp multiplier.cpp -o l6_finance.out
+ 1478  ./l6_finance.out 
+ 1479  cd bin
+ 1480  vim ac
+ 1481  vim aprecompile 
+ 1482  vim pryrails
+ 1483  st
+ 1484  touch sandi_metz_ruby_talk_railconf
+ 1485  vim sandi_metz_ruby_talk_railconf `
+ 1486  vim sandi_metz_ruby_talk_railconf 
+ 1487  cd
+ 1488  ls
+ 1489  mkdir c_and_c_plusplus
+ 1490  st
+ 1491  ls
+ 1492  cd tom_c_programming/
+ 1493  ls
+ 1494  touch finance.c
+ 1495  vim finance.c 
+ 1496  cc finance.c finance.out
+ 1497  history | grep cc
+ 1498  cc history.c 
+ 1499  history | grep count_with_arrays
+ 1500  rm mywc.out
+ 1501  cc mywc.c mywc.out
+ 1502  man cc
+ 1503  cc mywc.c -o mywc.out
+ 1504  ls
+ 1505  cc finance.c -o finance.out
+ 1506  vim finance.c 
+ 1507  gcc mywc.out
+ 1508  :q
+ 1509  ls
+ 1510  man gcc
+ 1511  gcc mywc.c -o mywc2.out
+ 1512  ls
+ 1513  g++ finance.c -o finance.out
+ 1514  finance.out
+ 1515  ls
+ 1516  ./finance.out
+ 1517  rm finance.out
+ 1518  mv finance.c finance.cpp
+ 1519  g++ finance.cpp -o finance.out
+ 1520  ./finance.out
+ 1521  touch finance_variables.cpp
+ 1522  vim finance_variables.cpp 
+ 1523  g++ finance_variables.cpp  -o finance_variables.out
+ 1524  vim finance_variables.cpp 
+ 1525  g++ finance_variables.cpp  -o finance_variables.out
+ 1526  vim finance_variables.cpp 
+ 1527  g++ finance_variables.cpp  -o finance_variables.out
+ 1528  vim finance_variables.cpp 
+ 1529  g++ finance_variables.cpp  -o finance_variables.out
+ 1530  vim finance_variables.cpp 
+ 1531  g++ finance_variables.cpp  -o finance_variables.out
+ 1532  vim finance_variables.cpp 
+ 1533  g++ finance_variables.cpp  -o finance_variables.out
+ 1534  ./finance_variables.out 
+ 1535  ls
+ 1536  cp finance_variables.out finance_inout.cpp
+ 1537  vim finance_inout.cpp
+ 1538  rm finance_inout.cpp
+ 1539  cp finance_variables.cpp finance_inout.cpp
+ 1540  vim finance_inout.cpp
+ 1541  g++ finance_inout.cpp
+ 1542  vim finance_inout.cpp
+ 1543  g++ finance_inout.cpp finance_inout.out
+ 1544  g++ finance_inout.cpp -o finance_inout.out
+ 1545  ./finance_inout.out
+ 1546  vim finance_inout.cpp
+ 1547  g++ finance_inout.cpp -o finance_inout.out
+ 1548  ./finance_inout.out
+ 1549  vim finance_inout.cpp
+ 1550  ./finance_inout.out
+ 1551  vim finance_inout.cpp
+ 1552  g++ finance_inout.cpp -o finance_inout.out
+ 1553  vim finance_inout.cpp
+ 1554  g++ finance_inout.cpp -o finance_inout.out
+ 1555  vim finance_inout.cpp
+ 1556  g++ finance_inout.cpp -o finance_inout.out
+ 1557  ./finance_inout.out 
+ 1558  vim finance_inout.cpp
+ 1559  g++ finance_inout.cpp -o finance_inout.out
+ 1560  ./finance_inout.out 
+ 1561  touch divisor.h
+ 1562  vim divisor.h 
+ 1563  touch muzexpt.cpp
+ 1564  vim muzexpt.cpp 
+ 1565  g++ muzexpt.cpp -o muzexpt.out
+ 1566  ./muzexpt.out
+ 1567  man cc
+ 1568  vim muzexpt.cpp
+ 1569  ls
+ 1570  ./finance_inout.out 
+ 1571  echo $PS1
+ 1572  ls | grep l6
+ 1573  pwd
+ 1574  cd Finance/
+ 1575  cp l6_finance_ajduncan.cpp l7a_finance_ajd.cpp
+ 1576  vim l7a_finance_ajd.cpp 
+ 1577  ls
+ 1578  g++ l7a_finance_ajd.cpp divisor.cpp multiplier.cpp -o l7a.out
+ 1579  ./l7a
+ 1580  ./l7a.out
+ 1581  vim l7a_finance_ajd.cpp 
+ 1582  g++ l7a_finance_ajd.cpp divisor.cpp multiplier.cpp -o l7a.out
+ 1583  ./l7a.out 
+ 1584  cd c_and_c_plusplus/
+ 1585  cd Finance/
+ 1586  ls
+ 1587  vim l8_finance.cpp 
+ 1588  cd c_and_c_plusplus/
+ 1589  cd TomPointers/
+ 1590  ls
+ 1591  rm :w
+ 1592  lls
+ 1593  ls
+ 1594  cd ..
+ 1595  mkdir TomReferences
+ 1596  cd ..
+ 1597  cd c_and_c_plusplus/TomPointers/
+ 1598  ls
+ 1599  cd ..
+ 1600  ls
+ 1601  cd TomReferences/
+ 1602  ls
+ 1603  cd ..
+ 1604  cd TomPointers/
+ 1605  cp main.cpp ../TomReferences/
+ 1606  cd ../TomReferences/
+ 1607  ls
+ 1608  vim main.cpp
+ 1609  g++ main.cpp -o main.out
+ 1610  ./main.out
+ 1611  vim main.cpp
+ 1612  ./main.out
+ 1613  g++ main.cpp -o main.out
+ 1614  ./main.out
+ 1615  vim main.cpp
+ 1616  g++ main.cpp -o main.out
+ 1617  ./main.out
+ 1618  vim main.cpp
+ 1619  g++ main.cpp -o main.out
+ 1620  ./main.out
+ 1621  vim main.cpp
+ 1622  g++ main.cpp -o main.out
+ 1623  vim main.cpp
+ 1624  g++ main.cpp -o main.out
+ 1625  vim main.cpp
+ 1626  g++ main.cpp -o main.out
+ 1627  ./main.out
+ 1628  cd ..
+ 1629  ls
+ 1630  TomPassByReforVal_SO_eg
+ 1631  mkdir TomPassByReforVal_SO_eg
+ 1632  cd TomPointers/
+ 1633  ls
+ 1634  cp main.cpp  ../TomPassByReforVal_SO_eg/
+ 1635  cd ../TomPassByReforVal_SO_eg/
+ 1636  ls
+ 1637  vim main.cpp
+ 1638  g++ main.cpp -o main.out
+ 1639  vim main.cpp 
+ 1640  g++ main.cpp -o main.out
+ 1641  vim main.cpp 
+ 1642  g++ main.cpp -o main.out
+ 1643  vim main.cpp 
+ 1644  g++ main.cpp -o main.out
+ 1645  vim main.cpp 
+ 1646  g++ main.cpp -o main.out
+ 1647  vim main.cpp 
+ 1648  g++ main.cpp -o main.out
+ 1649  :e ../TomPointers/main.cpp
+ 1650  vim main.cpp 
+ 1651  g++ main.cpp -o main.out
+ 1652  vim main.cpp 
+ 1653  g++ main.cpp -o main.out
+ 1654  vim main.cpp 
+ 1655  g++ main.cpp -o main.out
+ 1656  ./main.out
+ 1657  cd ..
+ 1658  ls
+ 1659  mkdir Lesson22_ajd_cpp
+ 1660  cd TomPointers/
+ 1661  cp main.cpp ../Lesson22_ajd_cpp/
+ 1662  cd ../Lesson22_ajd_cpp/
+ 1663  vim main.cpp 
+ 1664  g++ main.cpp -o main.out
+ 1665  vim main.cpp 
+ 1666  g++ main.cpp -o main.out
+ 1667  vim main.cpp 
+ 1668  g++ main.cpp -o main.out
+ 1669  ./main.out
+ 1670  vim main.cpp 
+ 1671  g++ main.cpp -o main.out
+ 1672  ./main.out
+ 1673  vim main.cpp 
+ 1674  g++ main.cpp -o main.out
+ 1675  vim main.cpp 
+ 1676  ./main.out
+ 1677  vim main.cpp 
+ 1678  g++ main.cpp -o main.out
+ 1679  ./main.out
+ 1680  vim main.cpp 
+ 1681  ./main.out
+ 1682  vim main.cpp 
+ 1683  ./main.out
+ 1684  g++ main.cpp -o main.out
+ 1685  vim main.cpp 
+ 1686  g++ main.cpp -o main.out
+ 1687  ./main.out
+ 1688  vim main.cpp 
+ 1689  g++ main.cpp -o main.out
+ 1690  ./main.out
+ 1691  clear
+ 1692  g++ main.cpp -o main.out
+ 1693  ./main.out
+ 1694  vim main.cpp 
+ 1695  g++ main.cpp -o main.out
+ 1696  ./main.out
+ 1697  vim main.cpp 
+ 1698  g++ main.cpp -o main.out
+ 1699  vim main.cpp 
+ 1700  g++ main.cpp -o main.out
+ 1701  vim main.cpp 
+ 1702  g++ main.cpp -o main.out
+ 1703  ./main.out
+ 1704  vim main.cpp 
+ 1705  ./main.out
+ 1706  g++ main.cpp -o main.out
+ 1707  ./main.out
+ 1708  vim main.cpp 
+ 1709  g++ main.cpp -o main.out
+ 1710  vim main.cpp 
+ 1711  g++ main.cpp -o main.out
+ 1712  vim main.cpp 
+ 1713  g++ main.cpp -o main.out
+ 1714  ./main.out
+ 1715  vim main.cpp 
+ 1716  g++ main.cpp -o main.out
+ 1717  ./main.out
+ 1718  vim main.cpp 
+ 1719  ls
+ 1720  cd main.cpp tgdfour.cpp
+ 1721  cp main.cpp tgdfour.cpp
+ 1722  vim tgdfour.cpp 
+ 1723  g++ tgdfour.cpp -o tgdfour.out
+ 1724  vim tgdfour.cpp 
+ 1725  g++ tgdfour.cpp -o tgdfour.out
+ 1726  vim tgdfour.cpp 
+ 1727  g++ tgdfour.cpp -o tgdfour.out
+ 1728  vim main.cpp 
+ 1729  vim tgdfour.cpp 
+ 1730  g++ tgdfour.cpp -o tgdfour.out
+ 1731  ./tgdfour.out
+ 1732  vim tgdfour.cpp 
+ 1733  g++ tgdfour.cpp -o tgdfour.outf
+ 1734  vim tgdfour.cpp 
+ 1735  g++ tgdfour.cpp -o tgdfour.outf
+ 1736  vim tgdfour.cpp 
+ 1737  g++ tgdfour.cpp -o tgdfour.outf
+ 1738  g++ tgdfour.cpp -o tgdfour.out
+ 1739  ./tgdfour.out
+ 1740  vim tgdfour.cpp 
+ 1741  g++ tgdfour.cpp -o tgdfour.out
+ 1742  vim tgdfour.cpp 
+ 1743  g++ tgdfour.cpp -o tgdfour.out
+ 1744  ./tgdfour.out
+ 1745  vim tgdfour.cpp 
+ 1746  g++ tgdfour.cpp -o tgdfour.out
+ 1747  vim tgdfour.cpp 
+ 1748  g++ tgdfour.cpp -o tgdfour.out
+ 1749  ./tgdfour.out
+ 1750  vim tgdfour.cpp 
+ 1751  g++ tgdfour.cpp -o tgdfour.out
+ 1752  ./tgdfour.out
+ 1753  g++ tgdfour.cpp -o tgdfour.out
+ 1754  vim tgdfour.cpp 
+ 1755  g++ tgdfour.cpp -o tgdfour.out
+ 1756  vim tgdfour.cpp 
+ 1757  g++ tgdfour.cpp -o tgdfour.out
+ 1758  vim tgdfour.cpp 
+ 1759  g++ tgdfour.cpp -o tgdfour.out
+ 1760  ./tgdfour.out
+ 1761  g++ tgdfour.cpp -o tgdfour.out
+ 1762  vim tgdfour.cpp 
+ 1763  vim tgdfour.
+ 1764  vim tgdfour.cpp 
+ 1765  g++ tgdfour.cpp -o tgdfour.out
+ 1766  vim tgdfour.cpp 
+ 1767  g++ tgdfour.cpp -o tgdfour.out
+ 1768  vim tgdfour.cpp 
+ 1769  g++ tgdfour.cpp -o tgdfour.out
+ 1770  vim tgdfour.cpp 
+ 1771  ./tgdfour.out
+ 1772  vim tgdfour.cpp 
+ 1773  g++ tgdfour.cpp -o tgdfour.out
+ 1774  ./tgdfour.out
+ 1775  vim tgdfour.cpp 
+ 1776  g++ tgdfour.cpp -o tgdfour.out
+ 1777  ./tgdfour.out
+ 1778  vim tgdfour.cpp 
+ 1779  g++ tgdfour.cpp -o tgdfour.out
+ 1780  ./tgdfour.out
+ 1781  g++ tgdfour.cpp -o tgdfour.out
+ 1782  vim tgdfour.cpp 
+ 1783  g++ tgdfour.cpp -o tgdfour.out
+ 1784  vim tgdfour.cpp 
+ 1785  g++ tgdfour.cpp -o tgdfour.out
+ 1786  ./tgdfour.out
+ 1787  vim tgdfour.cpp 
+ 1788  g++ tgdfour.cpp -o tgdfour.out
+ 1789  ./tgdfour.out
+ 1790  vim tgdfour.cpp 
+ 1791  g++ tgdfour.cpp -o tgdfour.out
+ 1792  ./tgdfour.out
+ 1793  vim tgdfour.cpp 
+ 1794  g++ tgdfour.cpp -o tgdfour.out
+ 1795  ./tgdfour.out
+ 1796  g++ tgdfour.cpp -o tgdfour.out
+ 1797  vim tgdfour.cpp 
+ 1798  g++ tgdfour.cpp -o tgdfour.out
+ 1799  ./tgdfour.out
+ 1800  vim tgdfour.cpp 
+ 1801  g++ tgdfour.cpp -o tgdfour.out
+ 1802  ./tgdfour.out
+ 1803  g++ tgdfour.cpp -o tgdfour.out
+ 1804  vim tgdfour.cpp 
+ 1805  g++ tgdfour.cpp -o tgdfour.out
+ 1806  vim tgdfour.cpp clear
+ 1807  clear
+ 1808  g++ tgdfour.cpp -o tgdfour.out
+ 1809  ./tgdfour.out
+ 1810  vim tgdfour.cpp clear
+ 1811  vim tgdfour.cpp
+ 1812  g++ tgdfour.cpp -o tgdfour.out
+ 1813  vim tgdfour.cpp
+ 1814  g++ tgdfour.cpp -o tgdfour.out
+ 1815  ./tgdfour.out
+ 1816  vim tgdfour.cpp
+ 1817  find . -name '*.jpg' -mtime +90 -print
+ 1818  find . -name '*.txt' -mtime +90 -print
+ 1819  cd
+ 1820  find . -name '*.txt' -mtime +90 -print
+ 1821  find . -name '*.txt' -mtime -5 -print
+ 1822  cd -
+ 1823  ls
+ 1824  vim tgdfour.cpp
+ 1825  g++ tgdfour.cpp -o tgdfour.out
+ 1826  ./tgdfour.out
+ 1827  lsa
+ 1828  vim tgdfour.cpp
+ 1829  g++ tgdfour.cpp -o tgdfour.out
+ 1830  ./tgdfour.out
+ 1831  vim tgdfour.cpp
+ 1832  g++ tgdfour.cpp -o tgdfour.out
+ 1833  ./tgdfour.out
+ 1834  vim tgdfour.cpp
+ 1835  g++ tgdfour.cpp -o tgdfour.out
+ 1836  ./tgdfour.out
+ 1837  vim tgdfour.cpp
+ 1838  g++ tgdfour.cpp -o tgdfour.out
+ 1839  vim tgdfour.cpp
+ 1840  g++ tgdfour.cpp -o tgdfour.out
+ 1841  ./tgdfour.out
+ 1842  vim tgdfour.cpp
+ 1843  g++ tgdfour.cpp -o tgdfour.out
+ 1844  ./tgdfour.out
+ 1845  cd
+ 1846  st
+ 1847  git pull
+ 1848  git add .
+ 1849  git add --all
+ 1850  git commit -am "xubuntu commit"
+ 1851  git push
+ 1852  git pull
+ 1853  exit
+ 1854  ls
+ 1855  cd acp
+ 1856  cd rails_haveago/
+ 1857  railspg  -c new dowzoe
+ 1858  rails -v
+ 1859  rmv use 2.1.1@railsfour
+ 1860  rvm use 2.1.1@railsfour
+ 1861  rails -v
+ 1862  ./bin/bash --login
+ 1863  ./bash/bin --login
+ 1864  /bin/bash --login
+ 1865  rvm use 2.2.2@railsfive
+ 1866  rails -v
+ 1867  rvm use 2.1.1@global
+ 1868  rails -v
+ 1869  rvm   use  2.1.1@railsfour
+ 1870  gem   install rails
+ 1871  rails -v
+ 1872  bundle install
+ 1873  rails -v
+ 1874  rvm gemset list
+ 1875  rvm   list
+ 1876  rmv use 2 2.2
+ 1877  rvm use 2.2.2
+ 1878  rvm 
+ 1879  rails -v
+ 1880  rvm gemset use 2.1.1@railsfour
+ 1881  rvm list gemsets
+ 1882  rmv use 2.2.1@railsfour
+ 1883  rvm gemset use 2.2.1@railsfour
+ 1884  rvm use ruby-2.1.1@railsfour
+ 1885  rails -v
+ 1886  /bin/bash --login
+ 1887  rails -v
+ 1888  rvm use  2.2.2
+ 1889  rails -v
+ 1890  rmv gemsets list
+ 1891  rvm gemsets list
+ 1892  rvm list gemsets
+ 1893  rm
+ 1894  rvm use 2.2.1@railsfour
+ 1895  rvm use  2.1.1@railsfour
+ 1896  rails -v
+ 1897  /bin/bash  --login
+ 1898  cd c_and
+ 1899  cd c_and_c_plusplus/
+ 1900  cd Lesson22_ajd_cpp/
+ 1901  touch memorymap
+ 1902  vim memorymap 
+ 1903  touch memorymap
+ 1904  vim memorymap 
+ 1905  hostname -I
+ 1906  cd 
+ 1907  cd bin
+ 1908  ls
+ 1909  scanips
+ 1910  ls
+ 1911  dir
+ 1912  cd acp
+ 1913  cd rails_haveago/
+ 1914  rvm list
+ 1915  rmv gemsets list
+ 1916  rvm gemsets list
+ 1917  rvm gemset list
+ 1918  rvm use 2.2.2
+ 1919  rvm gemset list
+ 1920  rvm use 2.1.1
+ 1921  rails -v
+ 1922  ls
+ 1923  railspg -c dowzoe
+ 1924  railspg -c new dowzoe
+ 1925  cd dowzoe/
+ 1926  ls
+ 1927  routerails
+ 1928  rootrails product
+ 1929  scaffoldp
+ 1930  rs0
+ 1931  psql
+ 1932  sudo su - postgres
+ 1933  st
+ 1934  git grep postgresql
+ 1935  ls | grep postgres
+ 1936  vim postgres_commands_useful 
+ 1937  cd -
+ 1938  sudo su - postgres
+ 1939  st
+ 1940  git grep 'DROP DATABASE'
+ 1941  vim postgres_commands_useful 
+ 1942  cd -
+ 1943  sudo su - postgres
+ 1944  st
+ 1945  touch posgres_big_four_basic_commands
+ 1946  mv posgres_big_four_basic_commands  postgres_big_four_basic_commands
+ 1947  ls | grep postgres
+ 1948  cat postgres_commands_useful  >> postgres_big_four_basic_commands 
+ 1949  vim postgres_big_four_basic_commands 
+ 1950  git add --all
+ 1951  git commit 'added postgres big_four'
+ 1952  git commit -am "added postgres big four"
+ 1953  git push
+ 1954  cd
+ 1955  cd acp
+ 1956  ls
+ 1957  cd rails_haveago/
+ 1958  ls
+ 1959  rm -rf arsenal factwelve/ pryitnow/ xmasdrinks/
+ 1960  ls
+ 1961  cd dowzoe/
+ 1962  ls
+ 1963  config
+ 1964  cd config/
+ 1965  vim application.rb 
+ 1966  vim database.yml 
+ 1967  cd ..
+ 1968  cd config
+ 1969  ls
+ 1970  sftp tomgdow@tomgdow.com
+ 1971  st
+ 1972  git grep scp
+ 1973  cd -
+ 1974  cp database.yml  sample_database.yml
+ 1975  scp sample_database.yml  tomgdow@tomgdow.com:home/tomgdow
+ 1976  scp sample_database.yml  tomgdow@tomgdow.com:/home/tomgdow
+ 1977  cd
+ 1978  cd acp/rails_haveago/
+ 1979  tgdup
+ 1980  cp dowzoe/ ../../shared/
+ 1981  cp -r dowzoe/ ../../shared/
+ 1982  hostname -I
+ 1983  ifconfig
+ 1984  cd python
+ 1985  cd computation_investment_vrdmr/
+ 1986  cd HW1/
+ 1987  ls
+ 1988  cim tgd_homework1.py 
+ 1989  vim tgd_homework1.py 
+ 1990  cd 
+ 1991  cd python
+ 1992  ls
+ 1993  vim mysqrt.py
+ 1994  vim myemployee.py
+ 1995  cd computation_investment_vrdmr/HW1/
+ 1996  ls
+ 1997  vim tgd_homework1.py 
+ 1998  cd python/computation_investment_vrdmr/HW1/
+ 1999  vim original_homework1.py 
+ 2000  ls
+ 2001  cd
+ 2002  ls
+ 2003  cd c_and_c_plusplus/
+ 2004  ls
+ 2005  cd Lesson22_ajd_cpp/
+ 2006  l
+ 2007  ./tgdfour.out
+ 2008  :q
+ 2009  ls
+ 2010  vim memorymap
+ 2011  vm memorymap memorymap_tgdfour_cpp
+ 2012  ls
+ 2013  mv memorymap memorymap_tgdfour_cpp
+ 2014  cp memorymap_tgdfour_cpp  copy_of_ memorymap_tgdfour_cpp 
+ 2015  cp memorymap_tgdfour_cpp  copy_of_memorymap_tgdfour_cpp 
+ 2016  mv copy_of_memorymap_tgdfour_cpp ../../
+ 2017  ls
+ 2018  cd ..
+ 2019  ls
+ 2020  mv copy_of_memorymap_tgdfour_cpp c_and_c_plusplus/
+ 2021  ls
+ 2022  cd c_and_c_plusplus/
+ 2023  ls
+ 2024  mkdir Lesson23_ajd_cpp
+ 2025  cd Lesson22_ajd_cpp/
+ 2026  ls
+ 2027  cp main.cpp ../Lesson23_ajd_cpp/
+ 2028  cd ..
+ 2029  cd Lesson23_ajd_cpp/
+ 2030  vim main.cpp
+ 2031  history | grep main.cpp
+ 2032  vim g_plus_plus_command
+ 2033  g++ main.cpp -o main.out
+ 2034  vim main.cpp 
+ 2035  g++ main.cpp -o main.out
+ 2036  ./main.out
+ 2037  vim main.cpp 
+ 2038  cd
+ 2039  history > jan_2016_history
