@@ -1,0 +1,14 @@
+# A piece of voodoo!
+:%s/\r/\r/g
+# See here
+http://stackoverflow.com/a/24542882/499167
+
+# See also 
+
+:%s/^V^M//g
+
+where ^V^M means CTRL+V,CTRL+M and is a way to entering characters ^M into vi. It will globally replace all occurrences of ^M with nothing.
+
+see here
+http://stackoverflow.com/a/5843561/499167
+
