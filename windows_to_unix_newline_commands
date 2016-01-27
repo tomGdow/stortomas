@@ -12,3 +12,20 @@ where ^V^M means CTRL+V,CTRL+M and is a way to entering characters ^M into vi. I
 see here
 http://stackoverflow.com/a/5843561/499167
 
+:%s/^V^M/^V^M/g
+
+
+# See here
+http://stackoverflow.com/a/350971/499167
+
+# And See also here
+http://stackoverflow.com/a/3834303/499167
+
+
+    | How to type         | In search, means:       | In replacement, means:
+----------------------------------------------------------------------------
+\n  | \n                  | End-of-line             | <Nul> 0x0
+^@  | CTRL-V CTRL-J       | <Nul> 0x0               | <Nul> 0x0
+\r  | \r                  | Carriage return 0xD     | "Break the line here"
+^M  | CTRL-Enter          | Carriage return 0xD     | "Break the line here"
+\^M | \ CTRL-V CTRL-ENTER | \ + carriage return 0xD | Carriage return 0xD
