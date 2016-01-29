@@ -1,0 +1,32 @@
+#On digital ocean vm
+mkdir repo.git
+cd repo.git
+git init --bare
+
+#on local vm (xubuntu)
+mkdir digocpra
+cd digocpra/
+git init
+touch tom.txt && vim $_
+ git commit -am "first commit"
+ git add tom.txt
+ git commit -m "first commit"
+ git status
+ git logg
+ git remote add origin ssh://tomgdow@tomgdow.com/home/tomgdow/repo.git
+ git push --all origin
+ vim tom.txt 
+ git add --all
+ git commit -m "second commit"
+ git push --all origin
+ git logg
+  cd ..
+ git clone ssh://tomgdow@tomgdow.com/home/tomgdow/repo.git
+ ls
+ cd repo
+
+
+# See here
+http://stackoverflow.com/questions/4142936/git-clone-from-local-to-remote
+
+http://stackoverflow.com/a/4143042/499167

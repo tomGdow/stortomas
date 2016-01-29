@@ -1,0 +1,74 @@
+#1 create a directory in vmshare called 
+repository.git
+#2 On vm, cd into folder you want as git repo
+mkdir git practice
+git init
+git touch tom.txt
+vim touch.txt
+# Add some text
+git add tom.txt
+git commit -m "first commit"
+
+git clone --local --bare . ../shared/repository.git/
+
+git remote add usb ../shared/repository.git/
+
+git push usb master
+
+## See here
+http://blog.costan.us/2009/02/synchronizing-git-repositories-without.html
+# and here
+http://stackoverflow.com/a/4860222/499167
+
+## Actual Example
+
+~[tgd] >mkdir gitvmsharepractice
+~[tgd] >cd gitvmsharepractice/
+gitvmsharepractice[tgd] >mkdir ../shared/repo.git
+gitvmsharepractice[tgd] >git init
+Initialized empty Git repository in /home/thomas/gitvmsharepractice/.git/
+gitvmsharepractice(master)[tgd] >touch tom.txt
+gitvmsharepractice(master)[tgd] >ls
+tom.txt
+gitvmsharepractice(master)[tgd] >vim tom.txt
+gitvmsharepractice(master)[tgd] >git add --all
+gitvmsharepractice(master)[tgd] >git commit -m "first commit"
+[master (root-commit) babba10] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 tom.txt
+gitvmsharepractice(master)[tgd] >git clone --bare . ../shared/repo.git/
+Cloning into bare repository '../shared/repo.git'...
+done.
+
+gitvmsharepractice(master)[tgd] >git remote add  usb ../shared/repo.git/
+gitvmsharepractice(master)[tgd] >git push usb master
+Everything up-to-date
+gitvmsharepractice(master)[tgd] >vim tom.txt 
+gitvmsharepractice(master)[tgd] >git commit -am "second commit"
+[master 0f12aaf] second commit
+ 1 file changed, 1 insertion(+)
+gitvmsharepractice(master)[tgd] >git push usb master
+Counting objects: 5, done.
+Writing objects: 100% (3/3), 269 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To ../shared/repo.git/
+   babba10..0f12aaf  master -> master
+gitvmsharepractice(master)[tgd] >ls
+tom.txt
+gitvmsharepractice(master)[tgd] >cd ..
+~[tgd] >mkdir fordump
+~[tgd] >cd fordump/
+fordump[tgd] >git clone ../shared/repo.git
+Cloning into 'repo'...
+done.
+fordump[tgd] >ls
+repo
+fordump[tgd] >cd repo
+repo(master)[tgd] >ls
+tom.txt
+repo(master)[tgd] >vim tom.txt
+repo(master)[tgd] >git logg
+* 0f12aaf (HEAD, origin/master, origin/HEAD, master) second commit
+* babba10 first commit
+repo(master)[tgd] >
+
