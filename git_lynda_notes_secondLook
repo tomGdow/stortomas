@@ -1,0 +1,246 @@
+# git videos
+# Notes on second look
+log --grep="init"
+
+git status difference between three different trees
+git diff --color-words
+
+git checkout -- index.html
+git reset HEAD resources.html  [This removes from staging index!]
+
+git commit --amend -m "I can change the message"
+
+git checkout ce0e000795e44d16d80c16f0013ebd9caba38bd7 -- index.html
+
+# When just want to undo the changes completely and totally for a commit. 
+# Just use revert command
+# mirror images of changes. Anything added deleted. Anything deleted will be added back in again
+# Anything modified will be changed back to previous state.
+
+git revert sha-hash 
+git revert 2ad2055b09f7c763cb11efbde0307d0ebc51c5db
+
+
+git reset
+
+# Powerful tool to reset many commits.  Use with extreme caution 
+# Allows us to specify where head pointer should point to. 
+# git reset ALWAYS movees the head pinter
+--soft 
+    does not change staging index or working directory
+-- mixed (default)
+    changes staging index to match repository
+    does not change working directory
+--hard
+    changes staging index and working directory to
+    match repository 
+    
+cat .git/HEAD
+cat .git/refs/heads/master
+
+# To remove a tracked file that has been commited from staging index WITHOUT removing (deleting file)
+git rm --cached tempfile2.txt
+
+# To ignore files globally
+# [can call file anything you like, locate whereever you want]
+git config --global core.excludesfile ~/.gitignore_global
+
+# git does NOT track empty directories
+# add a file called '.gitkeep'
+touch .gitkeep
+
+#Navigating the commit tree 
+
+#a tree-ish references a commmit
+
+# ref with fill sha-1 hash
+# or short sha-1 hash
+  #  at least four characters
+  # unambiguous
+
+HEAD pointer 
+brance reference
+ancestory 
+    eg find parent commit
+   -HEAD^
+   acf87504^
+   master^
+
+#  Think of caret as 'pointing up'
+ 
+ also tilde notation
+  -HEAD~1, HEAD~
+  
+ grandparent commit
+ 
+ -HEAD^^ acf87505^^, master^^
+ -Head~2
+ 
+ great-grandparent commit
+ -HEAD^^^, master^^^
+ 
+ -HEAD~3
+ 
+ git ls-tree <tree-ish>
+ git ls-tree master
+ git ls-tree HEAD
+ git ls-tree master^
+ 
+ # a blob if a file
+ # If it is not a blob, it is a tree (directory) 
+ 
+ git log --oneline
+ git log --oneline -2
+ git log --since="2015-01-18"
+ git log --until="2016-01-31"
+ git log --since="two weeks ago"
+ git log --since=2.weeks
+ 
+ git log --author="tomgdow"
+ git log --grep="modified"
+ 
+git log 1badd5301fce496f4a6c4dc9706e79070b77d2c0..28aa61f600990de696058502efbd7293d9790a0e
+git log 1badd5301fce496f4a6c4dc9706e79070b77d2c0..
+git log 1badd5301fce496f4a6c4dc9706e79070b77d2c0.. tempfile2.txt
+
+git log -p [patch option.  VERY  USEFUL. Can find out what happened]
+
+git log -p 1badd5301fce496f4a6c4dc9706e79070b77d2c0
+
+git log --stat
+git log --summary
+git log --stat --summary
+
+git log --format="oneline"  [returns full sha hash!!]
+
+git log --format=short
+git log --format=medium  [Default]
+git log --format=full
+gir log --format=fuller
+git log --format=fuller
+git log --format=email
+git log --graph
+git log --format=raw
+
+git log --graph
+
+# To see an individual commit
+
+git show <shah or tree-ish>
+
+git show --format=oneline HEAD
+
+
+#Comparing Commits
+
+git diff [differences between working directory and staging index]
+git diff --staged [differences between staging index and repository]
+
+git diff 28aa61f600990de696058502efbd7293d9790a0e..1badd5301fce496f4a6c4dc9706e79070b77d2c0 
+git diff --summary --stat 28aa61f600990de696058502efbd7293d9790a0e..1badd5301fce496f4a6c4dc9706e79070b77d2c0 
+
+git diff -b 28aa61f600990de696058502efbd7293d9790a0e..1badd5301fce496f4a6c4dc9706e79070b77d2c0 
+#-b option means ignore space changes.  
+#same as
+git diff --ignore-space-change <commitOneTreeish..commitTwoTreeish>
+# also -w option
+git diff -w 28aa61f600990de696058502efbd7293d9790a0e..1badd5301fce496f4a6c4dc9706e79070b77d2c0
+# same as
+git diff --ignore-all-space <commitOneTreeish..commitTwoTreeish>
+
+#Branching in Git
+
+# branches are cheap! Can try new ideas
+# isolate features or sections of work
+# still One working directory
+# when switch branches git does fast context switching
+
+# when make new branh HEAD stil point to tip of master branch
+# it is only when we make chanes to the new branch that HEAD changes.
+
+git branch #Shows a list of branches
+# asterisk signifies current branch
+# Head always points to the tip of a branch
+git branch new_feature
+git checkout new_feature
+
+cat .git/HEAD
+
+check checkout -b  # create a new branch AND checkout
+git checkout  -b shorten_title
+#git checkout basically says 'put this in my  working directory'
+# can of course also check out a file
+
+#Working directory must be clean (or,strictly, almost clean) to switch branches
+
+# if not can git add --all 
+  - or can checkout the file  (git checkout --file)
+  - or you can stash the changes.
+  
+ # 'mostly clean' means should be no conflicts!
+ # Nothing there that allows you to lose data
+ 
+ #Compare branches
+ 
+git diff master..new_feature
+git diff --color-words master..new_feature
+#passing in tree-ish
+#can also
+git diff --color-words master..new_feature^
+
+## To find out if a branch contains another branch or not
+# That is, whether or not everything in it has been merged into current branch
+
+git branch --merged
+# will show all branches that are COMPLETELY INCLUDED in the current branch. 
+
+# Renaming Branches
+
+git branch -m new_feature seo_title
+git branch --move new_feature seo_title  #  move.  The same as unix!
+
+#Deleting branches
+
+git branch branch_to_delete
+git branch -d branch_to_delete
+
+# Cannot delete a checked out branch
+# Cannot delete a branch that is not fully merged
+# but CAN delete with -D option.
+
+# Merging branches
+git merge seo_title
+git diff master..seo_title  # Now no difference
+
+# ALWAYS run merge with clean working directory 
+
+# Difference between fast-forward merges and real merges
+# This is that was not in last eg.  No changes to master.
+# As result, did fast-forward merge. 
+# Checks for Head in ancestors. If there, just fast-forward merge
+
+git merge --no-ff branch  # forces a merge-commit. Will create a new commit message
+git merge --ff-only 
+
+Conflict in Merge
+
+#1 abort merge
+#2 resolve conflict manually
+#3 use merge tool
+
+git merge --abort
+
+# resolve manually
+#add and commit result
+<<<<<< HEAD
+>>>>>>
+# can INSPECT changed doc in browser after changes in merge
+# THEN commit. ie can view in middle of merge. 
+
+# Tips
+# keep lines short
+# keep commits small and focused
+# beware stray edits to whitespace
+# merge often
+# track changes to master (keep your branch in sync)
+

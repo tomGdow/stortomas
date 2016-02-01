@@ -30,3 +30,56 @@ touch tom.txt && vim $_
 http://stackoverflow.com/questions/4142936/git-clone-from-local-to-remote
 
 http://stackoverflow.com/a/4143042/499167
+
+
+## Clone python folder (xubuntu) to digital ocean example
+
+#On digital ocean vm
+mkdir git_bare_repos
+mkdir python.git
+git init --bare
+
+# on xubuntu
+cd python
+git init
+git add --all
+git commit -m "initial commit"
+
+git remote add origin ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/python.git
+python(master)[tgd] >git push --all origin
+tomgdow@tomgdow.com's password: 
+Counting objects: 61, done.
+Compressing objects: 100% (60/60), done.
+Writing objects: 100% (61/61), 110.86 KiB | 0 bytes/s, done.
+Total 61 (delta 18), reused 0 (delta 0)
+To ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/python.git
+ * [new branch]      master -> master
+
+# now back on digital ocean
+mkdir git_repo_clones
+cd 
+git clone ../git_bare_repos/python.git
+#works!
+
+#now back on xubuntu
+python(master)[tgd] >touch readme.txt
+python(master)[tgd] >vim readme.txt
+python(master)[tgd] >git add --all
+python(master)[tgd] >git commit -m "added readme file"
+[master d66ad3f] added readme file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 readme.txt
+python(master)[tgd] >git push --all origin
+tomgdow@tomgdow.com's password: 
+Counting objects: 4, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 314 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/python.git
+   bb8b7ab..d66ad3f  master -> master
+
+# Now back on digital ocean
+cd git_repo_clones/python
+git pull
+# success!!
+
