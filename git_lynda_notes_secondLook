@@ -244,3 +244,137 @@ git merge --abort
 # merge often
 # track changes to master (keep your branch in sync)
 
+
+# have
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+# This is what -u option gives us
+
+git push origin non_tracking
+
+# no listing in .git/config
+
+# If non-tracking branch and want to make make tracking
+# Three options (video 6, remotes, 3 min)  
+   #1 Add relevant lines to .git/config
+   #2 git config branch.non_tracking.remote origin
+      git config branch.non_tracking.merge refs/heads/master
+   #3 Version of git > 1.7
+      git branch --set-upstream non-tracking origin/non_tracking
+      
+git diff master..origin/master
+
+git diff origin/master..origin
+
+git push origin master
+# but because tracking branch
+git push 
+# very convenient
+git log --oneline origin/master
+
+# Fetch changes
+# origin/master does NOT necessarily reflect what is on remote
+# have to do a sync (not true on lynda repo in example)
+
+git log --online -5 origin/master
+# Does NOT go out remotely to look
+# looking at local copy that lynda has.
+
+git fetch origin
+git fetch # knows 
+# this DOES go out, 
+# and syncs with local origin
+# now 
+git log --oneline origin/master
+# changes in remote repo are reflected.
+# but if you look at 
+git log --oneline -5 master.
+# changes are NOT reflected.
+# This is important point
+# When we do fetch, origin/master syncs with remote
+# but 'master' does not update at all
+# A fetch is no harm whatsoever
+
+# Guidelines
+    #1 Always fetch before you work
+    #2 Fetch before you push
+    #3 fetch often 
+
+# Merging in fetched changes
+
+# origin/master is just a branch line any other
+# cannot checkout, but otherwise identical 
+
+remote server: master
+
+my computer origin/master 
+            master 
+
+git diff master..origin/master
+
+git merge origin/master
+git log --oneline master
+#When we merge, we merge with origin/master,
+the LOCAL copy
+
+# shortcut
+git pull = git fetch + git merge 
+
+# Super-convenient
+# Hard to understand if something goes wrong.
+
+# Checkout remote branches. 
+
+# remote branches like ordinary branches but cannot checkout
+# but can create branch from it
+
+git branch non_tracking HEAD
+git branch non_tracking origin/non_tracking
+
+git branch -d non_tracking
+
+git checkout -b non_branching origin/non_tracking
+
+git checkout master
+
+# Push to an updated remote branch
+# git never merges during push 
+# do a fetch
+git merge origin/master 
+# now push again 
+# will need to resolve conflicts (Most cases not)
+
+# if cannot push to remote,
+# need to fetch, merge and then push again.
+
+# Delete a remote branch 
+
+#1 older way
+git push origin :non-tracking  #colon has effect of deleting branch
+
+# what is colon all about
+# Previously 
+
+git push origin non_tracking   # to 'push'
+#Actually a shortcut for
+git push orign non_tracking:non_tracking
+#So when doing delete, saying push nothing to remove non_tracking
+
+#2 More intuitive way
+
+git push origin --delete non_tracking
+
+# Enable collaborators 
+
+#1 fork to your github
+#2 Put in a pull request
+
+# Tools
+git config --global alias.st "status"
+cat ../../gitconfig
+
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.br branch
+git config --global alias.logg " "
