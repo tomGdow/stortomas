@@ -1,0 +1,18 @@
+# Make a package
+# see here
+http://mathematica.stackexchange.com/a/109828/106
+
+Because you want your rules to be evaluated in the same context as the expression you are applying them to, I don't think a real package is what you want. I think saving your rule definition in a package (.m) file without the package trimmings -- which create a new context -- will work for you.
+
+    Make a new notebook with just one cell containing
+
+    myRules = {a -> 2, b -> 3};
+
+    Make the cell a initialization cell.
+
+    Save the notebook to FileNameJoin[{$UserBaseDirectory, "Applications"}] as myRules.m.
+
+Now in any note book you can write
+
+<< "myRules.m"
+a + b /. myRules
