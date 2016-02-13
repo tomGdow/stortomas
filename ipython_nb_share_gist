@@ -1,0 +1,12 @@
+# See here
+http://txt.arboreus.com/2012/09/27/how-to-share-an-ipython-notebook.html
+
+# 1 Paste JSON form of notebook into gist at
+http://gist.github.com/ 
+
+# 2 Go to
+  http://nbviewer.ipython.org/
+# and insert gist ...
+
+ 
+

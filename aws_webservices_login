@@ -1,0 +1,6 @@
+# from xubuntu vm
+
+ssh -i "Downloads/tomgdowxu.pem" ubuntu@ec2-52-31-46-164.eu-west-1.compute.amazonaws.com
+
+cd Downloads
+chmod 400 tomgdowxu.pem

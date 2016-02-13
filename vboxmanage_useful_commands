@@ -23,3 +23,9 @@ from the folder containing the .vdi file
 VBoxManage modifyhd xUbuntu.vdi --resize 50000
 
 Worked great!
+
+# Cut syn between host and guest clocks
+#
+VBoxManage setextradata "xubuntu_mathematica" "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled" 1
+# see here
+http://askubuntu.com/a/331871/200605
