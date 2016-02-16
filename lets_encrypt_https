@@ -1,0 +1,11 @@
+#Working from here
+https://letsencrypt.org/howitworks/
+git clone https://github.com/letsencrypt/letsencrypt
+cd letsencrypt
+
+
+./letsencrypt-auto --help
+
+#Above is key command
+
+## for cert etc,see ownstore                                       │

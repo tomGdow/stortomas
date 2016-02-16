@@ -1,0 +1,55 @@
+# Working from here
+http://calebmadrigal.com/ipython-notebook-vps/
+
+# On digital ocean vps ...  (tomgdow.com) 
+
+pip install tornado pyzmq ipython
+
+openssl req -x509 -nodes -newkey rsa:1024 -keyout ipython_cert.pem -out ipython_cert.pem
+
+#  Set this up ...
+
+cd /
+mkdir .ssl
+mv ipython_cert.pem /.ssl
+
+# Create a password hash
+
+ipython
+#from ipython ...
+from IPython.lib import passwd
+passwd() 
+## output is sha1:
+
+
+mkdir py (in /home/tomgdow)
+
+ipython profile create nbserver
+
+vim .ipython/profile_nbserver/ipython_config.py
+
+c = get_config()
+c.IPKernalApp.pylab = 'inline'
+c.NotebookApp.certfile = u'/.ssl/ipython_cert.pem'
+c.NotebookApp.ip = '*'
+c.NotebookApp.open_browser = False
+c.NotebookApp.password = u'sha1:6413b75c03ed...'
+c.NotebookApp.port = 4096
+c.NotebookManager.notebook_dir = u'/home/tomgdow/pynb'
+
+# This did NOT WORK
+ipython notebook --profile nbserver --pylab inline
+
+ipython notebook  # works 
+ipython notebook --no-browser # better
+BUT ...
+tomgdow.com:4096  ## does not work! 
+
+## This DOES WORK  (Socat)
+socat TCP-LISTEN:8090,fork TCP:localhost:8888
+
+tomgdow.com:8090 
+#works!!
+
+
+
