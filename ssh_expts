@@ -1,0 +1,128 @@
+
+Experiments on digital ocean from home
+# From digital ocean droplet
+jupyter notebook  # running on port 9999
+                  # CANNOT access from Windows Firefox on black hp 
+
+# Option 1 Open ssh tunnel
+# See here
+https://coderwall.com/p/ohk6cg/remote-access-to-ipython-notebooks-via-ssh
+
+#Expt 1a from Windows terminal, black hp, kilare -home networkd
+
+ssh -N -f -L localhost:8888:localhost:9999 tomgdow@tomgdow.com  
+
+# now from windows firefox (black hp) 
+localhost:8888   #works perfectly AND asked for password (home kildare network)
+
+# Expt 1b From Silver ('mary') hp
+# this also works perfectly from FROM GITBASH.
+
+#Expt 1c Virtual Box
+# also works a treat from VM! (home kildare network)
+
+# to kill
+local_user@local_host$ kill -15 18418
+
+#Expt 2 Socat (Simple)
+# Home Kildare network
+# On Digitial Ocean  #(from black hp) 
+jupyter notebook
+socat TCP-LISTEN:8090,fork TCP:localhost:9999
+tomgdow.com:8090  # Works on Windows browser (firefox) from black hp
+                  # Works on Windows browser (firefox)  from 'mary' hp!!
+                  # Works from xubuntu VM
+                  
+# Experiment 3 Rails and ssh
+rails s  # digitial ssh -NfL localhost:8888:localhost:9999 tomgdow@tomgdow.comocean, running on port 3000, home(kildare) network
+
+ssh -N -f -L localhost:8888:localhost:3000 tomgdow@tomgdow.com  #from windows terminal on black hp
+
+localhost:8888 # works perfectly windows browser!!
+
+#Expt 3b  
+#Same ssh command as above, except on silver('mary') hp
+#Also works perfectly
+
+
+Experiment 4 Jupyter notebook by ssh (ILAC centre library)
+#On hp (black) in ilac centre library
+#logged into digitial ocean droplet tomgdow@tomgdow.com
+jupyter notebook #running on port 9999
+#Back to Windows terminal (with github unix tools installed)
+ssh -NfL localhost:8888:localhost:9999 tomgdow@tomgdow.com
+#On Windows browser (Firefox)
+localhost:8888
+# Works perfectly.  
+
+
+# Experiment 5  Jupyter Notebook on xUbuntu VM.  SSh from windows cmd 
+# ssh from windows cmd line
+
+ssh -NfL localhost:3000:localhost:8888 thomas@192.168.33.1
+
+localhost:3000 from Windows browser (Firefox) 
+# worked pefectly
+# BUT NOTE that had to get the ip address from
+# ipconfig (windows), choosing Ethernet adapter VirtualBox Host-Only Network 
+ NOT from linux hostname -I on vm.
+ 
+ Expt 5b.
+ 
+ Tried the above command from silver ('mary') hp.  Did not work
+ Connection refused.
+
+
+Experiements from 'The Black Magic of ssh'
+
+#1 From Windows command line (hp black pc)
+
+
+# Experiment 2
+
+#1 On digital ocean, start rails app (prag book store)
+rails s # running on port 3000
+# From Windows command line (hp black pc)
+ssh -NfL 4000:localhost:3000 tomgdow@tomgdow.com
+#From Windows browser (firefox)
+localhost:4000 # picks up Rails app! 
+
+# Expt 2b
+# xubuntu vm, hp black pc 
+ssh -NfL 4000:localhost:3000 tomgdow@tomgdow.com
+# xubuntu browser (firefox)
+localhost:4000  # Also picks up Rails app! 
+
+# Expt 2c
+# Silver ('Mary') hp
+# Windows command line
+ssh -NfL 4000:localhost:3000 tomgdow@tomgdow.com
+# Windows browser (firefox)
+localhost:4000   # Works perfectly. 
+
+# Expt 2d
+# Silver ('Mary') hp
+# Try from xubuntu virtual machine
+### could not connect. 'Unable to port forward through port 4000'
+
+
+Expt 3
+#hp black hp pc
+# windows command line 
+ssh -NfL 3000:tomgdow.com:80  tomgdow@tomgdow.com
+# Windows browser (firefox)
+localhost:3000
+#Picks it up!!
+
+Expt 4 ssh
+
+ssh tomgdow.com -- hostname  ## note the spaces ## goodies 
+ssh tomgdow@tomgdow.com -- ls
+
+
+
+Expt 5 the tilde and ssh
+#from within ssh session
+~? #get help
+~C #Open a command line.  # make sure tilde does not appear on shift-tilde, otherwise
+#won't work
