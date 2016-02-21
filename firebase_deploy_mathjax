@@ -1,0 +1,34 @@
+
+# Deploying mathjax example (SO question) to firebase (static) 
+
+# On Firebase Site
+
+login
+create a new app
+choose url name!
+#on Unix
+Some Preliminaries
+npm update -g firebase-tools
+firebase login
+
+cd into app folder
+Include the following in the head section
+<script src="//static.firebase.com/v0/firebase.js"></script>
+
+firebase init
+#will be asked to choose an app url
+firebase deploy 
+
+#Notes
+Had to put index.html in public folder within app
+also added mathjax code, of course
+Had mixed content problem, so used the https (rather than http) version 
+of the mathjax library
+
+# Refs
+
+http://stackoverflow.com/q/35537286/499167
+
+# Deployed site
+
+https://mathjax-example.firebaseapp.com/
