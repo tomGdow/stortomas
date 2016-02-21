@@ -1,0 +1,160 @@
+
+## See mainly the following video:
+Windows PowerShell 2.0 for Beginners Training & Overview - EPC Group 
+https://www.youtube.com/watch?v=3vJvkANKVWA
+
+Get-Service | Sort-Object Status| Format-Table| export-CSV c:\Users\thomas\service.csv
+
+ipconfig
+net use
+notepad
+#commandlets
+Get-EventLog
+get-alias 
+-whatis
+
+#the variable drive
+Get-PSDrive
+cd variable:   # The variable drive $tom=44, for example
+
+get-process | where {$_.workingset -gt 5mb} | sort workingset
+
+thomas> $service = get-service audiosrv
+thomas> $service 
+thomas> $service.displayName
+thomas> $service.status
+thomas> $service.requiredservices
+thomas> Sservice.stop()
+
+$process = get-process
+$process
+$process[0]
+$process[1..5]
+
+$string = "I love JavaScript"
+$string
+$string.toupper()
+$string.length
+$string.padleft
+$string.padleft(40)
+$string.padleft(40, '*')
+$d = get-date
+$d
+$d.adddays(3)
+$d | get-member  # Goodie list
+$d.DayOfWeek
+1mb + 1gb + 4kb
+
+Four Key Discovery Utilities
+
+Get-Help # Help about Powershell
+Get-Command # Get Information about anything that can be invoked
+Get-Member # Show what can be done with an object
+Get-Module # Show packages of commands 
+
+Get-Help Get-Eventlog
+help Get-Eventlog
+Get-EventLog -?
+
+Get-Help *EVENTLOG
+Get-help write*
+
+GET-Command *service*
+
+Get-Command *service*
+Get-Command *service* -CommandType cmdlet
+Get-Process | where-Object {$_.Handles  -ge 500}
+
+Get-Help Get-EventLog
+Get-Help Get-EventLog -detail
+Get-Help Get-EventLog -full
+
+Get-Process | Get-Member
+[Math]::Pi
+
+(Get-Process PowerShell).FileVersion
+Get-Module -ListAvailable
+
+(Get-Process PowerShell).FileVersion
+Get-Module -ListAvailable
+
+# Utilities  Object Manipulation 
+Compare # Compare 2 sets of objects
+Foreach # Act on each element in a set
+Group # Split a set of objects into groups
+Measure # Measure some property of a set of objects
+Select # Select a set of properties from a set of objects
+Sort # Sort objects
+Tee # Make a copy of a set of objects
+Where # Select a subset of objects 
+
+'Where' is the queen of these commands
+
+#Looks like sql applied to objects, and indeed it is!
+# Microsoft wanted'where' to be  very sql-like, but failed!
+# but ended up with something more powerful
+# in about three lines of code
+
+# So what are they? 
+
+get process | where {}
+Above is called a script-block
+
+Take current object in pipeline and give it a name: $_
+
+1 Execute code in script block
+2 If the code evaluates to 'true', we pass object on
+3 If code evaluates to false, we don't pass it on.
+
+Notice said nothing about object (oth
+You do not have to use the object! 
+
+get-process | where{$true}
+
+Get-process | where {$true}
+Get-process | where {$false}
+Get-process | where {$_.handles -ge 700}
+Get-process | where {$_.handles -ge 700} | sort handles
+
+gps *ss | select handles, cpu, id
+
+#Download romeo and juliet in xml from here
+http://tfl09.blogspot.ie/2006/11/romeo-and-juliet-in-xml.html
+
+$x=[xml](cat .\r_and_j.xml)
+$x
+$x.play
+$x.play.act
+$x.play.act[0]
+$x.play.act[0].scene
+$x.play.act[0].scene[0]
+$x.play.act[0].scene[0].speech
+$x.play.act[0].scene[0].speech[0]
+
+$s =$x.play |select -expand act |select -exp scene | select -exp speech
+
+$s |select -first 10
+$s |select -fi 1
+$s | group speaker
+$s | group speaker | sort count
+
+#For each
+# General syntax
+gps *ss |foreach {"Begin"} {"EACH"} {"End"}
+gps *ss |foreach {$sum =0} {$sum += $_.handles} {"Total handles = $sum"}
+
+#Script Explorer
+
+# bing 'powershell visual search'
+
+powershell is CASE INSENSITIVE
+
+
+
+
+
+
+
+
+
+
