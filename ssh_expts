@@ -119,7 +119,8 @@ Expt 4 ssh
 ssh tomgdow.com -- hostname  ## note the spaces ## goodies 
 ssh tomgdow@tomgdow.com -- ls
 
-
+#Better
+ssh  -t tomgdow@tomgdow.com --  "cd /home/tomgdow/git_bare_repos/mathematica_tgd_repo.git  && ls"
 
 Expt 5 the tilde and ssh
 #from within ssh session
