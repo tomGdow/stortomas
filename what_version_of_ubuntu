@@ -1,0 +1,39 @@
+# see here
+http://askubuntu.com/questions/183515/how-do-i-find-the-kernel-version-ubuntu-release-and-disk-partition-information
+
+## Three goodies
+
+hostnamectl status
+uname -a
+lsb_release -r
+
+
+##One
+stortomas(master)[tgd] >hostnamectl status
+   Static hostname: thomas-vbm
+         Icon name: computer-vm
+           Chassis: vm
+           Boot ID: 6f4449aa116946f9a2b0cfa6a3cf7ee2
+  Operating System: Ubuntu 14.04.4 LTS
+            Kernel: Linux 3.19.0-25-generic
+      Architecture: x86_64
+
+## Two
+stortomas(master)[tgd] >uname
+Linux
+stortomas(master)[tgd] >uname -a
+Linux thomas-vbm 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+
+## Three
+Ostortomas(master)[tgd] >lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 14.04.4 LTS
+Release:    14.04
+Codename:   trusty
+
+## Four
+stortomas(master)[tgd] >lsb_release -r
+Release:    14.04
+stortomas(master)[tgd] >
+
