@@ -1,0 +1,4 @@
+# To make bst file (bibliotex)
+latex makebst
+(eg tgdharvard.bst).
+
