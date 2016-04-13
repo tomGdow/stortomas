@@ -1,0 +1,15 @@
+df -h
+df --total
+du -sh /*  # size of folders
+
+gnome-system-monitor
+lsblk
+see here: http://askubuntu.com/a/73164/200605
+
+sudo fdisk -l 
+#(from knoppix youtube at https://www.youtube.com/watch?v=b5mdnzQ0nuw)
+
+baobab  # Also a goodie. 
+
+# Also
+mount
