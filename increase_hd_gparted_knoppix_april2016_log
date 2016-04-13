@@ -1,0 +1,21 @@
+ge modifyhd xUbuntu.vdi --resize 100000
+#Now over to knoppix youtube video
+
+Mount 'ADRIANE-KNOPPIX_V7.2.0gCD-2013-07-28-EN.iso' and reboot vm
+boot as knoppix
+#from terminal
+sudo gparted
+# open up a second gparted for reference # important
+# delete extended partion
+# delete linux -swap
+# now click on main partition and choose resize
+# leave about 10MB
+# Now re-create the delete partition.
+# When satisfied, click green button
+
+Note. resizing to 100000 seemed worked OK, and was picked up by
+# machine manager. 
+# But the change was (to 100000 from 50000) was NOT picked up from within
+# gparted, or using fdisk from terminal of modified VM.
+# Apart from this, everything worked perfectly.
+
