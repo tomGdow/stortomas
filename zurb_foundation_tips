@@ -1,0 +1,6 @@
+# 'foundation new'  throwing error
+npm install es6-promise
+# Added the following line to top of gulpfile.js
+require('es6-promise').polyfill();
+
+see here:  # see here http://stackoverflow.com/q/32490328/499167
