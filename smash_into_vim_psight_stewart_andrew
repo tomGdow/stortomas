@@ -939,3 +939,11 @@ vim +2 <filename>
 #Two Goodies
 # See here 
 http://www.thegeekstuff.com/2010/11/50-linux-commands/
+
+# Gridline tips
+# See here:  http://stackoverflow.com/a/11846256/499167
+set cursorline
+set cursorcolumn
+#also
+set nocursorline
+set nocursorcolumn
