@@ -1,0 +1,13 @@
+# See here
+# http://askubuntu.com/a/31004/200605
+
+echo -en "\033]0;$1\a"
+
+
+#or, as in tname (see bin directory)
+
+declare tname="$1"
+set_terminal_title () {
+
+    echo -en "\033]0;${tname}\a"
+}
