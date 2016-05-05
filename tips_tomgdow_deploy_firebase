@@ -1,0 +1,16 @@
+# Using middleman and slim to develop
+# git repo is just the build folder
+# middleman server
+middleman server --port=3000
+#from within app folder
+middleman build
+cd to build folder
+git add --all
+git commit -m "message"
+git push 
+firbase init
+# choose tomgdow tips
+# make public directory and move all files except *.json into it
+firebase deploy
+# that't it!
+
