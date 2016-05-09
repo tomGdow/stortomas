@@ -947,3 +947,7 @@ set cursorcolumn
 #also
 set nocursorline
 set nocursorcolumn
+
+# Print the name of the current file
+:echo @%
+
