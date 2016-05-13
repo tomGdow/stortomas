@@ -16,10 +16,11 @@
 	#sudo vim /etc/apache2/apache2.conf
         #Add the passenger-install-apache2-module generated equivalent of the following:
 
-   LoadModule passenger_module /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1/buildout/apache2/mod_passenger.so
+    LoadModule passenger_module /home/tomgdow/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.21/buildout/apache2/mod_passenger.so
+
    <IfModule mod_passenger.c>
-     PassengerRoot /home/thomas/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.1
-     PassengerDefaultRuby /home/thomas/.rvm/gems/ruby-2.1.1/wrappers/ruby
+     PassengerRoot /home/tomgdow/.rvm/gems/ruby-2.1.1/gems/passenger-5.0.21
+     PassengerDefaultRuby /home/tomgdow/.rvm/gems/ruby-2.1.1/wrappers/ruby
    </IfModule>
 	
 #The following now needs to be done ONCE PER NEW WEBSITE

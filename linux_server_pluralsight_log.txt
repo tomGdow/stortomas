@@ -75,7 +75,7 @@ quit exit
 
 pasv_enable=YES
 pasv_min_port=65533
-pavv_max_port=65534
+pasv_max_port=65534
 pasv_address=127.0.0.1
 
 
