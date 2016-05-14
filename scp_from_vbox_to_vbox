@@ -1,0 +1,10 @@
+scp -r acptransfer/ tomgdow@172.28.128.3:/home/tomgdow
+
+# Worked perfectly.
+
+tomgdow@172.28.128.3 is address of 'remote' machine, 
+where address obtained by running hostname -I on that machine
+
+See here for a good ref to scp
+
+scp -r acptransfer/ tomgdow@172.28.128.3:/home/tomgdow
