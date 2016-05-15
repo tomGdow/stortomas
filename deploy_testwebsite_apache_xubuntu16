@@ -1,0 +1,8 @@
+www
+cd html
+sudo git clone 
+sudo chown -R $USER:$USER /var/www/html/testwebsite
+apa
+cd sites-available
+modified 000-default.conf
+sudo service apache2 restart
