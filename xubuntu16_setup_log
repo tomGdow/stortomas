@@ -1,0 +1,30 @@
+Set Up of xubuntu16 
+Log
+#built from scratch, as xubuntu16
+
+set up server as per jim pickerell. (linux-sever...)
+set up vsftp, and used previous vsftp.conf as template.
+ssh works from filezilla 
+
+tomgdow
+
+
+mysql same postgres same
+
+installed the following
+git
+nmp
+nodejs
+anaconda (python 2.7)
+Julia
+iRuby
+lyx
+npm
+rvm (ruby)
+rails
+
+gedit
+letsencrypt
+npm 
+curl
+firebase
