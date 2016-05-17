@@ -1,0 +1,34 @@
+new tomgdowtips log
+created git repo tomgdowtips
+middleman init tomgdowtips -T yterajima/middleman-slim
+#git...
+echo "# tomgdowtips" >> README.md
+git init
+git add README.md
+git commit -m "first commit
+git remote add origin https://github.com/tomGdow/tomgdowtips.git
+git push -u origin master
+
+copied app.css.scss from zurb-foundation to source/stylesheets
+linked to in layouts
+
+## Older log (from 'crashed' vm)
+middleman init zurbFoundationSlim -T yterajima/middleman-slim
+# Yes, Yes, Yes
+# Translated Zurb Foundation page to slim, and updated index.html.slim with this code
+# copied app.css (foundation code) to source/stylesheets
+# got app.css from foundation app, created with foundation new ... 
+middleman server --port=3000
+# updated layout file to 'see' new css file
+# add firebase script line to layout file
+middleman build
+# cd to build
+touch public
+# tranferred files to public
+# On firebase website, created new app
+# back on Unix, build folder
+firebase init
+# choose ...
+firebase deploy
+https://zurbslim.firebaseapp.com/
+# all OK 
