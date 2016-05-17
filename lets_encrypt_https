@@ -1,3 +1,4 @@
+#Original Encryption
 #Working from here
 https://letsencrypt.org/howitworks/
 git clone https://github.com/letsencrypt/letsencrypt
@@ -9,3 +10,41 @@ cd letsencrypt
 #Above is key command
 
 ## for cert etc,see ownstore                                       │
+
+# MAY 2016 Major upate
+
+## As before, certs are available in ownstore
+
+
+Your existing certificate has been successfully renewed, 
+and the new  certificate has been installed.
+The new certificate covers the following domains:  
+https://testwebsite.tomgdow.com, 
+https://tips.tomgdow.com,
+https://sceptics.tomgdow.com,
+ https://deployrails.tomgdow.com,
+https://classiccars.tomgdow.com, 
+https://jawaireland.tomgdow.com,
+and https://pgrailsdeploy.tomgdow.com                        
+  
+You should test your configuration at:
+https://www.ssllabs.com/ssltest/analyze.html?d=testwebsite.tomgdow.com                                                                   ³
+https://www.ssllabs.com/ssltest/analyze.html?d=tips.tomgdow.com   
+https://www.ssllabs.com/ssltest/analyze.html?d=sceptics.tomgdow.com
+https://www.ssllabs.com/ssltest/analyze.html?d=deployrails.tomgdow.com                                                            ³
+https://www.ssllabs.com/ssltest/analyze.html?d=classiccars.tomgdow.com
+
+
+log (May 2016)
+# On Digital Ocean Droplet
+
+# Installed software with the following commands
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+
+# then ran the following command
+sudo ./certbot-auto --apache
+
+
+
+
