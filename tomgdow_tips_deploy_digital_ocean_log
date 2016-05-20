@@ -1,0 +1,10 @@
+#Need to build project on remote server with middleman (outside www dir)
+mkddir temp_build_folder && cd $_
+git clone https://github.com/tomGdow/tomgdowtips.git
+cd ..
+middleman build
+#changed name of build to tomdowtips (in separate temp directory)
+#moved to /www/html 
+#from home directory 
+sudo chown -R $USER:$USER /var/www/html/tomgdowtips
+sudo service apache2 restart
