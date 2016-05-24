@@ -7,4 +7,7 @@ where address obtained by running hostname -I on that machine
 
 See here for a good ref to scp
 
-scp -r acptransfer/ tomgdow@172.28.128.3:/home/tomgdow
+http://www.hypexr.org/linux_scp_help.php
+http://stackoverflow.com/questions/11304895/how-to-scp-a-folder-from-remote-to-local
+
+

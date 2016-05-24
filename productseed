@@ -1,0 +1,9 @@
+p1 = Product.new(:name => "Television", :description => 'Retro devise for looking at life', :price => 100)
+p2 = Product.new(:name => "Computer", :description => 'A device used to access Facebook', :price =>200)
+p3 = Product.new(:name => "Rails", :description => 'Great with cocaine, even better with Ruby', :price =>400)
+p4 = Product.new(:name => "Ruby", :description => 'Language created by Matz', :price =>1000)
+
+p1.save
+p2.save
+p3.save
+p4.save
