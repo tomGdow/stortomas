@@ -1,0 +1,8 @@
+#bash cookbook p 134 (adobe p157)
+
+>&2
+
+#eAlways do this.  
+
+# We think it is a good
+# habit to always redirect error messages to standard error.

@@ -1,10 +1,9 @@
 
-
 #1 scp DIRECTORY FROM Remote To local (DOWNLOAD a DIRECTORY)
 
      scp -r username@hostname:/path/to/file /path/to/destination
      scp -r tomgdow@tomgdow.com:/home/tomgdow/rubyMine_admin_licence . # folder from Digital ocean to Windows PC
-
+     scp -r  tomgdow@tomgdow.com:/home/thomas/Downloads/*.pdf .
 
   Notes
      to get address of remote machine, run

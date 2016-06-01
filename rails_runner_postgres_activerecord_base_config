@@ -9,3 +9,15 @@ bin[tgd] >rails runner 'puts ActiveRecord::Base.configurations'
 
 #See here (Rails docs)
 guides.rubyonrails.org/configuring.html
+
+## Also 
+## see here 
+http://stackoverflow.com/a/4197278/499167
+
+
+rails runner 'puts ActiveRecord::Base.configurations[Rails.env]'
+#and from console (goodies)
+ActiveRecord::Base.configurations[Rails.env]
+Rails.configuration.database_configuration[Rails.env]
+ 
+
