@@ -1,6 +1,7 @@
 df -h
 df --total
 du -sh /*  # size of folders
+du --apparent-size --block-size=1 acp
 
 gnome-system-monitor
 lsblk
@@ -10,6 +11,9 @@ sudo fdisk -l
 #(from knoppix youtube at https://www.youtube.com/watch?v=b5mdnzQ0nuw)
 
 baobab  # Also a goodie. 
+
+# a goodie  (nCurses Disk Usage) 
+ncdu  
 
 # Also
 mount
