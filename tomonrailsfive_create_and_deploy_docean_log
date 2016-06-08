@@ -1,0 +1,193 @@
+
+#git
+sudo apt-get install git
+#repos
+git clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/bin.git
+git clone https://github.com/tomGdow/stortomas.git
+git  clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/bashrc_et_al.git
+#nodejs
+sudo apt-get install nodejs
+#tree
+sudo apt-get install tree
+#postgres
+okpsql
+sudo apt-get install postgresql
+sudo -u postgres createuser -s vagrant
+sudo -u postgres psql
+postgres=# \password vagrant
+# rvm
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+source /home/vagrant/.rvm/scripts/rvm
+#bundler
+sudo gem install bundler
+#npm
+sudo apt-get install npm
+#rails
+(sudo gem install rails -V)
+# got permissions error, so ran the following:
+sudo chown -R $USER:$USER /var/lib/gems/
+gem install rails -V --pre
+# above did not work, so logged out/logged in to vagrant
+gem install rails -V --pre
+# now worked perfectly
+rails -v 
+>> Rails 5.0.0.rc1
+#lynx
+sudo apt-get install lynx
+#curl
+sudo apt-get install curl
+#run scripts
+okqpsl
+okrails
+gem install pg
+#failssudo apt-get install libpq-dev
+gem install pg
+#now gem installed. 
+gem install pry
+
+#rails project
+mkdir acp && cd $_
+railspg -c new tomonrailsfive
+
+#conigure vagrant VM (VagrantFile)
+#need port forwarding
+#added the following to Vagrantfile
+config.vm.network "forwarded_port", guest: 3000, host: 8000, protocol: "tcp",auto_correct: true
+
+config.vm.synced_folder "c:/vmshare", "/home/vagrant/shared"
+
+config.vm.provision "shell", inline: <<-SHELL
+   sudo apt-get update
+   sudo apt-get install -y apache2
+SHELL
+  
+config.vm.provider "virtualbox" do |v|
+  v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+  v.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+  config.vm.network "private_network", :type => 'dhcp', :name => 'vboxnet0', :adapter => 2
+end
+
+~[vagrant] >hostname -I
+10.0.2.15 172.28.128.4
+
+#back to rails
+rs0
+localhost:8000  # windows
+
+pry-rails
+bundle install
+scaffoldp
+scp tomgdow@172.28.128.3:/home/tomgdow/acp/productseed.rb /home/vagrant/acp/
+rails c
+load '../productseed.rb'
+
+# In config/routes.rb
+root 'products#index'
+
+vagrant share 
+http://scrumptious-dormouse-0807.vagrantshare.com/
+
+# On digital ocean
+mkdir tomonrailsfive.git
+cd ..
+git init --bare
+
+#on vagrant
+cd tomonrailsfive
+git init
+git all --all
+git commit -m "first commit"
+git remote add origin ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/tomonrailsfive.git
+git push --all origin 
+
+#on digitalocean 
+#created tomonrailsfive record
+
+#on digitalocean ssh
+ git clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/tomonrailsfive.git
+ 
+ 
+#Set up config/database.yml as follows
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+
+production:
+  <<: *default
+  database: tomonrailsfive_production
+  username: tomgdow
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+
+
+installed ruby 2.3.0
+gem install rails -V --pre
+bundle install
+
+rake db:create:all
+RAILS_ENV=production rake db:migrate
+rails s -e production
+
+scp -r /home/tomgdow/acp/productseed.rb tomgdow@tomgdow.com/home/tomgdow/acp
+
+rails c -e production
+load '../productseed.rb'
+
+rais s -e production 
+
+lynx localhost:3000
+# All ok. 
+
+sudo cp -R tomonrailsfive/ ../../../var/www/html/
+sudo chown -R $USER:$USER ../../../var/www/html/tomonrailsfive/
+
+in apa, created tomonrailsfive.conf
+sudo a2ensite tomonrailsfive
+sudo apache2 restart 
+#got an error
+gem install passenger #www/html/tomonrailsfive
+passenger-config --ruby-command
+#the above command would NOT work with ruby-2.3.0
+# So, based on what got from running command with ruby 2.2.1
+# added the following to tomonrailsfive.conf
+PassengerRuby /home/tomgdow/.rvm/gems/ruby-2.3.0/wrappers/ruby
+sudo apache2 restart
+# now all is well!
+supg
+\c tomonrailsfive_production
+select name, description, price from products;
+
+#alternatively
+rails db
+select * from products;
+
+psql postgres -tAc "Select * from pg_roles"
+psql -d postgres -c 'SELECT datname from pg_database'| grep 'tom*'
+
+sudo apt-get install baobab
+sudo apt-get install ncdu
+
+add zurb foundation (app.css)
+## added following to config/initializers/assets.rb
+Rails.application.config.assets.precompile += %w( app.scss )
+tree -I tmp  # a goodie
+rails s -b 0.0.0.0 -e production
+rake db:migrate RAILS_ENV="production"
+rails console production
+load '../productseed.rb'
+rake secret 
+export SECRET_KEY_BASE=`MY_SECRET_KEY`  #in .bashrc
+## could not get assets to compile in production
+## made two changes
+config.assets.compile = true  # in config/environments/production.rb
+rake assets:precompile
+## need to run rake assets:precompile from within www ever time assets change
+
+
+# on digital ocean
+
+http://tomonrailsfive.tomgdow.com/
