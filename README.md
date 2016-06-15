@@ -1,3 +1,4 @@
-# stortomas
-A repository of useful commands and methods
+### stortomas
+
+A repository of useful commands, notes and methods pertaining to web development on an Ununtu system, mostly (I suspect) only useful to myself. 
 
