@@ -1,0 +1,5 @@
+# [Windows] + x
+#open powershell as admin
+# (or open windows terminal as admin)
+
+sfc /scannow 
