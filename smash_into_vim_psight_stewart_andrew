@@ -950,4 +950,13 @@ set nocursorcolumn
 
 # Print the name of the current file
 :echo @%
+# comment out text 
+#see here: http://stackoverflow.com/q/1676632/499167
+Ctrl-v 
+select block (using up-down-arrows)
+Shift-I (Capital I)
+insert # (or whatever)
+esc
+WAIT A SECOND
+
 
