@@ -1,0 +1,6 @@
+# To output current value of IFS
+cat -etv <<<"$IFS"
+
+# To set in script
+
+ IFS=$'\n'
