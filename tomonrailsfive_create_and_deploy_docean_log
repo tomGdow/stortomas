@@ -24,7 +24,7 @@ sudo gem install bundler
 #npm
 sudo apt-get install npm
 #rails
-(sudo gem install rails -V)
+(sudo gem install rails --pre)
 # got permissions error, so ran the following:
 sudo chown -R $USER:$USER /var/lib/gems/
 gem install rails -V --pre

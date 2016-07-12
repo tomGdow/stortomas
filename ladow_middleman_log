@@ -1,0 +1,27 @@
+
+    middleman init billyane -T yterajima/middleman-slim
+#on digitalocean
+    mkdir billydow.git && cd $_
+    git init --bare
+#on xubuntu16
+    git init
+    git add --all
+    git commit -m "initial commit"
+    git remove add origin 
+    git remote add origin ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/billydow.git
+    
+    git push --all origin
+    
+    middleman server --port=3000
+    
+    on  digital ocean
+    cd acp
+    git clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/billydow.git
+    cd
+    bundle install
+    middleman build
+    mv build billydow
+    sudo mv billydow /var/www/html
+    
+    sudo  chown -R $USER:$USER billydow
+    set up on apache as per usual 
