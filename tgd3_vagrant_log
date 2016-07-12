@@ -1,0 +1,143 @@
+ vagrant tgd3 log
+ 
+ mkdir tgd3_ubuntu_trusty64
+ cd 
+ vagrant init Ubuntu/trusty64tgd3_ubuntu_trusty64
+ vagrant up
+ vagrant ssh
+ sudo apt-get install git
+  
+ git clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/bin.git
+ git clone https://github.com/tomGdow/stortomas.git
+ git clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/bashrc_et_al.git
+ 
+ sudo apt-get install nodejs
+ 
+  sudo apt-get install tree
+  okpsql
+  sudo apt-get install postgresql
+  sudo -u postgres createuser -s vagrant
+  sudo -u postgres psql
+  postgres=# \password vagrant
+  My
+  \q
+  
+  # rvm
+ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  \curl -sSL https://get.rvm.io | bash
+  
+ gem install rails --pre  (! no sudo)
+ sudo apt-get install npm
+ sudo apt-get install lynx
+ sudo apt-get install curl
+   
+ sudo apt-get install baobab
+ sudo apt-get install ncdu 
+ 
+ #updated .vimrc, .bashrc, .gitconfig as per downloaded bashrc_et_al
+ #updated vagrant file as per tgd2. Now have shared folder and extra adapter. 
+ # see 'tomonrailsfive_create_and_deploy_docean_log' for details
+ # but note
+ config.vm.network "forwarded_port", guest: 3000, host: 8000, protocol: "tcp",auto_correct: true
+ config.vm.synced_folder "c:/vmshare", "/home/vagrant/shared"
+ config.vm.provision "shell", inline: <<-SHELL
+     sudo apt-get update
+ SHELL
+ 
+ config.vm.provider "virtualbox" do |v|
+   v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+   v.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+   config.vm.network "private_network", :type => 'dhcp', :name => 'vboxnet0', :adapter => 2
+ end
+ 
+ hostname -i 
+ >> 10.0.2.15 172.28.128.4
+ gem install pry
+ gem install pg
+ !! fails
+ #need the following
+ sudo apt-get install libpq-dev
+ # see here
+ http://stackoverflow.com/a/19405690/499167
+ gem install pg
+ # now all ok
+ okspql
+ okrails
+ #both perfect!
+ # Now clone railsfive project
+ git clone ssh://tomgdow@tomgdow.com/home/tomgdow/git_bare_repos/tomonrailsfive.git
+  
+ bundle install
+ #stopped here
+ vagrant box update # before vagrant up
+ vagrant up
+ vagrant ssh
+ cd to railsfive app
+ rake db:create:all
+ rake db:migrate
+ rake db:migrate:status
+ 
+ >Created database 'tomonrailsfive_development'
+ >Created database 'tomonrailsfive_test'
+ >Created database 'tomonrailsfive_production'
+ 
+ rails s
+ lynx localhost:3000
+ # All OK 
+ 
+ scp tomgdow@tomgdow.com:acp/productseed.rb /home/vagrant
+ rails c
+ load '../productseed.rb'
+ rs0
+ localhost:8000 #w apt-get install openssh-client openssh-serverindows
+ # all is well 
+ 
+ Now change to Jim Pickrell linux notes ...
+ 
+ sudo apt-get install openssh-client openssh-server
+ openssh-client is already the newest version
+ 
+ cd /etc/ssh
+ vim sshd_config
+ # Did NOT change  PermitRootLogin to 'no' 
+ ie, left this at what vagrant had set
+ 
+ #uncomment banner and make
+ Banner /etc/welcome.txt
+     
+ #cd to /etc
+ sudo touch welcome.txt
+ sudo vim welcome.txt [create message]
+ sudo service ssh restart
+ 
+ ssh vagrant@localhost
+ \password
+ # all ok
+ 
+ sudo apt-get install apache2
+ sudo service apache2 status
+ lynx localhost
+ 
+ did NOT set up vsftp
+ 
+ sudo apt-get install sqlite
+ sudo apt-get install sqlite3 libsqlite3-dev
+ #already newest version
+ #check
+ sqlite3
+ .help
+ .quit
+ 
+ sudo apt-get install mysql-server
+ root password Mynice$-dog no alarm not zoe
+ ERROR could not connect to mysql db!
+ 
+ sudo apt-get install julia
+ 
+ wget "http://repo.continuum.io/archive/Anaconda2-4.1.0-Linux-x86_64.sh"
+ installed anaconda
+  gem install iruby
+ 
+ 
+ todo
+ pathogen
