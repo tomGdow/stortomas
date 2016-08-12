@@ -961,3 +961,10 @@ esc
 WAIT A SECOND
 
 
+
+#Command completion in Insert mode
+ctrl-p and ctrl-n
+
+# make symlink to vimo
+ln -s ~/acs_bash_github/vimod/vimo vimo 
+
