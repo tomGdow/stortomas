@@ -1,0 +1,57 @@
+cd toHeroku_dragonfly/
+
+git clone git@github.com:tomGdow/drag_the_dragonfly.git
+
+mkdir -p public/{images,js,css}
+touch config.ru
+touch public/index.html
+bundle init
+
+#Add the following the your gem files
+source :rubygems
+gem 'rack'
+
+#So that it reads:
+
+	# A sample Gemfile
+	source "https://rubygems.org"
+	# gem "rails"
+	source :rubygems
+	gem 'rack'
+
+bundle install
+
+#Added the followign to config.ru
+
+use Rack::Static,
+  :urls => ["/images", "/js", "/css", "/sounds"],
+  :root => "public"
+
+run lambda { |env|
+  [
+    200,
+    {
+      'Content-Type'  => 'text/html',
+      'Cache-Control' => 'public, max-age=86400'
+    },
+    File.open('public/index.html', File::RDONLY)
+  ]
+}
+git add .
+git commit -m "first commit"
+
+git push heroku master
+
+
+###Removed the cloned directory to the desktop!!
+git init
+git add .
+heroku create
+
+Creating obscure-lowlands-7937... done, stack is cedar
+http://obscure-lowlands-7937.herokuapp.com/ | git@heroku.com:obscure-lowlands-7937.git
+Git remote heroku added
+
+#Added dragonfly files to appropiate directories
+
+

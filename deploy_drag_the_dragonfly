@@ -1,0 +1,30 @@
+To deploy 'static' site to github pages 
+
+#Push the stuff to a repository on Github as normal
+
+#Easist way to proceed is to clone the repo onto local machine (here 'drag_the_dragonfly')
+
+git clone git@github.com:tomGdow/drag_the_dragonfly.git
+
+git checkout --orphan gh-pages
+git add .
+git commit -m "just before publish"
+git push origin gh-pages
+
+now deployed site is at
+
+http://tomgdow.github.io/drag_the_dragonfly/
+
+(You may need to set up a github.io repository before step one.  I already have one)
+All explained on this page:
+
+https://help.github.com/articles/creating-project-pages-manually
+
+
+Also:
+http://tomgdow.github.io/JavaScriptCalc/
+http://tomgdow.github.io/testwebsite/
+
+**Jasmin is on github pages**
+
+http://jasmine.github.io/
