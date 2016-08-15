@@ -47,4 +47,10 @@ sudo ./certbot-auto --apache
 
 
 
+log August 15 2016
+#On digital ocean droplet ran the following command
+sudo ./certbot-auto --apache
+# Then followed instructions, removing the domain names 
+# that were prefixed with 'www' (the non-www prefixed 
+# names also all there). 
 
