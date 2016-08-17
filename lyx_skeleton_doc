@@ -1,0 +1,52 @@
+References: use jabref
+open -> database -> whatever.bib
+
+lyx
+1.  Document -> Settings -> Latex_Preamble
+    \usepackage{xcolor}
+    \raggedright
+
+2.  Document -> Settings -> Bibliography
+    natbib, with natbib_style set to Author-year
+
+3. Document -> Settings -> PDF-properties
+a. tick 'use hyperref support'
+b. Add the following to 'Additional Options'
+    linkcolor=blue, urlcolor=blue, citecolor=blue, pdfstartview={FitH}, hyperfootnotes=false, unicode=true
+# or 
+    linkcolor=blue, urlcolor=gray, citecolor=blue, pdfstartview={FitH}, hyperfootnotes=false, unicode=true
+ALSO, in Hyperlink tab of above setting, tick all three options, ie tick
+    Break_lines_over_lines
+    No_frames_around_links
+    Color_links
+
+4. To link a bibtex file
+Insert -> List/TOC -> Bibtex Bibliography
+
+Add database (the jabref one, something.bib)
+Choose style, currently 'tgdnatbibdoiMod' 
+
+## To get minted to work  (definitive way to insert code) 
+1. sudo apt-get install python-pygments
+2. In latex preamble, insert 
+    \usepackage{minted}
+3. Had previously installed livetex (full)
+Check: 
+Tools/Tex Information, -> select latex styles, Rescan
+minted.sty was there, OK 
+4. Important!! add this.
+Tools>preferences>file handling>converters
+Find 'LaTeX(pdflatex)-> PDF(pdflatex)
+add the following the the converter box
+   '-shell-escape' 
+so that it reads something like the following
+   pdflatex$$i -shell-escape
+click modify (important!)
+click apply 
+#!! may need to uncheck/recheck 'Converter File Cache' Radio button. 
+6. To test, add the following to an ERT
+    \begin{minted}{python}
+    def boring(args = None): pass
+    \end{minted} 
+6. see here: 
+http://www.latex-community.org/forum/viewtopic.php?f=19&p=57980
