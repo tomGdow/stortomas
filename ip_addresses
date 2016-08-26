@@ -5,3 +5,5 @@ see here
 http://askubuntu.com/a/138131/200605
 
 ip addr
+ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//' # digital ocean install wp on ubuntu
+curl http://icanhazip.com  # digital ocean 'install wp on ubunut'
