@@ -968,3 +968,7 @@ ctrl-p and ctrl-n
 # make symlink to vimo
 ln -s ~/acs_bash_github/vimod/vimo vimo 
 
+
+# retab vim goodie
+:%s/\t/  /g
+
