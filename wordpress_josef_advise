@@ -1,0 +1,16 @@
+ 1 salted keys
+ 
+ 2 debug set to true
+  and defing PS_method -> direct 
+  
+ 3 wp-content
+ 
+ 4 styles.css and nothing else
+ 
+ 5 style is divi 
+ 
+ vagrant@172.28.128.5
+ 
+ sudo rsync -avP ~/wpshare/wordpress/ /var/www/html/ 
+ sudo rsync -avP /home/tomgdow/acp/appvenkat_wordpress/appvenkat /var/www/html/
+ sudo rsync -avP /var/www/html/ /home/vagrant/wordpress
