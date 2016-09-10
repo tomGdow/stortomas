@@ -117,6 +117,7 @@ also
     define('FS_METHOD', 'direct');
 Continue ..
 
+    sudo rsync -avP ~/wordpress/ /var/www/html/
     cd /var/www/html
     sudo chown -R vagrant:www-data *
     mkdir /var/www/html/wp-content/uploads
