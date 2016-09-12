@@ -91,6 +91,5 @@ This was fixed by importing the databases again using phpmyadmin,
 and then by editing the mysql options table to change (two) links
 to 'venkat.tomgdow.com' to 'localhost:8888' Seems to have worked perfectly.
 
-### Permissions change summary 
 
 
