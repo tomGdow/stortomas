@@ -1,0 +1,350 @@
+
+#DHH Going to show how action cable works in Rails5
+https://www.youtube.com/watch?v=n0WUjGkDFS0
+  rails new campfire
+  cd campfire
+  bundle install
+  rails g controller rooms show
+# in routes
+  root to: 'rooms#show'  #correct
+  rs0 # rails s 
+# default to puma in Rails5
+  
+  rails g model message content:text
+  rails db:migrate
+# no longer need to use rake in Rails 5
+# Go to rooms controller
+
+  def show
+   @messages = Message.all
+  end
+# now add template 
+# go to views folder
+  mkdir messages
+  cd
+  touch _message.html.erb
+# create a partial 
+# add 
+
+  <div class="message">
+      <p><%= message.content %></p>
+  </div>
+ 
+# in show.html.erb
+  <h1> Chat Room</h1>
+  <div id="messages">
+    <%= render @messages %>
+  </div>
+
+# go to rails console
+
+Message.create! content: "hello world!"
+
+------response---
+   (0.2ms)  begin transaction
+  SQL (3.4ms)  INSERT INTO "messages" ("content", "created_at", "updated_at") VALUES (?, ?, ?)  [["content", "Hello World"], ["created_at", 2016-09-11 19:43:39 UTC], ["updated_at", 2016-09-11 19:43:39 UTC]]
+   (5.0ms)  commit transaction
+ => #<Message id: 1, content: "Hello World", created_at: "2016-09-11 19:43:39", updated_at: "2016-09-11 19:43:39">
+
+-----------
+  exit
+
+  rs0 # rails s
+# 'Hello World' should show 
+# All std Rails stuff
+
+---all ok -- 
+# Now generate channel
+
+  rails g channel room speak
+
+#generates both sides of action cable coin
+# firstly there is the server side rooms channel in apps/channel
+# other side is client side, which is in js channls
+
+#first look at rooms_channel.rb
+
+# need to turn on two things
+# In routes
+ mount ActionCable.server => '/cable'
+
+# In cable.coffee, uncomment
+  @App || ={}
+  App.cable = ActionCable.createConsumer()
+
+#!! --tgd comment
+# Appears to be already done, but in cable.js
+
+  (function() {
+     this.App || (this.App = {});
+     App.cable = ActionCable.createConsumer();
+   }).call(this);
+
+# ---end tgd comment
+
+# have a look in browser
+# open up inspector.  8.30min
+#see meta-tag action_cable_url
+
+# !! --- tgd comment
+  but... meta tag seems to be missing (head): <meta name="action_cable_url" 
+# --- end tgd comment
+
+#In chrome console, first have a look at cable
+App.cable
+> Consumer {url: "ws://localhost:8000/cable", subscriptions: Subscriptions, connection: Connection
+
+# has made connection
+
+# have a look at terminal
+# --terminal output
+  Started GET "/cable/" [WebSocket] for 10.0.2.2 at 2016-08-30 11:20:33 +0000
+  Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  RoomChannel is transmitting the subscription confirmation
+# ---end terminal output
+
+App.room.speak
+
+> function (message) {
+      return this.perform('speak', {
+        message: message
+      });
+    }
+	
+App.room.speak()
+# nothing happens on client side
+# lets make that work
+
+-- all ok 73--
+# in room.coffee  (9.29 min)
+  speak: (message) -> 
+    @perform 'speak', message: message
+  
+# In room_channel.rb  10.26min 
+
+def subscribed
+  stream_from "room_channel"
+end
+
+def speak(data)
+    ActionCable.server.broadcast 'room_channel', message: data['message']
+end
+
+# In room.coffee
+
+received: (data) -> 
+  alert data['message']
+
+# restart server when make changes to action cable set up
+
+--all ok 93--
+#NOW from chrome console, 
+
+App.room.speak('Hello World')
+# Should come back right at us ...
+# Start second browser .... Will also get message
+
+# -- tgd comment both worked as expected. 
+
+## second attempt, sunday. All ok to here
+
+# Back in show.html.erb
+
+
+
+
+
+# back to room.coffee
+	
+$(document).on 'keypress', '[data-behavior~=room_speaker]', (event) ->
+  if event.keyCode is 13 # return = send
+    App.room.speak event.target.value
+    event.target.value = ''
+    event.preventDefault()
+  
+## now check browser
+#should get alert box
+## tgdnote do get alert box, both browsers. 
+
+---tgd comment server result of above
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+RoomChannel#speak({"message"=>"how are you"})
+[ActionCable] Broadcasting to room_channel: {:message=>"how are you"}
+RoomChannel transmitting {"message"=>"how are you"} (via streamed from room_channel)
+RoomChannel transmitting {"message"=>"how are you"} (via streamed from room_channel)
+
+---  end comment ---
+
+#now want to talk to database
+# can get transcript back at any time
+
+
+# back to room_channel.rb (15.06)
+
+def speak(data)
+  Message.create! content: data['message']
+end
+## tgdnote delete or comment out 'ActionCable.server.broadcast 'room_channel', message: data['message']'
+
+# will create message in db
+
+#go to message.rb
+after_create_commit {MessageBroadcastJob.perform_later self}
+
+rails g job MessageBroadcast
+
+#In message_broadcast_job.rb (17.01)
+
+queue_as :default
+
+def perform(message)
+  ActionCable.server.broadcast 'room_channel', message: render_message(message)
+end
+private
+  def render_message(message)
+    ApplicationController.renderer.render(partial: 'messages/message', locals: {message: message})
+  end
+  
+ # now 
+ r s
+ 
+# so just getting template ...
+
+#he typed in but .. ; got alert box back with
+# <p>but..</p>
+
+# go back to room.coffee (not room_channel.rb)
+# instead of just doing an alert ...
+
+received: (data) -> 
+ $('#messages').append data['message']
+ 
+ back to browser
+ funny?
+ 
+ # can add caching as follows
+ 
+ <% cache message do %>
+ <div class="message">
+ <p><%= message.content %></p>
+ </div>
+ <% end %> 
+ 
+ ## Addendum One
+ 
+# To use port 4000 instead of port 3000
+# add the following line to development.rb
+ 
+  config.action_cable.allowed_request_origins = ['http://localhost:4000']
+ 
+# Have port forwarding for port 4000 set up in VagrantFile
+
+# this now works 
+ rails s -p 4000 -b 0.0.0.0
+ 
+# As does this 
+
+ passenger start   --port 4000 -b 0.0.0.0
+ 
+#(gem 'passenger' is included in Gemfile, with bundle install)
+
+# This does not:
+
+passenger start  --address 127.0.0.1 --port 4000 -b 0.0.0.0
+
+even after including the following in development.rb
+config.action_cable.allowed_request_origins = ['http://localhost:4000', 'http://127.0.0.1:4000']
+
+#Note also to get port 3000 working, now need the following in development.rb
+
+ config.action_cable.allowed_request_origins = ['http://localhost:4000', 'http://localhost:3000']
+ 
+ to be added to stortomas
+ 
+ # on digital ocean, to get wortking with socat
+ 
+ socat TCP-LISTEN:8090,fork TCP:localhost:3000
+ passenger start # from within dhhaction directory
+
+ in development.rb
+ 
+  config.action_cable.url = "ws://tomgdow.com:8090/cable"
+  config.action_cable.allowed_request_origins = ['http://localhost:3000','http://tomgdow.com:8090', 'http://127.0.0.1:4000']
+
+ now this works
+ tomgdow.com:8090 
+ passenger works, but NOT on both browsers
+ 
+ development.rb
+   config.web_socket_server_url = "ws://dhhaction.tomgdow.com:4000/cable"
+   config.action_cable.url = "ws://dhhaction.tomgdow.com:4000/cable"
+   config.action_cable.allowed_request_origins = ['http://dhhaction.tomgdow.com', 'http://localhost:4000','http://localhost:8090', 'http://localhost:3000','http://tomgdow.com:8090', 'http://127.0.0.1:4000']
+ 
+ application.html.erb
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Campfire</title>
+<%= action_cable_meta_tag %>
+<%= csrf_meta_tags %>
+
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<%= yield %>
+</body>
+</html>
+
+finally ...
+
+
+ rails s -d -p 4000 -b 0.0.0.0
+ 
+ 
+ two good refs
+ https://blog.heroku.com/real_time_rails_implementing_websockets_in_rails_5_with_action_cable
+ 
+ 
+ <VirtualHost *:80>
+
+    ServerAdmin webmaster@localhost
+    ServerName dhhaction.tomgdow.com
+    ServerAlias www.dhhaction.tomgdow.com
+    DocumentRoot /var/www/html/dhhaction/public
+    PassengerRuby /home/tomgdow/.rvm/gems/ruby-2.3.1/wrappers/ruby
+
+    ProxyPass / http://localhost:4000/
+    #ProxyPass / http://127.0.0.1:4000/
+    #ProxyPassReverse / http://127.0.0.1:4000/
+    ProxyPassReverse / localhost:4000/
+    ProxyPreserveHost on
+
+    <Proxy *>
+      Order deny,allow
+      Allow from all
+    </Proxy>
+    <Directory /var/www/html/dhhaction/public>
+    #This relaxes Apache security settings
+    AllowOverride all
+    #Multiviews must be turned off
+    Options -MultiViews
+    #Uncomment this if you're using Apache >= 2.4
+    require all granted
+
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+	
+</VirtualHost>
+
+# To add caching, add this to partial (_messaages)
+<% cache message do %>
+<div class="message">
+   <p><%= message.content %></p>
+</div>
+<% end %>
+
