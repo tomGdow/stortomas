@@ -54,3 +54,11 @@ sudo ./certbot-auto --apache
 # that were prefixed with 'www' (the non-www prefixed 
 # names also all there). 
 
+log Nov 14 2016
+#On digital ocean droplet ran the following command
+sudo ./certbot-auto --apache
+# some trouble getting things to work, but all ok when 
+# unstar files WITH the www prefix in address.  
+#Then seemed to work perfectly.  (also, no cert for sceptics)
+
+
