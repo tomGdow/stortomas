@@ -1,0 +1,4 @@
+# AngularJS/taoisigh project
+To get rid of 'No Access-Control-Allow-Origin header is present on the requested resource'. Origin
+used  'https' instead of 'http in retrieveJson function (ng_services/functions) in
+github pages brance of taoisigh (left the same in 'master' branch, so OK for localhost)
