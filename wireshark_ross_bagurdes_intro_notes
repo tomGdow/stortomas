@@ -1,0 +1,23 @@
+tshark -D
+tshark -i 1 #capture on interface 1 
+tshark -i 1 -w myCaptureFileName.pcap -F pcapng 
+#end capture by ctrl-C
+
+#onlinux
+tcpdump -D
+tcpdump -i 3 # capture on interface 3
+tcpdump -i3 -w output.pcap
+nslookup veronicasplantnursery.com
+ifconfig
+
+
+
+#back to pc
+arp -a #arp cache ip to MAC address mappings
+arp -d * #delete arp cache. Must be admin
+destination arp address of MAC is FF:FF:FF:FF:FF:FF
+
+ipconfig /flushdns
+
+Key article on decoding HTTP traffic with wirshark (using private key)
+https://support.citrix.com/article/CTX116557
