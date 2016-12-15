@@ -1,0 +1,80 @@
+
+Honeybadger on Angularjs
+https://github.com/honeybadger-academy/angular-for-rubyists.git
+
+In rails, the controller is totally in charge
+in Angular, it is the views that are totally in charge
+In angular, when a page loads angular inspects the HTML
+to see which controllers it should load! The controllers then render templates
+that update the html nice screenshot! See 
+a bit like a templating system somehow morphed into a web framework
+One of the jobs of controllers is to provide data for the view. They do this
+by modifying a special object called the scope. 
+
+dpd create honeytom
+copied previous index.html and angularjs 
+to public folder (replacing biolerplate index.html)
+now 'super simple'
+
+myFeature.provider("myProvider", function () {
+   this.$get = function () {   
+    return "I am  a provider, 
+	the basic building block of Modules "   
+   }  
+});
+
+myFeature.value("myValue", I am a value 
+                ... but under the hood I am a provider)
+				
+myFeature.factory("myFactory", function () {
+
+    return "I'm a factory ... a provider that returns a function"
+
+})
+
+myFeature.service("myService", function() {
+
+    this.saySomething = function () {
+	    return "I'm a service ... a provider that 
+		instantiates a function"
+	}
+	
+})
+
+
+# Rails app, version 1 (Video 4)
+
+rails new gamesapp --skip-bundle
+#Using Rails assets
+# In Gemfile ...
+source 'https://rails-assets.org'
+
+gem 'rails-assets-angular'
+bundle install
+
+#In application.js
+//=require 'angular'l
+# in root
+
+mkdir -p app/assets/javascripts/angular/{controllers,modules,services,
+factories,directives}
+bundle exec rails generate scaffold Game name:string rating:integer
+
+#in games_controller
+def spa
+end
+
+#in routes.rb
+
+get 'spa' => 'games#spa'
+
+#in views/games
+touch spa.html.erb
+
+rake db:migrate
+rs0
+
+source 'https://rails-assets.org' do                                            
+  gem 'rails-assets-angular'
+  gem 'rails-assets-angular-resource'
+end
