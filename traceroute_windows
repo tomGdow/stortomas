@@ -1,0 +1,4 @@
+
+tracert # windows version of traceroute
+tracert -d 46.101.11.172
+## pluralsight ross_bagurdis on wireshark
