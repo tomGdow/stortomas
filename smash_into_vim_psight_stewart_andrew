@@ -972,3 +972,13 @@ ln -s ~/acs_bash_github/vimod/vimo vimo
 # retab vim goodie
 :%s/\t/  /g
 
+
+## To find closing tag
+v # enter visual mode
+it # inner tag
+# and
+vat # outer tag
+
+# note 
+nerd #file explorer 
+ctrl-n # shortcut
