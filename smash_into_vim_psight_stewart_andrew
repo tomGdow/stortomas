@@ -979,6 +979,78 @@ it # inner tag
 # and
 vat # outer tag
 
-# note 
+# notes on nerd 
 nerd #file explorer 
 ctrl-n # shortcut
+cs'"
+cs'<p>
+ds"
+cst<li>  # change surrounding tag
+yss<p>   # surround text by p tag 
+VS<p>
+
+#note that ctrl-n in INSERT mode toggles code completion.
+
+# Smash into vim, a  second look!
+
+c2/end # delete all code to second occurence of end
+d2w #delete 2 words
+I #inserts text at start of line
+w #forward one words
+<- H
+down J
+L ->
+K Up #(Up Kildare) 
+
+z code-folding (looks like a folded sheep of paper)
+
+zt #scrole to top
+zz #middle
+zb #bottom
+g-ctrl-g #Where you are in document GOODIE
+
+ma #mark cursor position
+`a
+
+`0 #position of cursor when last exited vim. 
+`` or '' #to jump back to where you were 
+#period is  location of last change. 
+:marks
+c3w # change three works
+J #join lines
+gJ #join without inserting spaces
+(,) #beginning, end of sentence
+{,} #ditto paragraphs 
+Vit
+o - #toggle starting/end position,
+
+
+:%s/h1//n
+:%s/h1/gn ## goodie
+to change only current line, leave out the '%'
+V/body
+:g/class/p  g/re/p  or grep 
+:g/class/#  show line numbers
+:g/hello/y  #yank
+:g/^$/d # delete blank lines
+use :v instead of :g to get lines that do not match pattern. 
+
+ctrl-n (ctrl-n, ctrl-p) code completion 
+"0 contains text from last yank! 
+so paste with "0p
+V25gg
+V/bacon  ## two goodies 
+:g/class/p  # all lines that match a pattern.
+:g/class/#
+/\vSidebar #Very magic search, equivalent to egrep (where magic is equivalent to grep) 
+
+>> indent in normal mode 
+
+ggVG ! grep hello/
+:ce center
+" double quotation mark selects register
+"ayy
+"ap
+uppercase registers append text to context!
+"" unnamed register #always contains the last deleted text 
+yss<id> # surround with id
