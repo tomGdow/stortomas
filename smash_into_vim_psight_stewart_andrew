@@ -1054,3 +1054,16 @@ ggVG ! grep hello/
 uppercase registers append text to context!
 "" unnamed register #always contains the last deleted text 
 yss<id> # surround with id
+
+
+# Mallett goodies
+
+tilde toggles case in normal mode
+gUU # make line  uppercase
+g~~ # make line lowercase
+e! revert to last changes 
+4y # copies 4
+vim +1064 smash_into_vim_psight_stewart_andrew  # open on line number goodie
+vim +/^tilde smash_into_vim_psight_stewart_andrew
+
+:x # the same as :wq 
