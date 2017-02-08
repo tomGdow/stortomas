@@ -1,0 +1,314 @@
+
+nmcli conn show  # works on centos. Check ubuntu  # goodie
+conn up enp0s3
+yum update
+sed -i s/ONBOOT=no/ONBOOT=yes/ /etc/sysconfig/network-scripts/ifcfg-enp0s3
+
+yum groupinstall "X Window"
+
+systemctl set-default graphical.target
+systemctl isolate graphical.target
+
+
+physical consoles right-ctrl f2-f6
+right-ctrl F1 back to graphical-user-interface
+
+type ls
+ls -aF # color coding
+ctrl-l clears scree
+yum install -y redhat-lsb-core
+yum install -y net-tools
+yum install -y epel-release
+yum install -y kernel-headers
+yum install -y kernel-devel
+
+yum groupinstall "Development Tools"
+##on server1 only
+yum groupinstall "X Window System"
+yum groupinstall "MATE Desktop"
+systemctl set-default graphical.target
+systemctl isolate graphical.target
+
+lstblk  
+lsb_release -d # description 
+ls -lF $(which lsb_release) 
+rpm -qf /usr/bin/lsb_release
+
+#ctrl-l clears screen
+
+cp -i # interactive mode
+
+mk -p sales/test
+touch one/file{1..5}
+sudo yum install tree
+
+110 hard links: means 108 sub-directories
+
+ls -ldi /etc # i is inode
+# minimum hard link count for directory is 2
+
+echo $SSH_CONNECTION  # Goodie
+echo $SSH_CLIENT
+
+head -n 3
+type grep 
+sudo yum install words
+md5sum /usr/bin/passwd
+
+
+# . is current dir, but is also just a file
+
+
+find /usr/share/doc -name '*.pdf' -exec cp {} . \;
+find -name '*.pdf' -delete
+find /etc -maxdepth 1 -type l
+find /boot -size +20000 -type f
+
+find /boot -size +10000k -type f -exec du -h {} \;
+stat file
+touch -d '10 April 1973' newfile
+
+vim
+4y #copies 4
+p 
+gUU # uppercase
+g~~ # change case
+# tilde toggles case of single character
+e! # revert to last changes 
+set -o  # noclobber is one!
+set -o noclobber
+date +%F > file2
+date +%F >| file2 #overwrite noclobber
+ctrl R reverse search
+
+ls /etcw 2> tgderr
+find /etc -type l 2> /dev/null
+find /etc -type l &> err.txt #redirect stderr and stdout to file
+df -hlT
+# A vertical bar is an unnamed pipe
+
+cut -f7 -d: /etc/passwd | sort | uniq
+# A vertical bar is an unnamed pipe
+mail -s "disk free" tomgdow < diskfree
+
+
+#terminal one
+mkfifo mypipe
+#terminal two
+ls > mypipe
+#back to terminal one
+wc -l mipipe 
+ls | tee myfile
+
+du -sh . 
+echo $HOME
+tar -cvf /tmp/$USER.tar $HOME  # c create, v verbose, f file 
+tar -xvf /tmp/tomgdow.tar   # x extract
+
+tar -tvf # list the contents of tar directory
+
+gzip tomgdow.tar
+file tomgdow.tar.gz
+gunzip tomgdow.tar.gz
+
+bzip2 tomgdow.tar 
+bunzip2 tomgdow.tar.bz2
+
+time tar -cvf /tmp/$USER-two.tar $HOME
+
+time tar -cvzf /tmp/$USER.tar.gz $HOME  # real 6ms  15M
+time tar -cvjf /tmp/$USER.tar.bz2 $HOME  # real 19ms  15M
+
+tar -xzf tomgdow.tar.gz
+
+#cpio
+find   -name '*.pdf' | cpio -o > /tmp/pdf.cpio
+
+mkdir pdftemp
+cd !$  ## note
+cpio -id < /tmp/pdf.cpio  # d make directories as reqd
+
+# To copy iso on VM
+Mount the iso from virtualBox.  (here using dos iso)
+#now
+dd if=/dev/sr0 of=tomdos.iso  
+## a goodie! 
+sudo dd if=/dev/sda1 of=boot.img  # also a goodie
+su -
+fdisk -l # gives a list of partitions 
+
+linux operational essentials 
+
+C:\Program Files\Oracle\VirtualBox\VBoxManage.exe
+
+df -h /boot
+df -hT
+
+RCS
+ci # check in
+. # to end comment
+co -l # check ouu, l to lock (so no-one else can co) 
+rlog -b hello.sh
+stat -c %a hello.sh
+stat -c %A hello.sh
+ci -f hello.sh # f force
+
+4 = read  (note ocal 2-squared)
+2 = write (two-to-the-power-of-one)
+1 = execute (two-to-the-power-of-zero) 
+
+#umask
+umask 
+00002 # removing from others the write permission (by default) 
+umask 27
+touch file3
+#may also set umask as follows: 
+
+umask u=rwx,go=
+umask  # 0077
+#can only REMOVE permissions with umask
+
+chmod 467 file1 # Or ..
+chmod u=r,g=rw,o=rwx file1
+
+chmod a+x file2 # or chmod +x file2 is same thing. a is 'all'
+chmos o= # others equal nothing .
+chmod 777 file2
+
+# umask fourth block (left most) is special block
+# includes userid, groupid and sticky bit
+
+#1 sticky bit 
+ls -ld /tmp/ # drwxrwxrwt. 26 root root 4096 Feb  5 09:46 /tmp
+ d  rwx  rwx  rwt
+ # the sticky bit controlls deletions from the directory
+ # shows with character [tT] 
+ # if lc 't', execution permission is set
+ # if uc 'T', execution is not set 
+ # with the sticky bit set on a directory, only the OWNER of a file can delete from it. 
+ # to create a directory with the sticky bit set
+ 
+ mkdir -m 1777 mestickybitset
+ 
+ ls -ld mestickbit set # d rwx rwx rwt
+ 
+ chmod o-t mestickybitset/
+ ls -ld mestickbit # d rwx rwx rwx .
+
+ #setgroupid
+ chmod g+s # set groupid
+ ls -ld  $(which wall) # - r-x r-s r-x. 
+ #fullform
+ -r-xr-sr-x. 1 root tty 15344 Jun 10  2014 /usr/bin/wall
+# group id tty.  when command runs, it runs with permission of tty 
+# tty has permissions to write to terminalls 
+ 
+# setuserid 
+ls -ld $(which passwd) 
+-rwsr-xr-x. 1 root root 27832 Jun 10  2014 /usr/bin/passwd
+# this means when executes, it executes as root, enabling users to be able to change their own passwords
+
+If a fourth digit is present, 
+the leftmost (high-order) digit addresses three additional attributes, 
+the setuid bit, 
+the setgid bit 
+and the sticky bit
+
+
+id -u  # 1000
+id -un # username
+id -gn # primary (complementary group) group name
+id -Gn # tomgdow wheel
+
+# when creating file resources, we use primary group.
+# when we are accessing file resources for permission, we use complementary group is used 
+
+chgrp # change group permissions
+chgrp wheel file2 
+
+newgrp wheel
+touch billy
+ls -ld billy # -rw-r--r--. 1 tomgdow wheel 0 Feb  5 20:37 billy
+exit  # revert to PREVIOUS shell
+
+su
+chown root file2 
+chown tomgdow.tomgdow file2 
+chown tomgdow:tomgdow file2 # alt (setting usr and group ownership in 1 command)
+
+cp -a # if, say, copying from root then the '-a' switch maintains original file ownership AND timestamps
+
+su # without '-' or '-l', stay in same directory
+su # substitute user, without username assumes going through to root
+
+su
+<password>
+echo $USER # tomgdow! 
+
+# su - is shorthand for su -l !! 
+# takes you to full login account 
+su -
+echo $USER # root
+# downside of using su is that must give root password to all users to accesss root
+# better to use sudo command to access root privledges
+
+#to edit sudoers
+sudo visudo  ## goodie 
+
+sudo sudo -V ## all options  a goodie
+
+vim /etc/ssh/sshd_config
+PermitRootLogin no  # on digital ocean
+sudo service ssh restart
+# on centos
+systemctl restart sshd
+
+ssh -l tomgow tomgdow.com 
+
+instead of :wq use :x to save and exit
+
+
+#ssh and private key set up Andrew Mallett
+
+  # Allow Root login
+# Change PermitRootLogin to 'no' in /etc/ssh/sshd_config ## as root 
+  
+  # configure ssh alias
+    # as ROOT, create 'config' in /home/tomgdow/.ssh
+# config as follows
+
+Host tomgdigo
+        HostName 46.101.11.172
+        User tomgdow 
+        Port 22
+
+ssh-keygen -t rsa
+
+ssh-copy-id -i id_rsa.pub tomgdigo #goodie goodie
+
+add public key to .ssh/authorized_keys (and away you go)
+on windows, store keys in .ssh 
+
+scp exptscp  tomgdigo:/home/tomgdow/
+
+ssh-agent
+ssh-add 
+
+#script trick one 
+  # terminal one
+script -f mypipe
+
+  # termianl two 
+ 
+cat mypipe
+
+#now what is written on termianl one is echoed to terminal 2 ! 
+
+#screen
+  # set up .screenrc
+  
+  # ctrl a <release> n # next
+  # ctrl a <release> p # previous
+  # ctrl a <release> " # list screens
+  
+  ctrl a <release> : at "#" stuff "ls -la | wc -l ^M"   # works! goodie 
