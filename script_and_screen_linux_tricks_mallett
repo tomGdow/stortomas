@@ -1,0 +1,19 @@
+#script trick one 
+  # terminal one
+script -f mypipe
+
+  # termianl two 
+ 
+cat mypipe
+
+#now what is written on termianl one is echoed to terminal 2 ! 
+
+#screen
+  # set up .screenrc
+  
+  # ctrl a <release> n # next
+  # ctrl a <release> p # previous
+  # ctrl a <release> " # list screens
+  
+  ctrl a <release> : at "#" stuff "ls -la | wc -l ^M"   # works! goodie 
+
