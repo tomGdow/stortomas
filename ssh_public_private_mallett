@@ -1,0 +1,25 @@
+#ssh and private key set up Andrew Mallett
+
+  # Allow Root login
+	# Change PermitRootLogin to 'no' in /etc/ssh/sshd_config ## as root 
+  
+  # configure ssh alias
+    # as ROOT, create 'config' in /home/tomgdow/.ssh
+	# config as follows
+	
+	Host tomgdigo
+        HostName 46.101.11.172
+        User tomgdow 
+        Port 22
+
+ssh-keygen -t rsa
+
+ssh-copy-id -i id_rsa.pub tomgdigo #goodie goodie
+
+add public key to .ssh/authorized_keys (and away you go)
+on windows, store keys in .ssh 
+
+scp exptscp  tomgdigo:/home/tomgdow/
+
+ssh-agent
+ssh-add 
