@@ -10,7 +10,10 @@ firewall-cmd --list-ports ## 8080/tcp 3000/tcp
 
 sudo firewall-cmd --get-default-zone
 
-#also these commands executed, but no effect?
+# to make permanent
+sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
+
+#also these commands executed, but no effect? IGNORE, I reckon
 sudo firewall-cmd --zone=public --add-masquerade
 sudo firewall-cmd --zone="public" --add-forward-port=port=80:proto=tcp:toport=8080:toaddr=192.168.1.5
 sudo firewall-cmd --zone="public" --add-forward-port=port=80:proto=tcp:toport=8080:toaddr=172.28.128.3
