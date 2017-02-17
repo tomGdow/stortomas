@@ -1,0 +1,45 @@
+
+sudo ifconfig enp0s8  172.28.128.3 netmask 255.255.255.0 up  #add ip address to network Transient on exit
+sudo ifconfig enp0s8  172.28.128.4 netmask 255.255.255.0 up  # another example 
+
+
+# Assign static addresses in host-only network 
+# see here http://christophermaier.name/blog/2010/09/01/host-only-networking-with-virtualbox
+
+# In Virtual Box
+File -> Preferences -> Network -> 
+Host-only -> Virtual-box Host-Only Ethernet Adaper #2 -> 
+DHCP server -> uncheck 'enable server'
+
+#Xubuntu
+In 
+sudo vim /etc/network/interfaces 
+ 
+# Host-only network interface #2    
+auto enp0s8    
+iface enp0s8 inet static    
+address 172.28.128.3    
+netmask 255.255.255.0    
+network 172.28.128.0    
+broadcast 172.28.128.255 
+
+# Centos 
+sudo vim /etc/sysconfig/network-scripts/ifcfg-enp0s8
+  # Change
+BOOTPROTO=dhcp 
+to
+BOOTPROTO=static
+  #Add
+IPADDR=172.28.128.4
+
+# xubuntu (mathematica)
+auto eth1    
+iface eth1 inet static    
+address 172.28.128.5    
+netmask 255.255.255.0    
+network 172.28.128.0    
+broadcast 172.28.128.255 
+
+
+
+# also useful https://www.unixmen.com/configure-static-ip-centos-7/
