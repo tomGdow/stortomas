@@ -1067,3 +1067,27 @@ vim +1064 smash_into_vim_psight_stewart_andrew  # open on line number goodie
 vim +/^tilde smash_into_vim_psight_stewart_andrew
 
 :x # the same as :wq 
+
+
+# More Mallett Goodies
+
+:% g/foo/m$  # move all lines containing 'foo' to end of document 
+"add # cut from current line to end of the 'a' register
+:127,215 s/foo/bar
+
+:.,$j # meaning "from the current line to the last line, join them all into one line"  
+:%  # is synonymous with :1,$ (all the lines)
+:.,$v/bar/d  # "from here to the end of the file, delete any lines which DON'T contain the string 'bar' ".
+
+:% g/foo/s/thomas/Thomas/g   # for all lines containing 'foo' substitute 'thomas' with 'Thomas'
+
+# r! ls -lart # GOODIE read the RESULTS of a command!! 
+1G!Gsort # equivalent to :1,$!sort  ##
+ ! (bang) and :...! (ex bang) even more powerful than r! 
+ 
+The + command line option to vi and Vim is normally used to start the editing session 
+at a given line number. Can follow the + by any valid ex command/expression
+@ executes the contents of a register as if it were a vi or ex command. (obscure)
+
+vib  # select text within parentheses
+vi"  # select text within double quotes 
