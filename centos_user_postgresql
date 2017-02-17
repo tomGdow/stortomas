@@ -1,0 +1,10 @@
+
+
+[tomgdow@centostgd tomtest]$ sudo -i -u postgres
+#>[sudo] password for tomgdow:
+createuser --interactive
+#> Enter name of role to add: tomgdow
+#> Shall the new role be a superuser? (y/n) y
+
+sudo -u postgres psql
+\password tomgdow
