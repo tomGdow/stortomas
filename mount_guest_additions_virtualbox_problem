@@ -1,0 +1,17 @@
+# Install guest-additions iso 
+# (located  in C:\Program Files\Oracle\VirtualBox)
+
+## If the vm does not mount (as happened with centostwo)
+## the following is 'magic' command to mount
+
+sudo mount /dev/sr0 /media/cdrom
+
+## see here: 
+http://askubuntu.com/a/565455/200605 
+
+## To check what is mounted, use
+mount
+
+
+
+
