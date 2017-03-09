@@ -21,3 +21,234 @@ ipconfig /flushdns
 
 Key article on decoding HTTP traffic with wirshark (using private key)
 https://support.citrix.com/article/CTX116557
+
+
+## Second Viewing -- More Extensive Notes
+
+
+
+tshark -D # show interfaces # from powershell, for example
+tshark -I 1 # on interface one
+tshark -I 1 -w <filename> -F pcapng  # more info 
+tshark -I 1 -w tsharkCapA.pcap -F pcapng
+tcpdump -D # on xubuntu # a goodie 
+
+#windows
+arp -a  # also works on xubuntu # a super-goodie # ip to mac address mappings 
+arp -d * clear arp cache 
+route PRINT # powershell # goodie 
+
+# arp address resolution protocol. Resolves IP address to Mac address
+# Frames are layer 2
+# Packets are layer 3
+# Ping is ICMP.  ICMP is a layer 3 protocol.  
+# ICMP -Internet control message protocol
+
+# Destination MAC address of ARP is FF:FF:FF:FF:FF:FF  (12-effs)
+
+# TCP is a 3-way handshake
+SYN
+SYN-ACK
+ACK
+
+TCP disconnect is 4-way disconnect
+
+<- FIN-ACK
+-> ACK
+-> FIN-ACK
+<- ACK 
+
+# TCP header  
+  # source port
+  # destination port
+  # sequence number
+  # acknowledgement number
+  #
+  # control bits
+  #
+  # data
+  
+ # control bits
+  U URG Urgent pointer field significant
+  A ACK Acknowledgement field significant
+  P PSH Push function  # tells server to respond immediately (telnet, ssh) 
+  R RST Reset the Connection
+  S SYN Sychronize sequence numbers # get conversation started
+  F FIN: No more data from sender 
+  
+ # use incognito window . Fresh request to website, no cache. 
+ 
+ http://veronicasplantnursery.com/
+ 
+ (GUI Menu) -> Statistics -> Conversations 
+ 
+    # Ethernet
+	# IPv4 
+	# TCP  -- The one we are after!! 
+	# etc 
+	
+ (nslookup veronicasplantnursery.com) 50.87.144.250
+
+-> find conversation and now click FOLLOW STREAM 
+
+GUI-Menu -> Statistics -> Conversations -> TCP -> Follow-Stream 
+
+For plain-text communication, turn of HTTP 1.1 (which encrypts), Dan using IE 
+
+
+# from cmd prompt, as admin
+
+arp -d * # does not seem to work
+# use this instead.  # see here: http://superuser.com/a/1126447  ## a goodie 
+netsh interface ip delete arpcache
+arp -a  # show what is there
+
+ipconfig /flushdns  # remove any ip-address to domain-name mappings that may be stored 
+
+clear web browser history
+now go to veronica's plant nursery....
+
+
+# ICMP (Internet Control Message Protocol)
+  # defined by RFC 792
+  # Layer 3 protocol, but MUST ride on top of IP Header
+  
+  | <- Frame Header -> | <- IP Header -> | <- ICMP Information -> | <- FCS -> | 
+  
+  # FCS is frame check sequence 
+  
+  # ICMP Message Types
+     1. Echo  - Request 8
+	          - Reply   0
+     2. Timestamp
+	          - Request 13
+			  - Reply   14 
+			  
+  # ICMP Error Messages
+      1 Destination Unreachable (Type 3)  
+	        Code 0 - Network Unreachable
+			Code 1 - Host Unreachable
+			Code 2 - Protocol Unreachable (layer 3 protocol unreachable) 
+			Code 3 - Port Unreachable   
+	  2 Redirect (Type 5) 
+	  3 Time Exceeded (Type 11) 
+	  
+  # ssh uses port 22 at layer 4 
+  # TTL time-to-live. Number of 'hops' packet can go through before thrown away. 
+
+# Traceroute 
+
+  # A utility
+  # Manipulates TTL of a packet
+  # Triggers 'Time Exceeded' messages from routers. 
+  
+  # In windows called 'tracert' (sends ICMP messages) 
+  # Mac/Linux called 'traceroute' and sends UDP messages.
+
+#tracert (windows)   
+ tracert -d digo
+
+Tracing route to digo [46.101.11.172]
+over a maximum of 30 hops:
+
+  1     2 ms     3 ms     3 ms  192.168.1.1
+  2    10 ms    10 ms    10 ms  10.8.15.1
+  3    11 ms    10 ms     9 ms  89.19.65.246
+  4    10 ms    11 ms    10 ms  195.2.7.129
+  5    20 ms    21 ms    19 ms  195.2.8.94
+  6    19 ms    18 ms    19 ms  4.68.72.93
+  7    19 ms    19 ms    21 ms  4.69.167.94
+  8    21 ms    20 ms    21 ms  4.69.167.94
+  9    20 ms    20 ms    20 ms  212.187.195.86
+ 10     *        *        *     Request timed out.
+ 11    20 ms    20 ms    20 ms  46.101.11.172
+ 
+ #tcpdump examples 
+   
+   tcpdump -nni eth0 icmp  #only icmp traffic # ping, for example 
+   tcpdump -nni enp0s8  icmp -w mycapture.pcap 
+   scp tomgxu:/home/tomgdow/mycapture.pcap .
+
+Trace complete.
+
+# linux
+traceroute -n digo  # linux a lot faster! 
+
+# hping3 - send (almost) arbitrary TCP/IP packets to network host
+hping3 -0 -H 51 172.28.128.1
+ 
+ 
+# Dynamic Host configuration protocol
+
+In 1985, RFC 951 written for predecessor of DHCP, called BOOTP
+This RFC not sufficient, in 1991 revised (RF 1541), became DHCP
+Revised again in 1997 RFC 2131 (Current).  (RFC - Request for comments, invented by Steve Crocker ) 
+
+ # DORA  
+   # DHCP Discover Message  ('D' of Dora)
+      # Send from workstation
+      # Broadcast on layer 2 and layer 2
+      # On layer 2, see all F's as destination mac address
+	  # On layer 3, see all 1's as destination IP, or 255.255.255.255
+   # DHCP Offer  (contains ip that server would like workstation to use)
+   # DHCP Request (request ip in offer)
+   # DHCP Ack 
+   
+   # There IS and expiry date. 
+   
+   # 'Now you have a lease' - the amount of time address is valid. 
+   
+ # To get DORA response in Wireshark .. 
+	ipconfig /release
+	ipconfig /renew
+	
+ # DHCP-Discover - Option 50
+   # Allows client to request same IP as it had before. 
+     Allows device to keep same IP
+	 HOWEVER, DHCP server has priority. 
+	
+  # To STOP windows using option 50, use RegEdit, 
+    search for ip address. Then consult Ross Bagurdis
+	
+ # DNS
+   # Vulnerability: Dan Kaminsky 
+   # Does DNS use tcp or udp?
+   # usually udp, because more efficient
+   # with udp, no session (no ack, syn-ack etc)
+   # send one message, receive one message.
+   # BUT tcp used for dns during server -> server communication
+     (zonal transfer)
+	 
+   # AAAA request (quadruple A request) Ipv6 resolution.
+   
+   ipconfig /flushdns
+   #igcognito window
+   
+  # TCP - rfc 793
+  # IP  - rfc791
+  # ICMP -rfc792
+  
+# TCP sequence numbers
+  # identify a segment
+  # acknowledgements allow for reliability
+  # randomized in transit for security
+  # wireshark converts to a fixed value
+  # starts at 1 after fixed handshake. 
+  
+  #TCP built to accomodate packet loss 
+ 
+ # Wireshark filters 
+ ICMP
+ ip.addr == 46.101.11.172 
+ ip.src
+ tcp.port == 443
+ icmp&&ip.addr==192.168.1.9 ## goodie
+ icmp||udp
+ bootp # dhcp wireshark filter! 
+ dns
+ frame contains "tomgdow"
+  
+  
+  
+
+
