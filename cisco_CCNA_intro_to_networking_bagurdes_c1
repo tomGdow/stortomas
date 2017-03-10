@@ -1,0 +1,275 @@
+
+# router: pass data between 2 networks
+# ip is logical address
+# mac is physical address. burned on.
+# every physical address will have ip associated.
+# ip address can change.  Mac addresss will not change
+# but can change mac address. 
+
+# A network protocol is nothing more than a set of rules
+# to transfer data from one device to another. 
+
+OSI model 
+Open system inter-connect
+
+designed to allow 2 devices to communicate with each other. 
+
+7  Application 
+6  XX Presentation
+5  XX Sessions
+4  Transport
+3  Network
+2  Data-Link
+1  Physical
+
+Presentation and Sessions layers NOT used anymore. 
+
+Presentation layer history.  Was a time when computers only spoke
+to one another in a certain type of encoded text.  Standard was ascii
+IBM then came out with another protocol called ebcdic 
+(Extended Binary Coded Decimal Interchange Code). In 1970's engineers
+needs a protocol to translate ascii to ebcdic, and ebcdic to ascii, in
+order to get the two devices to talk.  But now pretty much standarized. 
+Encryption etc, traditionally associated with PSL, now pushed to other 
+layers. 
+
+Sessions layer used in the past for old type of firewall callled socs
+netbios also an old sessions layer protocol. Not used anymore.
+
+The layers are STILL there, just not used very much anymore. 
+
+
+But ... there are other models. 
+
+TCP/IP Model (Pretty slick)
+(developed from Dept. Defence model) 
+
+Application
+Transport
+Network
+Network Interface
+
+Put them side-by-side
+
+        OSI          |  TCP/IP 
+	-----------------+--------------+
+	7 | Application  |              |
+	--|--------------|              |
+	6 | Presentation |  Application |
+	--|--------------|              |
+	5 | Session      |              |
+	--|--------------|--------------|
+	4 | Tranport     |   Transport  |
+	--|--------------|--------------|
+	3 | Network      |  Network     |
+	--|--------------|--------------|
+	2 | Data Link    |  Network-    |
+	--|--------------|  interface   |
+	1 | Physical     |              |
+	--|--------------|--------------+
+
+Uses only useable portions of OSI model. 
+(Network -interface is one layer) 
+
+Which one to use? OSI without the Presentation
+and Sessions layer. TCP/IP model mainly academic
+
+
+7. HTTP, HTTPS, Telnet, ssh, ftp, sftp, tftp,POP3, IMAP, 
+SMTP, DNS etc
+
+4. Transport layer.  Session control. 
+   TCP and UDP (Firewalls are layer 4 device)
+   Transport layer sets up a session between 2 devices. 
+   Analogy: two people making a landline phone call.
+   
+3. Network layer.  Responsible for delivery of individual packets
+   IP and ICMP (a subset of IP, used for Ping). IP works much like
+   post office. IP responible for logically addressing each device on 
+   a network with a unique address. 
+   
+2. Data Link Layer. Represents connections between devices themselves. 
+   Lots of protocols: ethernet (wired and wireless), ATM (with fibre),
+   Asynchronous transport mode. Serial (PPP)
+   Addressing scheme is physical address
+   Given by manufacturer Mac addresss (if using ethernet). Mac address
+   some organiz, can identify manufacturer, but that is it.  Cannot 
+   identify where is the world from Mac address. 
+
+1.  Physical layer.  Move data via photons. or electrons. Fibre optics
+    copper wirs. 
+
+
+
+OSI model and encapsulation.
+
+Encapsulation: take large chunk of data (eg Html file), break it up into
+smaller pieces, and put each piece into a series of virtual envelopes, each
+envelope specific to an OSI layer, then adding addressing onto the virtual envelope
+(the addressing is the header) 
+
+7 Start at Application Layer (OSI Layer 7) Eg sending a web page: a file
+  Http acts at application layer. 
+
+  +-------------------+
+  | 1 | 2 | 3 | 4 | 5 |   Html file split into smaller pieces at app layer
+  +-------------------+   Each piece passed down to next layer - transport layer. 
+  
+ 4 Transport layer 
+ 
+   +---------------------------------------------+
+      Transport layer header        |            |
+	 ----------------------------   |            |
+    Source    Destination  Other    |  Piece 1   |     Segment 
+     port #	   port #       info    |            |
+	                                |            |
+   +---------------------------------------------+
+   
+  Source port and destionation port identify a SESSION between 2 end points. 
+  An transport layer info encapsulated in segment, which is then handed down to
+  network layer. Ports: 1-65535. And 1-1023 for known protocols.
+  
+ 3 Network Layer 
+ 
+   +---------------------------------------------+
+      Network layer header          |            |
+	 ----------------------------   |            |
+    Source    Destination   Other   |  Segment   |     Packet  
+    ip address	ip address  info    |            |
+	                                |            |
+   +---------------------------------------------+
+ 
+Kind of like nesting envelopes.  Now segment sent to data-link layer
+
+ 2 Data-link layer
+ 
+   +---------------------------------------------+//
+      Data Link Layer header        |            |
+	 ----------------------------   |            |
+    Source    Destination   Other   |  Packet    |    Frame 
+    Mac address	Mac address  info   |            |
+	                                |            |
+   +---------------------------------------------+
+  
+  Frame send down to physical layer.
+  
+ 1 Physical layer
+  Converts frame into pulses of electricity or whatever which
+   are  interpreted as 1's and zeros. Reassemled at other end. 
+
+Encapsulation is CORE of networking.    
+
+Datagram. A generic term to refer to an encapsulated piece of data. 
+
+TCP: Connection oriented.  Flow control, Reliable Delivery
+UDP: Connectionless. Lightweight. 
+
+# ip addresses.
+  network portion and host portion
+    network.host 
+  
+Network portion: a group of devices on a network. Like zip code
+Host portion: similar to street address  123 Main street. 
+              identifies individual device 
+
+How do we identify host and network portions?
+
+TWO WAYS
+  # 1 Classful addressing  (before about 1995)
+  # 2 Classless addressing (after about 1995)
+  
+Classful not used anymore.
+
+# Classful.  Ingenious. Developed in 1980's
+
+All Private Ips 
+
+A 0.0.0.0   127.255.255.255  0   n.h.h.h  Large organization
+B 128.0.0.0 191.255.255.255  10  n.n.h.h
+C 192.0.0.0 223.255.255.255  110 n.n.n.h
+D 224.0.0.0 239.255.255.255  1110  n.n.n.n Broadcast
+E 240.0.0.0 255.255.255.255  11110 Experimental 
+
+Multicast. Class D addresses. No hosts!! 
+The internet is NOT currently multi-cast capable.
+
+Major problem with classful addressing is that 
+based on speed at which internet grew, the public
+ip space set to run out in very short period of time
+
+By 1988 ipv6 written.  Not implemented as equipment
+not available. So came out with big hack
+Classless ips are big hack to circumvent the problem
+of running out of class 4 ip addresses. 
+
+#Classless addressing
+Uses subnet mask to determine network portion
+and host portion of ip address. 
+In subnet mask, put 1's in all positions of
+network component of address, and all zeros
+in host portion of ip address.
+Subnet mask usually converted to decimal
+255.255.255.0 
+Use mask in conjunction with ip address to determine
+where network portion and host portion of address is.
+
+#Address Types (ipv4)
+1. Network address if all zeros in host portion of address, then NETWORK address
+   NW address identifies a group of hosts. 
+2. Host address #  mixture of 1's and zeros in host portion of address
+             # assigned to individual devices on network. 
+3. Broadcast address  # if all 1's in host portion 
+   Broadcast address was intended to be a way of communicating with
+   all devices on the network.  Is .255 always broadcast address? 
+   Absolutely not. Defn is 'all 1's in host portion of ip'
+   
+Private IP addresses and NAT
+
+	10.0.0.0 -> 10.255.255.255  class A
+	172.16.0.0 -> 172.31.255.255  class B
+	192.168.0.0 -> 192.168.255.255  class C 
+
+Public ips are limited. That is why giant hack of subnet mask,
+to all for more ips.  One of pieces of puzzle is NAT - network
+address translation.  Three ranges of ip addresses set aside
+for organizations and individuals to use internally, which
+would not be allowed be routed publically on internet
+
+One range of addresses for each CLASS of address. 
+
+One other address ...
+127.0.0.1  # No place like it! # Home, of course
+ip address for local device for local network. 
+loop-back address. Assigned to NIC so that can reach NIC
+from device itself. Ping 127.0.0.1 
+
+Use subnet mask to identify host portion. 
+Use host portion of ip address to determine type of address. 
+
+router: transfers packets between networks.
+gateway: another name for a router. (but protocols may be different?)
+Default gateway: the word 'gateway' a bit unfortunate here
+Used to call router a gateway. In mid-to-late 80's changed to
+router. However, Microsoft, Linux and others chose to keep
+the name 'Gateway'. Should be called 'default router'.
+The default gateway is 'our post office'. Where we send traffic
+when not on local network. Usually (almost always) the adapter
+using to talk to the rest of the world. 
+
+
+# change windows ip address.
+# search for 'view network connections'
+# Right-click on wiki -> choose properties
+# ipv4(select) -> properties -> you are there! 
+# very good technique 
+
+
+
+
+#Netstat
+
+netstat -an # on windows! 
+netstat -anp UDP
+
+
+
