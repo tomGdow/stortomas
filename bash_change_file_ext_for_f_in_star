@@ -1,0 +1,19 @@
+# add zip ext to 'extensionless' files
+for f in * ; do 
+  mv "$f" "$f.zip"
+done
+
+# see here: http://askubuntu.com/a/74016/200605
+
+# Rename all *.txt to *.text
+for f in *.txt; do 
+mv -- "$f" "${f%.txt}.text"
+done
+
+# see here: http://unix.stackexchange.com/a/19656/139349
+# "straight out of Greg's wiki" see here:
+# http://mywiki.wooledge.org/BashFAQ/030  ## super-goodie
+
+# using rename
+rename 's/$/\.zip/' *  # also a goodie 
+# from here: http://askubuntu.com/a/74368/200605
