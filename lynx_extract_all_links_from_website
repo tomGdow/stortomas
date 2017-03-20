@@ -1,0 +1,7 @@
+
+lynx -dump -listonly -nonumbers http://tomgdow.com
+
+lynx -dump -listonly -image-links -nonumbers http://tomgdow.com
+
+# from here
+http://mywiki.wooledge.org/BashFAQ/113
