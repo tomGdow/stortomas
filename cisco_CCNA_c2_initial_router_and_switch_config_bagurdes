@@ -1,0 +1,50 @@
+#Think these are notes.  Did NOT go through the videos for this course in great detail
+
+###
+
+post power-on self-test
+cisco IOS internetwork OS 
+
+Boot PC
+POST -> BIOS -> OS -> Personal settings
+
+Boot router
+POST -> Bootstrap -> IOS -> Configuration
+
+You can change the most recent commit message using the git commit --amend command.
+
+ARP: address resolution protocol. Layer 2 broadcast. 
+
+If network portion of ip address is different, will need router to
+send data from one device to another. 
+
+route print # on windows 
+
+ARP uses layer 2 broadcast. 12F's in destination mac address. 
+
+Ethernet: Most popular layer2  protocol. 
+
+CSMA/CD 
+Carrier Sense Multiple Access with Collision Detection.
+
+A hub is a multi-port repeater. Repeats a signal to all devices.
+A switch in an intelligent device. 
+
+Entire layer three network that the router hosts is broadcast domain.
+
+Hubs are a phyical layer device
+Switches are a data-link layer device (Layer 2)
+Routers are a layer 3 device. 
+
+Collision domains are a physical layer function
+
+Routers do something to frame so that is cannot propagage info inside frame. 
+What routes do to frame is that they throw it away! 
+
+Collision domain is where a voltage spike can occur. 
+Introduce switch, layer 2 device 
+
+
+
+
+
