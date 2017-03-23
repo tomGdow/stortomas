@@ -1,0 +1,202 @@
+
+Subnet mask 255.255.255.0
+11111111.11111111.11111111.00000000
+/24
+All equivalent ways of writing subnet mask
+Last one:  Classless Inter-Domain Routing Notation (CIDR notation)
+Write down numbr of bits
+
+Three components of IP NETWORK
+
+1. Broadcast address # all 1's in host portion of ip address # last  address available
+2. Host addresses    # both 1's and 0's in host portion of ip address. 
+                     # very first host address is one address higher than NW address
+					 # very last host address is one address lower than broadcast address
+3. Network address   # all zeros in host portion of ip address # first address available
+
+BUT we not assign network address or broadcast address to any device.
+Reserved for data network to use.
+
+Variable Lenght Subnet masking.
+# Tackle the problem from number of hosts perspective, 
+# rather than number of networks perspective.
+
+To add route, need 3 pieces of info
+	1. the ip address we are trying to reach
+	2. the subnet mask of that address
+	3. the 'next-hop' ip address
+
+Two rules for next hop  (config static route): 
+    1. When configuring router 1, the next hop ip address must be
+	   part of a network directly connected to router 1. 
+	   (must share a network address?) 
+	  
+	2. Secondly, the ip address cannot be an address on the router on   
+	   which we are configuring the static route. 
+	   
+	Example (on cisco router)
+	config t
+	ip route 192.168.10.0 255.255.255.0  172.16.10.1
+	exit
+	show ip route # now additional route in routing table
+	
+	config t
+	no ip route # on way
+	do show run # easier way
+	<ctrl-c>
+	no <right-click-paste>
+
+	# Default route is also called 'Gateway of last resort'
+	
+	ip route 0.0.0.0 0.0.0.0 172.16.10.1 
+                          # 0.0.0.0 0.0.0.0 means everything, in land of networking.
+	ip route 0.0.0.0 0.0.0.0 203.0.113.66
+	
+# Route Summarization 
+
+Route summarization is a tool that allows us to be 
+more efficient in writing static routes. 
+
+Loopback interface is a non-dying virtual interface. 
+creates an address that is still reachable when some of the interfaces on
+the router is down but where the router itself is still reachable. 
+Loopback: can only have a single ip attached. Always /32. But CAN
+configure /24 (to pretend that there are four networks out there)
+
+Configure loopback interfaces /32
+L0 - 10.65.0.1/24
+L1 - 10.65.1.1/24
+L2 - 10.65.2.1/24
+L3 - 10.65.3.1/24
+
+can config (router1) as follows
+
+ip route 10.65.0.0 255.255.255.0 10.65.16.2
+ip route 10.65.1.0 255.255.255.0 10.65.16.2
+ip route 10.65.2.0 255.255.255.0 10.65.16.2
+ip route 10.65.3.0 255.255.255.0 10.65.16.2
+
+00001010 01000001 00000000 00000000
+00001010 01000001 00000001 00000000
+00001010 01000001 00000010 00000000
+00001010 01000001 00000011 00000000
+11111111 11111111 11111111 00000000  /24 #255.255.255.0
+
+Address Range (all 4 addresses):
+10.65.0.0 - 10.65.3.255
+
+# Find summary boundary
+
+00001010 01000001 00000000 00000000
+00001010 01000001 00000001 00000000
+00001010 01000001 00000010 00000000
+00001010 01000001 00000011 00000000
+11111111 11111111 11111100 00000000  /22 #255.255.252.0
+
+10.65.0.0/22 
+Range of addresses:
+
+10.65.0.0 10.65.3.255  # The same! 
+
+# so ..
+ip route 10.65.0.0 255.255.252.0 10.65.16.2 #just 1 route. 
+
+if conflict, router will take route with larger network portion
+(largest number of bits in network portion) 
+
+But ...
+you can't always summarize
+
+Dynamic routine chooses best path determined by metric
+
+Two types of routing protocols
+	Interior gateway routing protocols
+	Exterior gateway routing protocols
+	
+    Interior: two categories. Ross is not a fan
+	     1. Distance Vector protocol
+		 2. Linked state routing protocol
+
+Distance vector: oldest. inefficient. slow 
+	advertise routing table periodically. 
+	periodically sends entire routing table to all other routers to which connected. 
+	eg. RIP (Routing Information Protocol) is example of distance vector protocol
+	Sends out entire routing table to its neighbours every 30 seconds (whether
+	it needs to or not) Advertisement sent out contain a metric. In the case of RIP
+	it is hop count. Routers record interface that route was received on.  Routers do 
+	not advertise out on the interface advertisment received. 
+  Split horizons (prevents routing loops in distance-vector
+	routing by preventing a router from advertisizing back through an interface
+	from which it learned. RIP uses split horizon with poison reverse. (Do send message out
+	on interface received, but poison it such that when received the other router discards)
+	Examples of Distance Vector Routing: RIP (very slow, classful routing protocol).
+	Cisco came up quite a long time ago with a proprietory version of RIP. Now deprecated
+    but Cisco came out with Enhanced Interior Gateway Routing Protocol. EIGRP (Ross has
+	a lot of respect for. Now open source) EIGRP very solid advanced distance routing
+	vector protocol. 
+	
+	Link State Routing protocols
+	Came out later. More efficient. Keep account of state of link. Routers advertise
+	changes in state of link. When link-state router turns on, there is a flurry of info
+	about the status of all of the 'up' links. Populates network topology table. Uses
+	algorithm to build routing table. If link state changes, topology table changes and
+	routing table is rebuilt. 
+	Examples: Open shortest path first (OSPF)  very widely used. non-proprietory. 
+	          Around for eons. Well know well supported. 
+	          Intermediate system to intermediate system (IS-IS). Also well supported.
+			  
+			  Both about the same in terms of performance. 
+
+			  Administrative Distance
+
+    Route Type          Administrative Distance
+	   Directly Connect          0
+	   Static                    1 (Default)
+	   EIGRP                     90
+	   OSPF                      110
+	   IS-IS                     115
+	   RIP                       120
+
+	Router may run multiple routing protocols.
+    Admin distance tells router which route to add 
+    to routing table. Higher the number, the less trustworthy
+	admin dist chooses which routing method. but what if
+	two paths? then use metric
+	
+	The metric
+	  The cost to destination.  Gps, for example, will take into
+	  account speed limits. Chooes path highest speed, not lower
+	  hop count.
+	  
+	Routing table 
+	admin distance and metric visible in routing table
+	[90/15160] first number is admin distance, second is metric
+	
+	wildcard mask is inverse of subnet mask (substitute 1's for 0's, 0's for 1)
+	
+	VLANs are broadcast domains  # VLANS - virtual lans
+	way  of separating broadcast domains within a single switch. 
+	layer 2 frame used to make broadcast domain.
+	remember: routers throw frames away. 
+	token ring: ibm layer-2 protocol. Developed about 1985
+	
+	  
+	
+	
+
+	
+    
+    	
+	
+
+
+
+
+
+
+	
+	
+
+
+
+
