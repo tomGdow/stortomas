@@ -1,0 +1,9 @@
+
+# install jabref #unix as jar
+download .jaf file from here: https://www.fosshub.com/JabRef.html
+mv to /usr/bin
+chmod 511 JabRef-3.8.2.jar
+vim .bash_alias
+alias jabref="java -jar /usr/bin/JabRef-3.8.2.jar"
+#reset jabref prefs # goodie if thing not working ..
+jabref -d all -b
