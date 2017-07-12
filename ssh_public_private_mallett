@@ -22,4 +22,19 @@ on windows, store keys in .ssh
 scp exptscp  tomgdigo:/home/tomgdow/
 
 ssh-agent
+eval $(ssh-agent)  ## see here: https://superuser.com/a/707645/704294
 ssh-add 
+
+Notes on setting up ubuntu on windows ('native' ubuntu on windows-10)
+did not login as root (this did not work)
+created config in .ssh as per above.
+Then changed permissions:
+chmod u=rw,g=r,o=r config
+ssh-kegen -t rsa
+ssh-copy-id -i id_rsa.pub tomgdigo #goodie goodie 
+now everything working. pub key added to authorized keys on tomgdigo
+to get rid of passphrase requiement
+ssh-agent
+eval $(ssh-agent)
+ssh-add
+ssh tomgdigo # Works perfectly
