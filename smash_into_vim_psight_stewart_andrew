@@ -1098,3 +1098,4 @@ vi"  # select text within double quotes
 
 "+p  paste from clipboard in vim a
 ctrl-x ctrl-o (*works with sass*, code completion)
+edit (*do no specify a file name*) update current file (ie refresh)
