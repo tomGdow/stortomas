@@ -1100,3 +1100,5 @@ vi"  # select text within double quotes
 ctrl-x ctrl-o (*works with sass*, code completion)
 edit (*do no specify a file name*) update current file (ie refresh)
 :edit! (force reload, but loose any changes) 
+e and e! also work. 
+:bufdo e (*Reload all buffers)
