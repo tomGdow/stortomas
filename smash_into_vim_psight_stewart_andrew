@@ -1093,3 +1093,6 @@ at a given line number. Can follow the + by any valid ex command/expression
 vib  # select text within parentheses
 vi"  # select text within double quotes 
 :r! cat article-template-bibtex.tex  # read in template 
+% match tags (matchit plugin)
+
+"+p  paste from clipboard in vim a
