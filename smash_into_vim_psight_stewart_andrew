@@ -1097,8 +1097,10 @@ vi"  # select text within double quotes
 % match tags (matchit plugin)
 
 "+p  paste from clipboard in vim a
+"+y  yank currently selected code into system keyboard.  # goodie
 ctrl-x ctrl-o (*works with sass*, code completion)
 edit (*do no specify a file name*) update current file (ie refresh)
 :edit! (force reload, but loose any changes) 
 e and e! also work. 
 :bufdo e (*Reload all buffers)
+
