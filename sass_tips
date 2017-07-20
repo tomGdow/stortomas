@@ -1,0 +1,278 @@
+# All mainly from the Treehouse course by Hampton Catlin, especially the last 5 videos (Stage 4 videos)
+see /home/tomgdow/acp/sass-with-josef/hampton_catlin_revisited
+"Sass was invented in 2006 by Hampton Catlin"
+
+All examples should work with sassmeister
+
+What we know:
+
+1. Mixins
+
+ Mixins are 'functions' that return css
+
+ @mixin my-mixn($color, $size) {
+  color: $color;
+  font-size: $size;
+}
+
+2  Functions
+
+# Functions are like mixins but return a value, not scss
+
+@function mycalc($arg:10px){
+  @return $arg + 20px;
+}
+
+.box {
+  height: mycalc(30px);
+}
+
+3  Variables
+Variables begin with a dollar sign
+
+$primary-color: #0078A0;   // rgb(0,120,160) blue
+
+ 
+4. Partials
+
+Partials  are  named with underscore (_uname.scss)
+
+  @import "uname"
+  @import '../partials/variables';
+ 
+5. Extends
+
+h1 {
+  color:red;
+  background-color: green;
+}
+
+h2 {
+  @extend h1;
+  font-size: 20px;
+}
+
+5a Extends with base class
+
+%heading-base {
+  color:red;
+  background-color: green;
+}
+
+h1 {
+    @extend %heading-base;
+}
+
+h2 {
+  @extend %heading-base;
+  font-size: 20px;
+}
+
+
+6  Two types of comments. // and *
+   // comment will not be visible in css
+   * comments will be visible in css, but not in compact mode
+
+7  saas --watch
+   sass --watch . (* watch the current folder)
+
+8  Sass libraries
+
+ Compass  http://compass-style.org/
+ Bourbon http://bourbon.io/  (*simple mixin library*)
+
+
+9  sassmeister (https://www.sassmeister.com/)
+ 
+sassmeister built by jedfoster:
+   http://jedfoster.com/code
+  
+   and Dale Sande
+   http://www.dalesande.com/  
+
+   (Jed Foster has pluralsight course on Sass (Aspen Dental) and Dale Sande has Treehouse  course (advanced Sass)
+
+What we missed
+
+1 Saas watch alternatives
+
+sass --watch app.scss:app.css
+
+sass --watch --style compressed mystyle.scss:mystyle.css
+sass --watch --style compact mystyle.scss:mystyle.css
+sass --style compressed mystyle.scss (*write to console*)
+sass --line-comments mystyle.scss (*line-comments*)
+sass --l  mystyle.scss  (*line-comments*)
+sass --watch .  (*watch current folder)
+
+2.  Built-in functions.
+
+lighten($text-color, 30%)
+darken($text-color, 30%)
+ 
+# There is a cheet-sheet here:
+https://gist.github.com/AllThingsSmitty/3bcc79da563df756be46
+
+3. if/then/else
+
+@mixin box_mixn($width) {
+  @if $width > 100px{
+    padding: 0px;
+  }
+  @else if $width == 100px {
+    padding: 5px;
+  }
+  @else {
+    padding: 10px;
+  }
+}
+
+div {
+  @include box_mixn(40px)
+}
+
+4. Interpolation
+
+(*note #{...}, just like Ruby)
+
+@mixin color_class_mixn ($tag, $color) {
+  .#{$tag}.color{
+    color: $color;
+    background-image: url("images/#{$color}.jpg");
+    @if $color == red {
+     border: 1px solid black;
+        }
+  }
+}
+@include color_class_mixn(sidebar, blue);
+
+5.  For loop:
+
+@for $i from 1 through 100 {
+  .box:nth-child(#{$i}) {
+    background-color: darken(white, $i);
+  }
+}
+
+
+6. Each loop
+ 
+@each $member in thom, jonny, colin, phil {
+  .bankmanager.#{$member} {
+    background: url("images/#{$member}");
+  }
+}
+
+6a Each loop within mixin
+
+## This is better:
+ # but Must have 4 arguments
+ 
+@mixin band ($a, $b, $c, $d) {
+  @each $member in $a, $b, $c, $d{
+    .bandmember.#{$member} {
+      background: url("images/#{$member}");
+    }
+  }
+}
+@include band(thom, johnny, colin, phil);
+
+
+6b Each loop within mixin with any number of args
+
+## This is even better.
+# now can have any number of arguments
+
+@mixin band2 ($members...) {
+  @each $member in $members {
+    .bandmember.#{$member} {
+      background: url("images/#{$member}");
+    }
+  }
+}
+
+@include band2(thom, johnny, colin, phil);
+
+## Even better still
+
+@mixin band3 ($name,$members...) {
+  @each $member in $members {
+    .#{$name}.bandmember.#{$member} {
+      background: url("images/#{$member}");
+    }
+  }
+}
+
+@include band3(webheads, josef, emer, thomas);
+
+# This will work, but is NOT recommended
+
+@mixin band4 ($name, $members) {
+  @each $member in $members {
+    .#{$name}.bandmember.#{$member} {
+      background: url("images/#{$member}");
+    }
+  }
+}
+
+@include band4(webheads, josef emer thomas);
+
+7. Optional Arguments and Parameters
+
+ # This works, but the order of the arguments given to the mixin is important:
+  
+@mixin box($size, $color) {
+  width: $size;
+  height: $size;
+  background: $color;
+}
+
+.box {
+@include box(10px, blue);
+}
+//Order of arguments matter
+
+7a  Solution
+
+# mixin as above
+
+.box {
+@include box($color:blue, $size:10px);
+}
+
+7b But can also give default values to mixin:
+
+@mixin box2($size:100px, $color:red, $display:block) {
+  width: $size;
+  height: $size;
+  background: $color;
+  display: $display;
+}
+
+
+.box1 {
+@include box2();
+}
+.box2 {
+@include box2($display: block);
+}
+
+.box3 {
+@include box2($display: block, $size:200px, $color:green);
+}
+
+.box4 {
+@include box2(100px, red);
+}
+
+8.  Include warning in mixin
+ # Message will appear in sass-watch output
+
+ @mixin old  {
+ @warn "please use new version of this mixin";
+ height: 100px;
+}
+
+h1 {
+  @include old;
+}
