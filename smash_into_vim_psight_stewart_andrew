@@ -1104,3 +1104,12 @@ edit (*do no specify a file name*) update current file (ie refresh)
 e and e! also work. 
 :bufdo e (*Reload all buffers)
 
+
+// comment and un-comment  // Nerd commenter plugin
+vim [count]<leader>cc //comment
+    [count]<leader>c<space> uncomment
+
+Indent trick  // see https://stackoverflow.com/a/235876/499167
+ma at beginning // mark
+scroll down to end of what you want to indent
+>'a
