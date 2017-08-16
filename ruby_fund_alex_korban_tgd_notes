@@ -1,0 +1,1930 @@
+## Alex Korban Ruby Fundamentals (Pluralsight) 
+## tgd notes
+
+String.public_methods.sort
+String.superclass //Object
+String.superclass.superclass //BasicObject
+10.class //Fixnum
+def double value; value * 2; end
+double("abc") // "abcabc"
+double([1,2,3]) // [1,2,3,1,2,3]
+// irb: underscore refers to last result
+double(_)  //[1,2,3,1,2,3,1,2,3,1,2,3]
+nil.class
+result.nil?
+Nil is not a primitive. It is a special object
+that specifies no value. 
+? is not special syntax. Part of name
+In Ruby, names can end with a question mark or exclamation mark
+? true/false
+! ending method. Do something unexpected or dangerous.
+a=" abc "
+a.strip
+a.strip!
+
+lander_count = 11
+message = if lander_count > 11
+"Launching probe"
+else
+"Waiting for probe"
+end 
+
+puts message // no need to create a function
+
+! && !! 
+not and or  // The written forms have higher precedence
+print "Please enter your name"
+a=gets
+puts "your name is " + a
+
+puts "using backticks"
+a=`ls`  # execute a sytem command
+puts a
+
+puts "backticks alternative"
+a=%x(ls)
+puts a
+
+puts "using system"
+a= system "ls"
+puts a /Returns True of false or nil
+
+use snake case, not camel case
+indent 2 spaces, not requirement
+
+class names  start with uc and use camelCase
+
+class Spaceship
+end
+#instantiate
+ship = Spaceship.new
+
+Variables vs objects
+
+Most things in Ruby are objects, but variables are NOT
+Variables are just labels for objects
+
+a="abc"
+b=a
+a.upcase!
+puts a
+puts b
+#check
+a.object_id
+b.object_id
+
+When pass objects to method, the behaviour is similar:
+the objects are passed by reference without creating copies
+
+but what is want to copy object
+b=a.clone
+Remember, neither assignment or passing of parameters
+to methods creates new objects
+
+class Spaceship
+  def launch(destination)
+    @destination = destination
+    # go towards destination
+  end
+end
+
+@destination is an instance variables
+called 'instance' because each instance of 
+the spaceship class will have its own copy of the
+variable.
+The instance variable is only created when
+launch method is called. 
+
+class Spaceship
+  def launch (destination)
+    @destination = destination
+  end
+end
+
+ship = Spaceship.new
+ship.launch("Earth")
+puts ship.inspect
+puts "---"
+p ship
+puts "---"
+
+puts ship.destination  // fails
+
+This is because instance variables are not visible
+outside of class. But instance methods are public
+by default
+So ...
+to get instance variable destination, define a 
+method that returns it. 
+
+def destination
+  @destination
+end
+
+A class can have many different instance variables.
+Defining many instance variables cumbersome
+Ruby provides a convenient alternative:
+attr_accessor // get and set
+
+  attr_accessor :destination, :name 
+  attr_reader :name
+  attr_writer :name
+
+ :destination is a symbol
+ 
+ Gotcha using attr_accessors inside a class
+ class Spaceship
+   attr_accessor :destination
+   
+ def cancel_launch
+   destination = "" # !! creates local variable
+   self.destinatin = "" # gives desired result
+  end
+
+If we dig a little deeper, attr_accessor is merely
+adding a pair of methods:
+
+class Spaceship
+   attr_accessor :destination
+end
+## These two are equivalent
+
+Class Spaceship
+  def destination
+    @destination
+  end
+
+  def destination=(new_destination)
+    @destination = new_destination
+  end
+end  
+
+NOTE the equals sign is just part of method name
+like ! or ?.  Simply signifies that it is a setter
+
+virtual attributes
+
+This is more than a curiosity. 
+In his landmark book Object-Oriented Software Construction,
+Bertrand Meyer calls this the Uniform Access Principle
+
+In ruby, a class can only inherit from a single class
+but in Ruby, a great alternative: modules
+
+super call method from superclass. Behaves like function callll
+can override. only think that matters is that name matches
+
+Inheritence in Ruby is limited, compared with Java or C++
+Main function is reuse of functionality
+
+Class methods called on Class, rather than object
+example of Class method is 'new'. Class methods are not
+reliant on object state. 
+
+class Spaceship
+  def self.thruster_count
+  end
+end 
+
+self keyword is more than just syntatic keyword for class methods
+call class method on Class, rather than object
+Spaceship.thruster_count
+Although  class methods have no object state, they may have some state
+that needs to be preserved between calls.  Keep track with class variables
+
+@@thruster_count =4
+class variables shared between all objects of that class
+class variables are not accessible outside class.
+Need to provide accessor methods for
+but quirk! avoid Class variables if possible
+But ruby has another trick to allow storage of class - level  state
+--- class instance variables.Only one copy per class.  
+
+Methods may be private or protected
+
+class Spaceship
+
+  def batten_hatches
+  puts "batten hatches"
+  end 
+  private :batten_hatches, :another_private_method
+end
+
+or
+
+class Spaceship
+  
+  private
+  
+  def batten_hatches
+    puts "batten the hatches"
+  end
+ end 
+ 
+ 
+ It's pretty simple. Every method you call is received by some object. 
+ The object receiving the method call is the receiver. 
+ If you mention the object in the call, that's 'explicit'. 
+ If you call a method in the same object as the context 
+ without mentioning 'self', that's 'implicit'.
+ 
+ What private means in Ruby is a method cannot be called with an explicit receiver, 
+ e.g. some_instance.private_method(value). 
+ 
+ Private methods allow only implicit receiver (which is always self, of course).
+ 
+ If method is private the following will not work
+ 
+ship =  Spaceship.new
+ship.batten_hatches
+but the following WILL
+ship.send :batten_hatches // Calling send method from object class to invoke
+method
+In ruby, visibility not enforced very strongly.  In  line with Ruby
+philosophy of leaving programmer in charge
+The other thing to remember about private methods is that they may
+be called from subclasses
+
+Simple rule to remember how private works in Ruby
+A private method can not be called with an explicit receiver
+
+Explains why you cannot call ship.batten_hatches, but you can call
+batten_hatches from subclasses. The private method is inherited by
+the subclass, along with all the other methods. As calling from the context
+of the subclass, you do not have to provide explicit receiver
+
+To make a CLASS method private, use
+
+private_class_method :my-class-method
+
+if you use private :my-class-method, you will not get error, but it will not work.
+The method remains public 
+
+Protected methods
+A protected method may be called on another object by an object of the same class
+or by an object of the same ancestor if the method  was defined in that ancestor
+
+A summary of method visibility
+
+methods are public by default
+private:  cannot be called by explicit receiver
+private_class_method makes class methods private
+protected means "allow access for other objects of the  same class as the method"  
+
+protected class methods don't make sense
+
+One final point: private and public methods not used all that often in Ruby,
+in keeping with the philosophy of leaving the programmer in charge. 
+
+Executable Class body // !! Interesting
+
+It turns out that the class body is ruby is expression, just like  most
+other things. May be executed like other code.  Can put pretty much any
+code into class definition
+
+Think of Classes as a way of providing a  context for the
+execution of code.  A method defined inside a class context is assigned to
+that class. 
+
+self: Now simple to define. Self merely refers to the current execution
+context, whatever that happens to be.  KEY  You can use self at any point
+in Ruby code.  Inside a class definition, 'self' refers to the class.
+
+This is why prefixing class methods with 'self' turns them into Class
+methods rather than instance methods. 
+
+It is ALSO the reason why you end up with a class instance variable
+when you assign an instance variable in the class body.
+AN INSTANCE VARIABLE IS ALWAYS SET ON THE SELF! And inside the class body,
+self is the class itself.  
+
+The value of self keeps executing as the program executes. 
+
+When you call a method on an object, 
+that objecy becomes self inside the method
+
+Any method which you call without a specific object reference is called on
+self
+
+Open classes. Can reopen class to add another method. This is not redefining
+All objects are able to use methods in new class, even the objects
+that were created beforehand
+
+Monkey patching exploits the concept of open classes.
+A term used to describe modification of functionality, particularly 3rd
+party functionality, at runtime.  Not only can you reopen a class and 
+add a method to it, you can also over-write a method.  If ruby encounters
+a method by a name that already exists, it simply overwrites the method. 
+
+Conditional Execution
+If/Else
+
+if can_launch?
+  launch
+else
+  wait
+end
+
+modified version of if statement.  Cannot have else statement
+
+launch if can_launch?
+
+Multiple elsif 
+
+if fuel_level > 50
+ set_fuel_light("green")
+elsif fuel_light > 25
+ set_fuel_light("yellow")
+else
+  set_fuel_light("red")
+ end
+ 
+ In Ruby, only nil and false evaluate to false.
+ Everything else is true!
+ 0, empty string, empty array, etc are all true
+ 
+ If has a counter-part in ruby: unless
+ 
+ if not condition is equivalent to unless in Ruby
+ 
+ unless fuel_level < 25
+   launch
+ end
+ 
+ modifier version
+ 
+ launch unless fuel_level < 25
+ 
+ Ternary operator ?:
+ 
+ can_launch? ? launch : wait
+ 
+ Conditional initialization
+ 
+ a+=10 is equivalent to a = a+10
+ Two others ||= and &&= // or-equals and and-equals
+ 
+ Double-pipe operator is common as it can be
+ used for conditional initialization of variables
+ 
+ ship || = ship.new // will assign value to ship 
+                    // only if ship variable evaluates
+					// to false or does not exist
+					// If ship var already has value
+					// then ship operator won't do 
+					// anything 
+					
+Can also write as follows
+
+ship = Spaceship.new unless ship
+
+The double-pipe-equals idiom relies on two
+aspect of ruby behaviour
+First, these two short-cut assignments behave in a different
+way from the rest of  operators. 
+Behaviour of ship-double-pipe-spaceship_dot_new
+can best be modelled as:
+ship ||= Spaceship.new is equivalent to
+ship || ship = Spaceship.new
+
+If ship evaluates to true, then second operand
+does not need to be evaluated
+
+However, this conditional assignment works
+if the ship variable didn't exist at all
+beforehand.  This is second quirk of ruby
+required for this idiom to work. 
+In IRB
+a || a = 10 // Get error! because a is undefined
+but...
+a ||= 10  //works
+puts a  // 10
+What type of magic allows this?
+It turns out that in ruby if an assignment
+appears in a statement the variable is created
+and set to nil even if the assignment is not
+actually executed. 
+
+b = 20 if false
+puts b // nil 
+
+c = c 
+puts c // again nil
+
+Double-pipe assignment works in a similar way
+Ruby parses it as an assignment and creates
+a variable behind the scenes.
+The only caveat of this conditional 
+initialization is that it does
+not work for conditional values 
+
+flag || = true // does not do what expected!
+
+The idiom relies on nil being evaluated to false!
+
+|| && versus and or 
+Two important differences between the symbol and
+written forms of these operators:
+
+1. 'and' and 'or' have much lower precedence
+than && and ||. 
+
+2. && has higher precedence than || 
+
+but 'and' and 'or' have the same 
+precedence. 
+
+Accepted practice to use || and && in conditional
+statements
+But 'and' and 'or' not just vestigal
+The role of these opertors is to provide flow-control.
+
+Flow control with 'and' and 'or'
+
+use 'and' to chain operations together until
+one of them returns nil or false
+short-circuiting: it does not evaluate more params than it has to
+
+ lander = Lander.locate(lander_id) and lander.recall
+
+lander.recall will only be executed if the lander is located
+successfully and isn't nil. 
+works due to short-circuiting in the 'and' operator. 
+Above code equivalent to
+
+Can use 'or' to construct a series of fallback operations
+
+if engine.cutout?
+   engine.restart or enable_emergency_power
+end
+
+equivalent to:
+
+if engine.cut_out?
+  enable_emergency_power unless engine.restart
+end
+
+case statement
+
+case distance_to_dock
+  when "far away"
+    lander.main_thrust
+  when "coasting time"
+    lander.kill_thrust
+  when "collision imminent"
+    lander.reverse_thrust
+  end
+  
+  
+ Like if, case statement may be used as expression
+ 
+ thrust_power = case distane_to_dock
+                  when "far away"
+				    100
+				  when "coasting time"
+				    0
+				  when "collision imminent"
+				    -100
+				  end
+can be writen a bit more concisely
+
+thrust_power = case distance_to_dock
+               when "far away" then 100
+			   when "coasting time" then 0
+			   when "collision imminent" then -100
+			   end
+			   
+The case statement uses the triple equals operator
+to make comparisons. 	
+This can be used to (dispatch?) based on a objects class
+because a class uses a triple-equals operator to
+determine if object is instance of that class
+
+case unit
+when Lander
+  lander.park
+when Probe
+  probe.retrieve_sample
+  probe.transport_to_storage
+else
+ activate_alarm("Unidentified ")
+end 
+	
+Performing different actions based on class of object 
+given to Case statement. 
+
+else provides "catch-all" option. 	
+
+Finally, can use Case statment without providing an object
+case
+when distance_to_dock > 100
+  lander.maintain_thrust
+ when distance_to_dock > 2
+   lander.kill_thrust
+ else
+   lander.reverse_thrust
+ end
+ 
+ looping constructs
+ loops fairly limited in Ruby. Better done
+ with iterators. But first regular loops:
+ 
+ while
+ 
+ while high_alert?
+   sound_system.play_siren_cycle
+ end
+ 
+ equivalent to:
+ 
+ while high_alert? do sound_system.play_siren_cycle
+ 
+In one-liner, do statement helps separate the
+loop condition from the body of the loop.
+Just link then statement in if statement.
+
+Ruby has one more trick up its sleeve.
+'while' has a modifier form which you can tag
+onto a statement. 
+
+This is also equivalent to above two:
+
+sound_system.play_siren_cycle while high_alert?
+
+Looping Until.
+
+Much like 'if' has a counterpart 'unless'
+'while' has counterpart until
+
+until ship.at_cruising_velocity?
+  ship.accelerate
+end
+
+Loop body will not execute if condition is true
+to start with
+
+Until has same forms as while loop
+
+all these are equivalent
+
+until ship.at_cruising_velocity?
+  ship.accelerate
+end
+
+until ship.at_cruising_velocity? do ship.accelerate end
+
+ship.accelerate until ship.at_cruising_velocity?
+
+Finally while and until can be tagged onto begin/end block
+as modifiers 
+
+begin 
+  lightening.start_flashing
+  sound_system.play_siren_cycle
+end while high_alert?
+
+begin
+  ship.accelerate
+  make_fake_engint_noise
+end until ship.at_crusing_velocity
+
+begin-end block yields the result of
+the last expression in the group.
+
+but if tag onto begin/end block, the code
+block will execute at least once even if 
+condition not fulfilled. 
+
+For loop in Ruby  (not used too much?)
+
+for i in [3,2,1]
+ puts i
+end
+
+each method preferred for iteration
+
+More common use of 'for' loop
+Iterate over a range
+for i in (1..10)
+ puts i
+end
+
+The 'for' loop used the 'each' method
+under the hood.
+
+[1,2,3].each do
+  puts "This is Serenity, Please respond"
+ end
+
+do-end blocks not the same as begin-end blocks
+(do-end equivalent to curly-brace blocks)
+
+Only way to use do/end (or curly-brace) block
+is to pass them as arg to method
+
+Convention in ruby: do-end multiline block
+                    curly-braces: single-line block
+					
+Each is iterator in ruby.
+
+Can also pass arguments into block each time
+it is executed.  use vertical bars!! 
+
+ships=Spaceship.all
+ships.each {|ship| puts ship.name}
+
+numbers are objects!
+
+10.upto(20).each {|i| puts "#{i*i}"}
+20.downto(10).each{|i| puts "#{i*i"}
+3.times {puts "this is thomas"}
+1.step(10, 2) {|i| puts "this is #{i} calling"}
+
+Loop flow: 
+break
+next
+redo
+Three keywords to control flow in loop
+Work in explicit loops like while
+and in implicit loops like each
+
+next starts the next iteration of loop
+without finishing the current iteration
+
+while message = comms.get_message
+  next if message.type == "sync"
+  message.process
+end
+
+break exits out of loop
+
+
+as loops are expression in ruby, they 
+produce a value.
+
+can do something like the following:
+
+text = while message = comms.get_message
+       message.process
+	   break message.text if message.type == "voice"
+	   end
+
+
+redo repeats the iteration without reevaluating the loop condition
+
+Errors
+The preferred method for error handling in Ruby is to raise
+and handle exceptions
+
+Exceptions are encapsulated in object of class exception
+In order to handle exceptions, you need to delineate the
+secment of code you want to handle exceptions from
+Two options.
+1. Reuse begin/end block by adding rescue clause
+
+def launch
+  begin 
+    batten_hatches
+  rescue
+    puts "Couldn't batten hatches"
+	return false
+  end
+  light_seatbelt_sign
+ end
+ 
+ note: return keyword IS required in above. Important
+ 
+ When an exception is raised, ruby begins
+ unravelling the call stack until  it 
+ finds an appropiate handler.
+ 
+ If it does not find one, program terminated. 
+ 
+ But light_seatbelts may also raise exeptions?
+ This is where other option comes in handy.
+ 
+ The rescue clause may be applied to whole 
+ method definition. 
+ 
+ def launch
+   batten_hatches
+   light_seatbelt_sign
+   true
+ rescue
+   puts "Exception intercepted"
+   false
+ end
+   
+(Note no begin/end block)
+
+Whether use begin/end block or add
+rescue at end of method definition, the
+rescue clause is exactly the same
+
+Exception
+	|
+StandardError
+    |
+RuntimeError
+
+To get some details from exception object
+can do something like the following:
+
+def launch
+  batten_hatches
+  light_seat_belt
+  true
+rescue StandardError => e
+  puts e.message
+  false
+end
+
+Anothe useful attribute is called
+backtrace. It provides callstack for the 
+point where the exception is raised
+
+e.backtrace  // raise.rb:46: in `light_seat_belt`
+
+What if I want to do something different for
+different types of exceptions?
+That is easy! Just provide multiple exception
+clauses.
+
+def launch
+  batten_hatches
+  light_seatbelt_sign
+  true
+rescue LightError
+  puts "Lights not working, still launching"
+  true
+  puts StandardError => e
+  puts e.message
+  false
+ end
+
+// Not a show-stopper for launch, but want
+to output message about it.
+ 
+ Now turn to Raising exceptions
+ 
+ use raise (or synonym, fail)
+ 
+def batten_hatches
+  raise "doors jammed"  
+end
+
+If use string as argument (Runtime error)
+
+can also specify another exception class to run
+
+def batten_hatches
+  raise HatchError, "Doors jammed"
+end
+
+Can write own exception class
+
+Re-Raising exceptions
+
+raise also has another use: 
+If you use it without arguments within
+a rescue clause, it will raise an exception
+stored in the special global variable $!  
+This variable refers to the last raised exception
+
+rescue HatchError => err
+  puts $!.message
+  raise
+end
+
+Cleanup
+
+def batten_hatches
+  hatch_file = File.open("hatches.txt")
+  #...
+  raise HatchError, "Door jammed" if door.jammed
+  #...
+  true
+ rescue SystemCallError => e
+  # handle file errors
+  false
+ ensure
+   hatch.file.close if hatch_file
+ end   
+
+!! File needs to be closed whether exception
+raised or not. 
+No return statement in ensure
+
+But wait, there is more!
+
+def batten_hatches
+  hatch_file = File.open("hatches.txt")
+  #...
+  raise HatchError, "Door jammed" if door.jammed
+  #...
+  true
+ rescue SystemCallError => e
+  # handle file errors
+  false
+  
+  else
+  puts "well done, no exceptions"
+ ensure
+   hatch.file.close if hatch_file
+ end 
+
+Can add else clause
+ensure clause is ALWAYS executed.  
+ 
+Retrying
+
+Maybe an API request fails, want to give
+say 3 attempts:
+
+One option, use a loop
+
+def batten_hatches
+  1.upto (3) do |attempt|
+    begin
+	  hatch_list = API.request("/hatches")
+	  break
+	rescue RuntimeError => e
+	  puts e.message
+	if attempt == 3
+	  puts "Rescue failed."
+	  raise
+	end
+   end
+  end
+ end
+ 
+Can rewrite above code using retry statement
+
+def batten_hatches
+  hatch_list = API.request("/hatches")
+  #...
+  
+rescue RuntimeError => e
+  attempts ||=0
+  attempts +=1
+  if attempts < 3
+    puts e.message + "retrying request." 
+	retry
+  else
+    puts "Request failed"
+	raise
+  end
+ end
+ 
+ retry used within rescue
+ 
+ Rescue modifier (similar to if and while modifiers)
+ 
+ batten_hatches rescue false
+ 
+ If an exception is caught, the result of the
+ whole statement is the result of the statement
+ following rescue.  But makes debugging harder!
+ 
+ Throw/catch
+ 
+ In ADDITION to exceptions, ruby has
+ a SEPARATE throw/catch mechanism.  
+ 
+ In many other languages throw and catch are 
+ keywords used for raising and handling excetions.
+ However, in Ruby it is a different flow-control
+ mechanism.  
+ 
+ The way it works is you put some code which
+ contains a 'throw' statement into a 'catch' block
+ 
+ result = catch :abort do
+   probes.each do |probe| 
+     while sample = probe.get_sample
+	   result = sample.process
+	   
+	   throw :abort, result.messae if result.code |= :ok
+	   
+	   puts result.message
+	   sample.store
+	 end
+	end
+	"All samples processed"
+	end
+	
+	puts result 
+ 
+  The argument of catch and the first arg of throw must
+  match (:abort in above example).  
+
+Scope
+While classes and methods in Ruby introduce scope
+other constructs such as if-else, loops and begin-end blocks
+do not. But blocks DO introduce scope. (do/end blocks) 
+
+End of module 3
+
+Module 4 Standard Types
+
+Booleans.  Ruby does not have boolean type
+what is true/false?
+true TrueClass
+false FalseClass
+
+true.to_s
+false.nil?
+
+Numbers
+
+Numbers are objects.
+Think of number as label for corresponding object
+Integer Numbers Fixnum and Bignum classes
+
+Number literals
+
+0xAF  #decimal 175 hex numbers begin with 0x
+010   #decimal 8.  octal numbers begin with 0
+0o10  #decimal 8  octal numbers may begin with 0o
+0d175 #decimal 175 decimal numbers begin with 0d or no prefix
+0b1010#decimal 10 binary begin with 0b
+
+Can ALSO use understores to separate digits to
+make numbers easier to read:
+
+100_999
+0b1010_1111_01110
+
+objects representing numbers are read-only
+
+def f(n)
+  n+=100
+end
+a =10
+f(a)
+a is unchanged as obj representing numbers are
+read-only.  Unique to numbers. 
+This is why ruby does not have increment and
+decrement operators. 
+
+def f(n)
+n+=100
+end
+a =10
+puts f(a) //110
+puts a // 10 
+Strings and arrays are mutable (but not numbers)
+
+Strings
+Strings very versatile 
+
+Strings are just a sequence of chars
+with an associated encoding. UTF-8 is default
+
+ puts "abc".encoding //outputs the encoding of given string
+
+ can change encoding by putting specially formatted
+ comment at beginning of file on first line
+ or on second line if first is shee-bang
+ 
+ # encoding: us-ascii   //note the #-sign
+
+String literals
+
+1. Single Quotes
+'Serentity'  //Single quotes
+
+Single quotes only allow two escape sequences:
+'Serenity' //Serenity
+'\'Serenity\'' // 'Serenity' //Escape a single quote
+'\\Serenity'   // \Serenity.  
+
+
+
+
+
+2. %q
+%q('Serenity' transport) // 'Serenity' transport
+%q['Hello' thomas)       // 'Hello' thomas
+%q{'begod' I am good}
+%q<'hello' joe>
+q stands for quote. 
+Delimiter may be any non-alphanumeric character.
+If use delimiter that comes in pairs, use
+appropiate closing one
+
+When using %q, no need to escape quotes
+
+Double quotes.  Support more escape sequences. 
+\n     // newline
+\t     // tab
+\"     // double quote
+
+Can insert characters using octal or hex code
+
+\100
+\x40
+
+both above give 'curly-a', as in email-address. 
+
+Also insert unicode using \uc
+
+\u20ac  // euro-symbol
+\u{20ac a3 ef3}
+
+double-quotes string also allow interpolation. 
+
+can also use %Q("Delimiter" thomas) // "Delimiter" thomas
+
+Ruby supports so-called here-doc for strings.
+
+message = <<EOS
+
+EOS 
+
+Terminator must be at col 1 unless include dash after << 
+
+message =<<-EOS
+  EOS
+
+gsub replaces all occurences of substring withing string
+
+Regular Expressions
+
+Regular expression class is one of std types built into ruby
+Regular expressions represented by Regexp class
+reg exp literals are denoted by slashes
+/ /
+alternatively, use %r followed by delimiter of choice
+
+%r(\d+/\d)
+Patterns behave like double-quoted string literals
+Allow interpolation, for example. unicode also allowwed
+and same escape sequences 
+
+To test for match between regex and string use =~ operator
+
+/\d+/ =~ "level 3"  //6 // The starting position of match
+otherwise nil
+!= lack of a match //yields either true or false
+
+But can ALSO use match method to check for matches.
+often useful if want more info about match in form of object
+
+m=/(\d+):(\d+)/.match("Time is 12:13am")
+object returned has method,
+m.pre_match
+m.post_match
+m[0] //whole match
+m[1] // first group
+m[2]  // second group
+groups enclosed in parentheses in regex
+
+if using either match method or =~, ruby also sets a 
+few global variables. 
+$` // before match string fragment
+$' // after match string fragment
+$&  //contains match 
+$1 // first submatch 
+
+what if want to match multiple patterns from string
+use scan method 
+
+p "Time is 12:13am".scan(/\d+/)  // ["12", "13"]
+
+"hello".gsub(/[aeiou]/, '*')  // "h*ll*"
+"hello".gsub(/([aeiou])/, '<\1>')  //"h<e>ll<o>"
+
+"thomas dowling".gsub(/([a-zA-z]+) ([a-zA-z]+)/, '\2, \1')  // "dowling thomas"
+
+
+Symbols
+a special kind of object, a mix between an object and a string
+a symbol literal is a colon followed by identifier
+can also use :"abc" and CAN contain interpolated code 
+symbols are globally unique and immutable 
+symbols are a good substitute for strings, when used as labels
+because if use string literals, a new string obj is created every time
+also comparing symbols merely a matter of comparing object ids
+also work great as hash keys 
+another way to use is as function params. 
+
+:abc.to_s
+"abc".to_sym 
+
+Arrays
+instances of array class
+array literal, comma separated elements in square brackets
+array stores refs to objects and can contain refs to obj of different
+types. 
+arr =[]
+Array.new(3, true) 
+BUT if use second method, be careful.  All of the second arg refer to 
+the same object
+arr= Array.new(3, "abc")
+arr.first
+arr.first.upcase!
+arr // ["ABC", "ABC", "ABC"] //!!
+To circumvent, use block form of new
+
+arr2 = Array.new(3) {"abc")
+arr2.first
+arr2.first.upcase!
+arr2  // ["ABC", "abc", "abc"] 
+Convenient shortcuts
+
+arrw = %w(array of words) // ["array", "of", "words"] 
+like single-quoted string literals
+to get behaviour of double-quoted string literals, use
+%W 
+This includes interpolation!
+
+Similar shortcut for arrays of symbols:
+%i 
+arr2[1..2] //slice array
+arr[1] = "thomas"
+arr[2..3] = [:east, :west]
+arr << 10 //append
+[1,2]+[3,4] //[1,2,3,4]
+[1,2]*3 //[1,2,1,2,1,2]
+[1,2] * " "  // "1,2"
+[1,2,3,4,5] - [2,5]  // [1,3,4] 
+
+Enumerable
+[1,2,3,4].map {|x| x *x}  // returns a transformed array
+                          // map and collect are synonyms
+						  
+5..10).reduce(:+)         // Inject and reduce same thing 
+(5..10).reduce {|n ,m| n+m}  // both give 45
+
+[1,2,3,4,5].select {|n| n.even?}
+
+ [1,2,3,4,5,6].each_cons(2) {|v| p v}
+
+ //output
+[1, 2]
+[2, 3]
+[3, 4]
+[4, 5]
+[5, 6]
+
+Hashes 
+
+Hash in Ruby an ordered collection of 
+key-value pairs represented by Hash class
+
+Keys must be unique
+
+hash literal marked by curly braces
+
+h ={}
+inside curly braces, commas separate each
+key-value pair, and arrows point from 
+keys to values
+h ={"min" => 0, "max" => 100}
+As it is very common to use symbols for keys, there is 
+a special shortcut: the colon migrates from start of symbol name
+to end, and replaces the arrow
+
+h = {min: 0, max: 100} 
+
+h[:min]  //access with keys 
+May also replace a value this way
+h[:min]=2
+If use key not in hash, new element added
+h[:c] =4
+if use key that is not present, get nil.
+But can specify a different default value
+when constructing the hash with new
+Hash.new(0)  //now instead of nil get zero
+Iterate over hash elements with each
+
+ h ={a: "a", b: "b"} //=> {:a=>"a", :b=>"b"} 
+ h[:a]  // => "a" 
+ h.each { |v| p v} 
+ // [:a, "a"] 
+ // [:b, "b"]
+
+h.each {|k, v| puts "#{k}: #{v}"}
+//a: a
+//b: b
+ 
+Ranges
+1..5 //literal
+1...5 // upperboundary not part of range
+If calling a method on range literal, enclose
+in brackets so that dots do not confuse Ruby
+(1..10).class // Range
+(1..10).begin  //get boundaries 
+(1...10).end 
+(1...10).include? 
+
+(1..10).map {|x| x *x} // [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] 
+("aa".."ad").each {|x| puts x}
+
+Ranges MAY be used in Case statement
+
+ Parallel Assignment and Splat operator
+ 
+ Parallel assignment allows you to assign to
+ multiple variables in a single statement
+ 
+a, b = 1, 2
+
+a side effect is that if you assign a 
+comma-separated list to a single variable
+you get an array
+
+a = 1, 2, 3, 4  // a == [1,2,3,4]
+
+Splat operator represented by asterisk
+
+This will accumulate as many elements as 
+possible in form of array
+get_values = [1,2,3,4,5]
+
+def my_vals
+  [1,2,3,4,5]
+end
+
+a,b = my_vals
+puts a // 1
+puts b // 2
+
+a,_,_,c = my_vals
+puts c // 4
+
+
+splat operator
+a, *b= get_values 
+puts a // 1
+puts b  2 3 4 5 
+
+If not last, will behave in greedy manner
+
+a *b c = get_values // a==1, b ==[2,3], c==4
+
+Extra vals, if present will be discarded
+
+Splat operator may also be on right-hand side of assignment
+
+a,b,c=*(1..3)
+puts b //2 
+
+first,_,_,_,last = *[1,2,3,4,5]
+
+Splat can appear on both left and right of assignment
+
+first, *, last = 1,2,*[3,4,5]
+puts last // 5 
+
+Another use for a splat 
+
+r=(1..10)
+arr = [1,2, *r]
+
+also works with hashes
+
+h = {first: 10, second: 20}
+
+myarr [*h]   //[[:first, 10], [:second, 20]] 
+
+New Module. Methods in Depth
+
+Default parm
+
+def myfn(arg =:symbol, size =10)
+  #...
+end
+
+def myfn (arg = :mysym, size =calc_default_size(type))
+  #...
+end    //Include method call
+
+def myfn (arg = :symbol, size =(type ==:sym ? :x1 : m) // include conditional logic 
+
+The default vals are calculated at point of METHOD CALL, not at
+point of method definition
+
+def myfn (arg1 = :a, arg2 =:b, c)
+
+  #...
+end
+
+object.myfn(4) // 4 is the c param, others are default
+
+Sometime will need more than a couple of optional arguments
+For some methods it is useful if  they can take an arbitrary
+number of args. COULD just pass in an array, but ruby has
+nice built-in syntax for methods taking var no args, courtesy of
+the splat operator.  
+
+def produce_fleet (days_to_complete, *types)
+  #...
+end
+
+*types expands to array
+
+splat operator does NOT have to come first.  Acts
+in 'greedy' fashion described above. 
+
+An array parameter may be combined with default parameters vals
+optional values must come before array param
+
+def produce_fleet(days_to_complete =10, *types)
+  #...
+end
+
+can call above WITHOUT params
+produce_fleet
+OR specifically provide arg for first parm
+produce_fleet(15, :freight, :freigh) 
+but CANNOT leave out first. 
+
+Can also use splat operator when calling a method
+Its effect it to convert the argument it is
+applied to into an array. By calling args.to_a method
+
+produce_fleet(15, *ship_types) 
+
+Keyword Arguments
+
+produce_spaceship(:freighter, :m, 100,4)
+produce_spaceship(type: :freighter, size: :m,
+fuel_tank_volume: 100, engine_count: 4) 
+
+When calling a method with keyword arguments
+provide arg name followed by colon and then
+the value. 
+
+DEFINITION of a method with keyword params
+looks quite similar. 
+
+def produce_spaceship(type : freighter, size: :x1,
+fuel_tank_volume: 400,
+engine_count_4)
+  #...
+end
+
+If any args not passed, defaults used. 
+
+CAN be supplied to method in different order
+from what first defined. 
+
+CAN co-exist with regular params, as long
+as regular params come first
+
+def produce_spaceship(type=:freighter,
+  size: :m, engine_count:2)
+  
+Normally, if try to pass a method some keyword
+args that are not in defn, will get error.
+
+However, if add DOUBLE SPLAT at end of arg list
+it will be assigned a hash of these args
+
+def produce_spaceship(type = :freighter,
+  size: :m, **custom_components) 
+  
+INSTEAD of specifying all the keyword arguments
+directly in method call, can first construct
+a hash 
+
+build_params = {size: :s, engine: :rolls_royce,
+  seats: :leather}
+  
+produce_spaceship(:yacht, build_params)
+
+Similar to using the splat operator to
+splice array elements into the arg list,
+you can use DOUBLE SPLAT operator so that 
+ruby creates the variable its applied to
+as a hash and combines it with any other
+keyword arguments. 
+
+SO Ruby 2.0 introduced keyword arguments, 
+and ** acts like *, but for keyword arguments. 
+It returns a Hash with key / value pairs.
+
+Method aliasing.
+Useful when overwriting a method but 
+want to access old method.
+alias_method // allows you to create a copy of
+             // a method with another name.
+			 
+Allows overwriting a method while retaining
+access to original. goodie
+
+Operators
+Ruby allows you to define your own versions of
+SOME operators when defining a class
+
+The reason for this is that most operators
+are in fact methods.
+Exceptions to this are:
+the logical operators (&&  || not and or ?:)
+Assignment operators ar'nt methods either.
+= += -= /= >>= etc
+
+Everything else, such as square-bracket operators
+comparison operators, mathematical and bit-wise
+operators are  methods
+So can write own implementation, or 
+over-write standard implementation.
+
+[] operator returns a value based on index
+object. 
+[]= operator returns a value that can appear
+on left of assignment. 
+
+Spaceship operator
+Use t o make objects sortable. 
+Compares two objects and returns 0 if they
+are equal, and -1 if first is less than second
+and 1 if first is greater than the second. 
+  
+Method calls as messages
+
+In idea from Smalltalk, calling a method in Ruby
+is done by sending a message to object
+a = "abc"
+a.size
+send the :size method to the object a,
+the object looks up the corresponing method
+and if it finds it it executes it. 
+and get back the integer 3 as response.
+
+Think of methods as message handlers.
+The object you call a message on is sometimes
+called the receiver. 
+
+This part of object semantics is actually visible.
+The object class has a method send which allows
+you to send message as symbol as well as any
+params
+
+send alias is __send__. Handy if want to
+overwrite send. 
+
+We have established that methods calls need
+a receiver. 
+But what about methods like double that 
+are not part of any class.
+Recall that you can make method calls
+without an explicit receiver. can call
+method on self, which is implicit receiver.
+Every ruby program has default object called Main.
+Outside of any other context, self refers to
+Main.  The class of self is object
+self.class // Object
+When you add method like double, it is 
+added to the object class, which makes it
+available everywhere throughout your progam
+When you call your method, it is called on self
+which refers to the Main object. So in ruby
+there is no such thing as free methods
+But what about puts, p or raise?
+Also part of object class
+
+When you send a message to object, ruby looks up
+method in object's class or one of its superclasses
+and calls it.  So what happens if you send a message
+to object and there is no message?
+Get NoMethodError.  Method undefined. More going on
+here, however. When ruby goes through class hierarchy
+and does not find a method,it invokes a method called
+method_missing. The default implementation, 
+defined in the basic object class, raises the
+NoMethod error exception. 
+It is possible to overwrite method_missing with your
+own implementation. 
+
+When you pass a hash as last arg to method, you can
+omit curly braces. 
+
+method_missing one example of metaprogramming facilities
+
+New Module. Module 6 More Ruby Tools. 
+Blocks, procs and lambdas
+constants
+Modules
+
+A block is a piece of code between do-end keywords or curly braces
+By convention, do/end for multiline blocks. Curlies for single line blocks
+The only way to use blocks it to pass them as arguments to a method.
+Some methods can take a block as a special kind of arg which
+comes after regular args.
+A method may execute a block 1 or multiple times.
+A method may pass arguments into the block
+block args are specified by vertical bars at start of block
+
+So far we have been using blocks but have not shown how to
+write a method that takes a block argument. 
+
+In simplest case, just use yield keyword to execute block in your method.
+
+class Spaceship
+  def debug_only
+    return nil unless @debug
+	return nil unless block_given?
+	puts "Running code"
+	yield
+  end
+end
+
+ship.debug_only  //does nothing
+ship.debug_only do
+  puts "This is debug output"
+end 
+
+can pass arguments to yield, if required
+using yield is similar to method call
+
+block args are similar to method args. can use 
+keyword arguments. default args, and splat all ok
+
+=> Block ARGUMENTS shadow variables of same name in outer scope
+But
+=> Variables defined in  block body do not shadow variables in outer scope. 
+   Instead of creating a new variable, you are goin 
+   to overwrite variable in outerscope. 
+   
+=> This is quirk of ruby and a gotcha.
+
+=> Block local variables solves this problem
+The solution is to declare you variable
+as a block local variable in the block
+argument list. list any var you want to be
+local after a semicolon in arg list  goodie. 
+
+wiki When a var in outer scope has same
+name as var in inner scope, the outer var
+is said to be shadowed by inner var,
+and the inner var is said to mask the 
+outer var
+
+
+Blocks are closures. Well almost.
+They carry their context with them.
+This includes local variables, class vars
+constants and the value of self. 
+
+The only non-closure aspect of blocks is if
+the block contains a return statement; this is
+executed in the scope the block was defined in. 
+
+This can be problematic, because that scope
+may no longer even exist 
+
+Another thing to look out for is memory use.
+As blocks carry their context with them,
+this can prevent garbage collection, as they
+are still referred to by the block. 
+
+Other uses for blocks.
+
+Enable iterator methods
+
+def with_timing
+  start = Time.now
+  if block_given?
+    yield
+    puts "Time taken #{Time.now - start} seconds"
+  end
+end
+
+def run_operation_1
+  sleep(1)
+end
+def run_operation_2
+end
+
+with_timing do 
+  run_operation_1
+  run_operation_2
+end
+
+
+Block limitations.
+Can only pass 1 block to method
+Blocks can't be passed around between methods
+Passing same block to several methods isn't dry (duplication)
+
+If only blocks were objects, it would solve these issues
+
+From block to procs
+It turns out you can give a block a name in 
+method parameter list by prefixing an ampersand
+This turns a block into a proc
+
+def debug (param= nil, &block) 
+
+def debug_only(param = nil, &block)
+  puts "Param class: #{param.class}"
+  puts "Block class: #{block.class}" if block_given?
+end
+
+debug_only 
+puts "---"
+debug_only {}
+puts "---"
+p = Proc.new {|bla| puts " I am a proc that says #{bla}"}
+
+debug_only(p)
+puts "----"
+debug_only(&p) 
+
+Procs are instances of the Proc class, that is, they are 
+objects (and blocks aren't objects) 
+
+Naming a block param isn't the only way to get a proc.
+=> You can also create procs directly by passing a block 
+   to Proc.new  
+
+p = Proc.new{|bla| puts "I am a proc that says #{bla}"}
+
+ALTERNATIVELY, can use kernal method proc in the
+object class:
+
+p = proc {| bla| puts "I am a proc that says #{baa}!"}
+
+The proc method is simply an alias for Proc.new
+
+To execute code stored in proc
+
+p.call "yay"
+p.yield "wow"
+p.("nothing") //dot following by parm list in parenthesis
+p["hello"]
+
+Now easy to pass between methods. 
+
+Lambdas
+There is another way to convert a block into an object
+The object class method lambda takes a block
+and converts it into proc
+lmb = lambda {|bla| "I'm also a block that says #{bla}"}
+
+This object is also an instance of Proc classs, but
+behaves in somewhat of a different way.
+
+Stabby lambda syntax for creating lambdas
+
+also lmb = ->(bla) {"I'm also a proc, and I say #{bla}"} 
+
+Note that the param is now listed outside the block body. 
+Note no spaces between arrow and param list. 
+
+Differences between Procs, Blocks and Lambdas
+
+=> In general, procs behave similarly to blocks.
+   Their (proc?) purpose is to allow you to drop code into method
+   But more flexibility because named and can be passed
+   around like regular object. 
+
+=> Lambdas are more like anonymous methods. Lambdas are
+   strict about their arguments. 
+   
+=> Return and break statements in procs and lambdas behave
+   differently.
+
+=> Next behaves the same in all 3 cases. 
+
+=> If you pass too few or too many args to a lambda,
+   you will get an exception. Procs and blocks are 
+   more relaxed.  If you pass to many, excess are
+   just discarded. If you pass too few, they fill
+   in the rest with nils. 
+   
+=> A return statement in a proc or block is executed in the
+   scope in which the block or proc was defined. As discussed
+   above, this may be problematic, as that scope may not even
+   exist when the proc is executed. 
+   
+=> A standalone break statement outside a loop is not allowed
+   in proc, but can use in regular block. 
+
+=> As a gereral rule, do not use return or break in procs
+
+=> return and break in lambdas simply return control to 
+   caller, behaving much like a method. 
+   
+Use of Procs and lambdas
+
+proc {|a, b|}.arity //2
+proc {|a, *b|}.arity //-2 
+               // if some arg are optional, returns
+			   number of non-optional +1, but with
+			   a minus sign 
+
+Ruby can convert symbols into procs
+
+Say we have following method
+
+def debug_only(param =nil, &block)
+  puts "Param class: #{param.class}"
+  puts "Block class: #{block.class}"
+end
+
+debug_only(p) # param ==p
+debug_only(&p) # param ==nil, block ==p 
+
+=> Not only does the ampersand put the object
+   in the block slot in param list, but also
+   tries to coerce the block into a proc if
+   it is not already a proc by calling the
+   to_proc method on the object. 
+
+Consider this example:
+ 
+names =["tom", "dowling"]
+upper_names = names.map{|a| a.upcase}
+puts upper_names
+
+=> But can also do it as follows: 
+
+upper_names_alt = names.map(&:upcase)
+puts upper_names_alt
+
+In this case, :upcase is not a block, it is a symbol
+Ruby applies coercion rules,and calls to_proc on symbol
+The symbol class happens to have a to_proc method, which
+returns a proc and sends the symbol to it as the name of
+the method to call. 
+Result is exactly as previous method. 
+
+Constants
+A constant is similar to variable in that it is also
+a reference to an object. Start with uppercase letter.
+
+MAX_SPEED = 100
+
+freeze method stops object from being modified
+once an object is frozen, you can't unfreeze it.
+check if frozen with .frozen? method
+object.frozen?
+If freeze array, cannot modify array, but CAN modify
+individual elements 
+
+=> Scope resolution operator. :: 
+
+Define a constaant outside class or module, will
+be accessible throughout the program.
+Define a constant within class or module, it will be
+accessible within that class or module. 
+But if need to access from outside, CAN do it but 
+need to use scope resolution operator, together with
+class name. 
+
+Modules
+
+Similar to classes, but cannot be instantiated.
+
+module SpaceStuff
+end
+modules serve two distinct purposes in Ruby.
+
+=> 1. Name spacing 
+
+module API
+  def self.hatch_list
+  # retrieve hatch list
+  end
+end
+
+Notice methods in modules must be added
+as module-level methods, which is done
+by prefixing with self. 
+Call them in same way as class methods. 
+
+If put classes into a module, can access them
+with scope resolution operator:
+
+module SpaceStuff
+  class Spaceship
+  end
+end
+
+Modules may be nested. 
+
+=> 2. Mixins 
+
+Mix into classes. Ruby's alternative to
+multiple inheritance. 
+
+Mixins typically contain instance methods, whereas
+namespace methods dont
+
+Once have included module, instance methods are
+available to class. 
+
+module AirControl
+  def measure_oxygen
+  end
+end
+
+class Spaceship
+  include AirControl
+end
+
+Modules are inserted into class hierarchy, and become
+the most immediate ancestors of the class
+Modules are inherited along with the rest of 
+superclass funtionality. 
+
+Mixins allow the generation of loosly coupled code. 
+
+It is also possible to incorporate instance methods 
+from a module into a class as class methods.  To
+do this,need to call extend instead of include 
+The instance methods in g then become available
+as class methods. 
+ 
+New Module
+Putting ruby to work. 
+
+reassembling the source code
+require  //include a file using absolute path
+
+to refer to current file's directory,
+Available in:  __dir__
+If you do not provide absolute path, ruby will look for file
+in its load path. Examine load path by examining the 
+global variable
+$LOAD_PATH  //from within irb, say
+No need for .rb extension when passing name to require
+
+A second method for requiring files is require_relative
+includes files relative to current directory
+
+require_relative 'deep_space'
+
+Both require and require_relative will not include
+the file again if it is already included. 
+
+Gems. 
+
+In ruby, libraries are called gems
+rubygems.org
+
+ruby toolbox is now defunct?
+
+log4r seems good
+
+gem search -r log4r 
+gem list // see list of gems installed
+gem uninstall <gem name> 
+
+bundler is itself a gem!
+
+Testing
+
+TDD
+BDD
+
+Write code first, then write the tests
+to make the tests pass. 
+
+There are a couple of unit test framworks
+included in Ruby standard library. 
+
+minitest
+
+describe is simply a method that takes a block
+
+RSpec 
+
+gem install rspec 
+
+rspec.info
+
+Cucumber is BEHAVIOUR-driven development
+
+cukes.info
+
+debugging tools
+
+ruby -r debug <file name>
+
+next 1 // execute 1 line of code
+p <var-name> //examine variable
+q // quits debugger
+
+Packaging and distributing code
+
+Package app as gem, make it available
+for download. 
+
+Rubymine can create an empty gem project
+Set project type to gem application
+
+gem install test_gem  // goodie
+gem list // check if installed. 
+
+Can now distribute, but ruby also
+has a built-in gem server that you can use
+gem server  // server running on http://0.0.0:8808
+gem install test-gem --source http: gemserver:8808
+resources
+rubdoc.info  
+
