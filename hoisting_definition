@@ -1,0 +1,7 @@
+Prior to executing code, javaScript moves all var declarations up
+to the top of nearest enclosing function.  This is known as hoisting
+
+Before executing our code, js moves all var declarations up to top 
+of scope.
+
+See codeschool ES2015 course. video 1
