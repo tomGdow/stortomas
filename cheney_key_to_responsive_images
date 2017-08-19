@@ -1,0 +1,13 @@
+key to responsive images
+Paul Chaney
+vip
+
+main {
+  figure.banner {width: 100%}
+  figure.banner img {width: 100%;}/*--Image ALWAYS 100%--*/  
+  h1 {
+    font-size: 2rem;
+    margin: 1rem 0 0 $gutter;
+  }
+
+}
