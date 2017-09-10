@@ -5,3 +5,8 @@ Before executing our code, js moves all var declarations up to top
 of scope.
 
 See codeschool ES2015 course. video 1
+
+This explains why variables declared within if and else blocks
+are still accessible outside those blocks. 
+
+let variables are scoped to the nearest block and are NOT  hoisted. 

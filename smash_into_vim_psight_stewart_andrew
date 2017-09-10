@@ -1113,3 +1113,6 @@ Indent trick  // see https://stackoverflow.com/a/235876/499167
 ma at beginning // mark
 scroll down to end of what you want to indent
 >'a
+
+windo diffthis
+:vnew  
