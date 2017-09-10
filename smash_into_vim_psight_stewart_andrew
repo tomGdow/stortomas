@@ -1116,3 +1116,9 @@ scroll down to end of what you want to indent
 
 windo diffthis
 :vnew  
+
+
+vim insert empty line after } in compressed css
+:%s/}/\0\r/g
+:%s/}/&\r/g
+see here https://stackoverflow.com/a/15000936/499167
