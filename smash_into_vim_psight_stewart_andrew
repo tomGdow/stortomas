@@ -1122,3 +1122,9 @@ vim insert empty line after } in compressed css
 :%s/}/\0\r/g
 :%s/}/&\r/g
 see here https://stackoverflow.com/a/15000936/499167
+%s/;/&\r/gc  // insert space BEFORE semicolon
+
+
+Fold example
+zf11j //fold 11 lines from cursor
+      // https://stackoverflow.com/questions/2362914/fold-function-in-vim
