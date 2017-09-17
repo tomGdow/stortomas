@@ -1,0 +1,130 @@
+# Preliminary
+sudo npm install -g @angular/cli // Make sure this has worked
+
+#create new angular project
+ng new sasstips --style=scss
+cd sasstips
+# create github repo called 'sasstips'
+echo "# sasstips" >> README.md
+git init 
+git add "README.md"
+git commit -m "first commit"
+git remote add origin https://github.com/tomGdow/sasstips.git
+git push -u origin master
+
+
+npm install foundation-sites
+npm install --save @types/jquery
+
+git branch initialsetup
+git checkout initialsetup
+
+# In .angular-cli.json, add the following to "styles" array before "styles.css
+ "../node_modules/foundation-sites/dist/css/foundation.min.css",
+ 
+ so that it reads like the following:
+ 
+"styles": [
+   "../node_modules/foundation-sites/dist/css/foundation.min.css",
+   "styles.scss"
+],
+
+# to /src/app/app.component.ts, add the following 
+
+import * as $ from 'jquery';
+import 'foundation-sites';
+
+# again, to /src/app/app.component.ts, add the following to the AppComponent class
+(after ' title = 'app'; ') 
+
+  ngAfterViewInit() {
+        $(document).foundation();
+  }
+  
+  ng serve --host xu
+  
+  // all  is well at xu:4200
+
+// merged git branch with master
+// create a new branch navbar  
+
+ ng generate component nav
+ 
+ #in /src/app/app.module.ts, check path is the following:
+ 
+ import { NavComponent } from './nav/nav.component'; 
+ 
+ 
+ ng generate component content
+ 
+ //Deployment and problems 
+ 
+ ng build // all ok 
+ 
+ // working from coursetro video 
+ 
+ng build --prod -sm --base-href https://tomgdow.github.io/sasstips/
+
+Produced the following error 
+
+ERROR in vendor.11e87c8b0de6c7dde5f7.bundle.js from UglifyJs
+Unexpected character '`' [/home/tomgdow/acp/ng4/sasstips/node_modules/foundation-sites/js/foundation.util.core.js:24,0][vendor.11e87c8b0de6c7dde5f7.bundle.js:15104,124]
+
+// this appears to be a transpiling problem
+// see here: https://github.com/angular/angular-cli/issues/5362
+
+
+babel foundation.util.core.js > mod-foundation.util.core.js
+rm foundation.util.core.js
+mv  mod-foundation.util.core.js  foundation.util.core.js
+
+// solved problem with this file, but then same error with another file! 
+// So .., from /node_modules/foundation_sites
+babel -d js -out-dir tomm
+// and then rm/cp files from new folder into js 
+// Until finally the above command (ng-build ...) worked
+
+ngh 
+
+// initially failed
+// this fixed:
+sudo chown -R tomgdow /usr/lib/node_modules/angular-cli-ghpages/node_modules/gh-pages/
+
+ngh
+// deployed successfully 
+
+// deployed successfully 
+
+// Comment: would this work?
+// In angular '/src/app/app.component.ts',
+// link to the following 
+ import 'foundation-sites/dist/js';
+ 
+// Comment this can be done at any time
+rm -rf node_modules
+npm install
+npm install foundation-sites
+
+// . cuv 
+
+cd ~/acp/ng4/sasstips/
+tname ng
+
+
+// . cus
+
+cd ~/acp/ng4/sasstips
+tname server
+ngxu
+
+
+  
+
+
+
+
+
+
+
+
+
