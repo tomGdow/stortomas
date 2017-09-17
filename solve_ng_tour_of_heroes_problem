@@ -1,0 +1,3 @@
+Solve ng tour-of-heroes http problem
+npm install angular-in-memory-web-api --save
+https://stackoverflow.com/a/45372231/499167
