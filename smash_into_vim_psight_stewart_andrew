@@ -1128,3 +1128,9 @@ see here https://stackoverflow.com/a/15000936/499167
 Fold example
 zf11j //fold 11 lines from cursor
       // https://stackoverflow.com/questions/2362914/fold-function-in-vim
+
+// Paste into substitution command
+
+yank character or text
+;s/<Ctrl-R><"> // to paste text, Ctrl-R, followed by double quotes. 
+// a goodie
