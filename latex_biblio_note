@@ -1,0 +1,11 @@
+Using natbib Oct 2017.
+
+Jabref generating biblatex file,
+but using dowMasterOne.bib in bibtex format.
+
+delete all biblio files except biblio.tex
+bibtex biblio // generated  .bbl file  // integrity report
+pdflatex -shell-escape biblio.tex 
+evince biblio.pdf
+// all  is now  well
+
