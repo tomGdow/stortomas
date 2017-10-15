@@ -1,0 +1,10 @@
+bind -P | grep 'can be'
+stty -a | grep ' = ..;'
+
+https://zwischenzugs.wordpress.com/2015/07/01/bash-shortcuts-gem/
+
+See also:
+
+http://www.catonmat.net/blog/bash-vi-editing-mode-cheat-sheet/
+
+http://teohm.com/blog/shortcuts-to-move-faster-in-bash-command-line/
