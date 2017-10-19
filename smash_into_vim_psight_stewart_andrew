@@ -1134,3 +1134,14 @@ zf11j //fold 11 lines from cursor
 yank character or text
 ;s/<Ctrl-R><"> // to paste text, Ctrl-R, followed by double quotes. 
 // a goodie
+
+Write a vim script
+// see here
+http://www.east5th.co/blog/2017/10/16/formatting-with-vim-scripts/
+
+create a script file called myscript.vim
+:%s/dog/cat/g
+now execute
+vim -s myscript.vim file-to-be-edited
+//save vim buffer.
+//Goodie
