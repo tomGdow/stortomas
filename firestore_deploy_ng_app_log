@@ -1,0 +1,20 @@
+Firestore.  Deploy Angular App to Firebase
+//Tutorial 
+https://coursetro.com/posts/code/94/Use-Angular-with-Google
+
+// Deploy video (short and good) 
+https://www.youtube.com/watch?v=aICeVhu2mAE
+
+ng build --prod
+
+firebase login
+firebase init  // from top level of ng app
+// choose hosting and database 
+// single-page:  app YES
+// Public folder: dist 
+// overwrite index.html: NO
+
+firebase deploy 
+
+URL:  https://firestore-bdc31.firebaseapp.com/
+
