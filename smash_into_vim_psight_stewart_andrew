@@ -1145,3 +1145,6 @@ now execute
 vim -s myscript.vim file-to-be-edited
 //save vim buffer.
 //Goodie
+
+!node %:p   // open node  with current file //s is current buffer
+// :p full path to curent file
