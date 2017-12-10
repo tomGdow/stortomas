@@ -1129,6 +1129,8 @@ Fold example
 zf11j //fold 11 lines from cursor
       // https://stackoverflow.com/questions/2362914/fold-function-in-vim
 
+to fold at curly braces: zf% (a goodie)
+
 // Paste into substitution command
 
 yank character or text
