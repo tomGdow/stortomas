@@ -1150,3 +1150,35 @@ vim -s myscript.vim file-to-be-edited
 
 !node %:p   // open node  with current file //s is current buffer
 // :p full path to curent file
+
+In INSERT mode: // from 'let vim do the typing' video
+ctrl-R <register name> //insert contents of register
+                       // and . <dot> repeats edit
+ctrl-R . // dot register contains whatever text inserted last time in insert mode. 
+ctrl-a // also does the same thing (repeats insersion)
+
+Completion (no plugins)
+ctrl p // < p > for previous //default keybinding for completion
+ctrl n // < n > for next
+
+ctrl-[ is th same as <esc>
+
+still in INSERT mode
+
+ctrl-x ctrl-l //insert a line // A goodie //Make sure set: nopaste !!
+ctrl-x ctrl-f // bring up a list of filenames // another goodie
+ctrl-x ctrl-[ // insert a tag 
+    // ctrl-x is completion mode
+ctrl-x ctrl-p // change the quick brown fox to 'the slow ...' 
+ctrl-x ctrl-o // omnicompletion // a super goodie
+
+// see http://georgebrock.github.io/talks/vim-completion/
+
+CTRL-G // show location in file and file status // goodie from vimtutor
+
+set hsl is // set highlight seach and incremental search
+    // to turn off until next searh :nohls  
+
+CTRL-D // command completion from COMMAND line // :e CTRL-D 
+
+CTRL-W  // Jump to another window
