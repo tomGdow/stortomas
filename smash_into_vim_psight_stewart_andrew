@@ -1182,3 +1182,6 @@ set hsl is // set highlight seach and incremental search
 CTRL-D // command completion from COMMAND line // :e CTRL-D 
 
 CTRL-W  // Jump to another window
+
+To substitute from a register:  
+s/<c-r>a/<c-r>b/gc  //where <c-r> is CTRL-R (which brings up ")
