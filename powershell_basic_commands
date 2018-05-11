@@ -153,7 +153,8 @@ powershell is CASE INSENSITIVE
 
 
 
-
+get-childitem "C:\Users\Thomas\Desktop" -recurse | where {$_.extension -eq " .txt"} | % {Write-Output $_.FullName} | Out-File -filepath "C:\Users\Thomas\Desktop\thom.txt" -Appe
+nd
 
 
 
