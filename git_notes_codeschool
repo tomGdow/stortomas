@@ -1,0 +1,120 @@
+git-sem.com
+git help
+
+git status //what has changed since last commit
+git add  <filename> // add to staging area
+git add --all 
+git add *.txt
+git add docs/*.txt
+git add docs/ // all files in dir and subdirs
+git add "*.txt" // Add all txt files in entire project
+
+
+git log
+
+git diff // unstaged differences since last commit
+git add <filename> //git diff now no differnce
+git diff --staged  // now get diff between staged and last commit?
+
+git commit -m "" // take a snapshow of files on staging area
+
+git reset HEAD <filename>  // get a staging off the stage. 
+
+git commit --global user.name "Thomas Dowling"
+git commit --global user.email thomasgdowling@gmail.com
+git config --global color.ui true
+
+git init // create local repo
+
+
+git checkout <filename>  undo all changes since last commit //blow away all changes since last commit
+
+git commit -a -m "message" //add TRACKED files to stage and then commit them // no untracked
+
+git commit --soft  HEAD^  // Undo last commit and move everything into staging
+						  
+git commit --amend -m "new message"  //what added to staging added to last commit. Option new message substituted.
+
+git reset --hard HEAD^ "blow away" last commit. Undo last commit and all changes
+
+git reset --hard HEAD^^ "blow away" last TWO commits (and disgard all changes) 
+
+git remote add origin <http-address-given-by-github> //origin is name of remote branch. Can be anything.
+
+git remote -v // list of all remote repos that local git repo knows about
+
+git push -u origin master
+git push -u <remote-branch-name> <local-branch-name>
+
+git pull // pull down chnanges and sync up local repo. 
+
+git remote add <name> <address>  //eg add production remote
+
+git remote rm <name> // remove a remote
+
+git push -u <name> <branch> //push to remote.  branch is usually master
+git push -u // next time you push, don't have to specify branch name
+heroku create
+git push heroku master
+
+git clone <url> <new-name-for-repo>
+git clone  //download repo AND add the 'origin' remote AND checkout initial branch
+
+git branch <mynewbranch> // create a branch 
+git checkout <mynewbranch>
+git checkout -b <mybrandnewbranchtwo> // creates a branch and checks it out
+git checkout master
+git merge <mynewbranch> // on master branch (or whatever)
+git branch -d <mynewbranch>  // delete branch
+git branch // list branches
+git branch -r // list remote branches
+git pull // make sure you have latest changes
+git pull // git fetch && git merge origin/master
+
+git fetch // creates a local branch origin/master
+git merge origin/masterddd
+
+git commit -a // After fix merge commit // leave off messsage -go to editor
+git push origin shopping_cart // after git checkout -b shopping_cart
+git remote show 
+git remote show origin 
+git push origin :shopping_cart // Delete remote branch 'shopping cart'
+git branch -d shopping_cart // delete local branch provided no unmerged commits
+git branch  D shopping cart // delete local branch even if unmerged commits
+git remote prune origin // to clean up deleted remote branches // remove 'stale' refs
+git push heroku-staging staging:master // heroku only deploys from master branch
+git tag // list all tags //(tag: a ref to a specific commit 
+git checkout <tagname> // git checkout v0.0.1 
+git tag -a v0.0.3 -m "my tag message" 
+git push --tags //!important, otherwise tags remain local
+git fetch // git rebase often follows // fetch/rebase instead of push/pull
+git rebase // mv temp all-changes-to-master !in origin/master // run all o/m commits // run temp commits 1-at-time
+git rebase master  // after git checkout admin, say
+git rebase --continue // after resolve conflict
+git rebase --skip
+git rebase --abort
+git rebase //git status -not on any branch // git add <filename> // git rebase --continue
+git log
+git log --oneline
+git log --oneline -p // p for patch // what lines removed and added
+git log --oneline --stat  // how many insersions/deletions 
+git log --until=1.day.ago
+git log --sincd=1.month.ago
+git log --oneline --graph
+git log --pretty=oneline
+git diff HEAD // exactly the same as git diff
+git diff HEAD^ // diff between files now and 2 commits ago
+git diff HEAD~5 // five commits ago
+git diff HEAD^..HEAD // compare second most recent commit against most recent
+git diff sha1..sha2 // use sha values to compare
+git diff master admin // differences between branches
+git diff --singe=1.week.ago --until.1.minute.ago
+git blame index.html
+git blame index.html --date short
+vim .git/info/exclude // exclude a file or folder //*.mp4, for eg
+git rm readme.txt // delete from local file system and untracked. // git commit -m "remove readme"
+git rm --cached development.log // stop tracking file but do not delete
+git config --global core.editor vim //set editor
+git config user.email // what email set for repo
+
+git add + 
