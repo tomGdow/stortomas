@@ -1199,3 +1199,5 @@ Ctrl-w t Ctrl-w K change 2 horizontal splits to vertical
 
 :ec system('wc -c ', "==============")
 :args //get a list of open buffers
+#wincmd
+instead of ctrl-w = ,can use :wincmd = 
