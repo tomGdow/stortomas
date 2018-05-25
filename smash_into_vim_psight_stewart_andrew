@@ -1201,3 +1201,15 @@ Ctrl-w t Ctrl-w K change 2 horizontal splits to vertical
 :args //get a list of open buffers
 #wincmd
 instead of ctrl-w = ,can use :wincmd = 
+
+#Colorizer
+:set t_Co=256 
+:scriptnames 
+:r! ls --color -l
+:ColorHighlight
+:ColorClear
+:ColorContrast //recycle through
+
+echo bufname('myfile')  // match pattern  #goodie
+
+let cc = system('ls')  // get output of shell command as string
