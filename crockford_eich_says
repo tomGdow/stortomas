@@ -1,0 +1,377 @@
+Crockford.  When functions are designed to be used with new keyword, call them constructors.
+
+
+
+crockford object function:0/
+
+function object(o) {
+ function F () {};
+  F.prototype=o;
+  return new F();
+}
+newobject = object(oldobject);
+
+Crockford A public method is a function that uses this to access its object
+
+A singleton is just one instance of an object
+
+A privileged method is a function that has access to secret information
+(private variables and methods) through closure. 
+
+
+Applications are singletons.
+
+Power constructor
+Put the singleton module pattern in a constructor function and
+we have a power constructor pattern.
+
+1. Make a new object somehow.
+2. Augment it 
+3. return it  
+
+Make-new, augment, return. 
+
+Crockford: When assigning functions in a loop, be aware that all of the functions are bound to the
+same closure.  This can be avoided by using a factor function to produce unique bindings.
+In closure you get binding not to value at time of calling, but to its current value! 
+
+Crockford. Size of js file great effect on page load times 
+
+
+
+Crockford. JS Key ideas
+Load and go delivery // Progs delivered to execution site as source code
+Loose typing
+Objects as general containers  //Unification of objects and hash tables
+Prototypal Inheritance.  //Objects inherit from other objects
+Lambda. // Functions are first-class objects (first in Lisp and Scheme)
+Linkage through global variables.  Separate compilation units combined in global namespace
+
+Numbers
+Strings
+Booleans
+Objects
+null
+undefined
+
+One number type (double) 64-bit floating point.
+Syntactically JS is a C family member
+Differs from C mainly in its type system, which allows
+functions to be values
+
+Blocks do not have scope. Only function scope in JS
+
+Collections
+An object is an unordered collection of name/value pairs
+Names are strings
+values of any types, including other objects
+Good for representing records and trees
+Every object is a little database. 
+Object literals
+Wrapped in {}
+In object literal, names can be names or strings!
+Values cn be expressions
+: separates names and values
+, separates pairs
+Object literals can be used anywhere a value can appear
+Objects can be passed as arguments to functions, and can
+be returned by functions. Objects are passed by reference.
+Objects are not passed by value
+
+The ===  compares references, not value (true if both operands
+are the same object);
+
+console.log(myobj.constructor === Object);
+console.log(myobj instanceof Object);
+
+What js calls functions, other languages call lambda (crockford)
+
+Crockford(1-46:41) The function statement is just a short hand
+for a var statement with a function value
+!! function foo() {} 
+expands to 
+var foo = function foo() {} 
+
+A function may be defined within another function
+An inner function has access to the variables and parameters
+of the functions that it is contained in.  This is known as 
+Static Scoping or Lexical scoping.
+
+The scope that an inner function enjoys continues even after
+the parent functions have returned. This is known as clousure
+
+Functions are objects, so they can contain name/value pairs
+They can serve the same purpose as static members do in other
+languages
+
+When a function is stored in an object, it is called a method
+If a fn is called with too many args, excess args ignored
+
+No implicit type checking of fn args
+
+If too few, undefined used to fill in missing
+
+Four ways to call a function Crockford
+1. Function form // functionObject(arguments);
+2. Method Form // thisObject.methodName(arguments);
+               // thisObject["methodName"];
+3. Constructor form // new functionObject(arguments)
+4.  Apply form // functionObject.apply(thisObject, [arguments])
+
+In method form, this is set to thisObject, the object 
+containing the function
+
+In the function form, this is set to global object
+Makes it harder to write helper functions that=this (helper
+fn does not get access to outer this) that now available in 
+closure and scope
+
+When a function is callled with new, a new object is created
+and assigned to this. If no explicit return statement,
+this is returned.
+
+This is an extra parameter. Its value depends on calling form
+This gives methods access to their objects
+This is bound at invocation time
+invocation form   this
+function          global object
+method            the object
+constructor       the new object
+
+Functions also have access to another special parameter called
+arguments 
+
+Eval
+Eval gives you access to JS compiler and interpreter
+Eval compiles and evaluates a string and returns result in the
+context of function calling eval
+It is what the browser uses to convert strings into actions
+Crockford recommends NEVER to use. 
+EXCEPT with json!
+
+Global object. The obj that dares not speak its name/value
+this sometimes points to it (not a reliable way to access)
+On browsers, window is the global object
+cooperating apps may clobber each other through global namespace
+
+Major error in JS: implied global. Any var not properly declared
+assumed to be global. 
+
+JSLint is a  JS compiler written in JS
+
+Every fn in JS returns a value, which is 'undefined' if no
+explicit return statement except in case of constructor 
+where the new object is returned
+
+ jimdowling@curryhillsconstruction.co.uk
+ 
+The 'this' parameter contains a ref to object of invocation
+'this' allows a method to know what object it is concerned with
+'this allows a single function to service many objects
+this is key to prototypal inheritance
+
+Four ways to call a function
+Function form. //fnObj (args)
+Method form // thisObj.methodName (args)
+            //thisObj['methodName'] (args) 
+Constructor form // new FunctionObject (args)
+Apply form // functionForm.apply(thisObject, [arguments])
+
+Bourke a callback is simply a function that gets passed to
+another function as an argument. 
+
+crockford on new keyword
+
+// call Object.create on prototype prop of function
+// calls function, binding new object as 'this' value
+// If result is object, returns object
+// otherwise returns object that you made 
+
+function newt (func, arguments) {
+    var that = Object.create(func.prototype);
+    var result = func.apply(that, arguments);
+    return (typeof result === 'object'  && result) || that;
+}
+var  bart = newt(foo);
+
+for (name in object) {
+    if(object.hasOwnProperty(name)) {
+	 //doit
+
+}
+
+BETTER
+
+for(name in object) {
+  if(object.prototype.hasOwnProperty.call(object, name) {
+      do it
+  }
+
+}
+
+Note:
+Object.create(null)
+can set enumerable attribute to false
+Object.keys(object)  // keys of OWN properties (NOT inherited)
+
+JS objects downside.  Keys must be strings! (Crockford)
+(if pass a number, will FORCE into string)
+
+Objects have extensible attribute
+extensible: boolean
+ObjectisExtensible(object) // find out if extensible
+Object.preventExtensions(object);  
+Object.seal(object) //configurable AND extensible false
+Object.freeze(object) // Read only AND configurable AND extensible false
+
+Can now make immutable objects (like strings and numbers)
+
+Only one number type in JS. No integers. 64-floating point. ("Double")
+
+In computers, associative law does not hold
+(a + b) + c === a + (b + c);
+
+Integers under 9 quadrillion are ok.
+under 9007199254740992
+
+9007199254740992 === 9007199254740992 +1
+
+Crockford: convert num to string
+1. num.toString();
+2.  string(num); //works with null and undefined, otherwise same
+
+Convert a string to a number:
+
+num = Number(str);
+num +str;
+also parseInt(str, radix) //Always use radix
+
+str.length
+str.trim
+
+Crockford. In most programming languages,
+array is a contiguous chunk of memory divided into equal size
+slots. Index tells which slot. Fastest of all data structures.
+JS does NOT have anything like that. In JS array is object,
+that simulates an array. Array inherits from Object. Hash lookup
+One advantage. No need to define a length on array. They are objects
+Unlike objects, arrays have a special length property
+Always 1 larger than the highest integer subscript. 
+Allows the use of traditional for loops
+for(i =0; i < arr.length; i+=1) {}
+Do not use for in with arrays //may change order //does not specify order
+An array literal uses []
+Do NOT use dot notation with arrays! 
+But can use dot notation to get to array methods!
+
+arr = ["Tom", "Dick", "Harry"];
+
+console.log(arr.length); //3
+arr[arr.length]= "James";
+console.log(arr);
+console.log(arr.length); //4
+
+Doug Crockford, quoted by Brendan Eich:
+'We had always thought that Java's JVM would bee the 
+VM of the web, but it turns out that it's javascript.
+Javascript's parser dos a more efficient job ... than
+JVM's byte verifier' 
+
+delete myarr[1] // leaves 'hole' with undefined
+myarr.splice(1,1);  //slow! rehashes
+
+In js, the object is the associative array (dictionary);
+All values are objects, with exception of null and undefined
+null a value that is nothing
+undefined a value that is not even that
+
+Array.isArray({}); // false
+Array.isArray(myarr) // true
+
+falsy values in JS
+(funESSONan)
+
+false
+undefined
+null
+empty string
+0 //zero
+NaN 
+
+All others are truthy
+"false" is TRUTHY
+
+Objects can be passed as args to functions,
+and may be returned by functions
+
+** Objects are passed by reference, never by value **
+
+=== compares object references, not values!
+//true only if both operands are same object. 
+
+Javascript is syntatically a member of C language
+
+% is remainder not modulo (behaves differently with neg numbers);
+
+if (a) {
+    return a.member
+	} else {
+	return a
+	}
+more concisely as:
+
+return a && a.member; // && aka guard operator
+
+(&& : if first operant is truthy, then it is the second operand)
+|| aka logical or
+
+if first operand is truthy, then result is first operand
+else result is second operand. 
+
+!! produces a boolean! 
+
+Bitwise: & | ^ >> >>> <<
+
+bitwise usually used on integers, but no integers in js!
+
+The bitwise operators convert the operand to a
+32-bit signed integer, and turn the result back
+into 64-bit floating point.
+
+
+Mosaic invented image tag (indirectly led to Ajax)
+Netscape invented the script tag
+Microsoft added the src attribute // avoid code on page
+document.write // one of the worst things!! 
+  //Allows js to produce html text 
+  //security and performance problems
+  
+HTML is a language for describing trees
+document.body
+document.documentElement // gets html (shud be document.html but !!)
+every node has two pointers: firstChild and lastChild
+also nextSibling and previousSibling and parentNode
+but using firstChild and nextSibling enough for binary search
+(recursive transversal of system)
+
+
+1999 Third edition of ecma. Inner functions  or function 
+expressions and closure! functional programming to masses. also python
+ruby, c-sharp. Closure fist with came with Scheme. (crockford)
+
+Dijstra. One of the most important aspects of any computing tool is
+the influence it has on the thinking habits of those who try to 
+use it. 
+(first on edsac in Cambridge) The notion of the closed subroutine
+one of the key concepts in programmming. Closed subrouting one of
+the great software inventions. Survived 3 generations of computers.
+The sooner we can forget that FORTRAN has ever existed the better.
+
+crockford: BCPL is the first curly-brace language
+(London 2017 talk). Also first 'hello world' program
+("Basic Combined Programming Language"; or 'Before C Programming Language' (a common humorous backronym)
+
+crockford: functions entered computer languages with Fortran II in 1958
+
+
+ You-Dont-Know-JS/this & object prototypes/ch6.md ]

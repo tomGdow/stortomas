@@ -1,0 +1,89 @@
+kyle_simpson_on_closure.js
+Closure (Kyle Simpson)  Closure is when a function remembers its LEXICAL scope
+even when the function is executed outside that lexical scope.
+
+kyle_simpson_on_this.js 
+Every* function, while executing, has a reference to the current 
+execution context called this. (*Except arrow functions that do not have a keyword) 
+
+Four rules for how the this keyword works in JS.
+default
+implicit binding
+explicit binding
+new keyword (use the new keyword to create an obj for this to point to) 
+
+For a this-aware function ask "How was the function called" to determine
+where the 'this' keyword points at.
+
+Doesn't matter where it was written. Doesn't matter where is was called from. 
+Doesn't matter what is around it.  
+"The only thing that matters is how the function was called"
+It is the call site that matters
+
+
+kyle_simpson_4_rules_for_determining_this_binding.js
+Four rules for this binding
+1. Was the function called by new?
+2. Was the function called by call() or apply()
+  2b. bind effectively uses apply
+3. Is the function called on a context object  (call foo in context of context-obj) 
+   Most important rule. O2.foo().  foo gets called with this equal to obj that shows up in front of it
+4.  DEFAULT: global object (except in strict mode, undefined)
+
+
+kyle_simpson_on_arrow_functions
+Arrow functions do NOT have a this, so they lexically inherit from their
+enclosing scope. 
+
+If you have 'this' keyword inside arrow fn, not special keyword at all. Just 
+a random variable (no var, pres), so it looks upwards in the lexical scope, like any
+regular variable. 
+
+kyle_simpson_on_new_keword.js
+Four things that happen when you put 'new' keyword in front of function
+(Nothing to do with instantiation) 
+var baz = new foo();
+1) Create a brand new empty object out of thin air
+2) Link that newly created object to another object **
+3) The newly created object gets passed into the function call
+   as the 'this' context 
+4) If the function does not already return its own object, the
+   new keyword assumes you meant to return the object that was
+   passed in (implied return this)
+  
+ Summary
+ 1 Create a new obj
+ 2 Link obj to another object
+ 3 Pass obj as this context
+ 4 return this if some other object not already returned
+
+39: A constructor call is any general fn with new in front of it
+
+javascript_util_inspect_object_node.js 
+const util = require('util')
+console.log(util.inspect(person, {showHidden: false, depth: null}))
+console.log(util.inspect(person, {showHidden: true, depth: null}))
+
+give x-ref to javascript example 
+
+kyle_simpson_3_ways_to_get_what_objects_prototype_points_to
+obj.__proto__
+Object.getPrototypeOf();
+obj.constructor.prototype (for function Foo.prototype)
+
+Objects are built from constructor calls, ie function calls with new keyword in front.
+A constructor makes an object linked to its own prototype. (NOT based on own prototype)
+
+Traditional class/object.  object is copy of blueprint.  Inheritance is genetic. 
+
+kyle_simpson_object.create();
+Object.create 
+(the first two 'bits' of what new keyword does)
+1. crete a new obj out of thin air
+2. link to another object 
+
+javascript trick write out obj props
+
+ for(var p in Animal) {}
+ 
+console.log(Object.getOwnPropertyDescriptor(aNa, 'type')); 
