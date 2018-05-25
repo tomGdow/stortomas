@@ -1,0 +1,55 @@
+Fuzzy Sort Log
+1 Powershell 
+use the following command to generate list of files
+
+get-childitem "C:\Users\Thomas\Books" -recurse | where {$_.extension -eq ".pdf"
+} | % {Write-Output $_.FullName} | Out-File -filepath "C:\Users\Thomas\Books\bookd.txt"
+
+2 scp 
+
+3 Use vim to 
+(a) double quote all lines. Used the following macro
+yss"$a,^[ 
+(b) Escape all backslashes
+
+s/\\/\\\\/gc
+
+
+(c) escape all '[' and ']'
+s/\[/\\\[/gc
+
+
+Installed zurb with foundation new, then copied relevant dependencies 
+to gulpfile.js, then disgarded
+
+npm init  // create package.json
+npm install // 
+gulp 
+gulp build
+gulp deploy
+
+CAN do the following (individually add dependencies to package, but no need)
+
+
+npm install gulp --save-dev
+npm install gulp-sass --save-dev
+npm install browser-sync --save-dev
+npm install gulp-useref --save-dev
+npm install gulp-uglify --save-dev
+npm install gulp-cssnano --save-dev
+npm install gulp-imagemin --save-dev
+npm install gulp-cache --save-dev
+npm install del --save-dev
+npm install run-sequence --save-dev
+npm install --save-dev gulp-gh-pages
+
+
+Note that node_modules must be in same folder as index.html (otherwise trouble!)
+
+Exclude node_modules from git 
+Exclude CSS from git
+
+http://fuzzy.tomgdow.com/
+https://github.com/tomGdow/fooziesort
+
+based on https://github.com/farzher/fuzzysort
