@@ -1,0 +1,27 @@
+~ using potion ~
+ 
+ Running a script or code.
+ 
+   $ bin/potion example/fib.pn
+   $ bin/potion -e "code"
+ 
+ Dump the AST and bytecode inspection for a script. 
+ 
+   $ bin/potion -V example/fib.pn
+ 
+ Compiling to bytecode.
+ 
+   $ bin/potion -c example/fib.pn
+   $ bin/potion example/fib.pnb
+ 
+ Potion builds its JIT compiler by default, but
+ you can use the bytecode VM by running scripts
+ with the -B flag.
+ If you built with JIT=0, then the bytecode VM
+ will run by default.
+ 
+ **It works
+ bin/./potion
+export PATH=$PATH:/home/tomgdow/potion/bin/
+
+
