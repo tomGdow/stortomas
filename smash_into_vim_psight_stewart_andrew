@@ -1148,6 +1148,8 @@ vim -s myscript.vim file-to-be-edited
 //save vim buffer.
 //Goodie
 
+or, from within vim, :source script.vim.  
+
 !node %:p   // open node  with current file //s is current buffer
 // :p full path to curent file
 
