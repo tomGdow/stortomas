@@ -118,6 +118,17 @@ sudo apt-get install mysql-server
 
 root password : Mynice$-dog, no alarm
 
+##May 2018 Lenovo ideapad 320S setup
+# was not asked for root password
+# ran the following command 
+sudo mysql_secure_installation
+xuxvii mysql password My
+
+### To test, use this command
+sudo mysql -u root
+see here
+https://askubuntu.com/a/848504/200605
+
 #test out
 
  mysql -h localhost -u root -p
