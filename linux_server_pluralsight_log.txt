@@ -137,6 +137,15 @@ https://askubuntu.com/a/848504/200605
  postgreSqL
  
  sudo apt-get install postgresql postgresql-contrib
+
+--------May 2018 lenovo --------
+ # installed as per Digital ocean protocol, see
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+
+# used the following command to access
+sudo -i -u postgres
+Did not install further
+----------- end May 2018 comment ---- 
  
  #OK installed.
  #Initialize db
