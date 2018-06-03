@@ -38,3 +38,33 @@ ssh-agent
 eval $(ssh-agent)
 ssh-add
 ssh tomgdigo # Works perfectly
+
+## may 2018 note added
+
+xuvii VM on lenove,  to allow access to tomgdigo (tomgdow@tomgdow.com) [digital ocean]
+
+#Three files need to be considered
+
+1. /etc/hosts
+# add the following
+46.101.11.172   digo
+
+2 ~/.ssh/config
+
+In /etc/hosts, add the following:
+
+Host tomgdigo                                      
+    HostName 46.101.11.172
+    User tomgdow
+    Port 22
+
+from xuxvii VM, run the following
+ssh-copy-id -i id_rsa.pub tomgdigo  //goodie 
+# can now ssh to tomgdigo
+
+3 public key added to authorized_keys in ~/.ssh on tomgdigo
+
+#to get rid of passphrase requirement
+ssh-agent 
+eval $(ssh-agent)  ## see here: https://superuser.com/a/707645/70429
+ssh-add 
