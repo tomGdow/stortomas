@@ -1,0 +1,21 @@
+putty_set_up_ssh_key
+#Lenovo windows 10
+# allow ssh to digital ocean droplet (tomgdow@tomgdow.com) using ssh tomgdigo or ssh tomgdow@digo
+
+download and insall putty
+use keygen to generate a new key
+store the PRIVATE key, nameing it id_rsa (the extension ppk will be added by putty)
+There is NO NEED to store the public key locally  (it will be regenerated when you load private key)
+Copy the public key and paste it into ~/.ssh/authorized_hosts on digital ocean machine
+In PUTTY, add 
+session/ ip-address/46.101.11.172
+Data /autologin username / tomgdow
+ssh -> Auth / browse to public key. 
+name and save the session
+
+IN ADDITION, in keygen  (very important) 
+load key and Converions -> Export OpenSSh key > save ~/.ssh/id_rsa (NO file extension)
+To get rid of passphrase requirement, use pageant (part of putty), load key (in ~/.ssh !) and add passphrase
+To get rid of passphrase requirement on powershell, use
+ssh-agent
+ssh-add
