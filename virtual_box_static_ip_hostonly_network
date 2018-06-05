@@ -43,3 +43,9 @@ broadcast 172.28.128.255
 
 
 # also useful https://www.unixmen.com/configure-static-ip-centos-7/
+
+#### May 2018 setting up lenovo
+#these steps are important
+vim /etc/NetworkManager/NetworkManager.conf
+## change managed=false to managed=true
+sudo service network-manager restart  // goodie goodie
