@@ -1215,3 +1215,11 @@ instead of ctrl-w = ,can use :wincmd =
 echo bufname('myfile')  // match pattern  #goodie
 
 let cc = system('ls')  // get output of shell command as string
+
+Command and Search History
+
+use q: or q/
+paste clipboard as ex command <ctrl-R>+
+to copy ex command to clipboard, use q: and then "+yy
+
+
