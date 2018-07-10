@@ -1,0 +1,26 @@
+using sub.domain to access guest os apache locally
+https://forums.virtualbox.org/viewtopic.php?f=7&t=22100
+----------from above-----
+I've now managed to get this working.
+
+In case anyone ends up here wanting to do something similar...
+
+- Set up the Guest OS with Host-Only networking.
+
+- Look for the Guest IP (ifconfig). By default should be in the range 192.168.56.xxx
+
+- In windows host OS hosts file add required sub.domain pointing to the discovered guest IP
+so I added
+192.168.56.102 local
+192.168.56.102 client1.local
+192.168.56.102 client2.local
+
+----end quote--- 
+
+Tip.  fe_sendauth: no password supplied 
+In development, if getting error about pg password not being found
+DELETE localhost from database.yml. 
+ie delete this line altogether from development block:
+host: localhost
+
+
