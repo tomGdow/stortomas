@@ -1,0 +1,7 @@
+ENOENT: no such file or directory, open '.publish/.git/HEAD'
+https://github.com/shinnn/gulp-gh-pages/issues/87
+gulp was asking for HEAD so I asked myself whose HEAD?
+I did git checkout gh-pages and copied the .git folder.
+Then I did git checkout master and pasted the .git folder of gh-pages inside the .publish folder.
+It finally worked.
+
