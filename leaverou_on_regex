@@ -1,0 +1,33 @@
+:s/<.\{-}>//g  //vim non-greedy search to match html tag
+
+some good lookaheads  (leaverou.github.com/regexplained) youtube video
+
+^(?=.*\d)(?=.*[a-z])(?=.*[\W_]).{6,}$  /lookahead  a 6+ letter password with at least:
+one number, one letter and one symbol
+
+^(?!.*foo).+$  //anything that does not contain foo
+
+------------
+
+regex . is equivalent to the negated character class /[^\r\n]/g
+
+--------scripts---- 
+
+ function stripHtml2(str) {
+ 
+   //leaverou.github.com/regexplained
+   return str.replace(/<[^>]+>/g,"") 
+}
+
+function stripHtml (str) {
+
+    //leaverou.github.com/regexplained
+    return str.replace('/<.+?>/', "")
+}
+
+if(!String.prototype.trim) {
+   String.prototype.trim=function() {
+   return this.replace(/^\s+|s+$/g, '');
+     }
+   }
+}
