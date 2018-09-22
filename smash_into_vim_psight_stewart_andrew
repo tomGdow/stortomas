@@ -1234,3 +1234,10 @@ diw    // delete whole word from within word
 ctrl-v then hkjl then c // to change ever letter in column for eg 
         // good.ie.  // on linux (but not vscode) presss esc 
 shift -c and d$ seem to be the same thing in VScode (but not linux!)
+
+// to add space before multiple lines 
+ 
+  ctrl v // use j and k  to select // I (capital I!) <space> <esc>
+  OR:
+  ctrl v // use j and k to select // :normal I<space> <enter>
+
