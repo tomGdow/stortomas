@@ -392,7 +392,11 @@ V		Activate visual mode for full lines
 #GLOBAL COMMAND
 #can use vim's powerful global command to execute a command
 #on all lines that match a pattern
-#takes a form similar to search-and-replace
+#takes a f// for example to change ever letter in column // Goodie// on unix (but not vs) press escape to see changes
+#shift-C and d$ seem to do the same thing in Visual Studio (but not on unix)
+#
+#
+#dddrm similar to search-and-replace
 #unlike search, default range is whole buffer
 #Search and Execute
 
@@ -1224,3 +1228,9 @@ to copy ex command to clipboard, use q: and then "+yy
 
 :s/<.\{-}>//g  //vim non-greedy search to match html tag
 
+// GOTO 2013. Roy Osherove
+viw  // select whole word from within word // then 'c' to change
+diw    // delete whole word from within word
+ctrl-v then hkjl then c // to change ever letter in column for eg 
+        // good.ie.  // on linux (but not vscode) presss esc 
+shift -c and d$ seem to be the same thing in VScode (but not linux!)
