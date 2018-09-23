@@ -1241,3 +1241,11 @@ shift -c and d$ seem to be the same thing in VScode (but not linux!)
   OR:
   ctrl v // use j and k to select // :normal I<space> <enter>
 
+
+fc  //edit command in vim and then run!
+fc -l
+
+bind '"\C-e": edit-and-execute-command' //ctrl-e// edit command in vim!! 
+                                        //https://unix.stackexchange.com/a/459442/139349
+alias  r='fc -s' // 'r cc' run last cmd begins with `cc' // 'r' re-execute last command.
+
