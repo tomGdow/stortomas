@@ -1249,3 +1249,19 @@ bind '"\C-e": edit-and-execute-command' //ctrl-e// edit command in vim!!
                                         //https://unix.stackexchange.com/a/459442/139349
 alias  r='fc -s' // 'r cc' run last cmd begins with `cc' // 'r' re-execute last command.
 
+---// begin increment a number--|
+
+Increment a number
+
+CODE
+    (1) Ctrl A increase by 1
+    (2) Ctrl X decrease by 1
+    (3) 10 Ctrl A increase by 10
+    (4) for (1) (2) etc AUTOMATICALLY increase all by 1.
+        :.,$g/(\d)/exe "normal! \<C-a>"  // a goodie 
+
+REFERENCES
+    (1) https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers
+    (2) https://stackoverflow.com/questions/10534130/how-do-you-increase-a-number-directly-under-the-cursor
+
+--// end increment a number --|
