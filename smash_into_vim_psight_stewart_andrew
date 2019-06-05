@@ -1277,6 +1277,10 @@ REFERENCES
 
      (3) q: opens a list of commands 
 
+     (4) expression register example 
+
+        <ctrl-r>=system('ls');   // inserts contents of ls (insert mode)
+
 --// expression register
 
 https://stackoverflow.com/questions/7027741/what-is-the-purpose-of-the-expression-register
@@ -1288,3 +1292,5 @@ https://vimeo.com/4446843 "The vim expression regiester"
 See also http://derekwyatt.org/vim/tutorials/advanced/
 
 derek wyatt videos
+
+
