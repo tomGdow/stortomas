@@ -1265,3 +1265,26 @@ REFERENCES
     (2) https://stackoverflow.com/questions/10534130/how-do-you-increase-a-number-directly-under-the-cursor
 
 --// end increment a number --|
+
+
+--// At least one vim trick you didnt know --|
+
+  https://www.hillelwayne.com/post/intermediate-vim/
+
+     (1) In insert mode use ctrl-r to get "
+
+     (2) ctrl-r= gives expression register. 2+2 for example
+
+     (3) q: opens a list of commands 
+
+--// expression register
+
+https://stackoverflow.com/questions/7027741/what-is-the-purpose-of-the-expression-register
+
+great video 
+
+https://vimeo.com/4446843 "The vim expression regiester"
+
+See also http://derekwyatt.org/vim/tutorials/advanced/
+
+derek wyatt videos
