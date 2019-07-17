@@ -1287,10 +1287,18 @@ https://stackoverflow.com/questions/7027741/what-is-the-purpose-of-the-expressio
 
 great video 
 
-https://vimeo.com/4446843 "The vim expression regiester"
+https://vimeo.com/4446843 "The vim expression register"
 
 See also http://derekwyatt.org/vim/tutorials/advanced/
 
 derek wyatt videos
 
+--// fuzzysort fzf FZF
+
+    [1] to open a file in vim from command line 
+
+        vim $(ls | fzf) 
+    [2] to use fzf from within vim 
+
+         :FZF
 
