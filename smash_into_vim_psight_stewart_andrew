@@ -1295,10 +1295,19 @@ derek wyatt videos
 
 --// fuzzysort fzf FZF
 
-    [1] to open a file in vim from command line 
+    (1) to open a file in vim from command line 
 
-        vim $(ls | fzf) 
+        [1] vim $(ls | fzf) 
+        [2] vim $(ftz)
+        [3] vim <ctrl-t>    // a goodie
+
     [2] to use fzf from within vim 
 
-         :FZF
+         [1] :FTZ
+         [2] :F 
+
+   --// Rot-13
+         [1] select text
+         [2] g?          // no ':'
+         [3] thomas dowling  // gubznf qbjyvat
 
