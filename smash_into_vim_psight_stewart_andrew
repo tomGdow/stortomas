@@ -887,6 +887,895 @@ Ctrl-t, Ctrl-o		# Get back to where you came from
 # Plugins listed, but ONLY if you have read in docs with helptags
 :Helptags
 # Above (pathogen command) will auto read in helptags for all 
+# Smash into Vim.  Andrew Stewart (Pluralsight)
+
+3j	Move down three line
+3k  Move up three lines
+d$ 	Delete from cursor to the end of the line
+u	Undo
+Ctrl-R	Redo
+c2/end	Change all text from cursor to the BEGINNING of second end
+d2w	delete two words
+:h st	Get help on any topic eg :h motion (:bd to quit. bd is 'buffer delete')
+i 	Insert text
+I 	Insert text at the start of line
+w	Move forward one word
+W	Treats continuous code as one word, and moves forward to next word
+yy	Yank (copy) a line
+p	Paste below cursor
+P 	Paste above cursor
+i	Insert text before cursor
+a 	Append text after cursor
+fN	Jump forward to first 'N'
+3fN	Jump forward to the third 'N'
+6l	Move forward 6 letters 
+3w	Forward 3 words
+cw	Change word
+3cw	Change 3 words
+r9	Replace with '9'
+
+:e	<filename> edit a file
+
+:syntax enable
+:set syntax=Apache
+
+:hidden 
+#Tells vim to handle multiple files better
+
+#Command mode is also known as Normal mode
+d2w	d is OPERATOR
+	2 is COUNT
+	w is motion
+
+# All code folding commands begin with Z
+# -because it looks like a folded sheet of paper 
+
+#One way of overcoming write only file problem
+:w !sudo tee %
+:w !sudo tee example.conf
+
+#To open a file
+vim -N example.conf
+# The -N means 'not compatible with vi'
+
+#To Seach for, say, 'All Code'
+/All Code <enter>
+#Puts cursor at the start of the match
+#Replace with '9'
+r9
+#next match
+n
+#Previous match
+N
+
+#INCREMENTAL SEARCH (Inc Search)
+:set incsearch
+#HIGHLIGHT SEARCH (hlsearch) 
+:set hlsearch
+:nohlsearch OR :noh
+
+#Substitute and Replace
+:%s/search/replace/gc
+#'g' is global
+#'c' is confirm
+
+#In a regular expression, the period matches any character
+
+#Line numbers
+:set number
+12G (12-capital 'G') 	Go to the 12th line
+gg			Go to the top of the document
+G   (capital 'G')	Go to the end of the document
+
+:pwd 			Check the current working directory
+
+V			Visual mode (Line)
+v			Visual mode (Character)
+yy	(yank)		Copy
+
+:b 	<name>		change buffer (try tab arrows as well)																
+:bp			previous buffer 
+P			Paste in text BEHIND cursor
+To delete text in V	Select text and press d
+To change text in V	select text and press c (goes into insert mode)
+
+Period 			Pressing the period repeates last command. 
+			You will use it all the time!
+:set list		(Boolean) lists tabs and end of line characters
+:set nolist
+:set list?		Show current value
+:set list&		Reset to defaults
+
+:set softabstop=2
+:set softtabstop?
+:set softtabstop&
+:set sts=2		The abbreviation for softtabstop is sts
+:verbose		Using the verbose command when querying
+			an option will tell you where it was set
+
+:verbose set list?      
+:options			Brings up vim's options screen
+			to tell which options have been set
+
+:set 			See all options differing from default value
+
+vim commands in .vimrs are just like 'normal commands but just omit
+the colon!!
+
+:set filetype		Tells you what filetype you are using
+:gf			Go to file under cursor (Handy for editing code)
+
+#Where is my .vimrc?
+#see http://stackoverflow.com/questions/10921441/where-is-my-vimrc-file
+:scriptnames		list all .vim files that vim has loaded for you
+:e $MYVIMRC 		open and edit the current .vimrc
+
+#buffer			The contents of a file in memory
+#window			A viewport into a buffer
+
+#Windows Commands
+Ctrl-w s 		Split window horizontally
+Ctrl-w v		Split window vertically
+
+Ctrl-w j		Move focus down
+Ctrl-w k		Move focus up
+
+Ctrl-w c 		Close a window
+Ctrl-w o		Close all but current
+
+Ctrl-w w		Cycle focus (anti-clockwise)
+Ctrl-w W		Cycle focus (clockwise)
+
+Ctrl-w p		Focus previous window
+Ctrl-w J		Move buffer up one window 
+			[ie move windows themselves]
+Ctrl-w K		Move buffer down one window
+
+Ctrl-w h		Focus on left window
+Ctrl-w H		Move buffer to the left
+
+Ctrl-w l		Focus on the right window
+Ctrl-w L		Move buffer to the right
+Ctrl-w t		Move to top right
+Ctrl-w b		Move to bottom left
+
+Ctrl-w r		Rotate windows clockwise
+Ctrl-w R		Rotate windows anti-clockwise
+
+#A tab holds one or more window
+
+:tabnew	
+:tabedit
+:tabclose
+:tabonly
+:tabnext
+:tabprevious
+:tabfirst
+:tablast
+:tabmove
+
+#buffers
+:ls 			List all buffers
+:b3			Go to buffer number three
+# + means bufer with unsaved changes
+# = means read only
+# % is buffer in the current window
+
+:bn 			Go to next buffer
+:bp			Go to pervious buffer
+:bd			Buffer delete (close file)
+:bf			Go to the first buffer
+:bl			Go to the last buffer
+:ba			Open a window for every buffer
+
+Ctrl-^			Edit the alternate file. 
+			Generally this is the last file you edited
+			So if have nipped into another file with, say gf 
+			then can go back from whence one came ctrl-caret.
+
+##Part Two, Pluralsight
+
+h, l			Move forward, back one CHARACTER at a time
+w, b			move forward, back one WORD at at a time
+e			Move forward to the end of word
+
+#To move between non-blank entities, use the movement commands in uppercase
+
+0			Move to the start of a line
+$ 			Move to the end of a line
+^			Move to the FIRST NON BLANK character of a line
+gm			Move to the middle of the line
+
+#For line lines that are wrapped 
+g0			Go to the beginning of line
+g^			First character
+g$			End of line
+gm			Middle of line
+#'g' is used a lot in Vim as a modifier
+
+fx			Forward to next occurence of x
+Fx 			Back to previous occurence of x
+#You can repeat latest character jump with SEMI-COLON
+#A COMMA repeats the last jump in the opposite direction
+j,k 			Move down, up one line
+#If it helps, think of 'j' as down arrow
+gk			Up one screen line
+-			Up to Char
++			Down char
+gj			Down screen line
+
+M			Jump to middle of screen
+H			Jump to near top of screen
+L			Jump to near bottom of screen
+
+Ctrl-b			Scroll back ONE SCREEN
+
+Ctrl-f			Scroll forward ONE SCREEN
+Ctrl-u 			Scroll back 1/2 SCREEN
+Ctrl-d			Scroll forward 1/2 SCREEN
+
+zt			Scroll current line to top of screen
+zz			Scroll current line to middle of screen
+zb			Scroll current line to  bottom of screen
+
+42G or 42gg		Go to line 42
+
+gg			Takes you to the first line of the document
+G			Takes you to the last line of the document
+
+#Marks
+#Vim keeps account of a few marks for you ...
+#To mark the cursor postion, type 'm' followed by letter: 'ma', 'mb'
+#Jump to it later with backtick and the letter
+#or, alternatively, jump to start of the line with the mark with single-quote and letter
+#Lower-case marks are file-specific
+#Upper-case marks are global
+#Ca
+#For 
+d't 			Deletes from cursor position to mark t
+m cursor to the end of the line
+
+#Speedy way to avoid visual mode!
+:marks			Get a list of all marks
+
+#Vims Mark
+`0-`9			The position of cursor when you exit vim
+			'0 is the most recent 
+
+``, "  			The position of the cursor before the last jump
+`. or '.		The postition of the LAST EDIT
+`` or ''		To jump back to previous cursor postion
+			[Can be used to conveniently jump between two spots]
+
+#Editing text 
+i			Go into insert mode and insert text at cursor position
+I			Go into insert mode and insert text at first non-blank character
+a			Move one character to right before going into insert mode
+A			Move to end of line before going into insert mode
+o			Open a new line below
+O			Open a new line above 
+r <char you are on>	Replaces the character you are on, 
+			and goes straight back into 'normal' mode
+2f8			Go to second occurence of '8'
+R			Go into Replace mode
+#Use backspace key to restore original text
+#More convenient to use change, c
+c3w			Delete 3 words and switch to insert move
+x			Delete character under the cursor
+dd or D			Delete line
+yy or Y			Yanks (copies) a line
+cc or C			Change a line (delete text and then go into insert mode)
+J			Join two lines  [may insert up to two spaces]
+5J			Join five lines [may insert up to two spaces]
+gJ			Join without inserting spaces
+
+#Tabs
+2<<			Normal mode unindent TWO LINES
+2>>			Normal mode indent TWO LINES
+Ctrl-d			Insert mode UN-indent a line (remove tab)
+Ctrl-t			Insert mode indent (insert a tab)
+(			Move to the start of a sentence
+)			Move to the end of a sentence
+{			Move to the start of a paragraph
+}			Move to the end of a paragraph
+#Can 'bounce' between matching brackets or parens with % 
+
+#VIT, VAT and homologues
+#Operator-Extend_Object 
+#V is operator, I extends, T is Object
+
+#Operators 	c	change
+		d	delete
+		y	yank
+		v	visual
+
+#Extends	i	inner-object
+		o	all delimiters
+
+#Object		w	word
+		W	Word
+		s	sentence
+		p	paragraph
+		t	tag
+		" ' { {
+
+#To change flash[:error] to flash[:id]
+ci]:id<esc>
+
+#In Visual mode, 'o' toggles which end of selection is active
+#ie, toggles cursor position between beginning and end of selection
+#Extremely useful.  
+#Never have to give up and reselect if starting position off by one
+
+## SEARCH and REPLACE
+
+
+/		Search forward from cursor position
+?		Search backwards from cursor position
+n		next match in search
+N		previous match 
+# The direction depends on which operator used to start the search 
+*		Search forward for the curent WHOLE word
+#		Search backwards for the current WHOLE  word
+g*		Search forwards for curent word as PART of word
+g#		Search backwoards for current word as PART of word
+
+/h1/+3 		Put cursor on third line after section heading
+/hello/e3 	Put cursor Three CHARACTERS after match
+d/bacon/e	Delete text from cursor position to end of word 'bacon'
+y?def		Yank (copy) text from current position to previous def
+
+#Substitution
+
+:[range]/s[ubstitute]/{pattern}/{string}/[flags] [count]
+:%s/bacon/lettuce/gc	Replace 'bacon' with lettuce, global, confirm
+#flags
+c		confirm
+i		ignore case
+I		case-sensitive
+g		global
+n		show number of matches (non-destructive)
+p		print matching lines
+#		(alt) print matching lines
+
+%		A leading percent searches all lines in the current buffer
+%s/a/b		... for example
+s/a/b		Omit '%' to search only the current line
+
+:.,'a s/bacon/lettuce	Replace all occurences of 'bacon' with 'lettuce'
+			from the current line to the 'a' MARK
+.,'a			Use a range from cursor to MARK 'a'
+s/a/b			Search for 'a', replace with 'b'
+
+#Specify a line
+.		Current line
++5		5 lines down
+-3		3 lines up
+1		Line 1 of buffer
+$		Last line of buffer
+%		All lines in buffer
+'t		Position of mark 't'
+/pattern/	Next line where pattern matches
+:s/bacon/lettuce/g10	Replace all occuences of 'bacon 
+			with 'lettuce' within the next 10 lines only
+
+#Sometimes easier to go into visual mode
+V		Activate visual mode for full lines
+25G		Takes you to line 25
+#use 'o' to toggle position of cursor (end/beginning of selection) if necessary. 
+#Now type a substitution command starting with a colon
+## Vim gives you the range specifier which represents the selected region
+#	:'<,'>  (Range specifier)
+# Enter a search pattern
+#	:'<,'>s/bacon/lettuce
+
+# '%' is a shortcut for all lines in current buffer
+#GLOBAL COMMAND
+#can use vim's powerful global command to execute a command
+#on all lines that match a pattern
+
+#Search and Execute
+
+:[range]g[lobal]/{pattern}/[cmd]
+
+#GLOBAL COMMAND
+#can use vim's powerful global command to execute a command
+#on all lines that match a pattern
+#takes a f// for example to change ever letter in column // Goodie// on unix (but not vs) press escape to see changes
+#shift-C and d$ seem to do the same thing in Visual Studio (but not on unix)
+#
+#
+#dddrm similar to search-and-replace
+#unlike search, default range is whole buffer
+#Search and Execute
+
+:[range]g[lobal]/{pattern}/[cmd]
+
+#normal {command} Execute an extended sequence
+
+:g/vim/p
+:g/re/p			GREP!
+#To show all lines matching the regular expression re
+#This is where the Unix grep command got its name
+
+#	 show matches with line numbers
+p	 same as above
+d	 delete matching lines
+y	 yank matching lines
+
+:g/params[:foo]/#	show lines and line numbers where
+			params[:foo] occurs
+:g/^$/d			delete blank lines
+:g/pattern/+y		Yank line after the ones that match
+
+#To execute command against lines that DONT match a pattern
+use v instead of g
+
+Some examples
+
+:.,+10g/foo/d		delete matches from cursor through
+			next ten lines
+
+:.,'f+2g/foo/#		show line numbers through two lines
+			after mark 'f'
+
+:.,/bar/g/foo/d		Deletet lines through next line
+			mathching bar
+#Commands you can execute are not restricted to deleting and
+yanking
+#You can also execute normal mode commands by prefixing 
+#your commamds with 'normal
+
+:g/bacon/normal OBacon is near
+#insert the line 'Bacon is near' above each line that matches 
+#the word bacon. 
+
+#Regular Expressions Vim uses in Search
+#In a regular expression, some characters are literal
+some are special. 
+# Vim allows you to alter which is which with
+# an option called Magic
+# This has four levals 
+
+Very Magic	\v	Similar to Perl, Ruby, Python
+Magic		\m	The default, but awkward
+No Magic	\M	Rarely used
+Very No Magic	\V	Rarely used
+
+#One area where vim's default behaviour is inconsistent and
+confusing
+
+#Invariably want Very Magic, which is similar to Perl's
+#regular expression syntax
+#It is NOT advisable to set this in .vimrc
+#Technically you can, but vim documentation
+#warns against it
+
+#How does Magic and Very Magic differ
+Very Magic	Magic
+\s		\s		Whitespace	same in both
+()		\(\)		Escaping        Magic only
+{n, m}		\{n,m}		Quantifiers	Escape opening in						 Magic
+[]		[]		Character Range No escape
+*		*	
++		\+		1 or many	escape in Magic
+=	        \=				Escap in Magic
+
+#Very Magic corresponds to Unix's egrep
+#Magic corresponds to Unix's grep
+#Magic uses lots of backslashes inconsistently - a disaster!
+
+#In Very Magic only literal characters are
+#0-9, a-z, A-Z, and underscore 
+
+#Turn on Very Magic with \v
+
+#Two ways to search
+/\(.y\)\{3}
+
+/\v(.y){3}
+
+#To repeat a search
+/Ctrl-r/
+#ie, Ctrl-r, FOLLOWED BY SLASH
+
+#Ack commands in Vim
+
+:Ack		current_user
+		search all files below your working directory
+:cn 		Next result
+:cp		Previous result
+:cc3		Display third result
+:ccl		Close the Quickfix window
+
+Advanced configuration (start)
+Three basic levels of configuration
+	#1 Basic Configuration
+	#2 Custom key mapping
+	#3 Vimscript plugins
+
+# Mappings provide a convenient method to enter a sequence of commands
+# with just a few keystrokes
+# Map one set of keystrokes to another.  When vim sees the former it
+# acts as if it saw the latter
+#For example
+:vmap > >gv
+# Lets take it apart
+
+vmap	# reassigns a key in visual mode
+>	# when you type this ..
+>gv	# shift text right, re-select it,
+	# and go bac to visual mode
+
+#Map Scope
+
+nmap	# Normal mode
+imap	# Insert mode
+vmap	# Visual mode
+map	# Normal, Visual, and operating-pending modes
+map! 	# Command and insert modes
+
+# Example
+# Map tab to autocomplete in insert mode
+:imap <Tab> <C-N>
+:imap <S-Tab> <C-P>
+
+# Now can use tab to bring up autocomplete and tab OR 
+# shift-tab throught the options
+# You can examine the value of existing mapping
+# by omitting the final argument
+
+# Remove a mapping with 'unmap'
+:vunmap >
+# To see all mappings for a mode
+use :map, :vmap, or any other mode map specifies
+
+# store all mappings in .vimrc 
+# Safely Swap Strokes
+# Safely swap colon and semicolon, say
+:nnoremap :;
+:noremap :;
+
+# So what keystrokes are safe to map?
+# Vim uses most of them already, so need to be careful
+# This is how to decide
+# Do you want to override Vim's behaviour?
+	# 1 yes	 => do it!
+	# 2 no   => 
+	  	Do you want carpal tunnel syndrome
+		  # 1 Yes	 => Map a meta key
+
+	          # 2 No	=> Use the Leader and a single key`  
+# The map leader is a character whose sole purpose is to
+# prevent your mappings from conflicting with vim's commands
+# Its default value is backslash,
+# but can set it in .vimrc to anything you feel
+# comfortable typing which does not clash
+# Note that you set it differently from other options
+:let mapleader=","  	# Change the personal hotkey
+
+# Say, for example, you want to map 'Ctrl-F in insert mode
+# to uppercase the word before the cursor.
+# One way: map Ctrl-F directly
+:map! <C-F>	<Esc>gUiw`]a
+# or, if you didn't want to wipe out Vim's default Ctrl-F,
+# which is scroll forward one page,
+# you could take it to your leader
+:map! <Leader> <Esc>gUiw`]a	# type exactly as given
+# Try it in INSERT mode by typing backslash -F
+\f
+# A goodie!
+
+<%= = %=>	
+#Abbreviations
+:iab ff firefox
+iab		# Declare an abbreviation for insert mode
+		# See also 'ab' for insert, Replace, and 
+		# Command-line modes
+ff		# What you type
+Firefox		# What vim inserts
+
+# A super-goodie!
+# Some examples
+:ab teh the
+# For misspelled words, can type with impunity and Vim will clean up after you.
+
+#Folding
+
+# In the classic Sci-Fi novel 'Dune' by  Frank Herbert
+# people learn to travel by folding space and taking a single step
+# onto another planet
+
+# In vim can operate on a file by folding long ranges of text
+
+# Novices use folds to put more content on the screen
+# Experts use folds to perform searches or global operations on
+# blocks of code as a single line
+# You may find that  your mind does not naturally think in
+# terms of folds.  That's OK! Some people find them indespensible
+# and others don't use them at all.
+
+# Vim Folding strategies
+:set foldmethod=
+	indent		# Use spaces or tars to find foldable blocks
+	syntax		# Fold on language features (methods, classes)
+	marker 		# Fold on textual marks
+	diff		# Fold unchanged text
+	expr		# Custom, code-driven folding
+	manual		# Select ranges to fold
+
+# Default is manual
+# You will quickly tire of manual folding
+# Dan suggests fold by syntax or indent
+# Lets have a look at a Ruby file where folds are managed by
+# the easiest strategy -syntax
+# Will first do ineractively, but all may be stored in .vimrc files
+# As permanent defaults
+
+# 1 Syntax Folding
+:set foldmethod=syntax
+# or use abbreviation 'fdm'
+
+zK	# Move up a fold
+zj	# Move down a fold
+
+xM	# Close ALL folds
+xc	# Close a fold
+
+za 	# Toggle a fold (on/off)
+
+zo	# Open a fold
+zR	# Open ALL folds
+
+zk 	# Move back up to the end of the previous fold
+
+zi 	# Toggles folding on/off altogether 
+
+zx	# Reset folds, if you have 'made a pickle of things'
+	# this folds everything except the fold
+	# at the cursor's current line
+zX	# Fold everything again
+
+# 2 Indent folding
+
+# A fallback is to let Vim detect blocks elegible for folding
+# by using simple indentation
+# Css is an example of this, which will also highlight a few problems
+# that are easily fixed
+# Open a css file and set the foldmethod to "indent"
+
+:set foldmethod=indent
+
+# Won't work as is
+# Two settings are relevant
+
+:set shiftwidth=2
+:set softtabstop=2
+
+# Some commands
+
+shiftwidth=2	# The number of spaces inserted when
+							# reindent operators or automatic indentation are used
+softtabstop=2	# The number of spaces inserted when TAB is hit
+:retab		# Replace all tabs with spaces in the current buffer
+#Many aspects of folding are configurable
+:set foldcolumn=2  
+# Put into .vimrc 
+paper
+# Completion, Filtering, and Copying
+
+Ctrl-n 			# Activation completion menu for multiple options
+						# A goodie
+            # Brings up floating window
+						# Move down with Ctrl-n
+						# Move up with Ctrl-p
+						# Arrow keys work too
+						# When desired word is highlighted,
+						# hit enter or just resume typing
+
+# Filtering
+# sometimes it is worthwhile to filter text through an external program
+# such as unique. 
+
+#Create a file (spamspam.txt) containing the following
+spam
+spam
+milk
+bacon
+eggs
+spam
+
+#Select all text using Visual mode  (shift-V)
+#to run the filter type
+!unique     					# In general, !<filter>
+
+						# Four ways to run the unique filter on an entire buffer
+ggVG!uniq
+gg!uniq
+:1,$!uniq
+:%!uniq
+
+# The range may be established with visual mode or by specifying a range
+in command-line mode (after the colon).  
+
+# Vim has a built on Sort command that can be used to sort
+# on various parts of each line
+# At its simplest, do range-sort, or range-sort! to reverse-sort
+:1,$ sort
+
+										# Automatic Indentation (Beautiful Code)
+ggVG=
+# An absolute goodie1
+#break it down
+ggVG					# Visually select the entire buffer (beginning gg to end G)
+=							# Format selection.  Can be used on ANY selection
+# use set shiftwidth to adjust the level of indentation
+
+Text alignment
+V:ce				# Center text on page
+# break it down
+V 					# Activate Visual Mode on lines (and select a region)
+ce					# Center selection on screen
+
+:.,+3ri60 		# Select from cursor to 3 lines down 
+							# Right align on 60 characters wide
+
+gQ						# Reflow paragraph to 80 characters wide
+# But if you coding, it is easier just to use '='    
+
+# Useful tip
+:set paste 				# Disable automatic indentation
+# Do this just before you paste
+# Afterwards ...
+set nopaste  			# To carry on 
+
+# Copying, Yanking and Registers 
+
+#Example Vim's registers are must more elaborate than the standard clipboard
+# available on your standard OS
+# Whenever you delete, change, search, substitute, or yank text 
+# vim stores it in a register
+# The register we have been using up to now is the default regiser
+# There are 8 types of register
+# 48 total registers
+# You may delete, change, substitute, search or yank to any register
+
+# CHOOSE A REGISTER WITH A DOUBLE QUOTATION MARK
+# To yank a link into the register called a, type:
+"ayy
+#Break it down
+"a								# Use regiser a
+yy								# Yank (copy) current line
+
+"ap								# paste from resister a
+
+# Named registers
+"a-z
+"A-Z 
+#Uppercase registers append new text to their contexts 
+"" 								# The unnamed register. Contains the last deleted text
+
+# Whenever you delete text with 'd','c', 's' or 'x', or copy it with 'y', 
+
+# Numbered registes 1-9 always contain the text from the last delete
+# or change command, but you'll rarely use them. 
+
+:registers				# show content of all registers
+
+"+ 								# System clipboard
+
+# You can repeat your last change or yank with '.'
+# and you may specify a different count if you want ('2.') 
+
+@: 								# Repeat the last COMMAND LINE COMMAND
+#Break it down
+@									# Exectute text as command
+: 								# Use the : register as the text of the command
+
+# Macros
+#An example
+qadWWPjp
+# /Stop recording with q
+qa								Start a recording named a
+dW								# Delete a word
+w									# go forward one word
+p									# paste contents
+j									# move down one line
+q									# quit recoring
+
+@a								# Execute a macro called a
+5@a								# Do five times
+
+# Plugins
+# Vim can be extended with plugins, which are just vim scripts loaded automatically
+# There are two types of plugins
+global						# Used for all
+filetype					# Specific to a particular type of file 
+
+# Almost all vim plugins are releases in script section of 
+# vim.org
+# Most plugins are zip files which you unzip in your .vim dir
+# Pathogen makes things easier
+# Unzip to .vim/bundle directory
+# Check out Tim Pope's plugins (author of 'pathogen',
+# and many others)
+
+# Tim Pope
+# Git and Fugitive
+# A simple wrapper around the git command-line
+# tool, and a more integrated set of commands for use
+# in vim's command mode
+:Git push 		# Run commands right in Vim's command area
+:Gstatus			# View status in a separate split
+							# Stage and commit within Vim
+# Installed git-fugitive.  Possible also need git-vim
+:h fugitive
+:Git					# Run an arbitrary git command
+
+# Rails Vim
+# Tim Pope again
+# Installed 
+# Extensive enhancements for working with Ruby-on-Rails
+# Overrides built-in Vim featerus and adds others for navigation, tests, etc
+
+:gf 					# Jump to file customized for the Rails directory structure
+:Rake					# Run Rake tasks with Vim
+# If your cursor is over a class name such as 'User', hit 'gf' to jump to file
+# for that model.
+# Or, specifically jump to associated files with 
+:Rmodel
+:Rcontroller
+:Rview
+
+# Surround Plugin
+# Tim Pope
+# A super-goodie
+#Manipulate delimites such as XML/HTML tags,
+# quotes, or brackets.
+# Easily add a delimiter around existing text, change the delimiter,
+# or delete it altogether
+
+ cst 				# change surrounding tags
+ dst				# delete surrounding tags
+ Vs					# Add a tag aroud text
+
+## Addendum tgd
+# to add surounding tag, eg div
+css<div> 	goodie!
+# To change a h1 to a div, say
+/h1
+cst <enter>
+<div>
+# Note the absence of a colon!
+# similarly (no colon)
+dst
+# To surround with id tag - three ways
+VS<id>
+# 'S' is surround mode
+v$hS<id>
+yss<id> 		#Normal mode
+# Vim Documentation
+# One of its greatest assets
+:h 
+:help
+#Divided into two manuals
+#1 User manual
+#2 Reference manaul   (goes into nitty-gritty)
+:h autocmd
+# If not sure wha to look for, use autocompletion
+:h au<tab>
+# Every subject is tagged with one or more keywords in an alternate color
+# If your cursor is on a subject tag, can jump to it with 
+Ctrl-]						# Ctrl-right-bracket
+Ctrl-t, Ctrl-o		# Get back to where you came from
+
+#How to access local additions 
+
+:h
+#Now scroll down 
+# Plugins listed, but ONLY if you have read in docs with helptags
+:Helptags
+# Above (pathogen command) will auto read in helptags for all 
 # installed plugins
 
 # TGD VIM GOODIES
@@ -1311,3 +2200,491 @@ derek wyatt videos
          [2] g?          // no ':'
          [3] thomas dowling  // gubznf qbjyvat
 
+# installed plugins
+
+# TGD VIM GOODIES
+# To Delete from cursor to the end of file 
+dG
+# To delete from cursor to line 885
+d885G
+# To paste at end of line 
+# (a super-goodie from here)
+http://superuser.com/a/121364
+:nmap , $p
+# To open every file in a directory
+args: /path/to/dir/*
+# To run a macro on every file in directory 
+:bufdo normal @a
+# To add a buffer 
+# Insert a carriage return
+# See here: http://stackoverflow.com/a/1585463/499167
+CTRL-V CTRL-M
+#ctrl-v tells vim the next character should be inserted literally
+#ctrl-m is the keystroke for carriage return
+# May also need to use backslash ..
+:s/.../\^V^M/g
+#Remove LEADING white space (A real super-goodie)
+:%s/^\s\+
+# See here...
+http://vim.wikia.com/wiki/Remove_unwanted_spaces
+
+# Remove all lines except single lines (a goodie)
+:g/^\_$\n\_^$/d
+# Above from stackoverflow
+
+# Tabs 
+# To open each buffer file in new window
+:tab :sball
+:tab sball # at most six
+# without the tab modifier, opens each buffer is split view
+# See here
+http://stackoverflow.com/a/5483206/499167
+#To move between open tabs
+gt, gT, 1gt 2gt
+see here:
+http://stackoverflow.com/a/6832397/499167
+
+# Add a directory alias
+:command Cdscripts cd /home/username/.../Scripts
+# Must start with capital letter
+# See here
+http://stackoverflow.com/a/20011731/499167
+
+
+vim +/Choose <filename>
+vim +2 <filename>
+#Two Goodies
+# See here 
+http://www.thegeekstuff.com/2010/11/50-linux-commands/
+
+# Gridline tips
+# See here:  http://stackoverflow.com/a/11846256/499167
+set cursorline
+set cursorcolumn
+#also
+set nocursorline
+set nocursorcolumn
+
+# Print the name of the current file
+:echo @% #current filename
+
+
+# comment out text 
+#see here: http://stackoverflow.com/q/1676632/499167
+Ctrl-v 
+select block (using up-down-arrows)
+Shift-I (Capital I)
+insert # (or whatever)
+esc
+WAIT A SECOND
+
+
+
+#Command completion in Insert mode
+ctrl-p and ctrl-n
+
+# make symlink to vimo
+ln -s ~/acs_bash_github/vimod/vimo vimo 
+
+
+# retab vim goodie
+:%s/\t/  /g
+
+
+## To find closing tag
+v # enter visual mode
+it # inner tag
+# and
+vat # outer tag
+
+# notes on nerd 
+nerd #file explorer 
+ctrl-n # shortcut
+cs'"
+cs'<p>
+ds"
+cst<li>  # change surrounding tag
+yss<p>   # surround text by p tag 
+VS<p>
+
+#note that ctrl-n in INSERT mode toggles code completion.
+
+# Smash into vim, a  second look!
+
+c2/end # delete all code to second occurence of end
+d2w #delete 2 words
+I #inserts text at start of line
+w #forward one words
+<- H
+down J
+L ->
+K Up #(Up Kildare) 
+
+z code-folding (looks like a folded sheep of paper)
+
+zt #scrole to top
+zz #middle
+zb #bottom
+g-ctrl-g #Where you are in document GOODIE
+
+ma #mark cursor position
+`a
+
+`0 #position of cursor when last exited vim. 
+`` or '' #to jump back to where you were 
+#period is  location of last change. 
+:marks
+c3w # change three works
+J #join lines
+gJ #join without inserting spaces
+(,) #beginning, end of sentence
+{,} #ditto paragraphs 
+Vit
+o - #toggle starting/end position,
+
+
+:%s/h1//n
+:%s/h1/gn ## goodie
+to change only current line, leave out the '%'
+V/body
+:g/class/p  g/re/p  or grep 
+:g/class/#  show line numbers
+:g/hello/y  #yank
+:g/^$/d # delete blank lines
+use :v instead of :g to get lines that do not match pattern. 
+
+ctrl-n (ctrl-n, ctrl-p) code completion 
+"0 contains text from last yank! 
+so paste with "0p
+V25gg
+V/bacon  ## two goodies 
+:g/class/p  # all lines that match a pattern.
+:g/class/#
+/\vSidebar #Very magic search, equivalent to egrep (where magic is equivalent to grep) 
+
+>> indent in normal mode 
+
+ggVG ! grep hello/
+:ce center
+" double quotation mark selects register
+"ayy
+"ap
+uppercase registers append text to context!
+"" unnamed register #always contains the last deleted text 
+yss<id> # surround with id
+
+
+# Mallett goodies
+
+tilde toggles case in normal mode
+gUU # make line  uppercase
+g~~ # make line lowercase
+e! revert to last changes 
+4y # copies 4
+vim +1064 smash_into_vim_psight_stewart_andrew  # open on line number goodie
+vim +/^tilde smash_into_vim_psight_stewart_andrew
+
+:x # the same as :wq 
+
+
+# More Mallett Goodies
+
+:% g/foo/m$  # move all lines containing 'foo' to end of document 
+"add # cut from current line to end of the 'a' register
+:127,215 s/foo/bar
+
+:.,$j # meaning "from the current line to the last line, join them all into one line"  
+:%  # is synonymous with :1,$ (all the lines)
+:.,$v/bar/d  # "from here to the end of the file, delete any lines which DON'T contain the string 'bar' ".
+
+:% g/foo/s/thomas/Thomas/g   # for all lines containing 'foo' substitute 'thomas' with 'Thomas'
+
+# r! ls -lart # GOODIE read the RESULTS of a command!! 
+1G!Gsort # equivalent to :1,$!sort  ##
+ ! (bang) and :...! (ex bang) even more powerful than r! 
+ 
+The + command line option to vi and Vim is normally used to start the editing session 
+at a given line number. Can follow the + by any valid ex command/expression
+@ executes the contents of a register as if it were a vi or ex command. (obscure)
+
+vib  # select text within parentheses
+vi"  # select text within double quotes 
+:r! cat article-template-bibtex.tex  # read in template 
+
+% match tags (matchit plugin)
+
+"+p  paste from clipboard in vim a
+"+y  yank currently selected code into system keyboard.  # goodie
+ctrl-x ctrl-o (*works with sass*, code completion)
+edit (*do no specify a file name*) update current file (ie refresh)
+:edit! (force reload, but loose any changes) 
+e and e! also work. 
+:bufdo e (*Reload all buffers)
+
+
+// comment and un-comment  // Nerd commenter plugin
+vim [count]<leader>cc //comment
+    [count]<leader>c<space> uncomment
+
+Indent trick  // see https://stackoverflow.com/a/235876/499167
+ma at beginning // mark
+scroll down to end of what you want to indent
+>'a
+
+windo diffthis
+:vnew  
+
+
+vim insert empty line after } in compressed css
+:%s/}/\0\r/g
+:%s/}/&\r/g
+see here https://stackoverflow.com/a/15000936/499167
+%s/;/&\r/gc  // insert space BEFORE semicolon
+
+
+Fold example
+zf11j //fold 11 lines from cursor
+      // https://stackoverflow.com/questions/2362914/fold-function-in-vim
+
+to fold at curly braces: zf% (a goodie)
+
+// Paste into substitution command
+
+yank character or text
+;s/<Ctrl-R><"> // to paste text, Ctrl-R, followed by double quotes. 
+// a goodie
+
+Write a vim script
+// see here
+http://www.east5th.co/blog/2017/10/16/formatting-with-vim-scripts/
+
+create a script file called myscript.vim
+:%s/dog/cat/g
+now execute
+vim -s myscript.vim file-to-be-edited
+//save vim buffer.
+//Goodie
+
+or, from within vim, :source script.vim.  
+
+!node %:p   // open node  with current file //s is current buffer
+// :p full path to curent file
+
+In INSERT mode: // from 'let vim do the typing' video
+ctrl-R <register name> //insert contents of register
+                       // and . <dot> repeats edit
+ctrl-R . // dot register contains whatever text inserted last time in insert mode. 
+ctrl-a // also does the same thing (repeats insersion)
+
+Completion (no plugins)
+ctrl p // < p > for previous //default keybinding for completion
+ctrl n // < n > for next
+
+ctrl-[ is th same as <esc>
+
+still in INSERT mode
+
+ctrl-x ctrl-l //insert a line // A goodie //Make sure set: nopaste !!
+ctrl-x ctrl-f // bring up a list of filenames // another goodie
+ctrl-x ctrl-[ // insert a tag 
+    // ctrl-x is completion mode
+ctrl-x ctrl-p // change the quick brown fox to 'the slow ...' 
+ctrl-x ctrl-o // omnicompletion // a super goodie
+
+// see http://georgebrock.github.io/talks/vim-completion/
+
+CTRL-G // show location in file and file status // goodie from vimtutor
+
+set hsl is // set highlight seach and incremental search
+    // to turn off until next searh :nohls  
+
+CTRL-D // command completion from COMMAND line // :e CTRL-D 
+
+CTRL-W  // Jump to another window
+
+To substitute from a register:  
+s/<c-r>a/<c-r>b/gc  //where <c-r> is CTRL-R (which brings up ")
+
+vim to reverse the postion of two split windows: ctrl-w ctrl-r 
+:echom line('$')  // echo the number of lines in a file
+to resize vertical splits to same size ctrl-w = 
+
+ctrl-w q delete a split
+Ctrl-w t Ctrl-w H change 2 vertical splits to horizontal
+Ctrl-w t Ctrl-w K change 2 horizontal splits to vertical
+!! better 
+:ball
+:vertical ball 
+
+:ec system('wc -c ', "==============")
+:args //get a list of open buffers
+#wincmd
+instead of ctrl-w = ,can use :wincmd = 
+
+#Colorizer
+:set t_Co=256 
+:scriptnames 
+:r! ls --color -l
+:ColorHighlight
+:ColorClear
+:ColorContrast //recycle through
+
+echo bufname('myfile')  // match pattern  #goodie
+
+let cc = system('ls')  // get output of shell command as string
+
+Command and Search History
+
+use q: or q/
+paste clipboard as ex command <ctrl-R>+
+to copy ex command to clipboard, use q: and then "+yy
+
+:s/<.\{-}>//g  //vim non-greedy search to match html tag
+
+// GOTO 2013. Roy Osherove
+viw  // select whole word from within word // then 'c' to change
+diw    // delete whole word from within word
+ctrl-v then hkjl then c // to change ever letter in column for eg 
+        // good.ie.  // on linux (but not vscode) presss esc 
+shift -c and d$ seem to be the same thing in VScode (but not linux!)
+
+// to add space before multiple lines 
+ 
+  ctrl v // use j and k  to select // I (capital I!) <space> <esc>
+  OR:
+  ctrl v // use j and k to select // :normal I<space> <enter>
+
+
+fc  //edit command in vim and then run!
+fc -l
+
+bind '"\C-e": edit-and-execute-command' //ctrl-e// edit command in vim!! 
+                                        //https://unix.stackexchange.com/a/459442/139349
+alias  r='fc -s' // 'r cc' run last cmd begins with `cc' // 'r' re-execute last command.
+
+---// begin increment a number--|
+
+Increment a number
+
+CODE
+    (1) Ctrl A increase by 1
+    (2) Ctrl X decrease by 1
+    (3) 10 Ctrl A increase by 10
+    (4) for (1) (2) etc AUTOMATICALLY increase all by 1.
+        :.,$g/(\d)/exe "normal! \<C-a>"  // a goodie 
+
+REFERENCES
+    (1) https://vim.fandom.com/wiki/Increasing_or_decreasing_numbers
+    (2) https://stackoverflow.com/questions/10534130/how-do-you-increase-a-number-directly-under-the-cursor
+
+--// end increment a number --|
+
+
+--// At least one vim trick you didnt know --|
+
+  https://www.hillelwayne.com/post/intermediate-vim/
+
+     (1) In insert mode use ctrl-r to get "
+
+     (2) ctrl-r= gives expression register. 2+2 for example
+
+     (3) q: opens a list of commands 
+
+     (4) expression register example 
+
+        <ctrl-r>=system('ls');   // inserts contents of ls (insert mode)
+
+--// expression register
+
+https://stackoverflow.com/questions/7027741/what-is-the-purpose-of-the-expression-register
+
+great video 
+
+https://vimeo.com/4446843 "The vim expression register"
+
+See also http://derekwyatt.org/vim/tutorials/advanced/
+
+derek wyatt videos
+
+--// fuzzysort fzf FZF
+
+    (1) to open a file in vim from command line 
+
+        [1] vim $(ls | fzf) 
+        [2] vim $(ftz)
+        [3] vim <ctrl-t>    // a goodie
+
+    [2] to use fzf from within vim 
+
+         [1] :FTZ
+         [2] :F 
+
+   --// Rot-13
+         [1] select text
+         [2] g?          // no ':'
+         [3] thomas dowling  // gubznf qbjyvat
+
+// read in an external file
+         [1] :r <filename> // at cursor position
+         [2] :0r <filename> // at beginning
+         [3] :$r <filename  // at end of file
+
+//-- goodies from History and effective use of Vim
+// https://begriffs.com/posts/2019-07-19-history-use-vim.html?hn=3
+
+    [1] :w >>foo 	append the whole buffer to a file
+    [2] :.w >>foo 	append current line to a file
+    [3] :$r foo 	read foo into the end of the buffer
+    [4] :0r foo 	read foo into the start, moving existing lines down
+    [5] :.,$w foo 	write current line and below to a file
+    [6] :r !ls 	read ls output into cursor position
+    [7] :w !wc 	send buffer to wc and display output
+    [8] :.!tr ‘A-Za-z’ ‘N-ZA-Mn-za-m’ 	apply ROT-13 to current line
+    [9] :w|so % 	chain commands: write and then source buffer
+    [10] :e! 	throw away unsaved changes, reload buffer
+    [11] :hide edit foo 	edit foo, hide current buffer if dirty 
+
+    [12] vim diff
+         echo "hello, world" > h1
+         echo "goodbye, world" > h2
+
+         vim h1 h2
+
+         :all.   // from within vim
+         :difft  // in top window 
+         :difft  // bottow window // swtich with CTRL-W CTRLW
+         :diffg[et]  // to get 'hello'
+         :diffp[ut]  // to send 'goodbye'
+         ]c or [c    // move between chunks (if greater than 1)
+    [13] set mouse=n // now in normal mode d<click> 
+                     // and y<click>
+    [14] set virtualedit=all
+
+         a b
+         c d
+         e f
+         g h
+
+         // move to the upper-left corner of a column
+         // CTRL-V  // Invoke visual block
+         // select my moving cursor
+         d
+         // paste whereever 
+         // see also https://www.uvm.edu/~gcd/2008/12/virtualedit-in-vim/
+        // goodie
+
+    [15]  :help ins-completion
+
+    1. Whole lines						|i_CTRL-X_CTRL-L|
+    2. keywords in the current file				|i_CTRL-X_CTRL-N|
+    3. keywords in 'dictionary'				|i_CTRL-X_CTRL-K|
+    4. keywords in 'thesaurus', thesaurus-style		|i_CTRL-X_CTRL-T|
+    5. keywords in the current and included files		|i_CTRL-X_CTRL-I|
+    6. tags							|i_CTRL-X_CTRL-]|
+    7. file names						|i_CTRL-X_CTRL-F|
+    8. definitions or macros				|i_CTRL-X_CTRL-D|
+    9. Vim command-line					|i_CTRL-X_CTRL-V|
+    10. User defined completion				|i_CTRL-X_CTRL-U|
+    11. omni completion					|i_CTRL-X_CTRL-O|
+    12. Spelling suggestions				|i_CTRL-X_s|
+    13. keywords in 'complete'				|i_CTRL-N| |i_CTRL-P|
