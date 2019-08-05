@@ -2688,3 +2688,61 @@ derek wyatt videos
     11. omni completion					|i_CTRL-X_CTRL-O|
     12. Spelling suggestions				|i_CTRL-X_s|
     13. keywords in 'complete'				|i_CTRL-N| |i_CTRL-P|
+
+
+//-- Registers revisited
+    (1) Every register accessed with double-quote before name. 
+        eg "ry  // yank to 'r' register
+    (2) Access registers in INSERT mode with <ctrl-r reg-name>
+    (3) :reg // see all regs
+        :reg + // see contents of '+' register (clipboard)
+        :reg a b c / see contents of a b c regs 
+    (4) UNNAMED REGISTER is "
+        yanked and deleted text placed here
+    (5) NUMBERED REGISTERS 
+        [1] auto populated by vim 
+        [2] "0 will always have the content of the latest yank
+        [3] Others will have last 9 deleted text, 
+            "1 is newest, 
+            "9 is oldest.
+    (6) READ-ONLY REGISTERS
+        [1] ".         // Last inserted text
+        [2] "%         // Current file path
+        [3] ":         // most recent executed COMMAND
+        [4] "#         // alternate file. think of as last file edited
+                       //  # on own searches backward for wot under cursor
+                       //  * searches forward
+    (7) let is used to write to a register
+        [1] let @+=@% // add current file path to clipboard reg
+
+    (8) Use uppercase name to APPEND to register. 
+
+    (9) If use :%s/foo/bar
+        Now, to repeat, use @:
+
+    (10) EXPRESSION REGISTER 
+        [1] "=
+        [2] In Insert mode, use <Ctrl-r> 
+            <Ctrl-r>=
+            <Ctrl-r>=system('ls')<enter>
+        [3] Can also be used with search (/)
+            /thomas
+            %s/<Ctrl-r>//mick   
+
+    (1) MACROS
+        [1] to append semicolon to macros called w
+            :let @W='i;'
+            // uppercase appends to register
+
+        [2] to edit a register (macro)  
+            :let @w='<Ctrl-r w>, 
+              // change what you want
+              // close the quotes in the end.
+              // don't forget about the opening quote! 
+
+
+
+REFERENCES
+    (1) Vim registers: The basics and beyond
+        https://www.brianstorti.com/vim-registers/
+
