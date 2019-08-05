@@ -2746,3 +2746,23 @@ REFERENCES
     (1) Vim registers: The basics and beyond
         https://www.brianstorti.com/vim-registers/
 
+//-- Operators 
+
+    (1)  gu  lowercasing
+         gu4j  // lowercase 4 lines
+    (2)  gU  uppercasing
+         gU4j  // uppercase 4 lines
+    (3)  g~    // swap case 
+         g~4j
+    (4)  g?    // rot-13ing 
+         g?4j
+    (5)  gq   // reflows text to textwidth characters // Goodie!
+         :set textwitdh=70
+         // select text 
+         gq    // !!
+
+
+
+REFERENCES
+    (1) The Compositional Nature of Vim - Ismail Badawi
+http://ismail.badawi.io/blog/2014/04/23/the-compositional-nature-of-vim/
