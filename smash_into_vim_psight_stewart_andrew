@@ -2760,8 +2760,12 @@ REFERENCES
          :set textwitdh=70
          // select text 
          gq    // !!
+    (6) _ refers to current line. dd is the same as d_
+        yip // yank  a paragaraph
+        guip // lowercase a para 
+        gqip // format a para
 
-
+Thomas Dowling Prosperous Naas County Kildare
 
 REFERENCES
     (1) The Compositional Nature of Vim - Ismail Badawi
