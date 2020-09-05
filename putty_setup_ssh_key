@@ -19,3 +19,25 @@ To get rid of passphrase requirement, use pageant (part of putty), load key (in 
 To get rid of passphrase requirement on powershell, use
 ssh-agent
 ssh-add
+
+IN ADDITION, Sept 2020, to get rid of error ssh-agent not running (Powershell) 
+
+(written up as separate doc in notepad_npp_docs folder as:
+solve_ssh_agent_not_running_on_powershell.txt)
+
+	
+Check service has been disabled by running
+
+    Get-Service ssh-agent | Select StartType
+	
+Solve by executing the following:
+
+
+Get-Service -Name ssh-agent | Set-Service -StartupType Manual
+	
+	
+See here 
+
+ 
+    https://stackoverflow.com/questions/52113738/starting-ssh-agent-on-windows-10-fails-unable-to-start-ssh-agent-service-erro
+	
