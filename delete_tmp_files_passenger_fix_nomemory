@@ -1,0 +1,13 @@
+To delete passenger tmp files (and circumvent too many arguments error) 
+
+FROM /tmp directory // !important
+
+sudo find . -name "passenger-*.html" -print0 | xargs -0 sudo rm  // remove 
+
+see here: https://stackoverflow.com/a/11289567/499167
+
+--- to list biggest directories (from within current directory)
+
+sudo du -hd 1 | sort -h  // goodie
+
+cd /  // and then run above for example

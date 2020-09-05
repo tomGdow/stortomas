@@ -1,0 +1,28 @@
+
+EXAMPLES
+
+<body onload="decToOtherBases(event)">
+  <h4>Binary to Decimal and Hexadecimal</h4>
+    <form action="#" onsubmit="return false">
+      <label for="decimal">Decimal Number</label>
+      <input type="number" 
+             id="decimal" 
+             oninput="decToOtherBases(event)"
+             value=0><br>
+      <span id="output"></span>
+    </form>
+  <script>
+  function decToOtherBases(event){
+    var myinput=document.getElementById('decimal').value;
+    if (myinput===''){
+      document.getElementById('output').innerHTML='';
+    } 
+    else {
+      var str = `Decimal ${myinput} is ${parseInt(myinput, 10).toString(2)} in binary`;
+      str+=` and ${parseInt(myinput, 10).toString(16)} in hexadecimal`;
+      document.getElementById('output').innerHTML=str
+      event.preventDefault()
+    }
+  }
+  </script>
+</body>

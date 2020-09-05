@@ -8,16 +8,64 @@ get-childitem "C:\Users\Thomas\Books" -recurse | where {$_.extension -eq ".pdf"
 2 scp 
 
 3 Use vim to 
-(a) double quote all lines. Used the following macro
+
+---------------updated------------
+
+FIRST (d) remove all blank lines
+
+g/^$/d
+
+SECOND (x) Insert line numbers 
+:%s/^/\=printf('%-6d', line('.'))
+or, more recently,
+
+
+%s/^/\=printf("<a href\=\"vimtips.html#%-d\">  %d  ", line('.'), line('.'))
+
+%s/^/\=printf("<p id\=\"%-d\">  %d  ", line('.'))
+
+
+
+
+THIRD (a) Escape all backslashes
+
+%s/\\/\\\\/g
+
+
+FOURTH and FIFTH (b+c) escape all '[' and ']' (TWO of these)
+%s/\[/\\\[/g
+%s/\]/\\\]/g
+
+
+SIXTH (c) in addition escape all "
+%s/"/\\"/g
+Escape all backslashes
+
+finally, now
+
+SEVENTH (d) double quote all lines. Used the following macro
 yss"$a,^[ 
-(b) Escape all backslashes
 
-s/\\/\\\\/gc
+VG normal @a
+
+%s/^/\=printf("<a href\=\"vimtips.html#%-d\"><span>%d<\/span>", line('.'), line('.')) 
+
+FINALLY, note there are two scripts available, just use 
+source to read them in
+
+:e ~/acp/fooziesort/vimscripts/vimtips-to-html.vim
+:e ~/acp/fooziesort/vimscripts/modify_raw_vimtips.vim
+
+USE THEM! 
 
 
-(c) escape all '[' and ']'
-s/\[/\\\[/gc
 
+------------------ finish update ---------------
+vimmies
+command and search history
+use q: or q/
+paste clipboard as ex command <ctrl-R>+
+to copy ex command to clipboard, use q: and then "+yy
 
 Installed zurb with foundation new, then copied relevant dependencies 
 to gulpfile.js, then disgarded
@@ -53,3 +101,5 @@ http://fuzzy.tomgdow.com/
 https://github.com/tomGdow/fooziesort
 
 based on https://github.com/farzher/fuzzysort
+
+PUSHED to STORTOMAS 

@@ -1,0 +1,14 @@
+
+1. Create a backup of the corrupt directory:
+cp -R bin bin-backup
+2. Make a new clone of the remote repository to a new directory:
+git clone ssh://tomgdow@tomgdow.com/home/tomgdow/bin.git bin-newclone
+3. Delete the corrupt .git subdirectory:
+rm -rf bin/.git
+4. Move the newly cloned .git subdirectory into foo:
+mv foo-newclone/.git foo
+5. Delete the rest of the temporary new clone:
+rm -rf foo-newclone
+
+see here: git remote loose object
+https://stackoverflow.com/questions/4254389/git-corrupt-loose-object
