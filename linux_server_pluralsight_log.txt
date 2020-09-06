@@ -146,6 +146,19 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgres
 sudo -i -u postgres
 Did not install further
 ----------- end May 2018 comment ---- 
+
+----Sept 2018 HP Pavilion comment ----
+
+Installed postgres on HP Pavilion by Digital Ocean procedure
+essentially as done for Lenovo in May 2018, except worked from
+this website (Ubuntu 20):
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04
+
+did not go further than 
+sudo -i -u postgres
+
+--end Sept 2018 comment ---
+
  
  #OK installed.
  #Initialize db
