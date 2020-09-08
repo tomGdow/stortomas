@@ -1,0 +1,109 @@
+Lenovo 
+    IP addresses for xuxviii: hostname-I
+        10.0.2.15 
+		172.28.128.9 
+		172.17.0.1
+		
+    Adapter 1: NAT
+    Adapter 2: Host only adapter (VirtualBox Host-Only Ethernet Adapter #3)
+
+    on xuxviii (Lenovo), in /etc/NetworkManager/NetworkManager.conf/,
+        managed=true
+	
+	VirtualBox -> File ->  HostNetworkManager
+	
+	    VirtualBox Host-Only Ethernet Adapter #3
+		
+		    IP address:  172.28.128.1
+			Net Mask:    255.255.255.0
+	
+	/etc/network/interfaces
+	
+	    # Host-only network interface #2 
+		    auto enp0s8
+            iface enp0s8 inet static
+            address 172.28.128.9
+            netmask 255.255.255.0
+            network 172.28.128.0	
+            broadcast 172.28.128.255
+
+
+Hp Pavilion
+    IP address        //Initial Setup
+	    192.168.1.13    //   Vodafone 5C8B
+		192.168.56.104  //   Vodafone 5C8B 
+		
+		172.20.10.5 
+		192.168.56.104 // mobile network
+		
+		
+		Adapter 1 Bridged Adapter
+		Adapter 2 VirtualBox Host-Only Ethernet Adapter
+
+    on xuxx (HP Pavilion), in /etc/NetworkManager/NetworkManager, 
+        managed=false //initial setup
+		
+	VirtualBox -> File -> HostNetworkManager 
+        VirtualBox Host-Only Ethernet Adapter
+            192.168.56.1/24	
+
+Methods (HP Pavilion)
+    1 In  /etc/NetworkManager/NetworkManager.conf
+    change managed=false to managed=true
+	
+	2 Imported /etc/network/interfaces file (scp) from lenovo
+	  and added to /etc/network/interfaces on hp-pavillion. 
+	  but changed static ip to 172.28.128.10 
+	  (when it was 172.28.128.9, ie the same as xuxviii on Lenovo,
+	  lost internet connectivity) 
+    
+    3 sudo service network-manager restart 
+	
+	4 Updated .ssh/config on windows OS (tomgxuu)
+	
+	5 Updated hosts file on windows (xuu)
+	
+	6. IN ADDITION, on VirtualBox,-> File -> Host Network Manager
+       changed ipv4 address to 172.28.128.1 (from 192.168.56.1)
+	  
+	
+Result
+	1 After reboot of xuxx vm, 
+	  
+	  on vodafone 5C8B
+	  192.168.1.6 
+	  172.28.128.10
+	  
+	  on iphone/personal hotspot
+	  172.20.10.5 
+	  172.28.128.10
+	  
+	  
+	  
+
+	  
+Addendum 
+    Relevant Part of /etc/network/interfaces
+	
+	# Host-only network interface #2                                                                                        auto enp0s8
+    iface enp0s8 inet static
+    address 172.28.128.10
+    netmask 255.255.255.0
+    network 172.28.128.0
+    broadcast 172.28.128.255
+	
+	
+Addendum 2
+
+    Relevant Part of .ssh/config
+	
+	   Host tomgxuu                                                                                                                    HostName  192.168.1.13
+            User tomgdow
+            Port 22
+	
+
+Addendum 3 Methods to ssh to xuxx
+
+    1 ssh tomdow@xuxx  (xuxx is name of computer, chosen on xubuntu setup)
+	2 ssh tomgdow@xuu   (hosts_windows) 
+	3 ssh tomgxuu
