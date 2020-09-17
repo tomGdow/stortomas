@@ -1,0 +1,81 @@
+Set up Ubuntu 20.04 Server (ubbu)
+
+Methods (Virtual Box Set Up)
+
+    iso:
+	    downloaded ubuntu server 20.04  // On Lenovo, due to hash-mismatch error
+	    ubuntu-20.04-live-server-amd64.iso
+
+    name: tomgdow
+    username: tomgdow
+    password: My
+    server-name: ubbu  (used to 'talk' to other machines)
+
+    2MB ram
+    50G hard disk
+	
+	During setup, installed ssh-server
+	    git-hub ssh key (allowing authentication)
+		
+	
+	Also installed (during setup)
+	    postgres
+		powershell  //didnt install !!
+		doctl (digital ocean command line interface) 
+		stress-ng
+		
+Methods (Post reboot)
+
+    Working from:
+	    /stortomas/linux_server_pluralsight_log
+	
+	sudo apt-get update
+	sudo apt-get upgrade 
+  
+    sudo apt install lynx
+	sudo apt install ripgrep
+
+    cd /etc/ssh and fixed banner as per Jim Pickrell, Pluralsight (linux_server_pluralsight_log)
+	Fixed as per previous method
+	sudo service ssh restart
+	ssh tomgdow@localhost
+	All OK! 
+	
+    sudo apt install apache2
+	
+    did NOT install vsftp
+	
+	sudo apt install sqlite
+	sqlite
+	.quit
+	
+	sudo apt install mysql-server
+	sudo mysql_secure_installation
+	Root password  My
+	
+	Installed postgresql as per digital ocean proceduce
+	(https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04)
+	did not take further than 
+	sudo -i -u postgres
+	psql
+	        
+	
+	sudo apt install nodejs
+	
+	git is installed! 
+	
+	192.168.1.6
+	
+	$ sudo bash
+    # mkdir /etc/gcrypt
+    # echo all >> /etc/gcrypt/hwf.deny
+	
+	
+	
+	
+
+References 
+   (A real goodie) // Hash mismatch problem
+
+    https://askubuntu.com/questions/1235914/hash-sum-mismatch-error-due-to-identical-sha1-and-md5-but-different-sha256
+

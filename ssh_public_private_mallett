@@ -1,4 +1,4 @@
-#ssh and private key set up Andrew Mallett
+oosh and private key set up Andrew Mallett
 
   # Allow Root login
 	# Change PermitRootLogin to 'no' in /etc/ssh/sshd_config ## as root 
