@@ -2770,3 +2770,13 @@ Thomas Dowling Prosperous Naas County Kildare
 REFERENCES
     (1) The Compositional Nature of Vim - Ismail Badawi
 http://ismail.badawi.io/blog/2014/04/23/the-compositional-nature-of-vim/
+
+
+Pipe to vim (goodie)! 
+
+    Running vi or vim with '-' as an argument makes it read the file
+    to edit from standard input
+
+
+REFERENCE
+    (1) https://unix.stackexchange.com/questions/102089/how-to-pipe-the-result-of-a-grep-search-into-a-new-vi-file
