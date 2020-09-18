@@ -61,6 +61,9 @@ Methods (Post reboot)
 	        
 	
 	sudo apt install nodejs
+	sudo apt install network-manager
+	sudo apt remove network manager
+	did NOT change ip to 172.28..  (in fact did, but didnt work!)
 	
 	git is installed! 
 	
@@ -71,6 +74,16 @@ Methods (Post reboot)
     # echo all >> /etc/gcrypt/hwf.deny
 	
 	
+   sudo apt install encfs
+   
+   All ok but WOULD NOT allow decryption of visible folder, saying password mismatch
+   Using encfs -f -v  encodeddir decrypteddir on encryped folder with known password ('tom')
+   traced this down to hash mismatch!!
+   At this stage, turned OFF Virtual Machine Platform (in 'Turn Windows Features On/Off') 
+   All Ok now! 
+   
+	
+	
 	
 	
 
@@ -78,4 +91,8 @@ References
    (A real goodie) // Hash mismatch problem
 
     https://askubuntu.com/questions/1235914/hash-sum-mismatch-error-due-to-identical-sha1-and-md5-but-different-sha256
+	
+	hash mismatch problem apparently goes if turn off Virtual Machine Platform ('Turn windows features on/off)
+	
+	
 

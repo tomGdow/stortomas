@@ -1,9 +1,11 @@
 Method
     1. On Receiving computer (on Powershell command line, for example)
         
-       nc -l -p 1234 > filename_of_file 
+         nc -l -p 1234 > filename_of_file 
 
-     2  On Sending computer (on CMD command line) 
+    2. On Sending computer (on CMD command line) 
+       
+         nc -w 3 [destination] 1234 < out.file
 
         
 
