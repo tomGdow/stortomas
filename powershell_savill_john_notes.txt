@@ -1,0 +1,65 @@
+[intptr]::size //8 for 64-bit
+get-process | format-list //ft is alias
+get-help get-process -online
+update-help
+get-command -noun process
+get-member (of object) 
+Get-NetAdapter // goodie
+$psitem is the same as $_ (but in ps3 and higher, both may often be left out!) 
+? is just an alias for where-object! 
+avoid write-Host (breaks pipeline) in favour of write-output 
+variables in double quotes are replaced by values (not in single quotes) 
+
+
+Get-Command -noun service
+Get-Alias
+Get-Member //key
+
+
+New-Item -Type file -Name 'tomgdow.txt' -value 'hello tom's
+
+$tom=@"
+hello 
+I used to do this
+in ruby
+"@
+
+To run a block of code EITHeR
+.{1+1}
+&{1+1}
+
+& notepad //correct way!  
+& creates a mini-prodedure 
+
+$myvar=2
+100,100 | %{$myvar+=$_}     // % is for-each-object alias
+$myvar //202               //!!
+
+
+1,100,2 | Where-Object {$_ -gt 1} | %{$mv+=$_}  //data structure is array!
+
+Kevin Marquette
+
+    https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/?utm_source=blog&utm_medium=blog&utm_content=indexref
+
+    $data =Write-Output one two three four 
+    $data -is [array] //True
+	
+	
+	
+    $dirm= Get-item 'C:\Windows\mma'
+    $dirm.creationTime
+    10 September 2020 01:13:58
+	
+	"Time: $dirm.creationTime"   // won't work as expected	
+	"Time: $($dirm.creationTime)"
+	
+Example
+    $message2='Hello $name'  //Note single quotes
+	$nameList='Tom Dowling', 'Kevin Marquete'
+	foreach($name in $nameList) {
+	  $ExecutionContext.InvokeCommand.ExpandString($message2)
+	}
+	// Hello Tom Dowling
+	// Hello Kevin Marquete
+	
