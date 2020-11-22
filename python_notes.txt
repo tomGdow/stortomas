@@ -1,0 +1,27 @@
+Hilton Giesenow Intro to Visual Studio (Skillsoft video) 
+
+python -V  (note capital)
+
+Guido van Rossum in the late eighties and early nineties
+ at the National Research Institute for Mathematics and Computer
+ Science, Netherlands
+ 
+Multiplication higher precedence than add substract *>+
+4+3*8 // 28
+3*8+4 // 28
+
+In Python, a variable must be assigned an intial value ('initialized')
+in the statement that declares it 
+a=8
+a=b=c=9
+a,b,c = 1,2,3
+dynamic typing //loosely typed 
+String values must be enclosed within quotes
+
+Comments in python: #
+Multi-line comments: enclose in triple quotation marks
+
+
+
+
+

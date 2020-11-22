@@ -1,0 +1,7 @@
+REFERENCE
+    https://medium.com/@hackf5/how-to-enable-anaconda-in-powershell-7-on-windows-394ba62c3f9c
+
+KEY COMMAND
+   // from with ANACONDA prompt (get to from start windows menu)
+
+   conda init powershell

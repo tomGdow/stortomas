@@ -1,0 +1,27 @@
+tips
+aabl a-area-base-link
+list-style: tip (type image position)
+li can take value attr, must be integer
+definition list: ltd
+audio/video source:src
+picture     source:srcset
+How kind of you to provide subtitles! 
+MONacO Monaco is mono!
++~ adj-gen sibling!
+
+
+
+
+
+
+
+
+take a look at, if time
+button
+output
+
+
+Measureup Mysweet$iden0213  // riddled
+
+font
+float

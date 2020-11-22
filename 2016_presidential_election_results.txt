@@ -1,0 +1,65 @@
+Alabama 		9		Trump						Montgomery		AL	
+Alaska			3		Trump						Juneau			AK
+Arizona			11		Trump						Phoenix			AZ
+Arkansas		6		Trump						Little Rock		AR
+California						55		Clinton		Sacramento		CA
+Colorado					 	9		Clinton		Denver			CO
+Connecticut						7		Clinton		Hartford		CT
+Delaware						3		Clinton		Dover			DE
+D.C 							3		Clinton		Washington
+Florida			29		Trump						Tallahasse		FL
+Georgia			16 		Trump						Atlanta			GA
+Hawaii							3		Clinton		Honolulu		HI	
+Idaho			4		Trump						Boise			ID
+Illinois						20		Clinton		Springfield		IL
+Indiana			11		Trump						Indianapolis	IN
+Iowa			6		Trump						Des Moines		IA
+Kansas			6 		Trump						Topeka			KS
+Kentucky		8		Trump						Frankfurt		KY
+Louisiana		8		Trump						Baton Rouge		LA
+Maine							2		Clinton		Augusta			ME
+Maine-1							1		Clinton
+Maine-2			1		Trump
+Maryland						10		Clinton		Anapolis		MD
+Massachusetts					11		Clinton		Boston 			MA
+Michigen 		16		Trump						Lansing			MI	
+Minnesota						10		Clinton		St Paul			MN
+Mississipi		6		Trump						Jackson			MS		
+Missouri		10   	Trump						Jefferson City	MO
+Montana			3		Trump						Montana			MT	
+Nebraska		2		Trump						Lincoln			NE
+Nebraska-1		1		Trump
+Nebraska-2		1		Trump
+Nebraska-3		1		Trump
+Nevada							6		Clinton     Carson City		NV
+New Hampshire					4		Clinton		Concord			NH
+New Jersey						14		Clinton		Trenton			NJ
+New Mexico						5		Clinton		Santa Fe		NM
+New York						29		Clinton		Albany			NY
+North Carolina 	15 		Trump						Raleigh			NC
+North Dakota 	3		Trump						Bismark			ND
+Ohio			18		Trump						Columbus		OH
+Oklahoma		7       Trump						Oklahoma City	OK
+Oregon			                 7		Clinton		Salem			OR
+Pennsylvania	20		Trump						Harrisburg  	PA
+Rhode Island					 4		Clinton 	Providence		RI
+South Carolina	9		Trump						Columbia        SC
+South Dakota 	3		Trump						Pierre			SD
+Tennessee		11		Trump						Nashville		TN
+Texas			36		Trump						Austin			TX
+Utah 			6		Trump						Salt Lake City  UT
+Vermont 						 3		Clinton		Montpelier		VT
+Virginia						13		Clinton		Richmond		VA
+Washington(State)				 8		Clinton		Olympia			WA
+West Virginia    5		Trump						Charlston	    WV
+Wisconsin		10		Trump	         			Madison			WI		
+Wyoming			3		Trump						Cheyenne		WY				
+
+Trump    304
+Clinton  227
+
+REFERENCES
+https://suncatcherstudio.com/uploads/patterns/us-maps/png-medium/usa-map-states-capitals-color.png
+
+
+
