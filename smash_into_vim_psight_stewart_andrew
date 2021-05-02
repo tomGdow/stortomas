@@ -2786,6 +2786,8 @@ Insert/Append from Vim Command Line
 :i 
 Insert text from vim command line
 <Ctrl-C> inserts text.
+:a 
+Append text from vim command line
 
 REFERENCE
     (1) Noticed by tgd
