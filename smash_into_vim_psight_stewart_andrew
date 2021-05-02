@@ -2780,3 +2780,12 @@ Pipe to vim (goodie)!
 
 REFERENCE
     (1) https://unix.stackexchange.com/questions/102089/how-to-pipe-the-result-of-a-grep-search-into-a-new-vi-file
+
+Insert/Append from Vim Command Line
+
+:i 
+Insert text from vim command line
+<Ctrl-C> inserts text.
+
+REFERENCE
+    (1) Noticed by tgd

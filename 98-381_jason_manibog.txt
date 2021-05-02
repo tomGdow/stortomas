@@ -1,0 +1,28 @@
+Jason Manibog on 98-381
+
+	The 98-381 exam has six domains
+		1 Perform operations using data types and operators
+		2 Control Flow with decisions and loops
+		3 Perform input and output operations
+		4 Document and structure code
+		5 Perform troubleshooting and error handling
+		6 Perform operations using modules and tools
+		
+1. Evaluate Data types
+
+Variables cannot have spaces
+Variables ARE case sensitive
+Best practice in python is to use camelCase
+    firstName
+Variables cannot start with number 
+(Python is loosely typed language) 
+Four common type of variables in python
+   1 str 
+   2 float
+   3 int
+   
+   
+
+
+
+
