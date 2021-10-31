@@ -2791,3 +2791,18 @@ Append text from vim command line
 
 REFERENCE
     (1) Noticed by tgd
+
+VIM SUDO WRITE TRICK
+
+    By Susam Pal on 25 Aug 2005
+
+THE TRICK
+  You open a file, edit it, and save it only to get the E45 error message that says:
+  E45: 'readonly' option is set (add ! to override)
+  You now realize that only root can edit the file. What do you? Start over? No, instead try this:
+
+      :w !sudo tee "%"
+
+REFERENCE
+
+    https://susam.in/maze/vim-sudo-write-trick.html
