@@ -2815,3 +2815,44 @@ DISTRACTION FREE GOYO
 
 https://github.com/junegunn/goyo.vim
 
+
+
+To paste to windows system clipboard from vim on wsl
+
+NOTE
+    from Windows terminal, using powershell wsl, 
+     but NOT directly from wsl terminal)
+
+METHOD
+    (1) '<,'>w !clip.exe 
+
+REFERENCE
+ 
+    https://stackoverflow.com/a/68317739/499167
+
+To paste to windows system clipboard from vim on wsl
+
+NOTE
+    from Windows terminal, using powershell wsl, 
+    but NOT directly from wsl terminal)
+
+METHODS
+    (1) From Insert mode
+ 
+        (a) windows + v 
+        (b) choose what item to paste
+        (c) Shift return
+
+    (2)  Shift + Insert
+
+    (3) Use gnome-terminal shortcut for paste
+ 
+        Ctrl + Shift + paste (from insert mode) 
+NOTE
+    Don't forget to :set paste (to avoid messing things up)
+
+REFERENCE
+
+     https://stackoverflow.com/a/11493276/499167 ( //to ref (3))     
+
+
