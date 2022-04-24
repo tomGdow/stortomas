@@ -2861,3 +2861,7 @@ GNOME terminal copy and paste
 REFERENCE
 
     https://help.gnome.org/users/gnome-terminal/stable/txt-copy-paste.html.en
+
+To View a markdown file
+
+   :MarkdownPreview
