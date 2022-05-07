@@ -1,0 +1,7 @@
+KEY 
+    copy-share-info#comment{commentId}_{questionId}
+
+REFERENCE 
+    (1)   (+1). I didn't know you could link to a comment: mathematica.stackexchange.com/q/249589/106#comment625318_249589, for example. Very cool! 
+
+    (2)   SEE HERE: https://mathematica.stackexchange.com/a/249591/106
