@@ -2853,7 +2853,7 @@ NOTE
 
 REFERENCE
 
-     https://stackoverflow.com/a/11493276/499167 ( //to ref (3))     
+    https://stackoverflow.com/a/11493276/499167 ( //to ref (3))     
 
 
 GNOME terminal copy and paste
@@ -2864,4 +2864,17 @@ REFERENCE
 
 To View a markdown file
 
-   :MarkdownPreview
+    :MarkdownPreview
+
+
+Reflow text and text wrapping (gq and visual selection)
+
+    Wrapping Text In Vim
+    https://vim.works/2019/03/16/wrapping-text-in-vim/
+
+    Make a visual selection of the paragraph and invoked gq
+
+   "I have no idea what gq stands for, but I like to think of the men’s fashion
+    magazine of the same name. It’s all about making things look good, 
+    and that’s what gq does for me"
+
