@@ -2,3 +2,9 @@ django-admin startproject mysite
 cd mysite
 python manage.py runserver
 python manage.py startapp polls
+
+
+http://labs.bio.unc.edu/Vision/pmabs/rhizobium.activity2.pdf
+
+
+https://en.wikipedia.org/wiki/Rate_equation#first-order
