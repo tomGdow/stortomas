@@ -2878,3 +2878,8 @@ Reflow text and text wrapping (gq and visual selection)
     magazine of the same name. It’s all about making things look good, 
     and that’s what gq does for me"
 
+To read in (insert) the name of open file
+    (1) IN INSERT MODE
+    (2) <Ctrl-r> %  (current file)
+    (3) <Ctrl-r> '#'  (alternative file) // Check with :ls
+
