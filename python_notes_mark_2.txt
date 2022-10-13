@@ -12,3 +12,5 @@ lists zero-based indexing from front, but 1-based from end!!
 to delete from list use del STATEMENT
 
 del spam[2]
+
+https://vimeo.com/752164774/d8510f5f7e  //intreo training video (Eventbrite)
