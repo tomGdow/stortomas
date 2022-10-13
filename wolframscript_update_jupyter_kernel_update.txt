@@ -1,0 +1,65 @@
+To activate wolframscript
+    Download and Install latest version of wolframscript
+
+Useful Commands
+    wolframscript -help
+
+    wolframscript -config // goodie 
+    
+    wolframsript -activate // goodie // if asking for password
+    wolframscript -deconnect
+    wolframscript -connect
+    wolframscript -authenticate //same as -connect? 
+    wolframscript -version
+
+wolfram support
+
+    (1)
+
+    Please use the command-line argument:
+        wolframscript -disconnect
+
+    to reset wolframscript to its default configuration. 
+    This should remove issues that may be interfering with your ability to activate.
+
+
+    If it does not work, please evaluate the following and send me the output:
+    
+    wolframscript -config
+
+    (2)
+
+
+    1. I found that 'wolframscript -disconnect' apparently had no effect
+
+    2. Running 'wolframscript -config' (as you suggested), however, 
+       showed that  WOLFRAMSCRIPT_KERNELPATH was referencing 12.3  rather than 13.0
+
+    3. Changing 12.3 to  13.0 in "../AppData/Roaming/Wolfram/WolframScript/WolframScript.conf" SOLVED the issue
+
+
+
+Add new Wolfram Kernal to jupyter lab.
+
+    (1) Run powershell in ADMIN mode (!important) 
+
+    (2) PacletInstall["WolframLanguageForJupyter-x.y.z.paclet"] 
+                                              
+                                   // from within wolframscript
+
+    (3) Needs["WolframLanguageForJupyter`"]
+
+
+    (4) ConfigureJupyter["Add"] 
+
+
+    (5) see: https://github.com/WolframResearch/WolframLanguageForJupyter
+
+
+
+Remove an Unwanted Kernal
+
+    (1)  jupyter kernelspec list 
+    (2) jupyter kernelspec uninstall unwanted-kernel
+    (3) see:  https://stackoverflow.com/a/42647667/499167
+
