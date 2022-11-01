@@ -1,0 +1,23 @@
+COMMANDS 
+    w // who is logged in
+    last
+    passwd joseph // change joseph password //as root
+    useradd
+    userdel 
+    usermod
+    users
+    OR user <tab><tab> to see all options 
+    cat /etc/shadow  //passwords stored 
+    usermod -L joseph // exclamation at beginning in /etc/shadow
+                      // account locked 
+    sudo grep tomgdow /etc/shadow   
+    usermod -U tomgdow // unlocks account 
+    id  // which group a user is part of 
+    id tomgdow 
+    /etc/skel  //files in here are given to new users  // ls -la !! 
+    stat <directory name> // see permissions //very useful
+
+REFERENCE
+    https://www.youtube.com/watch?v=wsh64rjnRas&t=6421s
+
+

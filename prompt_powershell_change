@@ -1,0 +1,13 @@
+METHOD
+    function prompt {(get-location).drive.name+":tgd>"}
+
+FOR COMMAND PROMPT (and see x-ref)
+    help prompt
+    prompt <what-you-want>
+    prompt thoma$g
+    
+REFERENCE
+    https://stackoverflow.com/a/51553857/499167
+
+SEE ALSO
+    stortomas/cmd_10_cool_tricks

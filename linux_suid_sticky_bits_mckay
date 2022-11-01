@@ -1,0 +1,51 @@
+NOTES
+
+    (1)  Use the SUID bit to give the command elevated privileges when run 
+         by a regular user
+
+         It runs programs and commands with the permissions of the file owner,
+         rather than the permissions of the person who launches the program.
+
+    (2) Linux commands that use suid
+        // note 's' in (eg) -rwsr-
+
+        ls -la /usr/bin/passwd
+            -rwsr-xr-x 1 root root 59640 Mar 22  2019 /usr/bin/passwd
+
+        ls -la /bin/ping
+           -rwsr-xr-x 1 root root 64424 Jun 28  2019 /bin/ping
+
+        ls -la /bin/mount
+            -rwsr-xr-x 1 root root 43088 Sep 16 19:43 /bin/mount
+
+    (3) Use chmod to set the SUID bit
+          sudo chmod u+s <filename>
+
+    (4) The sticky bit
+
+          sudo chmod o+t shared
+
+          When you set the sticky bit on a directory, people can only delete 
+          files that belong to them within that directory
+    (5)
+        mkdir sharred 
+        chmod o+t sharred
+        ls -d sharred     // light-blue brackground
+
+        ls -lad sharred
+            drwxrwxr-t 2 tomgdow tomgdow 4096 Oct  2 11:37 sharred
+
+        stat sharred
+            File: sharred
+              Size: 4096            Blocks: 8          IO Block: 4096   directory
+            Device: 801h/2049d      Inode: 917889      Links: 2
+            Access: (1775/drwxrwxr-t)  Uid: ( 1000/ tomgdow)   Gid: ( 1000/ tomgdow)
+            Access: 2020-10-02 11:37:14.185788235 +0100
+            Modify: 2020-10-02 11:37:14.185788235 +0100
+            Change: 2020-10-02 11:49:27.654310297 +0100
+            Birth: -
+
+REFERENCE
+
+    How to Use SUID, SGID, and Sticky Bits on Linux
+    https://www.howtogeek.com/656646/how-to-use-suid-sgid-and-sticky-bits-on-linux/

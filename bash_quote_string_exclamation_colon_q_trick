@@ -1,0 +1,13 @@
+METHOD
+
+     [tomgdow]># This string 'has single' "and double" quotes and a $
+     [tomgdow]> !:q
+
+     [tomgdow]>'# This string '\''has single'\'' "and double" quotes and a $'
+     [tomgdow]># This string 'has single' "and double" quotes and a $: command not found
+
+
+
+REFERENCE
+    Escaping strings in Bash using !:q
+    https://til.simonwillison.net/til/til/bash_escaping-a-string.md

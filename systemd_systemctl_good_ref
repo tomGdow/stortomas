@@ -1,0 +1,14 @@
+
+REFERENCE
+    Learn Systemd Commands In 20 Minutes
+    https://www.tutorialdocs.com/article/learn-systemd-commands-in-20-minutes.html
+
+COMMANDS
+    systemctl --version
+    systemd-analyze 
+    systemd-analyze  blame 
+    hostnamectl
+    sudo hostnamectl set-hostname rhel7  //  Set the host name
+    loginctl list-users
+    systemctl status
+

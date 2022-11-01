@@ -1,0 +1,14 @@
+An expression evaluates TO A SINGLE value
+variables may be OVERWRITTEN with values of new type
+statements don't evalutae to a single value
+data types so far: integers floating point and string
+Strings contain text and start and end with single-quote character
+
+len: string argument but returns integers
+input() // always returns a string
+
+lists zero-based indexing from front, but 1-based from end!! 
+
+to delete from list use del STATEMENT
+
+del spam[2]

@@ -1,0 +1,39 @@
+10 Cool Command Prompt Tricks You Should Know
+     https://www.youtube.com/watch?v=TdWPEN_57mI
+
+Cipher /E 
+
+help color
+color 05  // goodie
+
+help prompt
+prompt <what-you-want>
+prompt thoma$g
+
+title Tom console
+
+create hotspot
+
+netsh wlan set hostednetwork mode=allow ssid=BeebomWiFi key=Password //as admin
+
+netsh wlan start hostednetwork
+netsh wlan stop hostednetwork
+
+//hide folder completely
+
+Attrib +h +s +r  <folder-name> //hide
+Atrib -h -s -r <folder name> //unhide
+
+//copy to clipboard
+
+ipconfig | clip
+
+// all installed programs
+ wmic product get name
+
+from explorer
+type 'cmd' into directory box
+
+tab //autocomplete
+arrows //cycle through previous commands
+F7 // list of commands used in session

@@ -1,0 +1,9 @@
+COMMAND 
+    wmic product get name
+NOTES
+    Also works on powershell
+REFERENCE
+    https://www.youtube.com/watch?v=TdWPEN_57mI&t=336s 
+    (10 command line tips, windows cmd)
+
+

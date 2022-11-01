@@ -2770,3 +2770,116 @@ Thomas Dowling Prosperous Naas County Kildare
 REFERENCES
     (1) The Compositional Nature of Vim - Ismail Badawi
 http://ismail.badawi.io/blog/2014/04/23/the-compositional-nature-of-vim/
+
+
+Pipe to vim (goodie)! 
+
+    Running vi or vim with '-' as an argument makes it read the file
+    to edit from standard input
+
+
+REFERENCE
+    (1) https://unix.stackexchange.com/questions/102089/how-to-pipe-the-result-of-a-grep-search-into-a-new-vi-file
+
+Insert/Append from Vim Command Line
+
+:i 
+Insert text from vim command line
+<Ctrl-C> inserts text.
+:a 
+Append text from vim command line
+
+REFERENCE
+    (1) Noticed by tgd
+
+VIM SUDO WRITE TRICK
+
+    By Susam Pal on 25 Aug 2005
+
+THE TRICK
+  You open a file, edit it, and save it only to get the E45 error message that says:
+  E45: 'readonly' option is set (add ! to override)
+  You now realize that only root can edit the file. What do you? Start over? No, instead try this:
+
+      :w !sudo tee "%"
+
+REFERENCE
+
+    https://susam.in/maze/vim-sudo-write-trick.html
+
+SPELLCHECK from within vim (goodie)
+    Using Spell Checking in Vim   (linux.com)
+    https://www.linux.com/training-tutorials/using-spell-checking-vim/
+
+DISTRACTION FREE GOYO
+
+https://github.com/junegunn/goyo.vim
+
+
+
+To paste to windows system clipboard from vim on wsl
+
+NOTE
+    from Windows terminal, using powershell wsl, 
+     but NOT directly from wsl terminal)
+
+METHOD
+    (1) '<,'>w !clip.exe 
+
+REFERENCE
+ 
+    https://stackoverflow.com/a/68317739/499167
+
+To paste to windows system clipboard from vim on wsl
+
+NOTE
+    from Windows terminal, using powershell wsl, 
+    but NOT directly from wsl terminal)
+
+METHODS
+    (1) From Insert mode
+ 
+        (a) windows + v 
+        (b) choose what item to paste
+        (c) Shift return
+
+    (2)  Shift + Insert
+
+    (3) Use gnome-terminal shortcut for paste
+ 
+        Ctrl + Shift + paste (from insert mode) 
+NOTE
+    Don't forget to :set paste (to avoid messing things up)
+
+REFERENCE
+
+    https://stackoverflow.com/a/11493276/499167 ( //to ref (3))     
+
+
+GNOME terminal copy and paste
+
+REFERENCE
+
+    https://help.gnome.org/users/gnome-terminal/stable/txt-copy-paste.html.en
+
+To View a markdown file
+
+    :MarkdownPreview
+
+
+Reflow text and text wrapping (gq and visual selection)
+
+    Wrapping Text In Vim
+    https://vim.works/2019/03/16/wrapping-text-in-vim/
+
+    Make a visual selection of the paragraph and invoked gq
+
+   "I have no idea what gq stands for, but I like to think of the men’s fashion
+    magazine of the same name. It’s all about making things look good, 
+    and that’s what gq does for me"
+
+To read in (insert) the name of open file
+    (1) IN INSERT MODE
+    (2) <Ctrl-r> %  (current file)
+    (3) <Ctrl-r> '#'  (alternative file) // Check with :ls
+

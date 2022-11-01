@@ -1,0 +1,17 @@
+Method
+    1. On Receiving computer (on Powershell command line, for example)
+        
+         nc -l -p 1234 > filename_of_file 
+
+    2. On Sending computer (on CMD command line) 
+       
+         nc -w 3 [destination] 1234 < out.file
+
+        
+
+
+
+References
+   See https://nakkaya.com/2009/04/15/using-netcat-for-file-transfers/
+   
+   See also https://stackoverflow.com/a/57650210/499167
