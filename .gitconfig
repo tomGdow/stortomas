@@ -1,0 +1,18 @@
+[alias]
+	logg  = log --graph --decorate --oneline --abbrev-commit --all
+	loggg  = log --graph --decorate --format="oneline"  --all
+  lpr  = log --pretty=oneline
+	ci = commit
+	co = checkout
+	br = branch
+	dfs = diff --staged
+[user]
+	email = thomasgdowling@gmail.com
+	name = tomgdow
+[core]
+	editor = vim
+	excludesfile = /home/tomgdow/.gitignore_global
+[ui]
+	color = true
+[push]
+	default = simple
