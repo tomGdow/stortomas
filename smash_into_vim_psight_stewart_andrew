@@ -2883,3 +2883,16 @@ To read in (insert) the name of open file
     (2) <Ctrl-r> %  (current file)
     (3) <Ctrl-r> '#'  (alternative file) // Check with :ls
 
+
+Toggle active window using windcmd  
+     wincmd w 
+     mapping: (in .vimrc):  noremap ww :wincmd w<CR>
+
+
+Python setup with split windows
+
+    vim tom.py
+    sp out.txt
+    ww // change active window
+    pp // run python script (from output window) 
+       //  (.vimrc) noremap pp :r !python3 #1
