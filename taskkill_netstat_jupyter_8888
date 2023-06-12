@@ -1,0 +1,5 @@
+netstat -ano | rg 127 | rg 8888
+
+taskkill /PID 26620 /F
+
+(* SUCCESS: The process with PID 26620 has been terminated *) 
