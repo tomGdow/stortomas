@@ -1,3 +1,19 @@
-1 ssh-keygen -t rsa
-2 set up config file on  MacBook (.ssh directory)
-3 ssh-copy-id -i id_rsa_pub tomgdigo 
+METHOD
+    1 ssh-keygen -t rsa
+    2 set up config file on  MacBook (.ssh directory)
+
+      Host tomgdigo
+            HostName 46.101.11.172
+            User tomgdow
+            Port 22
+
+    3 ssh-copy-id -i id_rsa_pub tomgdigo 
+
+    4 That is all!! 'ssh tomgdigo' now works perfectly
+
+REFERENCE
+
+       stortomas/ssh_public_private_mallett
+
+
+
