@@ -1,0 +1,14 @@
+COMMANDS
+    sftp tomgdigo
+    >sftp  put filename
+
+EXAMPLE
+
+    .ssh> sftp tomgdigo
+          // Connected to tomgdigo.
+    sftp> cd temp
+    sftp> put idrsapub
+
+
+REFERENCE
+    https://unix.stackexchange.com/a/729576
