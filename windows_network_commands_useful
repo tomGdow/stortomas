@@ -1,0 +1,25 @@
+netsh wlan show profiles
+netsh wlan show profile name=vodafone-5C8B key=clear
+CSFGPZ9PFZRS5L
+
+# To generate a report
+# From windows command prompt AS ADMINISTRATOR
+netsh wlan>show  wlanreport
+Generating report ... C:\ProgramData\Microsoft\Windows\WlanReport\wlan-report-latest.html
+done
+
+>netsh
+>wlan
+>show help
+
+netsh interface ip show config  # A Goodie
+
+systeminfo | more  # Goodie
+route print
+netstat -r
+
+# Powershell  (now perferred)
+
+Get-Command -Module NetTCPIP
+
+Test-NetConnection
