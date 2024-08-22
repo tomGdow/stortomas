@@ -2089,10 +2089,12 @@ verticl split:  to reverse the positions of two split windows
 
 vertical split: switch cursor positions between splits
    (1) ctrl-w ctrl-w
+   (2) :winc h  // switch to left
+   (3) :winc l  // switch to right
 
 vertical split: make a split wider/smaller 
-   (1) 20winc >  // make 20 characters wider
-   (2) 20winc <  // make 20 characters smaller 
+   (1) :20winc >  // make 20 characters wider
+   (2) :20winc <  // make 20 characters smaller 
 
 
 :echom line('$')  // echo the number of lines in a file
