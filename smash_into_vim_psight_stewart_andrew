@@ -2081,7 +2081,20 @@ CTRL-W  // Jump to another window
 To substitute from a register:  
 s/<c-r>a/<c-r>b/gc  //where <c-r> is CTRL-R (which brings up ")
 
-vim to reverse the postion of two split windows: ctrl-w ctrl-r 
+vsplit/vertialsplit
+
+verticl split:  to reverse the positions of two split windows
+   (1) ctrl-w ctrl-r
+   (2) ctrl-w x   // goodie
+
+vertical split: switch cursor positions between splits
+   (1) ctrl-w ctrl-w
+
+vertical split: make a split wider/smaller 
+   (1) 20winc >  // make 20 characters wider
+   (2) 20winc <  // make 20 characters smaller 
+
+
 :echom line('$')  // echo the number of lines in a file
 to resize vertical splits to same size ctrl-w = 
 
