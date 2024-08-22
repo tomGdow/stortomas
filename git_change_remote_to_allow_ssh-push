@@ -1,5 +1,13 @@
-# To make repo cloned as http use ssh when pushing (ie no password)
-# See here http://stackoverflow.com/a/18798272/499167
+To make repo cloned as http use ssh when pushing (ie no password)
 
-git remote -v
-git remote set-url origin git@github.com:tomgdow/RichInternetApplication
+
+    git remote -v
+    git remote set-url origin git@github.com:tomgdow/RichInternetApplication
+
+    See here http://stackoverflow.com/a/18798272/499167
+
+TO CHANGE BACK AGAIN
+    git remote set-url origin https://github.com/tomGdow/dotvimrc.git
+
+    see https://stackoverflow.com/q/50020142/499167
+
