@@ -2911,3 +2911,41 @@ Python setup with split windows
     ww // change active window
     pp // run python script (from output window) 
        //  (.vimrc) noremap pp :r !python3 #1
+
+
+To read in the name of the current file
+
+
+    (1) In insert mode, type Ctrl-R then %
+
+    (2) In command mode (after typing a colon), type Ctrl-R then % 
+
+    (3) In normal mode, type "%p to put the name of the current file after the cursor (or "%P to insert the name before the cursor).
+
+
+
+Command line goodies 
+    (1) Tap CTRL-f in command line mode (just after :)
+
+        You get cmd-line window that can be edited with
+        vim commands such as hjkl etc
+
+        CTRL (or :q) exits
+  
+    (2) CTRL-B  cursor to beginning of line
+    (3) CTRL-E  cursor to end of line
+    (4) CTRL-W  delete the word before the cursor
+    (5) CTRL-U  remove all characters between cursor and
+                beginning of the line
+    (6) in NORMAL mode 
+        (1) q: cmdline window
+        (2) q/ cmdline window search forward
+        (3) q? cmdline window search backwards
+
+        Ctrl-C or <CR> will exit
+
+    References
+
+        (1) https://stackoverflow.com/questions/2075569/how-can-i-move-around-in-the-vim-command-line
+
+
